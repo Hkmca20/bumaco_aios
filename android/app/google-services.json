@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "758677051271",
+    "project_id": "bumaco-2021",
+    "storage_bucket": "bumaco-2021.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:758677051271:android:927d2913ef425d5e41e522",
+        "android_client_info": {
+          "package_name": "com.brandhype.bumaco"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "758677051271-ul2anqh5ln0j8862lss57f00109o8oqf.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.brandhype.bumaco",
+            "certificate_hash": "201c36a385d9a4b695f0144a82558a50c869daef"
+          }
+        },
+        {
+          "client_id": "758677051271-odmia3ls1sd4g50uefdm8ikl0f6kkvna.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAbFSdOllMd0mw3JICK9AIqM3RH9K-39-0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "758677051271-odmia3ls1sd4g50uefdm8ikl0f6kkvna.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
