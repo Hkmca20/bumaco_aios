@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class OnboardingPage extends StatelessWidget {
-  final _controller = OnboardingController.to;
+  final _controller = OnboardController.to;
   @override
   Widget build(BuildContext context) {
     return Scaffold(

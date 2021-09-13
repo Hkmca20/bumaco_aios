@@ -6,7 +6,7 @@ class ProfileView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
+      body: SafeArea(
         child: Column(
           children: [
             Stack(
@@ -29,11 +29,18 @@ class ProfileView extends StatelessWidget {
               ],
             ),
             SizedBox(
-              height: 50,
+              height: 60,
             ),
             ListTile(
-              title: Center(child: Text('Gupta')),
-              subtitle: Center(child: Text('Delhi - 112233')),
+              title: Center(
+                  child: Text(
+                'Gupta',
+                style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
+              )),
+              subtitle: Center(
+                  child: Text('Delhi - 112233',
+                      style: TextStyle(
+                          fontSize: 20, fontWeight: FontWeight.bold))),
             ),
             ElevatedButton.icon(
               onPressed: () => {},
@@ -42,24 +49,13 @@ class ProfileView extends StatelessWidget {
                 color: Colors.white,
                 size: 24,
               ),
-              label: Text(
-                'ProfileView',
-                strutStyle: StrutStyle(
-                  fontFamily: '',
-                  forceStrutHeight: true,
-                ),
-                style: TextStyle(fontSize: 20, color: Colors.white),
-              ),
-              style: ElevatedButton.styleFrom(
-                shape: new RoundedRectangleBorder(
-                  borderRadius: new BorderRadius.circular(20.0),
-                ),
-              ),
+              label: Text('mailid.y112233@gmail.com'),
             ),
             ListTile(
-              title: Text('hiiiiiiiiii'),
+              title: Text('About me', style: TextStyle(fontSize: 30)),
               subtitle: Text(
-                  'meeeeeeeeeeee helooooooooooooowwwwwwwww howwwwwwwwwwwwwwwwwwwwwwwww areeeeeeeeeeeeeee youuuuuuuuuuuuuu'),
+                  'meeeeeeeeeeee helooooooooooooowwwwwwwww howwwwwwwwwwwwwwwwwwwwwwwww areeeeeeeeeeeeeee youuuuuuuuuuuuuu',
+                  style: TextStyle(fontSize: 20)),
             ),
           ],
         ),

@@ -1,3 +1,4 @@
+import 'package:bumaco_aios/app_utils/app_const.dart';
 import 'package:bumaco_aios/ui/onboard/model/onboard_info.dart';
 import 'package:bumaco_aios/ui/login/login_page.dart';
 import 'package:flutter/cupertino.dart';
@@ -5,8 +6,8 @@ import 'package:get/state_manager.dart';
 import 'package:get/get.dart';
 import 'package:get/utils.dart';
 
-class OnboardingController extends GetxController {
-  static OnboardingController get to => Get.find(tag: '_onboard_controller');
+class OnboardController extends GetxController {
+  static OnboardController get to => Get.find(tag: ONBOARD_CONTROLLER);
 
   var selectedPageIndex = 0.obs;
 
@@ -16,7 +17,7 @@ class OnboardingController extends GetxController {
 
   List<OnboardInfo> onboardingList = [];
 
-  OnboardingController() {
+  OnboardController() {
     _addItemToList();
   }
   forwardAction() {

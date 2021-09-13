@@ -1,9 +1,10 @@
+import 'package:bumaco_aios/app_utils/app_const.dart';
 import 'package:bumaco_aios/ui/shopping/model/product.dart';
 import 'package:get/get.dart';
 
 class ShoppingController extends GetxController {
   // static ShoppingController get to => Get.find<ShoppingController>();
-  static ShoppingController get to => Get.find(tag: '_shopping_controller');
+  static ShoppingController get to => Get.find(tag: SHOPPING_CONTROLLER);
   
   var products = <Product>[].obs;
 

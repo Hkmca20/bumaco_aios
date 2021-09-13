@@ -1,8 +1,9 @@
 import 'dart:async';
+import 'package:bumaco_aios/app_utils/app_const.dart';
 import 'package:get/get.dart';
 
 class OTPController extends GetxController {
-  static OTPController get to => Get.find(tag: '_otp_controller');
+  static OTPController get to => Get.find(tag: OTP_CONTROLLER);
   var initialValue = 3.obs;
   var canResendOTP = false.obs;
 
@@ -12,7 +13,6 @@ class OTPController extends GetxController {
         Duration(seconds: 1),
         (t) => {
               initialValue--,
-              print('timer_running..'),
               if (initialValue <= 0)
                 {
                   t.cancel(),

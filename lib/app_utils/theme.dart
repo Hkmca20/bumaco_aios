@@ -1,4 +1,4 @@
-import 'package:bumaco_aios/app/app_const.dart';
+import 'package:bumaco_aios/app_utils/app_const.dart';
 import 'package:flutter/material.dart';
 
 ThemeData setTheme(context) {
@@ -8,10 +8,10 @@ ThemeData setTheme(context) {
     //     fontFamily: lang == 'ar' ? 'FrutigerLTArabic' : 'ProximaNova',
     //     fontSizeDelta: lang == 'ar' ? -5.0 : 0.0),
     fontFamily: 'IBMPlexSansArabic',
-    primarySwatch: Colors.deepPurple, //cyan
-    primaryColor: Colors.purple,
-    primaryColorDark: Colors.deepPurple,
-    accentColor: Colors.purpleAccent,
+    primarySwatch: Colors.blue, //cyan
+    primaryColor: kPrimaryColor,
+    primaryColorDark: kPrimaryColorDark,
+    accentColor: kAccentColor,
     // scaffoldBackgroundColor: Colors.grey[850], //Colors.teal//(0xFFF3F5F7),
     brightness: Brightness.light,
     appBarTheme: appBarTheme(),
@@ -19,8 +19,8 @@ ThemeData setTheme(context) {
     // textTheme: Theme.of(context).textTheme.apply(
     //       fontFamily: 'IBMPlexSansArabic',
     //     ),
-    textTheme: textTheme(),
-    buttonTheme: buttonTheme(context),
+    // textTheme: textTheme(),
+    // buttonTheme: buttonTheme(context),
     elevatedButtonTheme: elevatedButtonTheme(),
     // inputDecorationTheme: inputDecorationTheme(),
     visualDensity: VisualDensity.adaptivePlatformDensity,
@@ -47,7 +47,7 @@ InputDecorationTheme inputDecorationTheme() {
 
 TextTheme textTheme() {
   return TextTheme(
-    bodyText1: TextStyle(color: kTextColor),
+    bodyText1: TextStyle(color: kTextColor, fontSize: 20),
     bodyText2: TextStyle(color: kTextColor),
     button: TextStyle(color: kTextColor),
   );
@@ -67,30 +67,29 @@ ButtonThemeData buttonTheme(context) {
 ElevatedButtonThemeData elevatedButtonTheme() {
   return ElevatedButtonThemeData(
     style: ElevatedButton.styleFrom(
-      textStyle: TextStyle(fontSize: 20, fontStyle: FontStyle.normal),
-      elevation: 3,
+      textStyle: TextStyle(fontSize: 20),
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(20),
-        side: BorderSide(color: Colors.transparent, width: 0),
+        borderRadius: BorderRadius.circular(4),
+        side: BorderSide(color: kPrimaryColor, width: 1),
       ),
-      padding: EdgeInsets.symmetric(horizontal: 50, vertical: 10),
+      padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
       onPrimary: Colors.white,
-      primary: Colors.transparent,
+      primary: kPrimaryColor,
       shadowColor: kPrimaryColor,
-      onSurface: Colors.blue,
+      onSurface: Colors.white,
     ),
   );
 }
 
 AppBarTheme appBarTheme() {
   return AppBarTheme(
-    color: Colors.transparent,
+    color: kPrimaryColor,
     elevation: 0.1,
-    brightness: Brightness.light,
+    brightness: Brightness.dark,
     iconTheme: IconThemeData(color: Colors.white),
     foregroundColor: Colors.white,
     textTheme: TextTheme(
-      headline6: TextStyle(color: Color(0XFFFFFFFF), fontSize: 18),
+      headline6: TextStyle(color: Colors.white, fontSize: 18),
     ),
   );
 }

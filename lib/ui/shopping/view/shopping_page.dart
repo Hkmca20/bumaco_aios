@@ -58,6 +58,7 @@ class _ShoppingPageState extends State<ShoppingPage> {
     print('productSize: ${_shoppingController.products.length}');
 
     return Scaffold(
+      backgroundColor: Colors.teal,
       appBar: AppBar(
         title: Text('Shopping Page'),
       ),

@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:bumaco_aios/app/app_const.dart';
+import 'package:bumaco_aios/app_utils/app_const.dart';
 import 'package:bumaco_aios/network/app_excep.dart';
 import 'package:bumaco_aios/ui/user/login_model.dart';
 import 'package:bumaco_aios/ui/user/user_add_model.dart';

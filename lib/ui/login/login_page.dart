@@ -1,3 +1,4 @@
+import 'package:bumaco_aios/app_utils/app_const.dart';
 import 'package:bumaco_aios/ui/login/expension_view.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -86,7 +87,7 @@ class LoginPage extends StatelessWidget {
         child: Center(
           child: Column(
             children: [
-              Text('hello'.tr),
+              Text('message'.tr),
               ElevatedButton(
                   onPressed: () => {
                         // Get.snackbar('title xxxxxx', 'message yyyyyy'),
@@ -95,27 +96,13 @@ class LoginPage extends StatelessWidget {
                         //     middleText: 'xxxxxxxxxxxx'),
                         // buildDialog(context),
                         // createGetxDialog(),
-                        Get.toNamed('/otp'),
+                        Get.toNamed(otpRoute),
                       },
                   child: Text('Submit OTP')),
               ElevatedButton.icon(
-                onPressed: () => {
-                  Get.toNamed('/profile'),
-                },
-                icon: Icon(
-                  Icons.mail,
-                  color: Colors.white,
-                  size: 24,
-                ),
-                label: Text(
-                  'ProfileView',
-                  style: TextStyle(fontSize: 20, color: Colors.white),
-                ),
-                style: ElevatedButton.styleFrom(
-                  shape: new RoundedRectangleBorder(
-                    borderRadius: new BorderRadius.circular(20.0),
-                  ),
-                ),
+                onPressed: () => {Get.toNamed(profileRoute2)},
+                icon: Icon(Icons.mail),
+                label: Text('Profile'),
               ),
               ExpansionView(),
             ],
