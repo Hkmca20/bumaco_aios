@@ -12,8 +12,12 @@ class CartController extends GetxController {
   double get totalPrice =>
       cartItems.fold(0, (sum, item) => sum + item.produntPrice);
 
+  // var testAmount = 0.0;//to implement GetBuilder and learn diff of (GetX, Obx)
+
   addItems(product) {
     cartItems.add(product);
     print('cartSize=${cartItems.length}');
+    // testAmount = totalPrice;
+    // update();
   }
 }

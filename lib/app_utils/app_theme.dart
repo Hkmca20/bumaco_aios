@@ -1,19 +1,28 @@
 import 'package:bumaco_aios/app_utils/app_const.dart';
+import 'package:bumaco_aios/ui/dummy/settings_controller.dart';
 import 'package:flutter/material.dart';
+import 'package:velocity_x/velocity_x.dart';
 
 ThemeData setTheme(context) {
+  final _settingsController = SettingsController.to;
   return ThemeData(
     // fontFamily: lang == 'ar' ? 'FrutigerLTArabic' : 'ProximaNova',
     // textTheme: Theme.of(context).textTheme.apply(
     //     fontFamily: lang == 'ar' ? 'FrutigerLTArabic' : 'ProximaNova',
     //     fontSizeDelta: lang == 'ar' ? -5.0 : 0.0),
-    fontFamily: 'IBMPlexSansArabic',
-    primarySwatch: Colors.blue, //cyan
+    fontFamily: FONT_IBM_PLEX_SANS_ARABIC,
+    primarySwatch: Colors.cyan, 
     primaryColor: kPrimaryColor,
     primaryColorDark: kPrimaryColorDark,
-    accentColor: kAccentColor,
+
     // scaffoldBackgroundColor: Colors.grey[850], //Colors.teal//(0xFFF3F5F7),
-    brightness: Brightness.light,
+    brightness: _settingsController.brightness,
+
+    // cardColor: Colors.white,
+    // canvasColor: creamColor,
+    // buttonColor: darkBluishColor,
+    accentColor: kAccentColor,
+
     appBarTheme: appBarTheme(),
     // textTheme: GoogleFonts.latoTextTheme(),
     // textTheme: Theme.of(context).textTheme.apply(
@@ -26,6 +35,43 @@ ThemeData setTheme(context) {
     visualDensity: VisualDensity.adaptivePlatformDensity,
   );
 }
+
+ThemeData setDarkTheme(context) {
+  final _settingsController = SettingsController.to;
+  return ThemeData(
+    // fontFamily: lang == 'ar' ? 'FrutigerLTArabic' : 'ProximaNova',
+    // textTheme: Theme.of(context).textTheme.apply(
+    //     fontFamily: lang == 'ar' ? 'FrutigerLTArabic' : 'ProximaNova',
+    //     fontSizeDelta: lang == 'ar' ? -5.0 : 0.0),
+    fontFamily: FONT_IBM_PLEX_SANS_ARABIC,
+    // primarySwatch: Colors.blue, //cyan
+    primaryColor: kPrimaryColor,
+    primaryColorDark: kPrimaryColorDark,
+    // scaffoldBackgroundColor: Colors.grey[850], //Colors.teal//(0xFFF3F5F7),
+    brightness: _settingsController.brightness,
+
+    // cardColor: Colors.black,
+    // canvasColor: darkCreamColor,
+    // buttonColor: lightBluishColor,
+    accentColor: kAccentColor,
+
+    appBarTheme: appBarTheme(),
+    // textTheme: GoogleFonts.latoTextTheme(),
+    // textTheme: Theme.of(context).textTheme.apply(
+    //       fontFamily: 'IBMPlexSansArabic',
+    //     ),
+    // textTheme: textTheme(),
+    // buttonTheme: buttonTheme(context),
+    elevatedButtonTheme: elevatedButtonTheme(),
+    // inputDecorationTheme: inputDecorationTheme(),
+    visualDensity: VisualDensity.adaptivePlatformDensity,
+  );
+}
+
+Color creamColor = Color(0xfff5f5f5);
+Color darkCreamColor = Vx.gray900;
+Color darkBluishColor = Color(0xff403b58);
+Color lightBluishColor = Vx.indigo500;
 
 InputDecorationTheme inputDecorationTheme() {
   OutlineInputBorder outlineInputBorder = OutlineInputBorder(

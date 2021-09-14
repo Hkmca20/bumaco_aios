@@ -1,5 +1,6 @@
 // Colors
 import 'package:flutter/material.dart';
+import 'package:get_storage/get_storage.dart';
 
 const kPrimaryColor = Colors.purple; //Color(0xFFFF7643);
 const kPrimaryColorDark = Colors.deepPurple;
@@ -70,6 +71,7 @@ const String markdownPath = 'assets/markdown/';
 
 // Routes
 const initialRoute = '/';
+const onboardRoute = '/onboard';
 const loginRoute = '/login';
 const otpRoute = '/otp';
 const profileRoute = '/profile';
@@ -81,6 +83,8 @@ const settingRoute = '/setting';
 const ONBOARD_CONTROLLER = '_onboard_controller';
 const LOGIN_CONTROLLER = '_login_controller';
 const LOCALE_CONTROLLER = '_locale_controller';
+const SPLASH_CONTROLLER = '_splash_controller';
+const SETTINGS_CONTROLLER = '_settings_controller';
 const OTP_CONTROLLER = '_otp_controller';
 const SHOPPING_CONTROLLER = '_shopping_controller';
 const CART_CONTROLLER = '_cart_controller';
@@ -91,8 +95,37 @@ const usLocale = Locale('en', 'US');
 const arLocale = Locale('ar', 'AE');
 const localeList = <Locale>[usLocale, arLocale];
 
+// Fonts
+const FONT_IBM_PLEX_SANS_ARABIC = 'IBMPlexSansArabic';
+
 // Storage
-const PREF_APP = 'bumaco_storage';
+const BOX_APP = 'bumaco_storage';
+const BOX_APP_OPEN_COUNT = 'app_open_count';
+final GetStorage getStorage = GetStorage(BOX_APP);
+// .listenKey(BOX_APP_OPEN_COUNT, (value) {
+//   print('BOX_APP_OPEN_COUNT=>$value');
+// })
+// .listen(() {
+//   print('---->sounds-value-changed<------');
+// });
+
+// GetStorage _storage = GetStorage(BOX_APP);
+//     or
+// final _storage = GetStorage();
+// _storage.write(key, value); //write
+// _storage.read(key); //Read
+// _storage.remove(Key); //particular or single key remove
+// _storage.erase(); //container remove.
+
+// //Easy Change Theme
+// Get.changeTheme(ThemeData.Dark);
+
+// //Easy Validator:
+// GetUtils.isEmail('abc@gmail.com') ? validate() :errorMessage();
+
+const BOX_IS_LOGGEDIN = 'is_loggedin'; //bool
+const BOX_IS_DARK = 'is_dark'; //bool
+const BOX_IS_NOTIFICATION = 'is_notification'; //bool
 
 //Database
 const DB_NAME = 'bumaco_db';
