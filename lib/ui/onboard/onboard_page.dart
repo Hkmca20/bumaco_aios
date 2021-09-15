@@ -1,4 +1,4 @@
-import 'package:bumaco_aios/ui/onboard/controller/onboard_controller.dart';
+import 'package:bumaco_aios/ui/controller/onboard_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 

@@ -73,6 +73,7 @@ const String markdownPath = 'assets/markdown/';
 const initialRoute = '/';
 const onboardRoute = '/onboard';
 const loginRoute = '/login';
+const landingRoute = '/landing';
 const otpRoute = '/otp';
 const profileRoute = '/profile';
 const profileRoute2 = '/profile2';
@@ -100,8 +101,8 @@ const FONT_IBM_PLEX_SANS_ARABIC = 'IBMPlexSansArabic';
 
 // Storage
 const BOX_APP = 'bumaco_storage';
-const BOX_APP_OPEN_COUNT = 'app_open_count';
 final GetStorage getStorage = GetStorage(BOX_APP);
+const BOX_APP_OPEN_COUNT = 'app_open_count';//int
 // .listenKey(BOX_APP_OPEN_COUNT, (value) {
 //   print('BOX_APP_OPEN_COUNT=>$value');
 // })
@@ -123,6 +124,8 @@ final GetStorage getStorage = GetStorage(BOX_APP);
 // //Easy Validator:
 // GetUtils.isEmail('abc@gmail.com') ? validate() :errorMessage();
 
+const BOX_COUNTRY = 'country';//string
+const BOX_MOBILE_EMAIL = 'mobile_email'; //string
 const BOX_IS_LOGGEDIN = 'is_loggedin'; //bool
 const BOX_IS_DARK = 'is_dark'; //bool
 const BOX_IS_NOTIFICATION = 'is_notification'; //bool

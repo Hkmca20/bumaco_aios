@@ -20,21 +20,27 @@ void main() async {
   FirebaseMessaging.onBackgroundMessage(_messageHandler);
 
   await GetStorage.init(BOX_APP);
-  Get.lazyPut(() => SettingsController(), fenix: true, tag: SETTINGS_CONTROLLER);
+  Get.lazyPut(() => SettingsController(),
+      fenix: true, tag: SETTINGS_CONTROLLER);
   return runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
+  final _settingsController = SettingsController.to;
   @override
   Widget build(BuildContext context) {
     // var lang = Localizations.localeOf(context).languageCode;
     return GetMaterialApp(
+      enableLog: false,
+      defaultTransition: Transition.native,
+      transitionDuration: Duration(milliseconds: 250),
       title: appName,
       debugShowCheckedModeBanner: false,
-      themeMode: ThemeMode.system,
+      themeMode: _settingsController.themeMode,
+      // themeMode: ThemeMode.system,
       theme: setTheme(context),
       darkTheme: setDarkTheme(context),
-      translations: BumacoLocale(), 
+      translations: BumacoLocale(),
       locale: localeList[0], //default locale from get device locale
       fallbackLocale: localeList[0], //fallback if locale not present in device
       initialRoute: initialRoute,

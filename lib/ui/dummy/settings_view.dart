@@ -1,4 +1,5 @@
 import 'package:bumaco_aios/app_utils/app_bar.dart';
+import 'package:bumaco_aios/app_utils/app_const.dart';
 import 'package:bumaco_aios/ui/dummy/settings_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -16,16 +17,16 @@ class SettingView extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
             Divider(height: 1),
-            // SimpleBuilder(
-            //   builder: (_) => SwitchListTile(
-            //       value: _settingsController.isNotification,
-            //       title: Text(
-            //         'Notifications',
-            //         style: TextStyle(fontSize: 20),
-            //       ),
-            //       onChanged: _settingsController.changeNotification),
-            // ),
-            // Divider(height: 1),
+            SimpleBuilder(
+              builder: (_) => SwitchListTile(
+                  value: _settingsController.isNotification,
+                  title: Text(
+                    'Notifications',
+                    style: TextStyle(fontSize: 20),
+                  ),
+                  onChanged: _settingsController.changeNotification),
+            ),
+            Divider(height: 1),
             SimpleBuilder(
               builder: (_) => SwitchListTile(
                   value: _settingsController.isDarkTheme,
@@ -35,7 +36,20 @@ class SettingView extends StatelessWidget {
                   ),
                   onChanged: _settingsController.changeTheme),
             ),
-            // Divider(height: 1),
+            Divider(height: 1),
+            SimpleBuilder(
+              builder: (_) => ListTile(
+                title: Text(
+                  'Logout',
+                  style: TextStyle(fontSize: 20),
+                ),
+                onTap: () => {
+                  getStorage.write(BOX_IS_LOGGEDIN, false),
+                  Get.offAllNamed(landingRoute),
+                },
+              ),
+            ),
+            Divider(height: 1),
           ],
         ),
       ),

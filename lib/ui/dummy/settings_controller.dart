@@ -11,8 +11,9 @@ class SettingsController extends GetxController {
   bool get isDarkTheme => box.read(BOX_IS_DARK) ?? false;
   ThemeData get theme => isDarkTheme ? ThemeData.dark() : ThemeData.light();
   Brightness get brightness => isDarkTheme ? Brightness.dark : Brightness.light;
+  ThemeMode get themeMode => isDarkTheme ? ThemeMode.dark : ThemeMode.light;
   void changeTheme(val) => {
-    print('--------changing dark---------$val'),
+        print('--------changing dark---------$val'),
         box.write(BOX_IS_DARK, val),
         val
             ? Get.changeTheme(ThemeData.dark())
@@ -22,5 +23,4 @@ class SettingsController extends GetxController {
 // Notification Settings:
   bool get isNotification => box.read(BOX_IS_NOTIFICATION) ?? true;
   void changeNotification(value) => box.write(BOX_IS_NOTIFICATION, value);
-
 }

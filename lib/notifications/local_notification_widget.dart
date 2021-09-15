@@ -74,7 +74,7 @@ class _LocalNotificationWidgetState extends State<LocalNotificationWidget> {
         margin: EdgeInsets.symmetric(vertical: 4),
         child: Text(
           text,
-          style: Theme.of(context).textTheme.title,
+          style: Theme.of(context).textTheme.bodyText1,
           textAlign: TextAlign.center,
         ),
       );

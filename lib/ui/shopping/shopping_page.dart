@@ -1,10 +1,10 @@
 import 'package:bumaco_aios/app_utils/app_const.dart';
-import 'package:bumaco_aios/ui/dummy/settings_controller.dart';
-import 'package:bumaco_aios/ui/shopping/controller/cart_controller.dart';
-import 'package:bumaco_aios/ui/shopping/controller/shopping_controller.dart';
+import 'package:bumaco_aios/ui/controller/cart_controller.dart';
+import 'package:bumaco_aios/ui/controller/shopping_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
+import 'package:transparent_image/transparent_image.dart';
 import 'package:get/get.dart';
 
 class ShoppingPage extends StatefulWidget {
@@ -47,9 +47,9 @@ class _ShoppingPageState extends State<ShoppingPage>
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.teal,
-      appBar: AppBar(
-        title: Text('Shopping Page'),
-      ),
+      // appBar: AppBar(
+      //   title: Text('Shopping Page'),
+      // ),
       body: SafeArea(
         child: Column(
           children: [
@@ -77,10 +77,9 @@ class _ShoppingPageState extends State<ShoppingPage>
                 itemBuilder: (context, index) => Container(
                   child: ClipRRect(
                     borderRadius: BorderRadius.all(Radius.circular(15)),
-                    // child: FadeInImage.memoryNetwork(
-                    //     // placeholder: kTransparentImage,
-                    //     placeholder: kTransparentImage,
-                    //     image: _shoppingController.products[index].produntImage,fit: BoxFit.cover,),
+                    child: FadeInImage.memoryNetwork(
+                        placeholder: kTransparentImage,
+                        image: _shoppingController.products[index].produntImage,fit: BoxFit.cover,),
                   ),
                   decoration: BoxDecoration(
                     color: Colors.transparent,
@@ -93,66 +92,67 @@ class _ShoppingPageState extends State<ShoppingPage>
                 },
               ),
             ),
-            Expanded(
-              child: Obx(
-                () => ListView.builder(
-                  controller: _controller,
-                  shrinkWrap: true,
-                  itemCount: _shoppingController.products.length,
-                  itemBuilder: (context, index) => Card(
-                    margin: EdgeInsets.all(12),
-                    child: Padding(
-                      padding: EdgeInsets.all(16),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.end,
-                        children: [
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    '${_shoppingController.products[index].produntName}',
-                                    style: TextStyle(fontSize: 24),
-                                  ),
-                                  Text(
-                                    '${_shoppingController.products[index].produntDescription}',
-                                    style: TextStyle(fontSize: 16),
-                                  ),
-                                ],
-                              ),
-                              Text(
-                                '${_shoppingController.products[index].produntPrice}',
-                                style: TextStyle(fontSize: 20),
-                              ),
-                            ],
-                          ),
-                          ElevatedButton(
-                              onPressed: () => {
-                                    _cartController.addItems(
-                                        _shoppingController.products[index]),
-                                  },
-                              child: Text('Add To Cart')),
-                          Obx(
-                            () => IconButton(
-                                onPressed: () {
-                                  _shoppingController.products[index].isFavorite
-                                      .toggle();
-                                },
-                                icon: _shoppingController
-                                        .products[index].isFavorite.value
-                                    ? Icon(Icons.check_box_rounded)
-                                    : Icon(
-                                        Icons.check_box_outline_blank_rounded)),
-                          )
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-            ),
+
+            // Expanded(
+            //   child: Obx(
+            //     () => ListView.builder(
+            //       controller: _controller,
+            //       shrinkWrap: true,
+            //       itemCount: _shoppingController.products.length,
+            //       itemBuilder: (context, index) => Card(
+            //         margin: EdgeInsets.all(12),
+            //         child: Padding(
+            //           padding: EdgeInsets.all(16),
+            //           child: Column(
+            //             crossAxisAlignment: CrossAxisAlignment.end,
+            //             children: [
+            //               Row(
+            //                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            //                 children: [
+            //                   Column(
+            //                     crossAxisAlignment: CrossAxisAlignment.start,
+            //                     children: [
+            //                       Text(
+            //                         '${_shoppingController.products[index].produntName}',
+            //                         style: TextStyle(fontSize: 24),
+            //                       ),
+            //                       Text(
+            //                         '${_shoppingController.products[index].produntDescription}',
+            //                         style: TextStyle(fontSize: 16),
+            //                       ),
+            //                     ],
+            //                   ),
+            //                   Text(
+            //                     '${_shoppingController.products[index].produntPrice}',
+            //                     style: TextStyle(fontSize: 20),
+            //                   ),
+            //                 ],
+            //               ),
+            //               ElevatedButton(
+            //                   onPressed: () => {
+            //                         _cartController.addItems(
+            //                             _shoppingController.products[index]),
+            //                       },
+            //                   child: Text('Add To Cart')),
+            //               Obx(
+            //                 () => IconButton(
+            //                     onPressed: () {
+            //                       _shoppingController.products[index].isFavorite
+            //                           .toggle();
+            //                     },
+            //                     icon: _shoppingController
+            //                             .products[index].isFavorite.value
+            //                         ? Icon(Icons.check_box_rounded)
+            //                         : Icon(
+            //                             Icons.check_box_outline_blank_rounded)),
+            //               )
+            //             ],
+            //           ),
+            //         ),
+            //       ),
+            //     ),
+            //   ),
+            // ),
 
             // GetBuilder<CartController>(
             //     builder: (controller) => Text(
@@ -177,11 +177,7 @@ class _ShoppingPageState extends State<ShoppingPage>
       floatingActionButton: FloatingActionButton.extended(
           onPressed: () {
             setState(() {
-              if (SettingsController.to.isDarkTheme)
-                Get.changeTheme(ThemeData.dark());
-              else
-                Get.changeTheme(ThemeData.light());
-              // Get.toNamed(settingRoute);
+              Get.toNamed(settingRoute);
             });
           },
           backgroundColor: Colors.amber,

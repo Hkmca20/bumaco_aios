@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:velocity_x/velocity_x.dart';
 
 ThemeData setTheme(context) {
+  final ThemeData theme = Theme.of(context);
   final _settingsController = SettingsController.to;
   return ThemeData(
     // fontFamily: lang == 'ar' ? 'FrutigerLTArabic' : 'ProximaNova',
@@ -11,17 +12,17 @@ ThemeData setTheme(context) {
     //     fontFamily: lang == 'ar' ? 'FrutigerLTArabic' : 'ProximaNova',
     //     fontSizeDelta: lang == 'ar' ? -5.0 : 0.0),
     fontFamily: FONT_IBM_PLEX_SANS_ARABIC,
-    primarySwatch: Colors.cyan, 
+    primarySwatch: Colors.cyan,
     primaryColor: kPrimaryColor,
     primaryColorDark: kPrimaryColorDark,
+    dividerColor: Colors.black12,
+    brightness: Brightness.light,
 
     // scaffoldBackgroundColor: Colors.grey[850], //Colors.teal//(0xFFF3F5F7),
-    brightness: _settingsController.brightness,
-
     // cardColor: Colors.white,
     // canvasColor: creamColor,
     // buttonColor: darkBluishColor,
-    accentColor: kAccentColor,
+    // colorScheme: theme.colorScheme.copyWith(secondary: kAccentColor),
 
     appBarTheme: appBarTheme(),
     // textTheme: GoogleFonts.latoTextTheme(),
@@ -37,6 +38,7 @@ ThemeData setTheme(context) {
 }
 
 ThemeData setDarkTheme(context) {
+  final ThemeData theme = Theme.of(context);
   final _settingsController = SettingsController.to;
   return ThemeData(
     // fontFamily: lang == 'ar' ? 'FrutigerLTArabic' : 'ProximaNova',
@@ -44,16 +46,17 @@ ThemeData setDarkTheme(context) {
     //     fontFamily: lang == 'ar' ? 'FrutigerLTArabic' : 'ProximaNova',
     //     fontSizeDelta: lang == 'ar' ? -5.0 : 0.0),
     fontFamily: FONT_IBM_PLEX_SANS_ARABIC,
-    // primarySwatch: Colors.blue, //cyan
+    primarySwatch: Colors.grey, //cyan
     primaryColor: kPrimaryColor,
     primaryColorDark: kPrimaryColorDark,
-    // scaffoldBackgroundColor: Colors.grey[850], //Colors.teal//(0xFFF3F5F7),
-    brightness: _settingsController.brightness,
+    dividerColor: Colors.white54,
+    brightness: Brightness.dark,
 
+    // scaffoldBackgroundColor: Colors.grey[850], //Colors.teal//(0xFFF3F5F7),
     // cardColor: Colors.black,
     // canvasColor: darkCreamColor,
     // buttonColor: lightBluishColor,
-    accentColor: kAccentColor,
+    // colorScheme: theme.colorScheme.copyWith(secondary: kAccentColor),
 
     appBarTheme: appBarTheme(),
     // textTheme: GoogleFonts.latoTextTheme(),
@@ -113,12 +116,18 @@ ButtonThemeData buttonTheme(context) {
 ElevatedButtonThemeData elevatedButtonTheme() {
   return ElevatedButtonThemeData(
     style: ElevatedButton.styleFrom(
-      textStyle: TextStyle(fontSize: 20),
+      textStyle: TextStyle(fontSize: 22),
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(4),
+        // gradient: LinearGradient(
+        //     // colors: [Colors.red, Colors.blue],
+        //     colors: [gradientColorBlue1, gradientColorBlue2],
+        //     begin: Alignment.centerLeft,
+        //     end: Alignment.centerRight),
+        borderRadius: BorderRadius.circular(6),
         side: BorderSide(color: kPrimaryColor, width: 1),
       ),
-      padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+      padding: EdgeInsets.symmetric(horizontal: 22, vertical: 12),
+      elevation: 4,
       onPrimary: Colors.white,
       primary: kPrimaryColor,
       shadowColor: kPrimaryColor,

@@ -16,12 +16,12 @@ class SecondPage extends StatelessWidget {
             children: <Widget>[
               Text(
                 'Second page - Payload:',
-                style: Theme.of(context).textTheme.title,
+                style: Theme.of(context).textTheme.bodyText1,
               ),
               const SizedBox(height: 8),
               Text(
                 payload,
-                style: Theme.of(context).textTheme.subtitle,
+                style: Theme.of(context).textTheme.bodyText2,
               ),
               const SizedBox(height: 8),
               RaisedButton(

@@ -1,17 +1,18 @@
-import 'dart:async';
 import 'package:bumaco_aios/app_utils/app_const.dart';
-import 'package:bumaco_aios/ui/login/splash_controller.dart';
+import 'package:bumaco_aios/app_utils/asset_path.dart';
+import 'package:bumaco_aios/ui/controller/splash_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 
-class SplashPage extends StatefulWidget {
+class SplashView extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
     return SplashState();
   }
 }
 
-class SplashState extends State<SplashPage>
+class SplashState extends State<SplashView>
     with SingleTickerProviderStateMixin {
   final _splashController = SplashController.to;
   late AnimationController _animController;
@@ -22,8 +23,8 @@ class SplashState extends State<SplashPage>
   @override
   void initState() {
     super.initState();
-    _animController =
-        AnimationController(vsync: this, duration: Duration(seconds: 2));
+    _animController = AnimationController(
+        vsync: this, duration: Duration(milliseconds: 2500));
     _animController.addListener(() {
       if (_animController.status == AnimationStatus.completed) {
         print('Controller completed task-----');
@@ -39,12 +40,19 @@ class SplashState extends State<SplashPage>
     _animController.addListener(() {
       setState(() {});
     });
-    _animController.repeat(reverse: true);
-    // controller.repeat();
-    // controller.forward();
-    // controller.reverse();
-    // controller.fling();
-    startTime();
+    // _animController.repeat(reverse: true);
+    // _animController.repeat();
+    _animController.forward().then((value) => {route()});
+    // _animController.reverse();
+    // _animController.fling();
+    // startTime();
+  }
+
+  @override
+  void dispose() {
+    // _animController.removeListener(() {});
+    _animController.dispose();
+    super.dispose();
   }
 
   @override
@@ -54,21 +62,25 @@ class SplashState extends State<SplashPage>
     );
   }
 
-  startTime() async {
-    var duration = new Duration(seconds: 3);
-    return Timer(duration, route);
-  }
+  // startTime() async {
+  //   var duration = new Duration(seconds: 3);
+  //   return Timer(duration, route);
+  // }
 
   route() {
     if (_splashController.isLoggedIn) {
-      Get.toNamed(onboardRoute);
+      Get.offAndToNamed(shoppingRoute);
     } else {
-      Get.toNamed(loginRoute);
+      if (_splashController.appOpenCount > 2) {
+        Get.offAndToNamed(landingRoute);
+      } else {
+        Get.offAndToNamed(onboardRoute);
+      }
     }
   }
 
   initScreen(BuildContext context) {
-    AssetImage assetImage = AssetImage("assets/images/app_logo.png");
+    AssetImage assetImage = AssetImage(logoPath);
     Image image = Image(
       image: assetImage,
       width: _animSize.value,
@@ -99,7 +111,10 @@ class SplashState extends State<SplashPage>
                 opacity: _animOpacity.value,
                 child: Text(
                   "Welcome to Bumaco",
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 24.0, color: Colors.white),
+                  style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 24.0,
+                      color: Colors.white),
                 ),
               ),
             ),
