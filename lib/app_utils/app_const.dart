@@ -16,8 +16,9 @@ const kPrimaryGradientColor = LinearGradient(
 );
 const kGreyLightColor = Color(0xFF979797);
 const kDarkGreyColor = Color(0xFF757575);
-const kTextColor = Colors.grey;
-const kSecondaryColor = Colors.blueGrey;
+const kBodyText1 = Colors.black;
+const kBodyText2 = Colors.black54;
+const kHeadline = Colors.black;
 
 // String
 const appName = 'Bumaco';
@@ -78,6 +79,8 @@ const otpRoute = '/otp';
 const profileRoute = '/profile';
 const profileRoute2 = '/profile2';
 const shoppingRoute = '/shopping';
+const catalogRoute = '/catalog';
+const productDetailRoute = '/product_detail';
 const settingRoute = '/setting';
 
 // Controllers
@@ -102,7 +105,7 @@ const FONT_IBM_PLEX_SANS_ARABIC = 'IBMPlexSansArabic';
 // Storage
 const BOX_APP = 'bumaco_storage';
 final GetStorage getStorage = GetStorage(BOX_APP);
-const BOX_APP_OPEN_COUNT = 'app_open_count';//int
+const BOX_APP_OPEN_COUNT = 'app_open_count'; //int
 // .listenKey(BOX_APP_OPEN_COUNT, (value) {
 //   print('BOX_APP_OPEN_COUNT=>$value');
 // })
@@ -124,7 +127,7 @@ const BOX_APP_OPEN_COUNT = 'app_open_count';//int
 // //Easy Validator:
 // GetUtils.isEmail('abc@gmail.com') ? validate() :errorMessage();
 
-const BOX_COUNTRY = 'country';//string
+const BOX_COUNTRY = 'country'; //string
 const BOX_MOBILE_EMAIL = 'mobile_email'; //string
 const BOX_IS_LOGGEDIN = 'is_loggedin'; //bool
 const BOX_IS_DARK = 'is_dark'; //bool

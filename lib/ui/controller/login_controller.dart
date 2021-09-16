@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:bumaco_aios/app_utils/app_const.dart';
 import 'package:bumaco_aios/app_utils/app_loading.dart';
-import 'package:bumaco_aios/ui/model/user_model.dart';
+import 'package:bumaco_aios/ui/models/user_model.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';

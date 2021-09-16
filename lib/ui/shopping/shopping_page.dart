@@ -1,6 +1,12 @@
 import 'package:bumaco_aios/app_utils/app_const.dart';
 import 'package:bumaco_aios/ui/controller/cart_controller.dart';
 import 'package:bumaco_aios/ui/controller/shopping_controller.dart';
+import 'package:bumaco_aios/ui/shopping/model/category.dart';
+import 'package:bumaco_aios/ui/shopping/model/product.dart';
+import 'package:bumaco_aios/ui/widgets/hero_carousel_card.dart';
+import 'package:bumaco_aios/ui/widgets/product_carousel.dart';
+import 'package:bumaco_aios/ui/widgets/widgets.dart';
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
@@ -53,6 +59,7 @@ class _ShoppingPageState extends State<ShoppingPage>
       body: SafeArea(
         child: Column(
           children: [
+            //HEADER
             Padding(
               padding: EdgeInsets.all(16),
               child: Row(
@@ -69,6 +76,38 @@ class _ShoppingPageState extends State<ShoppingPage>
                 ],
               ),
             ),
+
+            //All Items Home page
+
+            //MAIN CAROUSEL
+            Expanded(
+              child: Container(
+                child: CarouselSlider(
+                  options: CarouselOptions(
+                    autoPlay: true,
+                    aspectRatio: 2,
+                    viewportFraction: 1,
+                    enlargeStrategy: CenterPageEnlargeStrategy.height,
+                    enlargeCenterPage: true,
+                  ),
+                  items: Category.categoryList
+                      .map((cat) => HeroCarouselCard(category: cat))
+                      .toList(),
+                ),
+              ),
+            ),
+            //SECTION
+            //PRODUCTS CAROUSEL
+            SectionTile(title: 'RECOMMENDED'),
+            ProductCarousel(
+                products: Product.productList
+                    .where((element) => element.isRecommended)
+                    .toList()),
+            // SectionTile(title: 'MOST POPULAR'),
+            // ProductCarousel(products: Product.productList.where((element) => element.isPopular).toList()),
+            // SectionTile(title: 'NEW PRODUCT'),
+            // ProductCarousel(products: Product.productList.where((element) => element.isNew).toList()),
+
             Expanded(
               child: StaggeredGridView.countBuilder(
                 crossAxisCount: 2,
@@ -78,8 +117,10 @@ class _ShoppingPageState extends State<ShoppingPage>
                   child: ClipRRect(
                     borderRadius: BorderRadius.all(Radius.circular(15)),
                     child: FadeInImage.memoryNetwork(
-                        placeholder: kTransparentImage,
-                        image: _shoppingController.products[index].produntImage,fit: BoxFit.cover,),
+                      placeholder: kTransparentImage,
+                      image: _shoppingController.products[index].produntImage,
+                      fit: BoxFit.cover,
+                    ),
                   ),
                   decoration: BoxDecoration(
                     color: Colors.transparent,
@@ -88,7 +129,10 @@ class _ShoppingPageState extends State<ShoppingPage>
                 ),
                 itemCount: _shoppingController.products.length,
                 staggeredTileBuilder: (int index) {
-                  return StaggeredTile.count(1, index.isEven ? 1.2 : 1.8);
+                  return StaggeredTile.count(
+                    1,
+                    index.isEven ? 1.2 : 1.8,
+                  );
                 },
               ),
             ),

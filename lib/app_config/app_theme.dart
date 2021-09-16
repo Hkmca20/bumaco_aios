@@ -1,11 +1,11 @@
 import 'package:bumaco_aios/app_utils/app_const.dart';
-import 'package:bumaco_aios/ui/dummy/settings_controller.dart';
+import 'package:bumaco_aios/ui/controller/settings_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:velocity_x/velocity_x.dart';
 
 ThemeData setTheme(context) {
-  final ThemeData theme = Theme.of(context);
-  final _settingsController = SettingsController.to;
+  // final ThemeData theme = Theme.of(context);
+  // final _settingsController = SettingsController.to;
   return ThemeData(
     // fontFamily: lang == 'ar' ? 'FrutigerLTArabic' : 'ProximaNova',
     // textTheme: Theme.of(context).textTheme.apply(
@@ -29,7 +29,7 @@ ThemeData setTheme(context) {
     // textTheme: Theme.of(context).textTheme.apply(
     //       fontFamily: 'IBMPlexSansArabic',
     //     ),
-    // textTheme: textTheme(),
+    textTheme: textTheme(),
     // buttonTheme: buttonTheme(context),
     elevatedButtonTheme: elevatedButtonTheme(),
     // inputDecorationTheme: inputDecorationTheme(),
@@ -38,8 +38,8 @@ ThemeData setTheme(context) {
 }
 
 ThemeData setDarkTheme(context) {
-  final ThemeData theme = Theme.of(context);
-  final _settingsController = SettingsController.to;
+  // final ThemeData theme = Theme.of(context);
+  // final _settingsController = SettingsController.to;
   return ThemeData(
     // fontFamily: lang == 'ar' ? 'FrutigerLTArabic' : 'ProximaNova',
     // textTheme: Theme.of(context).textTheme.apply(
@@ -63,7 +63,7 @@ ThemeData setDarkTheme(context) {
     // textTheme: Theme.of(context).textTheme.apply(
     //       fontFamily: 'IBMPlexSansArabic',
     //     ),
-    // textTheme: textTheme(),
+    textTheme: textTheme(),
     // buttonTheme: buttonTheme(context),
     elevatedButtonTheme: elevatedButtonTheme(),
     // inputDecorationTheme: inputDecorationTheme(),
@@ -79,7 +79,7 @@ Color lightBluishColor = Vx.indigo500;
 InputDecorationTheme inputDecorationTheme() {
   OutlineInputBorder outlineInputBorder = OutlineInputBorder(
     borderRadius: BorderRadius.circular(28),
-    borderSide: BorderSide(color: kTextColor),
+    borderSide: BorderSide(color: kBodyText1),
     gapPadding: 10,
   );
   return InputDecorationTheme(
@@ -96,9 +96,17 @@ InputDecorationTheme inputDecorationTheme() {
 
 TextTheme textTheme() {
   return TextTheme(
-    bodyText1: TextStyle(color: kTextColor, fontSize: 20),
-    bodyText2: TextStyle(color: kTextColor),
-    button: TextStyle(color: kTextColor),
+    subtitle1: TextStyle(color: kPrimaryColor, fontSize: 16),
+    subtitle2: TextStyle(color: kPrimaryColorDark, fontSize: 14),
+    bodyText1: TextStyle(color: kBodyText1, fontSize: 12),
+    bodyText2: TextStyle(color: kBodyText2, fontSize: 10),
+    caption: TextStyle(color: kBodyText1),
+    headline1: TextStyle(color: kHeadline, fontSize: 32, fontWeight: FontWeight.bold),
+    headline2: TextStyle(color: kHeadline, fontSize: 24, fontWeight: FontWeight.bold),
+    headline3: TextStyle(color: kHeadline, fontSize: 20, fontWeight: FontWeight.bold),
+    headline4: TextStyle(color: kHeadline, fontSize: 18, fontWeight: FontWeight.bold),
+    headline5: TextStyle(color: kHeadline, fontSize: 16, fontWeight: FontWeight.bold),
+    headline6: TextStyle(color: kHeadline, fontSize: 14, fontWeight: FontWeight.bold),
   );
 }
 
@@ -140,11 +148,8 @@ AppBarTheme appBarTheme() {
   return AppBarTheme(
     color: kPrimaryColor,
     elevation: 0.1,
-    brightness: Brightness.dark,
-    iconTheme: IconThemeData(color: Colors.white),
-    foregroundColor: Colors.white,
-    textTheme: TextTheme(
-      headline6: TextStyle(color: Colors.white, fontSize: 18),
-    ),
+    iconTheme: IconThemeData(color: kPrimaryColor),
+    foregroundColor: kPrimaryColor,
+    toolbarTextStyle: TextStyle(color: kPrimaryColor, fontSize: 18),
   );
 }

@@ -1,9 +1,9 @@
+import 'package:bumaco_aios/app_config/app_binding.dart';
+import 'package:bumaco_aios/app_config/app_locale.dart';
+import 'package:bumaco_aios/app_config/app_theme.dart';
 import 'package:bumaco_aios/app_utils/app_const.dart';
-import 'package:bumaco_aios/app_utils/app_locale.dart';
-import 'package:bumaco_aios/app_utils/app_route.dart';
-import 'package:bumaco_aios/app_utils/app_theme.dart';
-import 'package:bumaco_aios/app_utils/app_binding.dart';
-import 'package:bumaco_aios/ui/dummy/settings_controller.dart';
+import 'package:bumaco_aios/app_config/app_route.dart';
+import 'package:bumaco_aios/ui/controller/settings_controller.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
@@ -44,6 +44,15 @@ class MyApp extends StatelessWidget {
       locale: localeList[0], //default locale from get device locale
       fallbackLocale: localeList[0], //fallback if locale not present in device
       initialRoute: initialRoute,
+      // onGenerateRoute: (RouteSettings settings) {
+      //   if (settings.name.contains('onboard')) {
+      //     return CustomRoute<bool>(
+      //         builder: (BuildContext context) => ProductDetailPage());
+      //   } else {
+      //     return CustomRoute<bool>(
+      //         builder: (BuildContext context) => MainPage());
+      //   }
+      // },
       initialBinding: AppBinding(),
       getPages: setRoute,
     );

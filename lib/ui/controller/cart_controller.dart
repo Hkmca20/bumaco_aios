@@ -1,5 +1,5 @@
 import 'package:bumaco_aios/app_utils/app_const.dart';
-import 'package:bumaco_aios/ui/shopping/model/product.dart';
+import 'package:bumaco_aios/ui/shopping/model/models.dart';
 import 'package:get/get.dart';
 
 class CartController extends GetxController {

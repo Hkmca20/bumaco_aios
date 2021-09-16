@@ -19,7 +19,7 @@ class OTPController extends GetxController {
     _timerOTP = Timer.periodic(
         Duration(seconds: 1),
         (t) => {
-              resendText.value = 'can resend otp in $initialValue seconds',
+              resendText.value = 'resend otp in $initialValue seconds',
               initialValue--,
               if (initialValue <= 0)
                 {

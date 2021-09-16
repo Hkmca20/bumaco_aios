@@ -36,6 +36,8 @@ dependencies:
   flutter_sound: ^8.3.12
   json_serializable: ^4.1.4
   transparent_image: ^2.0.0
+  carousel_slider: ^4.0.0
+  equatable: ^2.0.3
 
 dev_dependencies:
   flutter_test:

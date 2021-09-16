@@ -1,4 +1,4 @@
-import 'package:bumaco_aios/app_utils/app_bar.dart';
+import 'package:bumaco_aios/app_config/app_bar.dart';
 import 'package:bumaco_aios/ui/controller/otp_controller.dart';
 import 'package:bumaco_aios/ui/widgets/app_logo_widget.dart';
 import 'package:flutter/material.dart';
@@ -59,7 +59,7 @@ class OTPView extends StatelessWidget {
         ));
 
     return Scaffold(
-      appBar: MyAppBar('OTP', []),
+      appBar: BumacoAppbar( title: 'OTP'),
       body: Container(
         margin: EdgeInsets.only(
           top: 50,

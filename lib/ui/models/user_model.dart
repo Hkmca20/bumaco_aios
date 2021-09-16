@@ -1,4 +1,4 @@
-import 'package:bumaco_aios/ui/model/cart_item_model.dart';
+import 'package:bumaco_aios/ui/models/cart_item_model.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 // part 'usermodel.g.dart';
