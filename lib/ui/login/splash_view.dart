@@ -1,9 +1,8 @@
 import 'package:bumaco_aios/app_utils/app_const.dart';
 import 'package:bumaco_aios/app_utils/asset_path.dart';
-import 'package:bumaco_aios/ui/controller/splash_controller.dart';
+import 'package:bumaco_aios/ui/controller/controllers.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get_storage/get_storage.dart';
 
 class SplashView extends StatefulWidget {
   @override
@@ -69,9 +68,13 @@ class SplashState extends State<SplashView>
 
   route() {
     if (_splashController.isLoggedIn) {
-      Get.offAndToNamed(shoppingRoute);
+      // Get.offAndToNamed(shoppingRoute);
+      // Get.offAndToNamed(staggerdImgRoute);
+      Get.offAndToNamed(allProductRoute);
     } else {
       if (_splashController.appOpenCount > 2) {
+        // Get.offAndToNamed(ratingRoute);
+        // Get.offAndToNamed(shrinkRoute);
         Get.offAndToNamed(landingRoute);
       } else {
         Get.offAndToNamed(onboardRoute);

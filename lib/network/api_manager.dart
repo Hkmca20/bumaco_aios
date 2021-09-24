@@ -6,18 +6,35 @@
 // import 'package:bumaco_aios/ui/user/login_model.dart';
 // import 'package:bumaco_aios/ui/user/user_add_model.dart';
 // import 'package:bumaco_aios/ui/user/user_model.dart';
-// import 'package:http/http.dart' as http;
+import 'dart:convert';
 
-// class ApiManager {
-//   Map<String, String> header = {
-//     'Content-Type': 'application/json; charset=UTF-8',
-//     // 'Access-Control-Allow-Origin': '.htaccess',
-//     "Access-Control-Allow-Origin": "*", // Required for CORS support to work
-//     // "Access-Control-Allow-Credentials": 'true', // Required for cookies, authorization headers with HTTPS
-//     // "Access-Control-Allow-Headers": "Origin,Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token",
-//     "Access-Control-Allow-Methods": "GET,POST,OPTIONS,DELETE,PUT"
-//   };
-//   final client = http.Client();
+import 'package:bumaco_aios/ui/shopping/model/products.dart';
+import 'package:http/http.dart' as http;
+
+import 'network.dart';
+
+class ApiManager {
+  Map<String, String> header = {
+    'Content-Type': 'application/json; charset=UTF-8',
+    // 'Access-Control-Allow-Origin': '.htaccess',
+    "Access-Control-Allow-Origin": "*", // Required for CORS support to work
+    // "Access-Control-Allow-Credentials": 'true', // Required for cookies, authorization headers with HTTPS
+    // "Access-Control-Allow-Headers": "Origin,Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token",
+    "Access-Control-Allow-Methods": "GET,POST,OPTIONS,DELETE,PUT"
+  };
+  static final client = http.Client();
+  Future<List<Products>?> fetchProducts() async {
+    String url =
+        'https://makeup-api.herokuapp.com/api/v1/products.json?brand=maybelline';
+
+    var response = await client.get(Uri.parse(url));
+    print(response.body);
+    if (response.statusCode == 200) {
+      var jsonMap = _returnResponse(response);
+      return Products.fromJson(jsonMap)as List<Products>;
+    }
+    return null;
+  }
 
 //   Future<LoginModel> fetchLoginService(mobileNo, password) async {
 //     String bodyString =
@@ -199,25 +216,25 @@
 //     }
 //   }
 
-//   dynamic _returnResponse(http.Response response) {
-//     print('status code = ${response.statusCode}');
-//     switch (response.statusCode) {
-//       case 200:
-//         var responseJson = json.decode(response.body.toString());
-//         print(responseJson);
-//         return responseJson;
-//       case 400:
-//         throw BadRequestException(response.body);
-//       case 401:
-//       case 403:
-//         throw UnauthorisedException(response);
-//       case 404:
-//         throw FetchDataException("Sever Down!");
-//       case 500:
-//         throw FetchDataException("Internal Server Error!");
-//       default:
-//         throw FetchDataException(
-//             'Something went wrong : ${response.statusCode}');
-//     }
-//   }
-// }
+  dynamic _returnResponse(http.Response response) {
+    print('status code = ${response.statusCode}');
+    switch (response.statusCode) {
+      case 200:
+        var responseJson = json.decode(response.body.toString());
+        print(responseJson);
+        return responseJson;
+      case 400:
+        throw BadRequestException(response.body);
+      case 401:
+      case 403:
+        throw UnauthorisedException(response);
+      case 404:
+        throw FetchDataException("Sever Down!");
+      case 500:
+        throw FetchDataException("Internal Server Error!");
+      default:
+        throw FetchDataException(
+            'Something went wrong : ${response.statusCode}');
+    }
+  }
+}

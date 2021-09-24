@@ -1,6 +1,6 @@
 import 'package:bumaco_aios/app_utils/app_const.dart';
 import 'package:bumaco_aios/ui/onboard/model/onboard_info.dart';
-import 'package:bumaco_aios/ui/login/login_view.dart';
+import 'package:bumaco_aios/ui/login/signin_view.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/state_manager.dart';
 import 'package:get/get.dart';

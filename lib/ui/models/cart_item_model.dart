@@ -1,3 +1,8 @@
+import 'package:json_annotation/json_annotation.dart';
+
+part 'cart_item_model.g.dart';
+
+@JsonSerializable()
 class CartItemModel {
   static const ID = "id";
   static const IMAGE = "image";
@@ -17,25 +22,7 @@ class CartItemModel {
 
   CartItemModel({this.productId, this.id, this.image, this.name, required this.quantity, required this.cost});
 
-  CartItemModel.fromMap(Map<String, dynamic> data){
-    id = data[ID];
-    image = data[IMAGE];
-    name = data[NAME];
-    quantity = data[QUANTITY];
-    cost = data[COST].toDouble();
-    productId = data[PRODUCT_ID];
-    price = data[PRICE].toDouble();
-
-  }
-
-  Map toJson() => {
-    ID: id, 
-    PRODUCT_ID: productId,
-    IMAGE: image, 
-    NAME: name,
-    QUANTITY: quantity,
-    COST: price * quantity,
-    PRICE: price
-  };
-
+  factory CartItemModel.fromJson(Map<String, dynamic> json) =>
+      _$CartItemModelFromJson(json);
+  Map<String, dynamic> toJson() => _$CartItemModelToJson(this);
 }

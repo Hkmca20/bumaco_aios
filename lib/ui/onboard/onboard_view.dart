@@ -2,7 +2,7 @@ import 'package:bumaco_aios/ui/controller/onboard_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class OnboardingPage extends StatelessWidget {
+class OnboardingView extends StatelessWidget {
   final _controller = OnboardController.to;
   @override
   Widget build(BuildContext context) {

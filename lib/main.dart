@@ -31,7 +31,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     // var lang = Localizations.localeOf(context).languageCode;
     return GetMaterialApp(
-      enableLog: false,
+      enableLog: true,
       defaultTransition: Transition.native,
       transitionDuration: Duration(milliseconds: 250),
       title: appName,
@@ -39,7 +39,7 @@ class MyApp extends StatelessWidget {
       themeMode: _settingsController.themeMode,
       // themeMode: ThemeMode.system,
       theme: setTheme(context),
-      darkTheme: setDarkTheme(context),
+      // darkTheme: setDarkTheme(context),
       translations: BumacoLocale(),
       locale: localeList[0], //default locale from get device locale
       fallbackLocale: localeList[0], //fallback if locale not present in device

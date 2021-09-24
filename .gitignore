@@ -10,6 +10,7 @@
 .svn/
 upload-keystore.jks
 key.properties
+*.g.dart
 
 # IntelliJ related
 *.iml

@@ -12,7 +12,7 @@ class OTPController extends GetxController {
   var canResendOTP = false.obs;
   final otpCTR = TextEditingController();
   final box = GetStorage(BOX_APP);
-  late Timer _timer, _timerOTP;
+  late Timer _timerOTP;
 
   @override
   void onInit() {
@@ -34,34 +34,38 @@ class OTPController extends GetxController {
   @override
   void onClose() {
     otpCTR.clear();
-    if (_timer.isActive) {
-      _timer.cancel();
+    if (_timerOTP.isActive) {
       _timerOTP.cancel();
     }
     super.onClose();
   }
 
-  submitOTP() {
+  submitOTP() async {
+    if (otpCTR.text.length < 4) {
+      bumacoSnackbar( 'Error', 'Invalid OTP');
+      return;
+    }
+    showLoading();
+    await Future.delayed(Duration(microseconds: 3000));
     try {
-      if (otpCTR.text.length < 4) {
-        Get.snackbar('Error', 'Invalid OTP');
-        return;
+      Get.back();
+      if (otpCTR.text == '12345') {
+        Get.snackbar(
+          'Login',
+          'Successfull!',
+        );
+        box.write(BOX_IS_LOGGEDIN, true);
+        Get.offAllNamed(shoppingRoute);
+      } else {
+        bumacoSnackbar(
+          'Login',
+          'Incorrect otp, please try again!',
+        );
       }
-      showLoading();
-      _timer = new Timer(Duration(milliseconds: 2000), () {
-        Get.back();
-        if (otpCTR.text == '12345') {
-          Get.snackbar('Login', 'Successfull!');
-          box.write(BOX_IS_LOGGEDIN, true);
-          Get.offAllNamed(shoppingRoute);
-        } else {
-          Get.snackbar('Login', 'Incorrect otp, please try again!');
-        }
-      });
     } catch (e) {
       debugPrint(e.toString());
       Get.back();
-      Get.snackbar("Sign In Failed", "Try again");
+      bumacoSnackbar('Failed', 'Please check your internet conection');
     }
   }
 }

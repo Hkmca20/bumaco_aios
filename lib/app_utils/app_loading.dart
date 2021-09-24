@@ -1,25 +1,36 @@
+import 'package:bumaco_aios/app_utils/const.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 showLoading() {
   Get.defaultDialog(
-      title: "Loading...",
-      content: CircularProgressIndicator(),
+      title: '',
+      content: Column(
+        children: [
+          Text('Loading, Please wait..'),
+          SizedBox(height: 20),
+          LoadingWidget(),
+          SizedBox(height: 20),
+        ],
+      ),
       barrierDismissible: false);
 }
 
-dismissLoadingWidget() {
+hideLoading() {
   Get.back();
 }
 
-class Loading extends StatelessWidget {
+class LoadingWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Container(
-        color: Colors.white,
-        child: CircularProgressIndicator(
-          color: Colors.black,
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        CircularProgressIndicator(
+          color: kPrimaryColor,
           // size: 30,
-        ));
+        )
+      ],
+    );
   }
 }

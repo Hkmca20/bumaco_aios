@@ -11,17 +11,15 @@ class BumacoAppbar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      backgroundColor: Colors.transparent,
-      elevation: 0,
       title: Container(
-        color: Colors.transparent,
-        padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
         child: Text(
           title,
-          style: Theme.of(context).textTheme.headline4!.copyWith(color: kPrimaryColor),
+          style: Theme.of(context)
+              .textTheme
+              .headline2!
+              .copyWith(color: kWhiteColor),
         ),
       ),
-      iconTheme: IconThemeData(color: kPrimaryColor),
       actions: actionList ?? [],
     );
   }

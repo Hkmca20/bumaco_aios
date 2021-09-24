@@ -1,5 +1,4 @@
 import 'package:bumaco_aios/app_utils/app_const.dart';
-import 'package:bumaco_aios/ui/controller/settings_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:velocity_x/velocity_x.dart';
 
@@ -32,41 +31,7 @@ ThemeData setTheme(context) {
     textTheme: textTheme(),
     // buttonTheme: buttonTheme(context),
     elevatedButtonTheme: elevatedButtonTheme(),
-    // inputDecorationTheme: inputDecorationTheme(),
-    visualDensity: VisualDensity.adaptivePlatformDensity,
-  );
-}
-
-ThemeData setDarkTheme(context) {
-  // final ThemeData theme = Theme.of(context);
-  // final _settingsController = SettingsController.to;
-  return ThemeData(
-    // fontFamily: lang == 'ar' ? 'FrutigerLTArabic' : 'ProximaNova',
-    // textTheme: Theme.of(context).textTheme.apply(
-    //     fontFamily: lang == 'ar' ? 'FrutigerLTArabic' : 'ProximaNova',
-    //     fontSizeDelta: lang == 'ar' ? -5.0 : 0.0),
-    fontFamily: FONT_IBM_PLEX_SANS_ARABIC,
-    primarySwatch: Colors.grey, //cyan
-    primaryColor: kPrimaryColor,
-    primaryColorDark: kPrimaryColorDark,
-    dividerColor: Colors.white54,
-    brightness: Brightness.dark,
-
-    // scaffoldBackgroundColor: Colors.grey[850], //Colors.teal//(0xFFF3F5F7),
-    // cardColor: Colors.black,
-    // canvasColor: darkCreamColor,
-    // buttonColor: lightBluishColor,
-    // colorScheme: theme.colorScheme.copyWith(secondary: kAccentColor),
-
-    appBarTheme: appBarTheme(),
-    // textTheme: GoogleFonts.latoTextTheme(),
-    // textTheme: Theme.of(context).textTheme.apply(
-    //       fontFamily: 'IBMPlexSansArabic',
-    //     ),
-    textTheme: textTheme(),
-    // buttonTheme: buttonTheme(context),
-    elevatedButtonTheme: elevatedButtonTheme(),
-    // inputDecorationTheme: inputDecorationTheme(),
+    inputDecorationTheme: inputDecorationTheme(),
     visualDensity: VisualDensity.adaptivePlatformDensity,
   );
 }
@@ -78,35 +43,56 @@ Color lightBluishColor = Vx.indigo500;
 
 InputDecorationTheme inputDecorationTheme() {
   OutlineInputBorder outlineInputBorder = OutlineInputBorder(
-    borderRadius: BorderRadius.circular(28),
-    borderSide: BorderSide(color: kBodyText1),
-    gapPadding: 10,
+    borderRadius: BorderRadius.circular(32),
+    borderSide: BorderSide(color: Colors.white),
+    gapPadding: 8,
   );
+  UnderlineInputBorder underlineInputBorder = UnderlineInputBorder(
+    borderRadius: BorderRadius.circular(32),
+    borderSide: BorderSide(width: 0.7, color: Colors.white),
+  );
+  TextStyle kTextstyle =
+      TextStyle(decorationColor: kWhiteColor, color: kWhiteColor);
   return InputDecorationTheme(
     // If  you are using latest version of flutter then lable text and hint text shown like this
     // if you r using flutter less then 1.20.* then maybe this is not working properly
     // if we are define our floatingLabelBehavior in our theme then it's not applayed
     // floatingLabelBehavior: FloatingLabelBehavior.always,
-    contentPadding: EdgeInsets.symmetric(horizontal: 42, vertical: 20),
+    contentPadding: EdgeInsets.symmetric(horizontal: 42, vertical: 18),
     enabledBorder: outlineInputBorder,
     focusedBorder: outlineInputBorder,
+    focusedErrorBorder: underlineInputBorder,
+    disabledBorder: underlineInputBorder,
     border: outlineInputBorder,
+    floatingLabelStyle: kTextstyle,
+    hintStyle: kTextstyle,
+    labelStyle: kTextstyle,
+    helperStyle: kTextstyle,
+    hoverColor: kWhiteColor,
+    focusColor: kWhiteColor,
+    fillColor: kWhiteColor,
   );
 }
 
 TextTheme textTheme() {
   return TextTheme(
-    subtitle1: TextStyle(color: kPrimaryColor, fontSize: 16),
-    subtitle2: TextStyle(color: kPrimaryColorDark, fontSize: 14),
-    bodyText1: TextStyle(color: kBodyText1, fontSize: 12),
-    bodyText2: TextStyle(color: kBodyText2, fontSize: 10),
-    caption: TextStyle(color: kBodyText1),
-    headline1: TextStyle(color: kHeadline, fontSize: 32, fontWeight: FontWeight.bold),
-    headline2: TextStyle(color: kHeadline, fontSize: 24, fontWeight: FontWeight.bold),
-    headline3: TextStyle(color: kHeadline, fontSize: 20, fontWeight: FontWeight.bold),
-    headline4: TextStyle(color: kHeadline, fontSize: 18, fontWeight: FontWeight.bold),
-    headline5: TextStyle(color: kHeadline, fontSize: 16, fontWeight: FontWeight.bold),
-    headline6: TextStyle(color: kHeadline, fontSize: 14, fontWeight: FontWeight.bold),
+    subtitle1: TextStyle(color: kPrimaryColor, fontSize: 22),
+    subtitle2: TextStyle(color: kPrimaryColorDark, fontSize: 30),
+    bodyText1: TextStyle(color: kBodyText1, fontSize: 14),
+    bodyText2: TextStyle(color: kBodyText2, fontSize: 12),
+    // caption: TextStyle(color: kBodyText1),
+    headline1:
+        TextStyle(color: kHeadline, fontSize: 32, fontWeight: FontWeight.bold),
+    headline2:
+        TextStyle(color: kHeadline, fontSize: 24, fontWeight: FontWeight.bold),
+    headline3:
+        TextStyle(color: kHeadline, fontSize: 20, fontWeight: FontWeight.bold),
+    headline4:
+        TextStyle(color: kHeadline, fontSize: 18, fontWeight: FontWeight.bold),
+    headline5:
+        TextStyle(color: kHeadline, fontSize: 16, fontWeight: FontWeight.bold),
+    headline6:
+        TextStyle(color: kHeadline, fontSize: 14, fontWeight: FontWeight.bold),
   );
 }
 
@@ -146,10 +132,11 @@ ElevatedButtonThemeData elevatedButtonTheme() {
 
 AppBarTheme appBarTheme() {
   return AppBarTheme(
-    color: kPrimaryColor,
-    elevation: 0.1,
-    iconTheme: IconThemeData(color: kPrimaryColor),
-    foregroundColor: kPrimaryColor,
-    toolbarTextStyle: TextStyle(color: kPrimaryColor, fontSize: 18),
+    elevation: 8,
+    iconTheme: IconThemeData(color: Colors.white),
+    backgroundColor: Colors.white24,
+    foregroundColor: Colors.white,
+    toolbarHeight: 56,
+    actionsIconTheme: IconThemeData(color: Colors.white),
   );
 }

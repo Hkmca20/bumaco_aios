@@ -1,7 +1,7 @@
 import 'package:bumaco_aios/ui/models/cart_item_model.dart';
 import 'package:json_annotation/json_annotation.dart';
 
-// part 'usermodel.g.dart';
+part 'user_model.g.dart';
 
 @JsonSerializable()
 class UserModel {
@@ -14,14 +14,7 @@ class UserModel {
   List<CartItemModel>? cart;
   UserModel({this.id, this.mobile, this.cart});
 
-  
-  UserModel.fromJson(Map<String, dynamic> json)
-      : id= json['id'],mobile = json['mobile'],
-        cart = json['cart'];
-
-  Map<String, dynamic> toJson() => {
-        'id': id,
-        'mobile':mobile,
-        'cart': cart,
-      };
+  factory UserModel.fromJson(Map<String, dynamic> json) =>
+      _$UserModelFromJson(json);
+  Map<String, dynamic> toJson() => _$UserModelToJson(this);
 }

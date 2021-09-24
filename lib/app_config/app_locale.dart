@@ -4,7 +4,7 @@ class BumacoLocale extends Translations {
   @override
   Map<String, Map<String, String>> get keys => {
         'en_US': {
-          // --Onboard--
+          // --Splash/Onboard--
           'hello': 'Hello',
           'message': 'Hi How are you, Welcome to Bumaco!!'
           // --Login/OTP--

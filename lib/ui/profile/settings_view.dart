@@ -1,6 +1,5 @@
-import 'package:bumaco_aios/app_config/app_bar.dart';
-import 'package:bumaco_aios/app_utils/app_const.dart';
-import 'package:bumaco_aios/ui/controller/settings_controller.dart';
+import 'package:bumaco_aios/app_utils/const.dart';
+import 'package:bumaco_aios/ui/controller/controllers.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -26,16 +25,16 @@ class SettingView extends StatelessWidget {
                   ),
                   onChanged: _settingsController.changeNotification),
             ),
-            Divider(height: 1),
-            SimpleBuilder(
-              builder: (_) => SwitchListTile(
-                  value: _settingsController.isDarkTheme,
-                  title: Text(
-                    'Dark Theme',
-                    style: TextStyle(fontSize: 20),
-                  ),
-                  onChanged: _settingsController.changeTheme),
-            ),
+            // Divider(height: 1),
+            // SimpleBuilder(
+            //   builder: (_) => SwitchListTile(
+            //       value: _settingsController.isDarkTheme,
+            //       title: Text(
+            //         'Dark Theme',
+            //         style: TextStyle(fontSize: 20),
+            //       ),
+            //       onChanged: _settingsController.changeTheme),
+            // ),
             Divider(height: 1),
             SimpleBuilder(
               builder: (_) => ListTile(

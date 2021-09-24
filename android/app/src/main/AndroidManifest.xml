@@ -3,9 +3,10 @@
 
    <uses-permission android:name="android.permission.INTERNET"/>
    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+   <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
    <application
-        android:label="bumaco_aios"
-        android:icon="@mipmap/ic_launcher">
+        android:label="Bumaco"
+        android:icon="@drawable/app_icon">
         <activity
             android:name=".MainActivity"
             android:launchMode="singleTop"

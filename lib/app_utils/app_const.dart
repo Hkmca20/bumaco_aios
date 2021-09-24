@@ -1,5 +1,6 @@
 // Colors
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 
 const kPrimaryColor = Colors.purple; //Color(0xFFFF7643);
@@ -19,6 +20,9 @@ const kDarkGreyColor = Color(0xFF757575);
 const kBodyText1 = Colors.black;
 const kBodyText2 = Colors.black54;
 const kHeadline = Colors.black;
+const kWhiteColor = Colors.white;
+const kTransparentColor = Colors.transparent;
+const kScafoldBGColor = Colors.teal;
 
 // String
 const appName = 'Bumaco';
@@ -79,8 +83,14 @@ const otpRoute = '/otp';
 const profileRoute = '/profile';
 const profileRoute2 = '/profile2';
 const shoppingRoute = '/shopping';
+const staggerdImgRoute = '/staggerdImg';
+const allProductRoute = '/allProduct';
 const catalogRoute = '/catalog';
 const productDetailRoute = '/product_detail';
+const wishlistRoute = '/wishlist';
+const offerRoute = '/offer';
+const ratingRoute = '/rating';
+const shrinkRoute = '/shrink';
 const settingRoute = '/setting';
 
 // Controllers
@@ -149,3 +159,48 @@ class AppConstants {
   static const userUpdate = baseUrl + 'user/update/';
   static const userFind = baseUrl + 'user/find/';
 }
+
+//Toast
+bumacoSnackbar(title, message) => Get.snackbar(
+      title,
+      message,
+      snackPosition: SnackPosition.BOTTOM,
+      backgroundColor: Colors.green.shade900,
+      icon: Icon(Icons.face_rounded, color: kWhiteColor),
+      colorText: kWhiteColor,
+      borderColor: kWhiteColor,
+      borderRadius: 4,
+      borderWidth: 1,
+      barBlur: 0,
+      snackStyle: SnackStyle.FLOATING,
+               margin: EdgeInsets.all(15),
+               duration: Duration(seconds: 3),
+               isDismissible: true,
+               dismissDirection: SnackDismissDirection.HORIZONTAL,
+               forwardAnimationCurve: Curves.easeOutBack,
+    );
+showSnackbar(title, message) => Get.showSnackbar(
+      GetBar(
+        title: title,
+        message: message,
+        icon: Icon(Icons.face, color: kWhiteColor),
+        snackPosition: SnackPosition.TOP,
+        borderColor: kWhiteColor,
+        borderRadius: 4,
+        borderWidth: 1,
+        barBlur: 0,
+        isDismissible: true,
+      ),
+    );
+bumacoDefaultDialog(msg) => Get.defaultDialog(
+      title: "Alert",
+      content: Text(msg),
+    );
+bumacoBottomsheet(msg) => Get.bottomSheet(Container(
+      height: 250,
+      color: kWhiteColor,
+      child: Column(children: [
+        ListTile(title: Text(msg)),
+        ListTile(title: Text(msg)),
+      ]),
+    ));

@@ -1,5 +1,5 @@
-import 'package:bumaco_aios/app_config/app_bar.dart';
-import 'package:bumaco_aios/ui/controller/otp_controller.dart';
+import 'package:bumaco_aios/app_utils/const.dart';
+import 'package:bumaco_aios/ui/controller/controllers.dart';
 import 'package:bumaco_aios/ui/widgets/app_logo_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -10,6 +10,7 @@ class OTPView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final _otpController = OTPController.to;
+    // bumacoSnackbar('Login', Get.arguments.toString());
 
     var submitButton = ElevatedButton(
       onPressed: () => {
@@ -31,6 +32,7 @@ class OTPView extends StatelessWidget {
     var otpInputText = Container(
       margin: EdgeInsets.only(top: 40.0, left: 30.0, right: 30.0),
       child: TextFormField(
+        style: TextStyle(color: kWhiteColor),
         controller: _otpController.otpCTR,
         decoration: InputDecoration(
           labelText: 'OTP',
@@ -59,14 +61,21 @@ class OTPView extends StatelessWidget {
         ));
 
     return Scaffold(
-      appBar: BumacoAppbar( title: 'OTP'),
+      backgroundColor: Colors.teal,
+      appBar: BumacoAppbar(title: 'OTP'),
       body: Container(
-        margin: EdgeInsets.only(
-          top: 50,
+        margin: EdgeInsets.all(20),
+        decoration: BoxDecoration(
+          image: DecorationImage(
+            fit: BoxFit.fill,
+            image: AssetImage(bg3),
+          ),
+          borderRadius: BorderRadius.all(Radius.circular(40.0)),
         ),
         child: Column(
           children: [
-            AppLogoWidget(),
+            SizedBox(height: 10),
+            // AppLogoWidget(),
             otpInputText,
             SizedBox(height: 32),
             submitButton,

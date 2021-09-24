@@ -4,6 +4,7 @@ import 'package:bumaco_aios/app_utils/app_const.dart';
 import 'package:bumaco_aios/app_utils/app_loading.dart';
 import 'package:bumaco_aios/ui/models/user_model.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 
@@ -15,36 +16,32 @@ class LoginController extends GetxController {
 
   @override
   void onClose() {
-    mobileCTR.clear();
-    if (_timer.isActive) {
-      _timer.cancel();
-    }
     super.onClose();
+    mobileCTR.clear();
   }
 
   final box = GetStorage(BOX_APP);
-  late Timer _timer;
-  submitSignIn() {
+  submitSignIn() async {
+    if (mobileCTR.text.length < 5) {
+      bumacoSnackbar('Error', 'Invalid Mobile number');
+      return;
+    }
+    showLoading();
+    await Future.delayed(Duration(seconds: 3));
     try {
-      if (mobileCTR.text.length < 5) {
-        Get.snackbar('Error', 'Invalid Mobile number');
-        return;
+      Get.back();
+      if (mobileCTR.text == '9999999999') {
+        // Get.toNamed(otpRoute, arguments: 'OTP has been sent to ${mobileCTR.text}');
+        bumacoSnackbar('Login', 'OTP sent successfully on ${mobileCTR.text}');
+        box.write(BOX_MOBILE_EMAIL, mobileCTR.text);
+        Get.toNamed(otpRoute);
+      } else {
+        bumacoSnackbar('Login', 'Failed, please try again!');
       }
-      showLoading();
-      _timer = Timer(Duration(milliseconds: 2000), () {
-        Get.back();
-        if (mobileCTR.text == '9999999999') {
-          Get.snackbar('Login', 'OTP sent successfully on ${mobileCTR.text}');
-          box.write(BOX_MOBILE_EMAIL, mobileCTR.text);
-          Get.toNamed(otpRoute);
-        } else {
-          Get.snackbar('Login', 'Failed, please try again!');
-        }
-      });
     } catch (e) {
       debugPrint(e.toString());
       Get.back();
-      Get.snackbar("Failed", "Please check your internet conection");
+      bumacoSnackbar("Failed", "Please check your internet conection");
     }
   }
 }

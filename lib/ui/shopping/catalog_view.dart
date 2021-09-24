@@ -1,4 +1,4 @@
-import 'package:bumaco_aios/app_config/app_bar.dart';
+import 'package:bumaco_aios/app_utils/const.dart';
 import 'package:bumaco_aios/ui/shopping/model/models.dart';
 import 'package:bumaco_aios/ui/widgets/widgets.dart';
 import 'package:flutter/material.dart';
@@ -34,7 +34,7 @@ class _CatalogViewState extends State<CatalogView> {
             gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 2, childAspectRatio: 1.15),
             itemBuilder: (context, index) {
-              return Center(child: ProductCard(product: catalogProducts[index]));
+              return Center(child: ProductCard(product: catalogProducts[index]),widthFactor: 2.2,);
             }));
   }
 }

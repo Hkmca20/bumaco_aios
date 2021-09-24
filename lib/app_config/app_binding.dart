@@ -1,6 +1,6 @@
 import 'package:bumaco_aios/app_utils/app_const.dart';
 import 'package:bumaco_aios/ui/controller/language_controller.dart';
-import 'package:bumaco_aios/ui/controller/login_controller.dart';
+import 'package:bumaco_aios/ui/controller/signin_controller.dart';
 import 'package:bumaco_aios/ui/controller/otp_controller.dart';
 import 'package:bumaco_aios/ui/controller/splash_controller.dart';
 import 'package:bumaco_aios/ui/controller/onboard_controller.dart';
