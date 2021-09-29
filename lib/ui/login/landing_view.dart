@@ -1,5 +1,7 @@
 import 'dart:ui';
-import 'package:bumaco_aios/app_utils/const.dart';
+import 'package:bumaco_aios/app_utils/utils.dart';
+import 'package:bumaco_aios/ui/controller/controllers.dart';
+import 'package:bumaco_aios/ui/login/widgets/auth_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -77,6 +79,7 @@ class LandingView extends StatelessWidget {
         child: Text("Cancel"));
   }
 
+  final signinController = SigninController.to;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -114,9 +117,9 @@ class LandingView extends StatelessWidget {
             left: 10,
             top: 150,
             child: Text(
-              "Bumaco,\nOnline Shop to \nyour doorstep",
+              "Welcome to Bumaco,\nAn Online Shop to \nyour doorstep",
               style: TextStyle(
-                fontSize: 50,
+                fontSize: 40,
                 fontWeight: FontWeight.bold,
                 color: Colors.white,
               ),
@@ -137,6 +140,7 @@ class LandingView extends StatelessWidget {
                     loginText,
                     loginButton(context),
                     googleButton(context),
+                    facebookButton(context),
                     skipLabel(context),
                   ],
                 ),
@@ -187,7 +191,7 @@ class LandingView extends StatelessWidget {
     return Container(
       margin: EdgeInsets.only(top: 20),
       child: ElevatedButton(
-        child: Text('Sign-In'),
+        child: Text('SignIn with Email or mobile'),
         onPressed: () {
           Get.toNamed(loginRoute);
         },
@@ -200,9 +204,28 @@ class LandingView extends StatelessWidget {
       margin: EdgeInsets.only(
         top: 20,
       ),
-      child: ElevatedButton(
-        child: Text('SignIn with Google'),
-        onPressed: () {},
+      child: CustomButtonSocial(
+        text: 'SignIn with Google',
+        onPress: () {
+          signinController.googleSignInMethod();
+        },
+        imageName: iconGoogle,
+      ),
+    );
+  }
+
+  facebookButton(context) {
+    return Container(
+      margin: EdgeInsets.only(
+        top: 20,
+      ),
+      child: CustomButtonSocial(
+        text: 'SignIn with Facebook',
+        onPress: () {
+          bumacoSnackbar('Alert', 'Working');
+          signinController.facebookSignInMethod();
+        },
+        imageName: iconFacebook,
       ),
     );
   }

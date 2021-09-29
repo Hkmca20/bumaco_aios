@@ -1,17 +1,21 @@
-import 'package:bumaco_aios/app_utils/const.dart';
+import 'package:bumaco_aios/app_utils/utils.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 
 showLoading() {
   Get.defaultDialog(
+    backgroundColor: kWhiteColor,
       title: '',
-      content: Column(
-        children: [
-          Text('Loading, Please wait..'),
-          SizedBox(height: 20),
-          LoadingWidget(),
-          SizedBox(height: 20),
-        ],
+      content: Positioned.fill(
+        child: Column(
+          children: [
+            Text('Loading, Please wait..'),
+            SizedBox(height: 20),
+            LoadingWidget(),
+            SizedBox(height: 20),
+          ],
+        ),
       ),
       barrierDismissible: false);
 }
@@ -26,9 +30,9 @@ class LoadingWidget extends StatelessWidget {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
+        // CupertinoActivityIndicator(),
         CircularProgressIndicator(
           color: kPrimaryColor,
-          // size: 30,
         )
       ],
     );

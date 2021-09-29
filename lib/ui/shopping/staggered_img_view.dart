@@ -1,4 +1,4 @@
-import 'package:bumaco_aios/app_utils/const.dart';
+import 'package:bumaco_aios/app_utils/utils.dart';
 import 'package:bumaco_aios/ui/controller/controllers.dart';
 import 'package:bumaco_aios/ui/shopping/model/category.dart';
 import 'package:carousel_slider/carousel_slider.dart';

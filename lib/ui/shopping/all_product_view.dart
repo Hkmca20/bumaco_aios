@@ -1,4 +1,4 @@
-import 'package:bumaco_aios/app_utils/const.dart';
+import 'package:bumaco_aios/app_utils/utils.dart';
 import 'package:bumaco_aios/ui/controller/product_controller.dart';
 import 'package:bumaco_aios/ui/widgets/aproduct_card.dart';
 import 'package:flutter/material.dart';
@@ -26,7 +26,7 @@ class AllProducts extends StatelessWidget {
                   'Bumaco',
                   style: Theme.of(context)
                       .textTheme
-                      .headline1!
+                      .headline3!
                       .copyWith(color: Colors.white),
                   //  TextStyle(fontSize: 32, fontWeight: FontWeight.w900),
                 )),

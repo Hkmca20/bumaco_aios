@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 
-const kPrimaryColor = Colors.purple; //Color(0xFFFF7643);
-const kPrimaryColorDark = Colors.deepPurple;
-const kAccentColor = Colors.purpleAccent;
+const kPrimaryColor = Colors.pink; //Color(0xFFFF7643);
+const kPrimaryColorDark = Colors.blueAccent;
+const kAccentColor = Colors.tealAccent;
 const kPrimaryLightColor = Color(0xFFFFECDF);
 const lightBackgroundColor = Color(0xff374ABE);
 const gradientColorBlue1 = Color(0xff64B6FF);
@@ -22,7 +22,8 @@ const kBodyText2 = Colors.black54;
 const kHeadline = Colors.black;
 const kWhiteColor = Colors.white;
 const kTransparentColor = Colors.transparent;
-const kScafoldBGColor = Colors.teal;
+const kScafoldBGColor = Colors.transparent;
+const kScafoldDarkBGColor = Colors.teal;
 
 // String
 const appName = 'Bumaco';
@@ -78,10 +79,10 @@ const String markdownPath = 'assets/markdown/';
 const initialRoute = '/';
 const onboardRoute = '/onboard';
 const loginRoute = '/login';
+const authRoute = '/auth';
 const landingRoute = '/landing';
 const otpRoute = '/otp';
 const profileRoute = '/profile';
-const profileRoute2 = '/profile2';
 const shoppingRoute = '/shopping';
 const staggerdImgRoute = '/staggerdImg';
 const allProductRoute = '/allProduct';
@@ -92,6 +93,11 @@ const offerRoute = '/offer';
 const ratingRoute = '/rating';
 const shrinkRoute = '/shrink';
 const settingRoute = '/setting';
+const newsRoute = '/news';
+const searchNewsRoute = '/searchNews';
+const newsDetailRoute = '/newsDetail';
+const googleSigninDemoRoute = '/googleSignin';
+const dashboardRoute = '/dashboard';
 
 // Controllers
 const ONBOARD_CONTROLLER = '_onboard_controller';
@@ -150,14 +156,17 @@ const DB_VERSION = 1;
 class AppConstants {
   // static const baseUrl = 'http://10.0.2.2:4000/';
   // static const baseUrl = 'http://192.168.225.77:4000/';
-  static const baseUrl = 'http://192.168.43.123:4000/';
+  // static const baseUrl = 'http://192.168.43.123:4000/';
   // static const baseUrl = 'http://192.168.1.101:4000/';
 
-  static const userLogin = baseUrl + 'user/login/';
-  static const userList = baseUrl + 'user/list/';
-  static const userAdd = baseUrl + 'user/add/';
-  static const userUpdate = baseUrl + 'user/update/';
-  static const userFind = baseUrl + 'user/find/';
+  // static const userLogin = baseUrl + 'user/login/';
+  // static const userList = baseUrl + 'user/list/';
+  // static const userAdd = baseUrl + 'user/add/';
+  // static const userUpdate = baseUrl + 'user/update/';
+  // static const userFind = baseUrl + 'user/find/';
+
+  static const baseUrl = 'https://brandhype.co.in/bumaco/';
+  static const baseImageUrl = baseUrl + 'uploads/';
 }
 
 //Toast
@@ -173,11 +182,11 @@ bumacoSnackbar(title, message) => Get.snackbar(
       borderWidth: 1,
       barBlur: 0,
       snackStyle: SnackStyle.FLOATING,
-               margin: EdgeInsets.all(15),
-               duration: Duration(seconds: 3),
-               isDismissible: true,
-               dismissDirection: SnackDismissDirection.HORIZONTAL,
-               forwardAnimationCurve: Curves.easeOutBack,
+      margin: EdgeInsets.all(15),
+      duration: Duration(seconds: 3),
+      isDismissible: true,
+      dismissDirection: SnackDismissDirection.HORIZONTAL,
+      forwardAnimationCurve: Curves.easeOutBack,
     );
 showSnackbar(title, message) => Get.showSnackbar(
       GetBar(

@@ -1,5 +1,7 @@
 import 'package:bumaco_aios/app_utils/app_const.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:velocity_x/velocity_x.dart';
 
 ThemeData setTheme(context) {
@@ -24,11 +26,13 @@ ThemeData setTheme(context) {
     // colorScheme: theme.colorScheme.copyWith(secondary: kAccentColor),
 
     appBarTheme: appBarTheme(),
-    // textTheme: GoogleFonts.latoTextTheme(),
-    // textTheme: Theme.of(context).textTheme.apply(
-    //       fontFamily: 'IBMPlexSansArabic',
-    //     ),
-    textTheme: textTheme(),
+    textTheme: GoogleFonts.nunitoTextTheme(),
+    cupertinoOverrideTheme: CupertinoThemeData(
+      primaryColor: Colors.black,
+      textTheme: CupertinoTextThemeData(
+        textStyle: GoogleFonts.nunito(),
+      ),
+    ),
     // buttonTheme: buttonTheme(context),
     elevatedButtonTheme: elevatedButtonTheme(),
     inputDecorationTheme: inputDecorationTheme(),
@@ -71,28 +75,6 @@ InputDecorationTheme inputDecorationTheme() {
     hoverColor: kWhiteColor,
     focusColor: kWhiteColor,
     fillColor: kWhiteColor,
-  );
-}
-
-TextTheme textTheme() {
-  return TextTheme(
-    subtitle1: TextStyle(color: kPrimaryColor, fontSize: 22),
-    subtitle2: TextStyle(color: kPrimaryColorDark, fontSize: 30),
-    bodyText1: TextStyle(color: kBodyText1, fontSize: 14),
-    bodyText2: TextStyle(color: kBodyText2, fontSize: 12),
-    // caption: TextStyle(color: kBodyText1),
-    headline1:
-        TextStyle(color: kHeadline, fontSize: 32, fontWeight: FontWeight.bold),
-    headline2:
-        TextStyle(color: kHeadline, fontSize: 24, fontWeight: FontWeight.bold),
-    headline3:
-        TextStyle(color: kHeadline, fontSize: 20, fontWeight: FontWeight.bold),
-    headline4:
-        TextStyle(color: kHeadline, fontSize: 18, fontWeight: FontWeight.bold),
-    headline5:
-        TextStyle(color: kHeadline, fontSize: 16, fontWeight: FontWeight.bold),
-    headline6:
-        TextStyle(color: kHeadline, fontSize: 14, fontWeight: FontWeight.bold),
   );
 }
 

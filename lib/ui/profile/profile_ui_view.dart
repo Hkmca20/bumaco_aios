@@ -12,7 +12,7 @@ class ProfileUI2 extends StatelessWidget {
             decoration: BoxDecoration(
                 image: DecorationImage(
                     image: NetworkImage(
-                        "https://www.sdrcares.com/images/prod7.jpeg"),
+                        "https://i.picsum.photos/id/159/536/354.jpg?hmac=59u2RZ-L-Vjfrvsa9T21nZU7ylv03-EGGKErZCaf488"),
                     fit: BoxFit.cover)),
             child: Container(
               width: double.infinity,

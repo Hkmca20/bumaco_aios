@@ -67,7 +67,7 @@ class _ShoppingPageState extends State<ShoppingPage>
                     'Bumaco',
                     style: Theme.of(context)
                         .textTheme
-                        .headline1!
+                        .headline3!
                         .copyWith(color: Colors.white),
                     //  TextStyle(fontSize: 32, fontWeight: FontWeight.w900),
                   )),
@@ -99,95 +99,95 @@ class _ShoppingPageState extends State<ShoppingPage>
             //All Items Home page
 
             //MAIN CAROUSEL
-            // Expanded(
-            //   child: Container(
-            //     child: CarouselSlider(
-            //       options: CarouselOptions(
-            //         autoPlay: true,
-            //         aspectRatio: 2,
-            //         viewportFraction: 1,
-            //         enlargeStrategy: CenterPageEnlargeStrategy.height,
-            //         enlargeCenterPage: true,
-            //       ),
-            //       items: Category.categoryList
-            //           .map((cat) => HeroCarouselCard(category: cat))
-            //           .toList(),
-            //     ),
-            //   ),
-            // ),
-            //SECTION
-            //PRODUCTS CAROUSEL
-            // SectionTile(title: 'RECOMMENDED'),
-            // ProductCarousel(
-            //     products: Product.productList
-            //         .where((element) => element.isRecommended)
-            //         .toList()),
-            // SectionTile(title: 'MOST POPULAR'),
-            // ProductCarousel(products: Product.productList.where((element) => element.isPopular).toList()),
-            // SectionTile(title: 'NEW PRODUCT'),
-            // ProductCarousel(products: Product.productList.where((element) => element.isNew).toList()),
-
-//SHOPPING LIST START HERE
             Expanded(
-              child: Obx(
-                () => ListView.builder(
-                  controller: _controller,
-                  shrinkWrap: true,
-                  itemCount: _shoppingController.products.length,
-                  itemBuilder: (context, index) => Card(
-                    margin: EdgeInsets.all(12),
-                    child: Padding(
-                      padding: EdgeInsets.all(16),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.end,
-                        children: [
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    '${_shoppingController.products[index].produntName}',
-                                    style: TextStyle(fontSize: 24),
-                                  ),
-                                  Text(
-                                    '${_shoppingController.products[index].produntDescription}',
-                                    style: TextStyle(fontSize: 16),
-                                  ),
-                                ],
-                              ),
-                              Text(
-                                '${_shoppingController.products[index].produntPrice}',
-                                style: TextStyle(fontSize: 20),
-                              ),
-                            ],
-                          ),
-                          ElevatedButton(
-                              onPressed: () => {
-                                    _cartController.addItems(
-                                        _shoppingController.products[index]),
-                                  },
-                              child: Text('Add To Cart')),
-                          Obx(
-                            () => IconButton(
-                                onPressed: () {
-                                  _shoppingController.products[index].isFavorite
-                                      .toggle();
-                                },
-                                icon: _shoppingController
-                                        .products[index].isFavorite.value
-                                    ? Icon(Icons.check_box_rounded)
-                                    : Icon(
-                                        Icons.check_box_outline_blank_rounded)),
-                          )
-                        ],
-                      ),
-                    ),
+              child: Container(
+                child: CarouselSlider(
+                  options: CarouselOptions(
+                    autoPlay: true,
+                    aspectRatio: 2,
+                    viewportFraction: 1,
+                    enlargeStrategy: CenterPageEnlargeStrategy.height,
+                    enlargeCenterPage: true,
                   ),
+                  items: Category.categoryList
+                      .map((cat) => HeroCarouselCard(category: cat))
+                      .toList(),
                 ),
               ),
             ),
+            //SECTION
+            //PRODUCTS CAROUSEL
+            SectionTile(title: 'TRENDING PRODUCTS'),
+            ProductCarousel(
+                products: Product.productList
+                    .where((element) => element.isRecommended)
+                    .toList()),
+            SectionTile(title: 'NEW ARRIVAL PRODUCTS'),
+            ProductCarousel(products: Product.productList.where((element) => element.isPopular).toList()),
+            SectionTile(title: 'BEST SELLERS'),
+            ProductCarousel(products: Product.productList.where((element) => element.isNew).toList()),
+
+//SHOPPING LIST START HERE
+            // Expanded(
+            //   child: Obx(
+            //     () => ListView.builder(
+            //       controller: _controller,
+            //       shrinkWrap: true,
+            //       itemCount: _shoppingController.products.length,
+            //       itemBuilder: (context, index) => Card(
+            //         margin: EdgeInsets.all(12),
+            //         child: Padding(
+            //           padding: EdgeInsets.all(16),
+            //           child: Column(
+            //             crossAxisAlignment: CrossAxisAlignment.end,
+            //             children: [
+            //               Row(
+            //                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            //                 children: [
+            //                   Column(
+            //                     crossAxisAlignment: CrossAxisAlignment.start,
+            //                     children: [
+            //                       Text(
+            //                         '${_shoppingController.products[index].produntName}',
+            //                         style: TextStyle(fontSize: 24),
+            //                       ),
+            //                       Text(
+            //                         '${_shoppingController.products[index].produntDescription}',
+            //                         style: TextStyle(fontSize: 16),
+            //                       ),
+            //                     ],
+            //                   ),
+            //                   Text(
+            //                     '${_shoppingController.products[index].produntPrice}',
+            //                     style: TextStyle(fontSize: 20),
+            //                   ),
+            //                 ],
+            //               ),
+            //               ElevatedButton(
+            //                   onPressed: () => {
+            //                         _cartController.addItems(
+            //                             _shoppingController.products[index]),
+            //                       },
+            //                   child: Text('Add To Cart')),
+            //               Obx(
+            //                 () => IconButton(
+            //                     onPressed: () {
+            //                       _shoppingController.products[index].isFavorite
+            //                           .toggle();
+            //                     },
+            //                     icon: _shoppingController
+            //                             .products[index].isFavorite.value
+            //                         ? Icon(Icons.check_box_rounded)
+            //                         : Icon(
+            //                             Icons.check_box_outline_blank_rounded)),
+            //               )
+            //             ],
+            //           ),
+            //         ),
+            //       ),
+            //     ),
+            //   ),
+            // ),
 
             // GetBuilder<CartController>(
             //     builder: (controller) => Text(
@@ -201,11 +201,11 @@ class _ShoppingPageState extends State<ShoppingPage>
             //           style: TextStyle(fontSize: 32, color: Colors.white),
             //         )),
 
-            Obx(() => Text(
-                  'Total Amount: ${_cartController.totalPrice}',
-                  style: TextStyle(fontSize: 32, color: Colors.white),
-                )),
-            SizedBox(height: 100)
+            // Obx(() => Text(
+            //       'Total Amount: ${_cartController.totalPrice}',
+            //       style: TextStyle(fontSize: 32, color: Colors.white),
+            //     )),
+            // SizedBox(height: 100)
           ],
         ),
       ),

@@ -37,6 +37,13 @@
             {
               "client_id": "758677051271-odmia3ls1sd4g50uefdm8ikl0f6kkvna.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "758677051271-5p8ensrbijvsir54m4qgr9p8pb9v2590.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.brandhype.bumaco"
+              }
             }
           ]
         }

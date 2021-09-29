@@ -8,8 +8,8 @@
 .buildlog/
 .history
 .svn/
-upload-keystore.jks
-key.properties
+*.jks
+key*.properties
 *.g.dart
 
 # IntelliJ related

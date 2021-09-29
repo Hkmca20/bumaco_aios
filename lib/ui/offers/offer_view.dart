@@ -1,4 +1,4 @@
-import 'package:bumaco_aios/app_utils/const.dart';
+import 'package:bumaco_aios/app_utils/utils.dart';
 import 'package:bumaco_aios/ui/offers/offer_model.dart';
 import 'package:flutter/material.dart';
 

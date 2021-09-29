@@ -1,4 +1,10 @@
-import 'package:bumaco_aios/app_utils/const.dart';
+import 'package:bumaco_aios/app_utils/utils.dart';
+import 'package:bumaco_aios/ui/dashboard/dashboard_binding.dart';
+import 'package:bumaco_aios/ui/dashboard/dashboard_view.dart';
+import 'package:bumaco_aios/ui/login/temp_view.dart';
+import 'package:bumaco_aios/ui/news/news_headline.dart';
+import 'package:bumaco_aios/ui/news/news_detail.dart';
+import 'package:bumaco_aios/ui/news/search_news.dart';
 import 'package:bumaco_aios/ui/rating/rating_view.dart';
 import 'package:bumaco_aios/ui/shopping/all_product_view.dart';
 import 'package:bumaco_aios/ui/shopping/staggered_img_view.dart';
@@ -30,12 +36,12 @@ List<GetPage<dynamic>> get setRoute => [
           transitionDuration: kTransitionDuration,
           page: () => LoginView()),
       GetPage(
-          name: profileRoute,
+          name: authRoute,
           transition: Transition.fade,
           transitionDuration: kTransitionDuration,
-          page: () => ProfileView()),
+          page: () => AuthView()),
       GetPage(
-          name: profileRoute2,
+          name: profileRoute,
           transition: Transition.fade,
           transitionDuration: kTransitionDuration,
           page: () => ProfileUI2()),
@@ -90,8 +96,35 @@ List<GetPage<dynamic>> get setRoute => [
           transitionDuration: kTransitionDuration,
           page: () => ShrinkTopListView()),
       GetPage(
+          name: newsRoute,
+          transition: Transition.fade,
+          transitionDuration: kTransitionDuration,
+          page: () => NewsHeadline()),
+      GetPage(
+          name: searchNewsRoute,
+          transition: Transition.fade,
+          transitionDuration: kTransitionDuration,
+          page: () => SearchNews()),
+      GetPage(
+          name: newsDetailRoute,
+          transition: Transition.fade,
+          transitionDuration: kTransitionDuration,
+          page: () => NewsDetail()),
+      GetPage(
           name: settingRoute,
           transition: Transition.fade,
           transitionDuration: kTransitionDuration,
           page: () => SettingView()),
+      GetPage(
+          name: googleSigninDemoRoute,
+          transition: Transition.fade,
+          transitionDuration: kTransitionDuration,
+          page: () => SignInDemo()),
+      GetPage(
+        name: dashboardRoute,
+        transition: Transition.fade,
+        transitionDuration: kTransitionDuration,
+        page: () => DashboardView(),
+        binding: DashboardBinding(),
+      ),
     ];

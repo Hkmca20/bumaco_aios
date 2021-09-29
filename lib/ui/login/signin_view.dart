@@ -1,7 +1,8 @@
-import 'package:bumaco_aios/app_utils/const.dart';
+import 'package:bumaco_aios/app_utils/utils.dart';
 import 'package:bumaco_aios/ui/controller/controllers.dart';
 import 'package:bumaco_aios/ui/widgets/widgets.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class LoginView extends StatefulWidget {
   @override
@@ -12,7 +13,7 @@ class _LoginViewState extends State<LoginView>
     with SingleTickerProviderStateMixin {
   // late Animation<double> _anim;
   // late AnimationController _animController;
-  final _loginController = LoginController.to;
+  final _loginController = SigninController.to;
 
   @override
   void initState() {
@@ -30,7 +31,8 @@ class _LoginViewState extends State<LoginView>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.teal,
+      backgroundColor: kScafoldDarkBGColor,
+      resizeToAvoidBottomInset: false,
       appBar: BumacoAppbar(title: 'Login'),
       body: Stack(
           alignment: Alignment.topLeft,
@@ -40,13 +42,13 @@ class _LoginViewState extends State<LoginView>
           children: [
             Container(
               margin: EdgeInsets.fromLTRB(20, 20, 20, 50),
-              // decoration: BoxDecoration(
-              //   image: DecorationImage(
-              //     fit: BoxFit.fill,
-              //     image: AssetImage(bg4),
+              //   decoration: BoxDecoration(
+              //     image: DecorationImage(
+              //       fit: BoxFit.fill,
+              //       image: AssetImage(bg4),
+              //     ),
+              //     borderRadius: BorderRadius.all(Radius.circular(40.0)),
               //   ),
-              //   borderRadius: BorderRadius.all(Radius.circular(40.0)),
-              // ),
               // width: double.infinity,
               // decoration: BoxDecoration(
               //   color: Colors.white,
@@ -79,6 +81,7 @@ class _LoginViewState extends State<LoginView>
                   //         top: 100.0),
                   // ),
                   AppLogoWidget(),
+                  chooseLaunguageButton(),
                   mobileEditText(context),
                   loginButton(context),
                   // loadingIndicator(loginBloc),
@@ -97,22 +100,50 @@ class _LoginViewState extends State<LoginView>
     ),
   );
 
+  chooseLaunguageButton() {
+    return Container(
+      margin: EdgeInsets.only(top: 40.0, left: 10.0, right: 30.0),
+      child: GestureDetector(
+        onTap: () {
+          _loginController.buildDialog(context);
+        },
+        child: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+          Text(
+            'Your country : ',
+            style: TextStyle(fontSize: 30, color: kWhiteColor),
+          ),
+          SizedBox(width: 20),
+          Obx(
+            () => Text(
+              _loginController.selectedCountry.value,
+              style: TextStyle(fontSize: 30, color: kWhiteColor),
+            ),
+          ),
+        ]),
+      ),
+    );
+  }
+
   mobileEditText(context) {
     return Container(
-        margin: EdgeInsets.only(top: 40.0, left: 30.0, right: 30.0),
-        child: TextFormField(
-          style: TextStyle(color: kWhiteColor),
-          controller: _loginController.mobileCTR,
-          decoration: InputDecoration(
-            // contentPadding: ,
-            labelText: 'Mobile Number',
-            suffixIcon: Icon(Icons.phone_android, color: kWhiteColor,),
+      margin: EdgeInsets.only(top: 40.0, left: 10.0, right: 30.0),
+      child: TextFormField(
+        style: TextStyle(color: kWhiteColor, fontSize: 22),
+        controller: _loginController.mobileCTR,
+        decoration: InputDecoration(
+          // contentPadding: ,
+          labelText: 'Mobile Number',
+          suffixIcon: Icon(
+            Icons.phone_android,
+            color: kWhiteColor,
           ),
-          maxLines: 1,
-          minLines: 1,
-          keyboardType: TextInputType.number,
-          autofocus: false,
-        ));
+        ),
+        maxLines: 1,
+        minLines: 1,
+        keyboardType: TextInputType.number,
+        autofocus: false,
+      ),
+    );
   }
 
   loginButton(context) {

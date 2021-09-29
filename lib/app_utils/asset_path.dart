@@ -1,9 +1,12 @@
 final String imageAssetsRoot = "assets/images/";
-final String mask5 = _getImagePath("mask_group_5.png");
-final String mask6 = _getImagePath("mask_group_6.png");
-final String mask7 = _getImagePath("mask_group_7.png");
-final String mask8 = _getImagePath("mask_group_8.png");
-final String tshirt1 = _getImagePath("men_t_shirt_1.jpeg");
+final String img_mask5 = _getImagePath("mask_group_5.png");
+final String img_mask6 = _getImagePath("mask_group_6.png");
+final String img_mask7 = _getImagePath("mask_group_7.png");
+final String img_mask8 = _getImagePath("mask_group_8.png");
+final String img_tshirt1 = _getImagePath("men_t_shirt_1.jpeg");
+final String iconGoogle = _getImagePath("ic_google.png");
+final String iconFacebook = _getImagePath("ic_facebook.png");
+final String imgGoogle = _getImagePath("img_google.jpg");
 final String logoPath = _getImagePath("app_logo.png");
 final String bg1 = _getImagePath("bg_1.jpg");
 final String bg2 = _getImagePath("bg_2.jpg");

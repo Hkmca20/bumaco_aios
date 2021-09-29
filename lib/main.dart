@@ -1,14 +1,11 @@
-import 'package:bumaco_aios/app_config/app_binding.dart';
-import 'package:bumaco_aios/app_config/app_locale.dart';
-import 'package:bumaco_aios/app_config/app_theme.dart';
-import 'package:bumaco_aios/app_utils/app_const.dart';
-import 'package:bumaco_aios/app_config/app_route.dart';
-import 'package:bumaco_aios/ui/controller/settings_controller.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'app_config/config.dart';
+import 'app_utils/utils.dart';
+import 'ui/controller/controllers.dart';
 
 Future<void> _messageHandler(RemoteMessage message) async {
   print('background message ${message.notification!.body}');
@@ -36,8 +33,8 @@ class MyApp extends StatelessWidget {
       transitionDuration: Duration(milliseconds: 250),
       title: appName,
       debugShowCheckedModeBanner: false,
-      themeMode: _settingsController.themeMode,
-      // themeMode: ThemeMode.system,
+      // themeMode: _settingsController.themeMode,
+      themeMode: ThemeMode.system,
       theme: setTheme(context),
       // darkTheme: setDarkTheme(context),
       translations: BumacoLocale(),
