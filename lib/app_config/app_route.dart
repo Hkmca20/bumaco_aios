@@ -1,6 +1,6 @@
 import 'package:bumaco_aios/app_utils/utils.dart';
-import 'package:bumaco_aios/ui/dashboard/dashboard_binding.dart';
-import 'package:bumaco_aios/ui/dashboard/dashboard_view.dart';
+import 'package:bumaco_aios/ui/bindings/bindings.dart';
+import 'package:bumaco_aios/ui/bindings/category_binding.dart';
 import 'package:bumaco_aios/ui/login/temp_view.dart';
 import 'package:bumaco_aios/ui/news/news_headline.dart';
 import 'package:bumaco_aios/ui/news/news_detail.dart';
@@ -8,7 +8,7 @@ import 'package:bumaco_aios/ui/news/search_news.dart';
 import 'package:bumaco_aios/ui/rating/rating_view.dart';
 import 'package:bumaco_aios/ui/shopping/all_product_view.dart';
 import 'package:bumaco_aios/ui/shopping/staggered_img_view.dart';
-import 'package:bumaco_aios/ui/views.dart';
+import 'package:bumaco_aios/ui/views/views.dart';
 import 'package:get/get.dart';
 
 const kTransitionDuration = Duration(milliseconds: 500);
@@ -126,5 +126,26 @@ List<GetPage<dynamic>> get setRoute => [
         transitionDuration: kTransitionDuration,
         page: () => DashboardView(),
         binding: DashboardBinding(),
+      ),
+      GetPage(
+        name: categoryRoute,
+        transition: Transition.fade,
+        transitionDuration: kTransitionDuration,
+        page: () => CategoryView(),
+        binding: CategoryBinding(),
+      ),
+      GetPage(
+        name: childCategoryRoute,
+        transition: Transition.fade,
+        transitionDuration: kTransitionDuration,
+        page: () => ChildCategoryView(),
+        binding: CategoryBinding(),
+      ),
+      GetPage(
+        name: categoryRoute,
+        transition: Transition.fade,
+        transitionDuration: kTransitionDuration,
+        page: () => SubCategoryView(),
+        binding: CategoryBinding(),
       ),
     ];

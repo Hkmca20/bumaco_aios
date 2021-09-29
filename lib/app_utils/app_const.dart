@@ -98,6 +98,10 @@ const searchNewsRoute = '/searchNews';
 const newsDetailRoute = '/newsDetail';
 const googleSigninDemoRoute = '/googleSignin';
 const dashboardRoute = '/dashboard';
+const categoryRoute = '/category';
+const childCategoryRoute = '/childCategory';
+const subCategoryRoute = '/subCategory';
+
 
 // Controllers
 const ONBOARD_CONTROLLER = '_onboard_controller';
@@ -153,23 +157,19 @@ const BOX_IS_NOTIFICATION = 'is_notification'; //bool
 const DB_NAME = 'bumaco_db';
 const DB_VERSION = 1;
 
-class AppConstants {
-  // static const baseUrl = 'http://10.0.2.2:4000/';
-  // static const baseUrl = 'http://192.168.225.77:4000/';
-  // static const baseUrl = 'http://192.168.43.123:4000/';
-  // static const baseUrl = 'http://192.168.1.101:4000/';
-
-  // static const userLogin = baseUrl + 'user/login/';
-  // static const userList = baseUrl + 'user/list/';
-  // static const userAdd = baseUrl + 'user/add/';
-  // static const userUpdate = baseUrl + 'user/update/';
-  // static const userFind = baseUrl + 'user/find/';
-
+class ApiConstants {
+  static const apiKey = '60b65cc18763454eaf48d48406105496';
   static const baseUrl = 'https://brandhype.co.in/bumaco/';
   static const baseImageUrl = baseUrl + 'uploads/';
+  static const baseUrlApi = baseUrl + 'api/';
+  static const categoryApi = 'categoryapi/category';
+  static const childCategoryApi = 'categoryapi/childcategory';
+  static const subCategoryApi = 'categoryapi/subcategory';
+
+  static const userApi = 'userapi/user/';
+  static const userByIdApi = baseUrlApi + 'userapi/user?id=1';
 }
 
-//Toast
 bumacoSnackbar(title, message) => Get.snackbar(
       title,
       message,

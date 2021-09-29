@@ -1,12 +1,10 @@
 import 'package:bumaco_aios/app_core/repository/news_repo_impl.dart';
 import 'package:bumaco_aios/app_utils/app_const.dart';
+import 'package:bumaco_aios/ui/controller/controllers.dart';
 import 'package:bumaco_aios/ui/controller/language_controller.dart';
 import 'package:bumaco_aios/ui/controller/signin_controller.dart';
 import 'package:bumaco_aios/ui/controller/otp_controller.dart';
 import 'package:bumaco_aios/ui/controller/splash_controller.dart';
-import 'package:bumaco_aios/ui/controller/onboard_controller.dart';
-import 'package:bumaco_aios/ui/controller/cart_controller.dart';
-import 'package:bumaco_aios/ui/controller/shopping_controller.dart';
 import 'package:bumaco_aios/ui/news/news_controller.dart';
 import 'package:bumaco_aios/ui/news/search_news_controller.dart';
 import 'package:get/get.dart';

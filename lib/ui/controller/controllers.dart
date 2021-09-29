@@ -6,3 +6,7 @@ export 'otp_controller.dart';
 export 'settings_controller.dart';
 export 'shopping_controller.dart';
 export 'splash_controller.dart';
+export 'dashboard_controller.dart';
+export 'category_controller.dart';
+export 'child_category_controller.dart';
+export 'sub_category_controller.dart';

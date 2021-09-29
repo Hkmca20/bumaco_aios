@@ -11,7 +11,7 @@ class DioLogging extends Interceptor {
   void onResponse(Response response, ResponseInterceptorHandler handler) {
     print(
       'RESPONSE[${response.statusCode},${response.statusMessage}] => PATH: ${response.requestOptions.path}' 
-      // '\nDATA: ${response.data}'
+      '\nDATA: ${response.data}'
       ,
     );
     return super.onResponse(response, handler);

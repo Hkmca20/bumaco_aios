@@ -4,14 +4,15 @@ import 'package:flutter/material.dart';
 class BumacoAppbar extends StatelessWidget implements PreferredSizeWidget {
   final String title;
   final List<Widget>? actionList;
+  final Color? color;
 
-  BumacoAppbar({Key? key, required this.title, this.actionList})
+  BumacoAppbar({Key? key, required this.title, this.actionList,this.color})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      backgroundColor: Colors.teal,
+      backgroundColor: color ?? Colors.teal,
       title: Container(
         child: Text(
           title,

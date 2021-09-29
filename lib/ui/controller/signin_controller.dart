@@ -3,7 +3,6 @@ import 'dart:convert' show json;
 
 import 'package:bumaco_aios/app_utils/app_const.dart';
 import 'package:bumaco_aios/app_utils/app_loading.dart';
-import 'package:bumaco_aios/ui/models/user_model.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -16,7 +15,6 @@ class SigninController extends GetxController {
   static SigninController get to => Get.find(tag: LOGIN_CONTROLLER);
   final mobileCTR = TextEditingController();
   RxBool isLoggedIn = false.obs;
-  Rx<UserModel> userModel = UserModel().obs;
   GoogleSignIn _googleSignIn = GoogleSignIn(
     // Optional clientId
     clientId:
