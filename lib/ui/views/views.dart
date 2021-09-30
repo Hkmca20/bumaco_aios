@@ -3,6 +3,7 @@ export '../login/landing_view.dart';
 export '../login/signin_view.dart';
 export '../login/auth_view.dart';
 export '../login/otp_view.dart';
+export '../login/expension_view.dart';
 export '../onboard/onboard_view.dart';
 
 export '../profile/profile_ui_view.dart';

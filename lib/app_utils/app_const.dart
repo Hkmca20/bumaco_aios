@@ -17,13 +17,12 @@ const kPrimaryGradientColor = LinearGradient(
 );
 const kGreyLightColor = Color(0xFF979797);
 const kDarkGreyColor = Color(0xFF757575);
-const kBodyText1 = Colors.black;
-const kBodyText2 = Colors.black54;
-const kHeadline = Colors.black;
 const kWhiteColor = Colors.white;
+const kBlackColor = Colors.black;
 const kTransparentColor = Colors.transparent;
 const kScafoldBGColor = Colors.transparent;
 const kScafoldDarkBGColor = Colors.teal;
+const kAppbarBGColor = Color(0x55979797);
 
 // String
 const appName = 'Bumaco';
@@ -93,6 +92,7 @@ const offerRoute = '/offer';
 const ratingRoute = '/rating';
 const shrinkRoute = '/shrink';
 const settingRoute = '/setting';
+const expansionRoute = '/expansion';
 const newsRoute = '/news';
 const searchNewsRoute = '/searchNews';
 const newsDetailRoute = '/newsDetail';
@@ -101,7 +101,6 @@ const dashboardRoute = '/dashboard';
 const categoryRoute = '/category';
 const childCategoryRoute = '/childCategory';
 const subCategoryRoute = '/subCategory';
-
 
 // Controllers
 const ONBOARD_CONTROLLER = '_onboard_controller';
@@ -165,6 +164,15 @@ class ApiConstants {
   static const categoryApi = 'categoryapi/category';
   static const childCategoryApi = 'categoryapi/childcategory';
   static const subCategoryApi = 'categoryapi/subcategory';
+  static const allUserApi = 'userapi/user';
+  // static const productApi =
+  //     'https://makeup-api.herokuapp.com/api/v1/products.json';
+  static const productApi =
+      'https://makeup-api.herokuapp.com/api/v1/products.json?brand=maybelline';
+  static const newsApi =
+      'https://newsapi.org/v2/top-headlines?country=us&category=business&apiKey=60b65cc18763454eaf48d48406105496';
+// https://newsapi.org/v2/top-headlines?sources=techcrunch&apiKey=60b65cc18763454eaf48d48406105496
+  static const dummyApi = '';
 
   static const userApi = 'userapi/user/';
   static const userByIdApi = baseUrlApi + 'userapi/user?id=1';

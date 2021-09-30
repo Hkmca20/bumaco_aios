@@ -24,10 +24,11 @@ class CategoryRepoImpl extends CategoryRepo {
     final response;
     try {
       response = await _client.getRequest(ApiConstants.categoryApi);
-      final responseList = (response.data as List)
+      // if there is a key before array, use this : return (response.data['data'] as List).map((child)=> Children.fromJson(child)).toList();
+      final categoryList = (response.data as List)
           .map((x) => CategoryModel.fromJson(x))
           .toList();
-      return responseList;
+      return categoryList;
     } on Exception catch (error,stacktrace) {
       print(error);
       // return null;

@@ -5,21 +5,27 @@ class BumacoAppbar extends StatelessWidget implements PreferredSizeWidget {
   final String title;
   final List<Widget>? actionList;
   final Color? color;
+  final Color? textColor;
 
-  BumacoAppbar({Key? key, required this.title, this.actionList,this.color})
+  BumacoAppbar(
+      {Key? key,
+      required this.title,
+      this.actionList,
+      this.color,
+      this.textColor})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      backgroundColor: color ?? Colors.teal,
+      backgroundColor: color ?? Colors.pink,
       title: Container(
         child: Text(
           title,
           style: Theme.of(context)
               .textTheme
               .headline4!
-              .copyWith(color: kWhiteColor),
+              .copyWith(color: textColor ?? kWhiteColor),
         ),
       ),
       actions: actionList ?? [],

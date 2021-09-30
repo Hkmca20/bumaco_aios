@@ -6,7 +6,6 @@ import 'package:bumaco_aios/ui/controller/signin_controller.dart';
 import 'package:bumaco_aios/ui/controller/otp_controller.dart';
 import 'package:bumaco_aios/ui/controller/splash_controller.dart';
 import 'package:bumaco_aios/ui/news/news_controller.dart';
-import 'package:bumaco_aios/ui/news/search_news_controller.dart';
 import 'package:get/get.dart';
 
 class AppBinding implements Bindings {
@@ -25,8 +24,8 @@ class AppBinding implements Bindings {
     // Get.put<Controller2>(Controller2());
 
     ///Other binding class
+    Get.lazyPut(() => ProductController(), fenix: true);
     Get.lazyPut(() => NewsController(), fenix: true);
-    Get.lazyPut(() => SearchNewsController(), fenix: true);
     Get.lazyPut(() => NewsRepoImpl(), fenix: true);
   }
 }

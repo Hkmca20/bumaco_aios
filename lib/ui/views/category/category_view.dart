@@ -14,15 +14,14 @@ class CategoryView extends StatelessWidget {
     return Scaffold(
       appBar: BumacoAppbar(
         title: 'Bumaco',
-        color: Colors.transparent,
         actionList: [
           IconButton(
-            icon: Icon(Icons.share),
+            icon: Icon(Icons.share_rounded),
             tooltip: 'Share',
             onPressed: () {},
           ), //IconButton
           IconButton(
-            icon: Icon(Icons.refresh_rounded),
+            icon: Icon(Icons.shopping_cart_rounded),
             tooltip: 'Reload',
             onPressed: () {
               categoryController.fetchCategory();
@@ -46,8 +45,7 @@ class CategoryView extends StatelessWidget {
                       child: Image.network(
                           ('${ApiConstants.baseImageUrl}${item.bannerimage}'))),
                   SizedBox(height: 10),
-                  Image.network(
-                      ('${ApiConstants.baseImageUrl}${item.image}')),
+                  Image.network(('${ApiConstants.baseImageUrl}${item.image}')),
                   Text(item.category ?? '', style: TextStyle(fontSize: 20)),
                   SizedBox(height: 10),
                 ]);

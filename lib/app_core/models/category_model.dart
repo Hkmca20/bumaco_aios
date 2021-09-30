@@ -53,4 +53,5 @@ class CategoryModel {
 
   // String categoryModelToJson(List<CategoryModel> data) =>
   //     json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
+  
 }

@@ -29,7 +29,7 @@ class StaggeredImg extends StatelessWidget {
                   'Bumaco',
                   style: Theme.of(context)
                       .textTheme
-                      .headline1!
+                      .headline3!
                       .copyWith(color: Colors.white),
                   //  TextStyle(fontSize: 32, fontWeight: FontWeight.w900),
                 )),

@@ -3,11 +3,8 @@ import 'package:bumaco_aios/network/dio_interceptor.dart';
 import 'package:bumaco_aios/network/dio_client.dart';
 import 'package:dio/dio.dart';
 
-// const BASE_URL = 'https://newsapi.org/v2/';
 const BASE_URL = ApiConstants.baseUrlApi;
 const API_KEY = ApiConstants.apiKey;
-// https://newsapi.org/v2/top-headlines?country=us&category=business&apiKey=60b65cc18763454eaf48d48406105496
-// https://newsapi.org/v2/top-headlines?sources=techcrunch&apiKey=60b65cc18763454eaf48d48406105496
 
 class DioClientImpl extends DioClient {
   late Dio _dio;
@@ -37,11 +34,21 @@ class DioClientImpl extends DioClient {
   void init() {
     _dio = Dio(
       BaseOptions(
+        headers: header,
         baseUrl: BASE_URL,
-        // headers: {'Authorization': 'Bearer $API_KEY'},
         connectTimeout: 50000,
         receiveTimeout: 30000,
       ),
     )..interceptors.add(DioLogging());
   }
+
+  Map<String, String> header = {
+    'Content-Type': 'application/json; charset=UTF-8',
+    // 'Access-Control-Allow-Origin': '.htaccess',
+    "Access-Control-Allow-Origin": "*", // Required for CORS support to work
+    // "Access-Control-Allow-Credentials": 'true', // Required for cookies, authorization headers with HTTPS
+    // "Access-Control-Allow-Headers": "Origin,Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token",
+    "Access-Control-Allow-Methods": "GET,POST,OPTIONS,DELETE,PUT",
+    'Authorization': 'Bearer $API_KEY'
+  };
 }

@@ -114,7 +114,7 @@ ElevatedButtonThemeData elevatedButtonTheme() {
 
 AppBarTheme appBarTheme() {
   return AppBarTheme(
-    elevation: 8,
+    elevation: 2,
     iconTheme: IconThemeData(color: Colors.white),
     backgroundColor: Colors.white24,
     foregroundColor: Colors.white,

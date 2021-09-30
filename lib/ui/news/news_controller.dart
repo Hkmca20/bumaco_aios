@@ -1,5 +1,4 @@
 import 'package:bumaco_aios/app_core/models/article.dart';
-import 'package:bumaco_aios/app_core/repository/news_repo.dart';
 import 'package:bumaco_aios/app_core/repository/news_repo_impl.dart';
 import 'package:get/get.dart';
 

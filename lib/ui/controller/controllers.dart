@@ -10,3 +10,4 @@ export 'dashboard_controller.dart';
 export 'category_controller.dart';
 export 'child_category_controller.dart';
 export 'sub_category_controller.dart';
+export 'product_controller.dart';

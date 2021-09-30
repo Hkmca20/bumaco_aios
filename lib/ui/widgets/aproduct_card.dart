@@ -1,11 +1,10 @@
-import 'package:bumaco_aios/ui/shopping/model/products.dart';
+import 'package:bumaco_aios/app_core/models/product_model.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 
 class AProductTile extends StatelessWidget {
   const AProductTile({Key? key, required this.prod}) : super(key: key);
 
-  final Products prod;
+  final ProductModel prod;
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +25,7 @@ class AProductTile extends StatelessWidget {
                     borderRadius: BorderRadius.circular(4),
                   ),
                   child: Image.network(
-                    prod.imageLink,
+                    prod.imageLink ?? '',
                     fit: BoxFit.cover,
                   ),
                 ),
@@ -48,7 +47,7 @@ class AProductTile extends StatelessWidget {
             ),
             SizedBox(height: 8),
             Text(
-              prod.name,
+              prod.name??'',
               maxLines: 2,
               style:
                   TextStyle(fontFamily: 'avenir', fontWeight: FontWeight.w800),

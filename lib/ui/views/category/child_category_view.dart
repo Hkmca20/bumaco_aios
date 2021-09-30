@@ -13,13 +13,8 @@ class ChildCategoryView extends StatelessWidget {
     final childCategoryController = Get.find<ChildCategoryController>();
     return Scaffold(
       appBar: BumacoAppbar(
-        title: 'Category',color: Colors.transparent,
+        title: 'Category',
         actionList: [
-          IconButton(
-            icon: Icon(Icons.share),
-            tooltip: 'Share',
-            onPressed: () {},
-          ), //IconButton
           IconButton(
             icon: Icon(Icons.refresh_rounded),
             tooltip: 'Reload',
@@ -35,7 +30,8 @@ class ChildCategoryView extends StatelessWidget {
             )
           : ListView.separated(
               itemBuilder: (context, index) {
-                ChildCategoryModel item = childCategoryController.childCategoryList[index];
+                ChildCategoryModel item =
+                    childCategoryController.childCategoryList[index];
                 return Column(children: [
                   GestureDetector(
                       onTap: () {
@@ -46,8 +42,9 @@ class ChildCategoryView extends StatelessWidget {
                           ('${ApiConstants.baseImageUrl}${item.image}'))),
                   SizedBox(height: 10),
                   Text(item.category ?? '', style: TextStyle(fontSize: 20)),
-                  Text(item.childcategory ?? '', style: TextStyle(fontSize: 20)),  
-                  Text(item.subcategory ?? '', style: TextStyle(fontSize: 20)),  
+                  Text(item.childcategory ?? '',
+                      style: TextStyle(fontSize: 20)),
+                  Text(item.subcategory ?? '', style: TextStyle(fontSize: 20)),
                   SizedBox(height: 10),
                 ]);
               },

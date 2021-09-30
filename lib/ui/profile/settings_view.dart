@@ -39,8 +39,7 @@ class SettingView extends StatelessWidget {
             SimpleBuilder(
               builder: (_) => ListTile(
                 leading: Icon(Icons.account_box_rounded, color: kPrimaryColor),
-                trailing:
-                    Icon(Icons.arrow_forward_ios_rounded, color: kPrimaryColor),
+                trailing: Icon(Icons.arrow_forward_ios_rounded),
                 title: Text(
                   'Edit Profile',
                   style: TextStyle(fontSize: 20),
@@ -55,43 +54,40 @@ class SettingView extends StatelessWidget {
               builder: (_) => ListTile(
                 leading:
                     Icon(Icons.location_city_rounded, color: kPrimaryColor),
-                trailing:
-                    Icon(Icons.arrow_forward_ios_rounded, color: kPrimaryColor),
+                trailing: Icon(Icons.arrow_forward_ios_rounded),
                 title: Text(
                   'Shipping Address',
                   style: TextStyle(fontSize: 20),
                 ),
                 onTap: () => {
-                  Get.toNamed(wishlistRoute)
-                  // Get.toNamed(offerRoute);
-                  // Get.offAndToNamed(shoppingRoute);
-                  // Get.offAndToNamed(staggerdImgRoute);
-                  // Get.offAndToNamed(allProductRoute);
-                  // Get.offAndToNamed(newsRoute);
-                  // Get.offAndToNamed(ratingRoute);
-                  // Get.offAndToNamed(shrinkRoute);
+                  // Get.toNamed(wishlistRoute)
+                  // Get.toNamed(offerRoute)
+                  // Get.toNamed(shoppingRoute)
+                  // Get.toNamed(staggerdImgRoute)
+                  Get.toNamed(allProductRoute)
+                  // Get.toNamed(newsRoute)
+                  // Get.toNamed(ratingRoute)
+                  // Get.toNamed(shrinkRoute)
                 },
               ),
             ),
             Divider(height: 1),
             SimpleBuilder(
               builder: (_) => ListTile(
-                leading: Icon(Icons.countertops_outlined, color: kPrimaryColor),
-                trailing:
-                    Icon(Icons.arrow_forward_ios_rounded, color: kPrimaryColor),
+                leading: Icon(Icons.bluetooth_searching_rounded,color: kPrimaryColor),
+                trailing: Icon(Icons.arrow_forward_ios_rounded),
                 title: Text(
-                  'My Coupon',
+                  'Blog',
                   style: TextStyle(fontSize: 20),
                 ),
-                onTap: () => {Get.toNamed(offerRoute)},
+                onTap: () => {Get.toNamed(newsRoute)},
               ),
             ),
             Divider(height: 1),
             SimpleBuilder(
               builder: (_) => ListTile(
                 leading: Icon(Icons.local_offer_rounded, color: kPrimaryColor),
-                trailing:
-                    Icon(Icons.arrow_forward_ios_rounded, color: kPrimaryColor),
+                trailing: Icon(Icons.arrow_forward_ios_rounded),
                 title: Text(
                   'Offers',
                   style: TextStyle(fontSize: 20),
@@ -103,8 +99,7 @@ class SettingView extends StatelessWidget {
             SimpleBuilder(
               builder: (_) => ListTile(
                 leading: Icon(Icons.credit_card_rounded, color: kPrimaryColor),
-                trailing:
-                    Icon(Icons.arrow_forward_ios_rounded, color: kPrimaryColor),
+                trailing: Icon(Icons.arrow_forward_ios_rounded),
                 title: Text(
                   'Cards',
                   style: TextStyle(fontSize: 20),
@@ -115,23 +110,9 @@ class SettingView extends StatelessWidget {
             Divider(height: 1),
             SimpleBuilder(
               builder: (_) => ListTile(
-                leading: Icon(Icons.rate_review_rounded, color: kPrimaryColor),
-                trailing:
-                    Icon(Icons.arrow_forward_ios_rounded, color: kPrimaryColor),
-                title: Text(
-                  'Rating',
-                  style: TextStyle(fontSize: 20),
-                ),
-                onTap: () => {Get.offAndToNamed(ratingRoute)},
-              ),
-            ),
-            Divider(height: 1),
-            SimpleBuilder(
-              builder: (_) => ListTile(
                 leading: Icon(Icons.notification_important_rounded,
                     color: kPrimaryColor),
-                trailing:
-                    Icon(Icons.arrow_forward_ios_rounded, color: kPrimaryColor),
+                trailing: Icon(Icons.arrow_forward_ios_rounded),
                 title: Text(
                   'Notifications',
                   style: TextStyle(fontSize: 20),
@@ -142,9 +123,21 @@ class SettingView extends StatelessWidget {
             Divider(height: 1),
             SimpleBuilder(
               builder: (_) => ListTile(
+                leading: Icon(Icons.info_outline_rounded,
+                    color: kPrimaryColor),
+                trailing: Icon(Icons.arrow_forward_ios_rounded),
+                title: Text(
+                  'FAQ',
+                  style: TextStyle(fontSize: 20),
+                ),
+                onTap: () => {Get.toNamed(expansionRoute)},
+              ),
+            ),
+            Divider(height: 1),
+            SimpleBuilder(
+              builder: (_) => ListTile(
                 leading: Icon(Icons.logout_rounded, color: kPrimaryColor),
-                trailing:
-                    Icon(Icons.arrow_forward_ios_rounded, color: kPrimaryColor),
+                trailing: Icon(Icons.arrow_forward_ios_rounded),
                 title: Text(
                   'Logout',
                   style: TextStyle(fontSize: 20),
@@ -156,6 +149,7 @@ class SettingView extends StatelessWidget {
               ),
             ),
             Divider(height: 1),
+            SizedBox(height: 5),
             Expanded(child: Text('version: 1.2.0')),
           ],
         ),

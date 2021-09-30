@@ -10,9 +10,8 @@ class AllProducts extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final ProductController productController = Get.put(ProductController());
+    final ProductController productController = Get.find<ProductController>();
     return Scaffold(
-      backgroundColor: Colors.teal,
       body: SafeArea(
           child: Column(
         children: [
@@ -22,35 +21,26 @@ class AllProducts extends StatelessWidget {
             child: Row(
               children: [
                 Expanded(
-                    child: Text(
-                  'Bumaco',
-                  style: Theme.of(context)
-                      .textTheme
-                      .headline3!
-                      .copyWith(color: Colors.white),
-                  //  TextStyle(fontSize: 32, fontWeight: FontWeight.w900),
-                )),
+                    child: Text('Bumaco',
+                        style: Theme.of(context).textTheme.headline3!
+                        // .copyWith(color: Colors.white),
+                        //  TextStyle(fontSize: 32, fontWeight: FontWeight.w900),
+                        )),
                 IconButton(
                     onPressed: () {
                       Get.toNamed(wishlistRoute);
                     },
-                    icon: Icon(Icons.favorite_rounded, color: Colors.white)),
+                    icon: Icon(Icons.favorite_rounded)),
                 IconButton(
                     onPressed: () {
                       Get.toNamed(offerRoute);
                     },
-                    icon: Icon(Icons.view_list_rounded),
-                    color: Colors.white),
-                IconButton(
-                    onPressed: () {},
-                    icon: Icon(Icons.grid_view_outlined),
-                    color: Colors.white),
+                    icon: Icon(Icons.view_list_rounded)),
                 IconButton(
                     onPressed: () {
-                      Get.toNamed(settingRoute);
+                      productController.fetchProducts();
                     },
-                    icon: Icon(Icons.settings),
-                    color: Colors.white),
+                    icon: Icon(Icons.grid_view_outlined)),
               ],
             ),
           ),
@@ -58,19 +48,21 @@ class AllProducts extends StatelessWidget {
           //All Items Home page
           Expanded(
             child: Obx(
-              () => StaggeredGridView.countBuilder(
-                crossAxisCount: 2,
-                crossAxisSpacing: 10,
-                mainAxisSpacing: 12,
-                itemCount: productController.productList.length,
-                itemBuilder: (context, index) {
-                  return AProductTile(
-                      prod: productController.productList[index]);
-                },
-                staggeredTileBuilder: (int index) {
-                  return StaggeredTile.fit(1);
-                },
-              ),
+              () => productController.isLoading.isTrue
+                  ? LoadingWidget()
+                  : StaggeredGridView.countBuilder(
+                      crossAxisCount: 2,
+                      crossAxisSpacing: 10,
+                      mainAxisSpacing: 12,
+                      itemCount: productController.productList.length,
+                      itemBuilder: (context, index) {
+                        return AProductTile(
+                            prod: productController.productList[index]);
+                      },
+                      staggeredTileBuilder: (int index) {
+                        return StaggeredTile.fit(1);
+                      },
+                    ),
             ),
           ),
         ],

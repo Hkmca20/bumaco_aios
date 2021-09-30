@@ -10,10 +10,10 @@ class SubCategoryView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final subCategoryController= Get.find<SubCategoryController>();
+    final subCategoryController = Get.find<SubCategoryController>();
     return Scaffold(
       appBar: BumacoAppbar(
-        title: 'Sub Category',color: Colors.transparent,
+        title: 'Sub Category',
         actionList: [
           IconButton(
             icon: Icon(Icons.refresh_rounded),
@@ -30,7 +30,8 @@ class SubCategoryView extends StatelessWidget {
             )
           : ListView.separated(
               itemBuilder: (context, index) {
-                SubCategoryModel item = subCategoryController.subCategoryList[index];
+                SubCategoryModel item =
+                    subCategoryController.subCategoryList[index];
                 return Column(children: [
                   GestureDetector(
                       onTap: () {
@@ -40,8 +41,7 @@ class SubCategoryView extends StatelessWidget {
                       child: Image.network(
                           ('${ApiConstants.baseImageUrl}${item.bannerimage}'))),
                   SizedBox(height: 10),
-                  Image.network(
-                      ('${ApiConstants.baseImageUrl}${item.image}')),
+                  Image.network(('${ApiConstants.baseImageUrl}${item.image}')),
                   Text(item.category ?? '', style: TextStyle(fontSize: 20)),
                   SizedBox(height: 10),
                 ]);

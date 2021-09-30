@@ -4,7 +4,6 @@ import 'package:bumaco_aios/ui/bindings/category_binding.dart';
 import 'package:bumaco_aios/ui/login/temp_view.dart';
 import 'package:bumaco_aios/ui/news/news_headline.dart';
 import 'package:bumaco_aios/ui/news/news_detail.dart';
-import 'package:bumaco_aios/ui/news/search_news.dart';
 import 'package:bumaco_aios/ui/rating/rating_view.dart';
 import 'package:bumaco_aios/ui/shopping/all_product_view.dart';
 import 'package:bumaco_aios/ui/shopping/staggered_img_view.dart';
@@ -101,11 +100,6 @@ List<GetPage<dynamic>> get setRoute => [
           transitionDuration: kTransitionDuration,
           page: () => NewsHeadline()),
       GetPage(
-          name: searchNewsRoute,
-          transition: Transition.fade,
-          transitionDuration: kTransitionDuration,
-          page: () => SearchNews()),
-      GetPage(
           name: newsDetailRoute,
           transition: Transition.fade,
           transitionDuration: kTransitionDuration,
@@ -115,6 +109,11 @@ List<GetPage<dynamic>> get setRoute => [
           transition: Transition.fade,
           transitionDuration: kTransitionDuration,
           page: () => SettingView()),
+      GetPage(
+          name: expansionRoute,
+          transition: Transition.fade,
+          transitionDuration: kTransitionDuration,
+          page: () => ExpansionView()),
       GetPage(
           name: googleSigninDemoRoute,
           transition: Transition.fade,
