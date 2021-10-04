@@ -26,6 +26,7 @@ ThemeData setTheme(context) {
     // colorScheme: theme.colorScheme.copyWith(secondary: kAccentColor),
 
     appBarTheme: appBarTheme(),
+    // iconTheme: IconThemeData(color: kBlackColor),
     textTheme: GoogleFonts.nunitoTextTheme(),
     cupertinoOverrideTheme: CupertinoThemeData(
       primaryColor: Colors.black,

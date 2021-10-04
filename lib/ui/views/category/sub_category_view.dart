@@ -1,5 +1,5 @@
 import 'package:bumaco_aios/app_core/models/models.dart';
-import 'package:bumaco_aios/app_utils/app_bar.dart';
+import 'package:bumaco_aios/app_utils/app_bar_main.dart';
 import 'package:bumaco_aios/app_utils/utils.dart';
 import 'package:bumaco_aios/ui/controller/controllers.dart';
 import 'package:flutter/material.dart';
@@ -11,6 +11,9 @@ class SubCategoryView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final subCategoryController = Get.find<SubCategoryController>();
+    final args = Get.arguments;
+    final childCategory = args['arg_child_category_id'] ?? '';
+    subCategoryController.setChildCategoryId(childCategory);
     return Scaffold(
       appBar: BumacoAppbar(
         title: 'Sub Category',
@@ -35,8 +38,9 @@ class SubCategoryView extends StatelessWidget {
                 return Column(children: [
                   GestureDetector(
                       onTap: () {
-                        Get.toNamed(newsDetailRoute,
-                            arguments: {'get_article': item.subcategory});
+                        Get.toNamed(newsDetailRoute, arguments: {
+                          'arg_sub_category_id': item.subcategory
+                        });
                       },
                       child: Image.network(
                           ('${ApiConstants.baseImageUrl}${item.bannerimage}'))),

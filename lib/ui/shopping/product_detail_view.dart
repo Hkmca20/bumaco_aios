@@ -1,4 +1,5 @@
 import 'package:bumaco_aios/app_utils/utils.dart';
+import 'package:bumaco_aios/ui/profile/hero_card.dart';
 import 'package:bumaco_aios/ui/shopping/model/product.dart';
 import 'package:bumaco_aios/ui/widgets/hero_carousel_card.dart';
 import 'package:carousel_slider/carousel_slider.dart';
@@ -15,7 +16,7 @@ class ProductDetailView extends StatefulWidget {
 class _ProductDetailViewState extends State<ProductDetailView> {
   @override
   Widget build(BuildContext context) {
-  late final Product productItem;
+    late final Product productItem;
     if (Get.arguments != null) {
       productItem = Get.arguments['get_product'];
     }
@@ -23,7 +24,8 @@ class _ProductDetailViewState extends State<ProductDetailView> {
       appBar: BumacoAppbar(
         title: productItem.produntName,
       ),
-      body: ListView(children: [
+      body: 
+      ListView(children: [
         //Product Image section
         CarouselSlider(
             options: CarouselOptions(
@@ -87,7 +89,7 @@ class _ProductDetailViewState extends State<ProductDetailView> {
                     'May 25 20 at 9:40  Its better to use bndoon hudsoihariok gupta r(10.0) if every border is same. – Vinoth Vino'
                     'Jun 13 20 at 10:25',
                     style: Theme.of(context).textTheme.bodyText1),
-              )
+              ),
             ],
           ),
         ),

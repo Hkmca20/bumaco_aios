@@ -32,7 +32,7 @@ class _LoginViewState extends State<LoginView>
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: kScafoldDarkBGColor,
-      resizeToAvoidBottomInset: false,
+      // resizeToAvoidBottomInset: false,
       appBar: BumacoAppbar(title: 'Login'),
       body: Stack(
           alignment: Alignment.topLeft,
@@ -92,17 +92,9 @@ class _LoginViewState extends State<LoginView>
     );
   }
 
-  final loginText = Container(
-    margin: EdgeInsets.only(top: 20),
-    child: Text(
-      'Bumaco Login',
-      style: TextStyle(fontSize: 24),
-    ),
-  );
-
   chooseLaunguageButton() {
     return Container(
-      margin: EdgeInsets.only(top: 40.0, left: 10.0, right: 30.0),
+      margin: EdgeInsets.only(top: 20.0, left: 10.0, right: 10.0),
       child: GestureDetector(
         onTap: () {
           _loginController.buildDialog(context);
@@ -110,13 +102,13 @@ class _LoginViewState extends State<LoginView>
         child: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
           Text(
             'Your country : ',
-            style: TextStyle(fontSize: 30, color: kWhiteColor),
+            style: Theme.of(context).textTheme.headline6!.copyWith(color: kWhiteColor),
           ),
-          SizedBox(width: 20),
+          SizedBox(width: 10),
           Obx(
             () => Text(
               _loginController.selectedCountry.value,
-              style: TextStyle(fontSize: 30, color: kWhiteColor),
+            style: Theme.of(context).textTheme.headline6!.copyWith(color: kWhiteColor),
             ),
           ),
         ]),

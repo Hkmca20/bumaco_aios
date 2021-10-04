@@ -1,6 +1,7 @@
 import 'package:bumaco_aios/app_utils/app_const.dart';
 import 'package:bumaco_aios/ui/controller/cart_controller.dart';
 import 'package:bumaco_aios/ui/controller/shopping_controller.dart';
+import 'package:bumaco_aios/ui/profile/hero_card.dart';
 import 'package:bumaco_aios/ui/shopping/model/category.dart';
 import 'package:bumaco_aios/ui/shopping/model/product.dart';
 import 'package:bumaco_aios/ui/widgets/hero_carousel_card.dart';
@@ -117,77 +118,77 @@ class _ShoppingPageState extends State<ShoppingPage>
             ),
             //SECTION
             //PRODUCTS CAROUSEL
-            SectionTile(title: 'TRENDING PRODUCTS'),
-            ProductCarousel(
-                products: Product.productList
-                    .where((element) => element.isRecommended)
-                    .toList()),
-            SectionTile(title: 'NEW ARRIVAL PRODUCTS'),
-            ProductCarousel(products: Product.productList.where((element) => element.isPopular).toList()),
-            SectionTile(title: 'BEST SELLERS'),
-            ProductCarousel(products: Product.productList.where((element) => element.isNew).toList()),
+            // SectionTile(title: 'TRENDING PRODUCTS'),
+            // ProductCarousel(products: Product.productList.where((element) => element.isRecommended).toList()),
+            // SectionTile(title: 'NEW ARRIVAL PRODUCTS'),
+            // ProductCarousel(products: Product.productList.where((element) => element.isPopular).toList()),
+            // SectionTile(title: 'BEST SELLERS'),
+            // ProductCarousel(products: Product.productList.where((element) => element.isNew).toList()),
+
+            // Expanded(child: HeroCard()),
 
 //SHOPPING LIST START HERE
-            // Expanded(
-            //   child: Obx(
-            //     () => ListView.builder(
-            //       controller: _controller,
-            //       shrinkWrap: true,
-            //       itemCount: _shoppingController.products.length,
-            //       itemBuilder: (context, index) => Card(
-            //         margin: EdgeInsets.all(12),
-            //         child: Padding(
-            //           padding: EdgeInsets.all(16),
-            //           child: Column(
-            //             crossAxisAlignment: CrossAxisAlignment.end,
-            //             children: [
-            //               Row(
-            //                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            //                 children: [
-            //                   Column(
-            //                     crossAxisAlignment: CrossAxisAlignment.start,
-            //                     children: [
-            //                       Text(
-            //                         '${_shoppingController.products[index].produntName}',
-            //                         style: TextStyle(fontSize: 24),
-            //                       ),
-            //                       Text(
-            //                         '${_shoppingController.products[index].produntDescription}',
-            //                         style: TextStyle(fontSize: 16),
-            //                       ),
-            //                     ],
-            //                   ),
-            //                   Text(
-            //                     '${_shoppingController.products[index].produntPrice}',
-            //                     style: TextStyle(fontSize: 20),
-            //                   ),
-            //                 ],
-            //               ),
-            //               ElevatedButton(
-            //                   onPressed: () => {
-            //                         _cartController.addItems(
-            //                             _shoppingController.products[index]),
-            //                       },
-            //                   child: Text('Add To Cart')),
-            //               Obx(
-            //                 () => IconButton(
-            //                     onPressed: () {
-            //                       _shoppingController.products[index].isFavorite
-            //                           .toggle();
-            //                     },
-            //                     icon: _shoppingController
-            //                             .products[index].isFavorite.value
-            //                         ? Icon(Icons.check_box_rounded)
-            //                         : Icon(
-            //                             Icons.check_box_outline_blank_rounded)),
-            //               )
-            //             ],
-            //           ),
-            //         ),
-            //       ),
-            //     ),
-            //   ),
-            // ),
+            Expanded(
+              child: Obx(
+                () => ListView.builder(
+                  controller: _controller,
+                  shrinkWrap: true,
+                  itemCount: _shoppingController.products.length,
+                  itemBuilder: (context, index) => Card(
+                    margin: EdgeInsets.all(12),
+                    child: Padding(
+                      padding: EdgeInsets.all(16),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.end,
+                        children: [
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    '${_shoppingController.products[index].produntName}',
+                                    style: TextStyle(fontSize: 24),
+                                  ),
+                                  Text(
+                                    '${_shoppingController.products[index].produntDescription}',
+                                    style: TextStyle(fontSize: 16),
+                                  ),
+                                ],
+                              ),
+                              Text(
+                                '${_shoppingController.products[index].produntPrice}',
+                                style: TextStyle(fontSize: 20),
+                              ),
+                            ],
+                          ),
+                          ElevatedButton(
+                            onPressed: () => {
+                              _cartController.addItems(
+                                  _shoppingController.products[index]),
+                            },
+                            child: Text('Add To Cart'),
+                          ),
+                          Obx(
+                            () => IconButton(
+                                onPressed: () {
+                                  _shoppingController.products[index].isFavorite
+                                      .toggle();
+                                },
+                                icon: _shoppingController
+                                        .products[index].isFavorite.value
+                                    ? Icon(Icons.check_box_rounded)
+                                    : Icon(
+                                        Icons.check_box_outline_blank_rounded)),
+                          )
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ),
 
             // GetBuilder<CartController>(
             //     builder: (controller) => Text(

@@ -27,5 +27,9 @@ class AppBinding implements Bindings {
     Get.lazyPut(() => ProductController(), fenix: true);
     Get.lazyPut(() => NewsController(), fenix: true);
     Get.lazyPut(() => NewsRepoImpl(), fenix: true);
+    
+    Get.lazyPut(() => CategoryController(), fenix: true);
+    Get.lazyPut(() => ChildCategoryController(), fenix: true);
+    Get.lazyPut(() => SubCategoryController(), fenix: true);
   }
 }

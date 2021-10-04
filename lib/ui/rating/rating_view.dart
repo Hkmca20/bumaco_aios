@@ -1,4 +1,4 @@
-import 'package:bumaco_aios/app_utils/app_bar.dart';
+import 'package:bumaco_aios/app_utils/app_bar_main.dart';
 import 'package:bumaco_aios/ui/rating/rating_controller.dart';
 import 'package:flare_flutter/flare_actor.dart';
 import 'package:flutter/material.dart';

@@ -26,6 +26,7 @@ class MyApp extends StatelessWidget {
   final _settingsController = SettingsController.to;
   @override
   Widget build(BuildContext context) {
+    
     // var lang = Localizations.localeOf(context).languageCode;
     return GetMaterialApp(
       enableLog: true,

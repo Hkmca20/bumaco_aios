@@ -45,7 +45,7 @@ class OTPController extends GetxController {
       bumacoSnackbar( 'Error', 'Invalid OTP');
       return;
     }
-    showLoading();
+    showLoadingDialog();
     await Future.delayed(Duration(microseconds: 3000));
     try {
       Get.back();

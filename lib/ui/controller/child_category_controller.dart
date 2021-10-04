@@ -4,18 +4,23 @@ import 'package:get/get.dart';
 
 class ChildCategoryController extends GetxController {
   late CategoryRepo _categoryRepo;
+  String categoryId='';
+  setCategoryId(id) {
+    categoryId = id;
+    fetchChildCategory(categoryId);
+  }
 
   ChildCategoryController() {
     _categoryRepo = Get.find<CategoryRepoImpl>();
-    fetchChildCategory();
   }
-  late RxList<ChildCategoryModel> childCategoryList = <ChildCategoryModel>[].obs;
+  late RxList<ChildCategoryModel> childCategoryList =
+      <ChildCategoryModel>[].obs;
   RxBool isLoading = false.obs;
-  
-  void fetchChildCategory() async {
+
+  void fetchChildCategory(categoryId) async {
     isLoading.toggle();
 
-    final result = await _categoryRepo.getChildCategory();
+    final result = await _categoryRepo.getChildCategory(categoryId);
 
     isLoading.toggle();
 

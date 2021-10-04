@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 
-showLoading() {
+showLoadingDialog() {
   Get.defaultDialog(
     backgroundColor: kWhiteColor,
       title: '',
@@ -31,8 +31,10 @@ class LoadingWidget extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         // CupertinoActivityIndicator(),
-        CircularProgressIndicator(
-          color: kPrimaryColor,
+        Center(
+          child: CircularProgressIndicator(
+            color: kPrimaryColor,
+          ),
         )
       ],
     );

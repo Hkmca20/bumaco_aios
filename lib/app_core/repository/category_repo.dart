@@ -6,10 +6,8 @@ import 'package:get/get.dart';
 
 abstract class CategoryRepo {
   Future<List<CategoryModel>?> getCategory();
-
-  Future<List<ChildCategoryModel>?> getChildCategory();
-
-  Future<List<SubCategoryModel>?> getSubCategory();
+  Future<List<ChildCategoryModel>?> getChildCategory(categoryId);
+  Future<List<SubCategoryModel>?> getSubCategory(childCategoryId);
 }
 
 class CategoryRepoImpl extends CategoryRepo {
@@ -29,7 +27,7 @@ class CategoryRepoImpl extends CategoryRepo {
           .map((x) => CategoryModel.fromJson(x))
           .toList();
       return categoryList;
-    } on Exception catch (error,stacktrace) {
+    } on Exception catch (error, stacktrace) {
       print(error);
       // return null;
       throw Exception("Exception occured: $error stackTrace: $stacktrace");
@@ -37,10 +35,11 @@ class CategoryRepoImpl extends CategoryRepo {
   }
 
   @override
-  Future<List<ChildCategoryModel>?> getChildCategory() async {
+  Future<List<ChildCategoryModel>?> getChildCategory(categoryId) async {
     final response;
     try {
-      response = await _client.getRequest(ApiConstants.childCategoryApi);
+      response = await _client
+          .getRequest('${ApiConstants.childCategoryApi}?id=$categoryId');
       final responseList = (response.data as List)
           .map((x) => ChildCategoryModel.fromJson(x))
           .toList();
@@ -52,10 +51,10 @@ class CategoryRepoImpl extends CategoryRepo {
   }
 
   @override
-  Future<List<SubCategoryModel>?> getSubCategory() async {
+  Future<List<SubCategoryModel>?> getSubCategory(childCategoryId) async {
     final response;
     try {
-      response = await _client.getRequest(ApiConstants.subCategoryApi);
+      response = await _client.getRequest('${ApiConstants.subCategoryApi}?id=$childCategoryId');
       final responseList = (response.data as List)
           .map((x) => SubCategoryModel.fromJson(x))
           .toList();

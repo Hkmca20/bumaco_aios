@@ -55,7 +55,7 @@ class SigninController extends GetxController {
       bumacoSnackbar('Error', 'Invalid Mobile number');
       return;
     }
-    showLoading();
+    showLoadingDialog();
     await Future.delayed(Duration(seconds: 3));
     try {
       Get.back();

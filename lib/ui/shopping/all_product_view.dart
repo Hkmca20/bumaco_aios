@@ -12,52 +12,61 @@ class AllProducts extends StatelessWidget {
   Widget build(BuildContext context) {
     final ProductController productController = Get.find<ProductController>();
     return Scaffold(
+      appBar: AppbarHome(
+        title: 'Bumaco',
+        actionList: [
+          IconButton(
+            icon: Icon(Icons.favorite_rounded),
+            color: kPrimaryColorDark,
+            tooltip: 'Wish List',
+            onPressed: () {
+              Get.toNamed(wishlistRoute);
+            },
+          ), //IconB
+          IconButton(
+              onPressed: () {
+                productController.changeColumnCount(1);
+              },
+            color: kPrimaryColorDark,
+              tooltip: 'List Item',
+              icon: Icon(Icons.view_list_rounded)),
+          IconButton(
+              onPressed: () {
+                productController.changeColumnCount(2);
+              },
+            color: kPrimaryColorDark,
+              tooltip: 'Grid Item',
+              icon: Icon(Icons.grid_view_outlined)),
+          IconButton(
+            icon: Icon(Icons.shopping_cart_rounded),
+            color: kPrimaryColorDark,
+            tooltip: 'View Cart Item',
+            onPressed: () {
+              productController.fetchProducts();
+            },
+          ),
+        ],
+      ),
       body: SafeArea(
           child: Column(
         children: [
-          //HEADER
-          Padding(
-            padding: EdgeInsets.all(16),
-            child: Row(
-              children: [
-                Expanded(
-                    child: Text('Bumaco',
-                        style: Theme.of(context).textTheme.headline3!
-                        // .copyWith(color: Colors.white),
-                        //  TextStyle(fontSize: 32, fontWeight: FontWeight.w900),
-                        )),
-                IconButton(
-                    onPressed: () {
-                      Get.toNamed(wishlistRoute);
-                    },
-                    icon: Icon(Icons.favorite_rounded)),
-                IconButton(
-                    onPressed: () {
-                      Get.toNamed(offerRoute);
-                    },
-                    icon: Icon(Icons.view_list_rounded)),
-                IconButton(
-                    onPressed: () {
-                      productController.fetchProducts();
-                    },
-                    icon: Icon(Icons.grid_view_outlined)),
-              ],
-            ),
-          ),
-
           //All Items Home page
           Expanded(
             child: Obx(
               () => productController.isLoading.isTrue
                   ? LoadingWidget()
                   : StaggeredGridView.countBuilder(
-                      crossAxisCount: 2,
-                      crossAxisSpacing: 10,
+                      controller: productController.scrollController,
+                      crossAxisCount: productController.columnCount.value,
+                      crossAxisSpacing: 4,
                       mainAxisSpacing: 12,
                       itemCount: productController.productList.length,
                       itemBuilder: (context, index) {
                         return AProductTile(
-                            prod: productController.productList[index]);
+                            prod: productController.productList[index],
+                            index: index,
+                            itemSize: productController.productList.length,
+                            offset: productController.offset.value);
                       },
                       staggeredTileBuilder: (int index) {
                         return StaggeredTile.fit(1);

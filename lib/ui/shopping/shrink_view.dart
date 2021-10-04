@@ -1,4 +1,4 @@
-import 'package:bumaco_aios/app_utils/app_bar.dart';
+import 'package:bumaco_aios/app_utils/app_bar_main.dart';
 import 'package:bumaco_aios/app_utils/app_const.dart';
 import 'package:flutter/material.dart';
 import 'shrink_item.dart';

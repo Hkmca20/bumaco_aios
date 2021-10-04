@@ -1,5 +1,5 @@
 import 'package:bumaco_aios/app_core/models/models.dart';
-import 'package:bumaco_aios/app_utils/app_bar.dart';
+import 'package:bumaco_aios/app_utils/app_bar_main.dart';
 import 'package:bumaco_aios/app_utils/utils.dart';
 import 'package:bumaco_aios/ui/controller/controllers.dart';
 import 'package:flutter/material.dart';
@@ -12,17 +12,25 @@ class CategoryView extends StatelessWidget {
   Widget build(BuildContext context) {
     final categoryController = Get.find<CategoryController>();
     return Scaffold(
-      appBar: BumacoAppbar(
+      appBar: AppbarHome(
         title: 'Bumaco',
         actionList: [
           IconButton(
+            icon: Icon(Icons.favorite_rounded),
+            color: kPrimaryColorDark,
+            tooltip: 'Wishlist',
+            onPressed: () {},
+          ), //IconB
+          IconButton(
             icon: Icon(Icons.share_rounded),
+            color: kPrimaryColorDark,
             tooltip: 'Share',
             onPressed: () {},
           ), //IconButton
           IconButton(
             icon: Icon(Icons.shopping_cart_rounded),
-            tooltip: 'Reload',
+            color: kPrimaryColorDark,
+            tooltip: 'View Cart Item',
             onPressed: () {
               categoryController.fetchCategory();
             },
@@ -40,7 +48,7 @@ class CategoryView extends StatelessWidget {
                   GestureDetector(
                       onTap: () {
                         Get.toNamed(childCategoryRoute,
-                            arguments: {'get_category': item.category});
+                            arguments: {'arg_category_id': item.id});
                       },
                       child: Image.network(
                           ('${ApiConstants.baseImageUrl}${item.bannerimage}'))),

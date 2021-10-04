@@ -2,6 +2,7 @@
 //
 //     final productModel = productModelFromJson(jsonString);
 
+import 'package:get/get.dart';
 import 'dart:convert';
 
 List<ProductModel> productModelFromJson(String str) => List<ProductModel>.from(json.decode(str).map((x) => ProductModel.fromJson(x)));
@@ -50,6 +51,8 @@ class ProductModel {
     String? productApiUrl;
     String? apiFeaturedImage;
     List<ProductColor>? productColors;
+
+    var isFavorite = false.obs;
 
     factory ProductModel.fromJson(Map<String, dynamic> json) => ProductModel(
         id: json["id"],

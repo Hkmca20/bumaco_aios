@@ -1,21 +1,26 @@
 // import 'dart:convert';
 
+import 'dart:math';
+import 'dart:ui';
+
 import 'package:json_annotation/json_annotation.dart';
 
 part 'category_model.g.dart';
 
 @JsonSerializable()
 class CategoryModel {
-  CategoryModel(
-      {this.id,
-      this.hasvery,
-      this.category,
-      this.url,
-      this.image,
-      this.bannerimage,
-      this.createdate,
-      this.modifydate,
-      this.status});
+  CategoryModel({
+    this.id,
+    this.hasvery,
+    this.category,
+    this.url,
+    this.image,
+    this.bannerimage,
+    this.createdate,
+    this.modifydate,
+    this.status,
+    this.color,
+  });
 
   @JsonKey(name: 'id')
   String? id;
@@ -44,6 +49,8 @@ class CategoryModel {
   @JsonKey(name: 'status')
   String? status;
 
+  Color? color;
+
   factory CategoryModel.fromJson(Map<String, dynamic> json) =>
       _$CategoryModelFromJson(json);
   Map<String, dynamic> toJson() => _$CategoryModelToJson(this);
@@ -53,5 +60,5 @@ class CategoryModel {
 
   // String categoryModelToJson(List<CategoryModel> data) =>
   //     json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
-  
+
 }

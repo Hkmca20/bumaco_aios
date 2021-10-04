@@ -88,3 +88,7 @@ flutter:
         - asset: assets/fonts/IBMPlexSansArabic-SemiBold.ttf
         - asset: assets/fonts/IBMPlexSansArabic-Thin.ttf
           weight: 900
+    - family: Samantha
+      fonts:
+        - asset: assets/fonts/Samantha.ttf
+

@@ -4,7 +4,7 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 
 const kPrimaryColor = Colors.pink; //Color(0xFFFF7643);
-const kPrimaryColorDark = Colors.blueAccent;
+const kPrimaryColorDark = Colors.redAccent;
 const kAccentColor = Colors.tealAccent;
 const kPrimaryLightColor = Color(0xFFFFECDF);
 const lightBackgroundColor = Color(0xff374ABE);
@@ -94,13 +94,14 @@ const shrinkRoute = '/shrink';
 const settingRoute = '/setting';
 const expansionRoute = '/expansion';
 const newsRoute = '/news';
-const searchNewsRoute = '/searchNews';
 const newsDetailRoute = '/newsDetail';
 const googleSigninDemoRoute = '/googleSignin';
 const dashboardRoute = '/dashboard';
 const categoryRoute = '/category';
 const childCategoryRoute = '/childCategory';
 const subCategoryRoute = '/subCategory';
+const homeRoute = '/home';
+const searchRoute = '/search';
 
 // Controllers
 const ONBOARD_CONTROLLER = '_onboard_controller';
@@ -167,6 +168,8 @@ class ApiConstants {
   static const allUserApi = 'userapi/user';
   // static const productApi =
   //     'https://makeup-api.herokuapp.com/api/v1/products.json';
+  // static const productApi =
+  //     'http://makeup-api.herokuapp.com/api/v1/products.json?brand=covergirl&product_type=lipstick';
   static const productApi =
       'https://makeup-api.herokuapp.com/api/v1/products.json?brand=maybelline';
   static const newsApi =
