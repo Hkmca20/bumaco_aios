@@ -9,6 +9,48 @@ class CategoryController extends GetxController {
     _categoryRepo = Get.find<CategoryRepoImpl>();
     fetchCategory();
   }
+  List<CategoryModel> dummyCatList = [
+    CategoryModel(
+        id: '1',
+        bannerimage: "https://picsum.photos/250?image=8",
+        image: "https://picsum.photos/250?image=17",
+        category: "Makeup"),
+    CategoryModel(
+        id: '1',
+        bannerimage: "https://picsum.photos/250?image=10",
+        image: "https://picsum.photos/250?image=18",
+        category: "Hair"),
+    CategoryModel(
+        id: '1',
+        bannerimage: "https://picsum.photos/250?image=11",
+        image: "https://picsum.photos/250?image=19",
+        category: "Face"),
+    CategoryModel(
+        id: '1',
+        bannerimage: "https://picsum.photos/250?image=12",
+        image: "https://picsum.photos/250?image=20",
+        category: "Appliance"),
+    CategoryModel(
+        id: '1',
+        bannerimage: "https://picsum.photos/250?image=13",
+        image: "https://picsum.photos/250?image=21",
+        category: "Electronics"),
+    CategoryModel(
+        id: '1',
+        bannerimage: "https://picsum.photos/250?image=14",
+        image: "https://picsum.photos/250?image=22",
+        category: "Cloths"),
+    CategoryModel(
+        id: '1',
+        bannerimage: "https://picsum.photos/250?image=15",
+        image: "https://picsum.photos/250?image=23",
+        category: "Dress"),
+    CategoryModel(
+        id: '1',
+        bannerimage: "https://picsum.photos/250?image=16",
+        image: "https://picsum.photos/250?image=24",
+        category: "Others"),
+  ];
   late RxList<CategoryModel> categoryList = <CategoryModel>[].obs;
   RxBool isLoading = false.obs;
 
@@ -16,13 +58,15 @@ class CategoryController extends GetxController {
     isLoading.toggle();
 
     final result = await _categoryRepo.getCategory();
-
+    await Future.delayed(Duration(seconds: 2));
     isLoading.toggle();
 
     if (result != null) {
-      categoryList = result.obs;
+      categoryList.addAll(result) ;
     } else {
-      print('=======No categoryList found========');
+    print('=======No categoryList found========');
+    categoryList.value = dummyCatList;
+    categoryList.addAll(dummyCatList);
     }
   }
 }

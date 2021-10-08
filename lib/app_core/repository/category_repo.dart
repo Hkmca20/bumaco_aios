@@ -29,8 +29,8 @@ class CategoryRepoImpl extends CategoryRepo {
       return categoryList;
     } on Exception catch (error, stacktrace) {
       print(error);
-      // return null;
-      throw Exception("Exception occured: $error stackTrace: $stacktrace");
+      return null;
+      // throw Exception("Exception occured: $error stackTrace: $stacktrace");
     }
   }
 

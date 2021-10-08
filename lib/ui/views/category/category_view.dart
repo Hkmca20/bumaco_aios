@@ -1,5 +1,4 @@
 import 'package:bumaco_aios/app_core/models/models.dart';
-import 'package:bumaco_aios/app_utils/app_bar_main.dart';
 import 'package:bumaco_aios/app_utils/utils.dart';
 import 'package:bumaco_aios/ui/controller/controllers.dart';
 import 'package:flutter/material.dart';
@@ -13,7 +12,7 @@ class CategoryView extends StatelessWidget {
     final categoryController = Get.find<CategoryController>();
     return Scaffold(
       appBar: AppbarHome(
-        title: 'Bumaco',
+        title: appTitle,
         actionList: [
           IconButton(
             icon: Icon(Icons.favorite_rounded),
@@ -39,23 +38,73 @@ class CategoryView extends StatelessWidget {
       ),
       body: Obx(() => categoryController.isLoading.isTrue
           ? Center(
-              child: CircularProgressIndicator(),
+              child: LoadingWidget(),
             )
           : ListView.separated(
               itemBuilder: (context, index) {
                 CategoryModel item = categoryController.categoryList[index];
                 return Column(children: [
                   GestureDetector(
-                      onTap: () {
-                        Get.toNamed(childCategoryRoute,
-                            arguments: {'arg_category_id': item.id});
-                      },
-                      child: Image.network(
-                          ('${ApiConstants.baseImageUrl}${item.bannerimage}'))),
-                  SizedBox(height: 10),
-                  Image.network(('${ApiConstants.baseImageUrl}${item.image}')),
-                  Text(item.category ?? '', style: TextStyle(fontSize: 20)),
-                  SizedBox(height: 10),
+                    onTap: () {
+                      Get.toNamed(childCategoryRoute,
+                          arguments: {'arg_category_item': item});
+                    },
+                    child: Image.network(
+                      ('${ApiConstants.baseImageUrl}${item.bannerimage}'),
+                      // ('${item.bannerimage}'),
+                    ),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.all(10),
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Container(
+                          height: 72.0,
+                          width: 72.0,
+                          decoration: BoxDecoration(
+                            color: Colors.grey,
+                            boxShadow: [
+                              BoxShadow(
+                                  color: Colors.black.withAlpha(70),
+                                  offset: const Offset(2.0, 2.0),
+                                  blurRadius: 2.0)
+                            ],
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(12.0)),
+                            image: DecorationImage(
+                              image: Image.network(
+                                      '${ApiConstants.baseImageUrl}${item.image}')
+                                  .image,
+                              fit: BoxFit.cover,
+                            ),
+                          ),
+                        ),
+                        SizedBox(width: 8.0),
+                        Expanded(
+                            child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(item.category,
+                                style: Theme.of(context).textTheme.headline5),
+                            Text(item.category,
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .headline6!
+                                    .copyWith(color: Colors.black54))
+                          ],
+                        )),
+                        Container(
+                          height: 72,
+                          child: Icon(
+                            Icons.arrow_forward_ios_rounded,
+                            color: Colors.grey,
+                          ),
+                        )
+                      ],
+                    ),
+                  ),
                 ]);
               },
               separatorBuilder: (context, index) => Divider(),

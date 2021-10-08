@@ -3,7 +3,7 @@ import 'package:bumaco_aios/ui/cart/cart_view.dart';
 import 'package:bumaco_aios/ui/controller/controllers.dart';
 import 'package:bumaco_aios/ui/gallery/gallery_view.dart';
 import 'package:bumaco_aios/ui/profile/column_demo.dart';
-import 'package:bumaco_aios/ui/views/home/home_view1.dart';
+import 'package:bumaco_aios/ui/views/home/c_product_view.dart';
 import 'package:bumaco_aios/ui/views/views.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -125,8 +125,8 @@ class SettingView extends StatelessWidget {
               onTap: () => {
                 Navigator.push(
                   context,
-                  // MaterialPageRoute(builder: (context) => ListDemo()),
-                  MaterialPageRoute(builder: (context) => HomeView1()),
+                  MaterialPageRoute(builder: (context) => CProductView()),
+                  // MaterialPageRoute(builder: (context) => GalleryPage()),
                 )
               },
             ),

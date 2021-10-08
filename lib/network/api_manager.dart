@@ -8,7 +8,7 @@
 // import 'package:bumaco_aios/ui/user/user_model.dart';
 import 'dart:convert';
 
-import 'package:bumaco_aios/app_core/models/product_model.dart';
+import 'package:bumaco_aios/app_core/models/product_makeup_model.dart';
 import 'package:http/http.dart' as http;
 
 import 'network.dart';
@@ -23,7 +23,7 @@ class ApiManager {
     "Access-Control-Allow-Methods": "GET,POST,OPTIONS,DELETE,PUT"
   };
   static final client = http.Client();
-  Future<List<ProductModel>?> fetchProducts() async {
+  Future<List<ProductMakeupModel>?> fetchProducts() async {
     String url =
         'https://makeup-api.herokuapp.com/api/v1/products.json?brand=maybelline';
 
@@ -31,7 +31,7 @@ class ApiManager {
     print(response.body);
     if (response.statusCode == 200) {
       var jsonMap = _returnResponse(response);
-      return ProductModel.fromJson(jsonMap)as List<ProductModel>;
+      return ProductMakeupModel.fromJson(jsonMap)as List<ProductMakeupModel>;
     }
     return null;
   }

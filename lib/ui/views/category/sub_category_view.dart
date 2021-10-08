@@ -12,10 +12,10 @@ class SubCategoryView extends StatelessWidget {
   Widget build(BuildContext context) {
     final subCategoryController = Get.find<SubCategoryController>();
     final args = Get.arguments;
-    final childCategory = args['arg_child_category_id'] ?? '';
-    subCategoryController.setChildCategoryId(childCategory);
+    final ChildCategoryModel childCategoryItem = args['arg_child_category_item'] ?? '';
+    subCategoryController.setChildCategoryId(childCategoryItem.category);
     return Scaffold(
-      appBar: BumacoAppbar(
+      appBar: AppbarHome(
         title: 'Sub Category',
         actionList: [
           IconButton(
@@ -29,7 +29,7 @@ class SubCategoryView extends StatelessWidget {
       ),
       body: Obx(() => subCategoryController.isLoading.isTrue
           ? Center(
-              child: CircularProgressIndicator(),
+              child: LoadingWidget(),
             )
           : ListView.separated(
               itemBuilder: (context, index) {
@@ -38,8 +38,8 @@ class SubCategoryView extends StatelessWidget {
                 return Column(children: [
                   GestureDetector(
                       onTap: () {
-                        Get.toNamed(newsDetailRoute, arguments: {
-                          'arg_sub_category_id': item.subcategory
+                        Get.toNamed(allProductsRoute, arguments: {
+                          'arg_sub_category_item': item
                         });
                       },
                       child: Image.network(

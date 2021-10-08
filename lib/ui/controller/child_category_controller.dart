@@ -4,7 +4,7 @@ import 'package:get/get.dart';
 
 class ChildCategoryController extends GetxController {
   late CategoryRepo _categoryRepo;
-  String categoryId='';
+  String categoryId = '';
   setCategoryId(id) {
     categoryId = id;
     fetchChildCategory(categoryId);
@@ -13,8 +13,7 @@ class ChildCategoryController extends GetxController {
   ChildCategoryController() {
     _categoryRepo = Get.find<CategoryRepoImpl>();
   }
-  late RxList<ChildCategoryModel> childCategoryList =
-      <ChildCategoryModel>[].obs;
+  final RxList childCategoryList = <ChildCategoryModel>[].obs;
   RxBool isLoading = false.obs;
 
   void fetchChildCategory(categoryId) async {
@@ -25,7 +24,16 @@ class ChildCategoryController extends GetxController {
     isLoading.toggle();
 
     if (result != null) {
-      childCategoryList = result.obs;
+      childCategoryList.addAll(result);
+      childCategoryList.addAll(result);
+      childCategoryList.addAll(result);
+      childCategoryList.addAll(result);
+      childCategoryList.addAll(result);
+      childCategoryList.addAll(result);
+      childCategoryList.addAll(result);
+      childCategoryList.addAll(result);
+      childCategoryList.addAll(result);
+      childCategoryList.addAll(result);
     } else {
       print('=======No childCategoryList found========');
     }

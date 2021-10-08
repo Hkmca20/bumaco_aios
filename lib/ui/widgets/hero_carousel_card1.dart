@@ -7,7 +7,7 @@ import 'package:get/get.dart';
 
 class HeroCarouselCard1 extends StatelessWidget {
   final CategoryModel? category;
-  final ProductModel? product;
+  final ProductMakeupModel? product;
   const HeroCarouselCard1({Key? key, this.category, this.product})
       : super(key: key);
 
@@ -16,7 +16,9 @@ class HeroCarouselCard1 extends StatelessWidget {
     return InkWell(
       onTap: () {
         if (this.product == null) {
-          Get.toNamed(catalogRoute, arguments: {'get_catalog': category});
+          Get.toNamed(productsRoute,
+              arguments: {'arg_category_item': category});
+          // Get.toNamed(catalogRoute, arguments: {'get_catalog': category});
         } else {
           Get.toNamed(productDetailRoute, arguments: {'get_product': product});
         }
@@ -30,6 +32,7 @@ class HeroCarouselCard1 extends StatelessWidget {
                 Image.network(
                     product == null
                         ? (ApiConstants.baseImageUrl + (category!.image ?? ''))
+                        // (category!.image ?? '')
                         : (ApiConstants.baseImageUrl +
                             (product!.imageLink ?? '')),
                     fit: BoxFit.cover,
@@ -53,7 +56,7 @@ class HeroCarouselCard1 extends StatelessWidget {
                         EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
                     child: Text(
                         product == null
-                            ? category!.category ?? ''
+                            ? category!.category 
                             : product!.name ?? '',
                         style: Theme.of(context)
                             .textTheme

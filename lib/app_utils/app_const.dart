@@ -84,7 +84,8 @@ const otpRoute = '/otp';
 const profileRoute = '/profile';
 const shoppingRoute = '/shopping';
 const staggerdImgRoute = '/staggerdImg';
-const allProductRoute = '/allProduct';
+const productsRoute = '/products';
+const allProductsRoute = '/allProducts';
 const catalogRoute = '/catalog';
 const productDetailRoute = '/product_detail';
 const wishlistRoute = '/wishlist';
@@ -165,12 +166,14 @@ class ApiConstants {
   static const categoryApi = 'categoryapi/category';
   static const childCategoryApi = 'categoryapi/childcategory';
   static const subCategoryApi = 'categoryapi/subcategory';
+  static const productApi = 'productapi/productdata/';
+  static const allProductApi = 'productapi/product';
   static const allUserApi = 'userapi/user';
   // static const productApi =
   //     'https://makeup-api.herokuapp.com/api/v1/products.json';
   // static const productApi =
   //     'http://makeup-api.herokuapp.com/api/v1/products.json?brand=covergirl&product_type=lipstick';
-  static const productApi =
+  static const productMakeupApi =
       'https://makeup-api.herokuapp.com/api/v1/products.json?brand=maybelline';
   static const newsApi =
       'https://newsapi.org/v2/top-headlines?country=us&category=business&apiKey=60b65cc18763454eaf48d48406105496';

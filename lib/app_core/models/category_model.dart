@@ -10,12 +10,12 @@ part 'category_model.g.dart';
 @JsonSerializable()
 class CategoryModel {
   CategoryModel({
-    this.id,
+    this.id ='',
     this.hasvery,
-    this.category,
+    this.category = '',
     this.url,
     this.image,
-    this.bannerimage,
+    this.bannerimage = 'https://icons8.com/preloaders/preloaders/1474/Walk.gif',//https://via.placeholder.com/350x150
     this.createdate,
     this.modifydate,
     this.status,
@@ -23,13 +23,13 @@ class CategoryModel {
   });
 
   @JsonKey(name: 'id')
-  String? id;
+  String id;
 
   @JsonKey(name: 'has_very')
   String? hasvery;
 
   @JsonKey(name: 'category')
-  String? category;
+  String category;
 
   @JsonKey(name: 'url')
   String? url;
@@ -38,7 +38,7 @@ class CategoryModel {
   String? image;
 
   @JsonKey(name: 'bannerimage')
-  String? bannerimage;
+  String bannerimage;
 
   @JsonKey(name: 'createdate')
   String? createdate;

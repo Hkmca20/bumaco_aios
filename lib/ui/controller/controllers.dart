@@ -11,5 +11,6 @@ export 'category_controller.dart';
 export 'child_category_controller.dart';
 export 'sub_category_controller.dart';
 export 'product_controller.dart';
+export 'product_makeup_controller.dart';
 export 'home_controller.dart';
 export 'search_controller.dart';

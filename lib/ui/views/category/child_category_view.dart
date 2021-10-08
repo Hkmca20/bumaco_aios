@@ -1,5 +1,5 @@
 import 'package:bumaco_aios/app_core/models/models.dart';
-import 'package:bumaco_aios/app_utils/app_bar_main.dart';
+import 'package:bumaco_aios/app_utils/sliver_appbar.dart';
 import 'package:bumaco_aios/app_utils/utils.dart';
 import 'package:bumaco_aios/ui/controller/controllers.dart';
 import 'package:flutter/material.dart';
@@ -14,65 +14,79 @@ class ChildCategoryView extends StatelessWidget {
   Widget build(BuildContext context) {
     final screenSize = MediaQuery.of(context).size;
     final childCategoryController = Get.find<ChildCategoryController>();
-    final categoryId = Get.arguments['arg_category_id'];
-    childCategoryController.setCategoryId(categoryId);
-    print(categoryId);
+    final categoryId;
+    late final CategoryModel categoryItem;
+    if (Get.arguments != null) {
+      categoryItem = Get.arguments['arg_category_item'];
+      categoryId = categoryItem.id;
+      childCategoryController.setCategoryId(categoryId);
+    }
     return Scaffold(
-        appBar: AppbarHome(
-          title: 'Bumaco',
+        body: CustomScrollView(
+//           CustomScrollView(slivers: [
+//   SliverAppBar(...),
+//   SliverPadding(...),
+//   SliverList(...),
+//   SliverGrid(...),
+// ],
+      slivers: [
+        FlexibleAppBar(
+          titleStr: categoryItem.category,
+          imageUrl: '${categoryItem.bannerimage}',
           actionList: [
             IconButton(
-              icon: Icon(Icons.favorite_rounded),
-              color: kPrimaryColorDark,
-              tooltip: 'Wishlist',
-              onPressed: () {},
-            ), //IconB
-            IconButton(
-              icon: Icon(Icons.share_rounded),
-              color: kPrimaryColorDark,
-              tooltip: 'Share',
-              onPressed: () {},
-            ), //IconButton
-            IconButton(
-              icon: Icon(Icons.shopping_cart_rounded),
-              color: kPrimaryColorDark,
-              tooltip: 'View Cart Item',
+              icon: Icon(Icons.refresh_rounded),
+              tooltip: 'Reload',
               onPressed: () {
-                childCategoryController.fetchChildCategory(categoryId);
+                childCategoryController.fetchChildCategory(categoryItem.id);
               },
             ),
           ],
         ),
-        body: Obx(
-          () => childCategoryController.isLoading.isTrue
-              ? LoadingWidget()
-              : ListView.separated(
-                  itemBuilder: (context, index) {
-                    ChildCategoryModel item =
-                        childCategoryController.childCategoryList[index];
-                    return ChildItemWidget(item: item);
-
-                    // Column(children: [
-                    //   GestureDetector(
-                    //       onTap: () {
-                    //         Get.toNamed(subCategoryRoute, arguments: {
-                    //           'arg_child_category_id': item.category
-                    //         });
-                    //       },
-                    //       child: Image.network(
-                    //           ('${ApiConstants.baseImageUrl}${item.image}'))),
-                    //   SizedBox(height: 10),
-                    //   Text(item.category ?? '', style: TextStyle(fontSize: 20)),
-                    //   Text(item.childcategory ?? '',
-                    //       style: TextStyle(fontSize: 20)),
-                    //   Text(item.subcategory ?? '', style: TextStyle(fontSize: 20)),
-                    //   SizedBox(height: 10),
-                    // ]);
-                  },
-                  separatorBuilder: (context, index) => Divider(),
-                  itemCount: childCategoryController.childCategoryList.length),
-        ));
-    //   ),
-    // );
+        Obx(
+          () => SliverGrid(
+            delegate: SliverChildBuilderDelegate(
+              (BuildContext context, index) => ChildItemWidget(
+                  item: childCategoryController.childCategoryList[index]),
+              childCount: childCategoryController.childCategoryList.length,
+            ),
+            // delegate: SliverChildListDelegate(List.generate(
+            //   childCategoryController.childCategoryList.length,
+            //   (index) => ChildItemWidget(
+            //       item: childCategoryController.childCategoryList[index]),
+            // )),
+            gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
+              maxCrossAxisExtent: 400.0, //screenSize.width
+              mainAxisSpacing: 10.0,
+              crossAxisSpacing: 10.0,
+              childAspectRatio: 4.0,
+            ),
+          ),
+        ),
+        // Obx(
+        //   () => SliverList(
+        //       delegate: SliverChildListDelegate(List.generate(
+        //     childCategoryController.childCategoryList.length,
+        //     (index) => ChildItemWidget(
+        //         item: childCategoryController.childCategoryList[index]),
+        //   ))),
+        // ),
+        // SliverFillRemaining(
+        //   child: Obx(
+        //     () => childCategoryController.isLoading.isTrue
+        //         ? LoadingWidget()
+        //         : ListView.separated(
+        //             itemBuilder: (context, index) {
+        //               return ChildItemWidget(
+        //                   item: childCategoryController
+        //                       .childCategoryList[index]);
+        //             },
+        //             separatorBuilder: (context, index) => Divider(),
+        //             itemCount:
+        //                 childCategoryController.childCategoryList.length),
+        //   ),
+        // ),
+      ],
+    ));
   }
 }

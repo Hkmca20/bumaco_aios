@@ -25,6 +25,7 @@ class AppBinding implements Bindings {
 
     ///Other binding class
     Get.lazyPut(() => ProductController(), fenix: true);
+    Get.lazyPut(() => ProductMakeupController(), fenix: true);
     Get.lazyPut(() => NewsController(), fenix: true);
     Get.lazyPut(() => NewsRepoImpl(), fenix: true);
     

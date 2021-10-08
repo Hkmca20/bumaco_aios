@@ -1,22 +1,37 @@
 import 'package:flutter/material.dart';
 
+import 'app_const.dart';
+
 class FlexibleAppBar extends SliverAppBar {
   static const double height = 200.0;
+  final String titleStr, imageUrl;
+  final List<IconButton>? actionList;
 
-  FlexibleAppBar(String title, String imageUrl)
+  FlexibleAppBar(
+      {required this.titleStr,
+      required this.imageUrl,
+      this.actionList})
       : super(
-            pinned: true,
-            snap: false,
-            floating: false,
-            expandedHeight: height,
-            flexibleSpace: FlexibleSpaceBar(
-                title: Text(title),
-                background: _buildBackground(imageUrl),
-                centerTitle: true));
+          pinned: true,
+          snap: false,
+          floating: true,
+          backgroundColor: kTransparentColor,
+          expandedHeight: height,
+          actions: actionList ?? [],
+          flexibleSpace: FlexibleSpaceBar(
+              title: Text(titleStr),
+              collapseMode: CollapseMode.none,
+              background: _buildBackground( imageUrl),
+              centerTitle: false),
+        );
 
   static Widget _buildBackground(String imageUrl) {
     return Stack(fit: StackFit.expand, children: <Widget>[
-      Image.network(imageUrl, fit: BoxFit.cover, height: height),
+      Image(
+        image: Image.network('${ApiConstants.baseImageUrl}$imageUrl').image,
+        fit: BoxFit.fill,
+        height: height,
+      ),
       DecoratedBox(
           decoration: BoxDecoration(
               gradient: LinearGradient(

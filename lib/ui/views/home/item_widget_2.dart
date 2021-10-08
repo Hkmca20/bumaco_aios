@@ -24,7 +24,7 @@ class ItemWidget2 extends StatelessWidget {
       child: InkWell(
         onTap: () {
           Get.toNamed(childCategoryRoute,
-              arguments: {'arg_category_id': item.id});
+              arguments: {'arg_category_item': item});
         },
         child: Container(
           margin: EdgeInsets.symmetric(horizontal: 4),
@@ -38,8 +38,8 @@ class ItemWidget2 extends StatelessWidget {
                   blurRadius: 15.0)
             ],
             image: DecorationImage(
-              image: Image.network('${ApiConstants.baseImageUrl}${item.image}')
-                  .image,
+              image: Image.network('${ApiConstants.baseImageUrl}${item.image}').image,
+              // image: Image.network('${item.image}').image,
               fit: BoxFit.fill,
             ),
           ),

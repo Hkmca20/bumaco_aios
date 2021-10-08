@@ -17,7 +17,14 @@ List<CountryModel> countryModelList = <CountryModel>[
 
 class CustomDelegate extends SearchDelegate<CountryModel> {
   List<CountryModel> data = countryModelList;
-CustomDelegate() : super(searchFieldLabel: "My own hint");
+  CustomDelegate({
+    String hintText = "Search here...",
+  }) : super(
+          searchFieldLabel: hintText,
+          keyboardType: TextInputType.text,
+          textInputAction: TextInputAction.search,
+        );
+
   @override
   List<Widget> buildActions(BuildContext context) =>
       [IconButton(icon: Icon(Icons.clear), onPressed: () => query = '')];
@@ -56,6 +63,6 @@ CustomDelegate() : super(searchFieldLabel: "My own hint");
     );
   }
 
-  // @override
-  // String get hintText => 'My hint text';
+  @override
+  String get searchFieldLabel => 'My hint text';
 }

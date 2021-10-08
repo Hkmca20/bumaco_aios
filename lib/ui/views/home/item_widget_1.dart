@@ -1,6 +1,7 @@
 import 'package:bumaco_aios/app_core/models/models.dart';
 import 'package:bumaco_aios/app_utils/utils.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class ItemWidget1 extends StatelessWidget {
   const ItemWidget1({
@@ -22,7 +23,8 @@ class ItemWidget1 extends StatelessWidget {
       padding: _padding,
       child: InkWell(
         onTap: () {
-          print('------------selected');
+          Get.toNamed(childCategoryRoute,
+              arguments: {'arg_category_id': item.id});
         },
         child: Column(
           children: [
@@ -33,14 +35,18 @@ class ItemWidget1 extends StatelessWidget {
               child: Card(
                 clipBehavior: Clip.hardEdge,
                 elevation: 4,
-                child: Hero(
-                  tag: 'hero_category_image',
+                child: InkWell(
+                  onTap: () {
+                    Get.toNamed(childCategoryRoute,
+                        arguments: {'arg_category_item': item});
+                  },
                   child: Image(
-                    fit: BoxFit.fill,
-                    image: Image.network(
-                            '${ApiConstants.baseImageUrl}${item.bannerimage}')
-                        .image,
-                  ),
+                      fit: BoxFit.fill,
+                      image: Image.network(
+                              '${ApiConstants.baseImageUrl}${item.bannerimage}')
+                          .image
+                      // '${item.bannerimage}').image,
+                      ),
                 ),
               ),
             ),
@@ -51,14 +57,9 @@ class ItemWidget1 extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  Text(
-                    item.category ?? '',
-                    softWrap: true,
-                    style: Theme.of(context)
-                        .textTheme
-                        .headline6!
-                        .copyWith(color: kBlackColor),
-                  ),
+                  Text(item.category ,
+                      softWrap: true,
+                      style: Theme.of(context).textTheme.bodyText1!),
                 ],
               ),
             ),
