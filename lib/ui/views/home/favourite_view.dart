@@ -3,36 +3,23 @@ import 'package:bumaco_aios/app_utils/app_bar_home.dart';
 import 'package:bumaco_aios/app_utils/app_loading.dart';
 import 'package:bumaco_aios/app_utils/utils.dart';
 import 'package:bumaco_aios/ui/controller/controllers.dart';
+import 'package:bumaco_aios/ui/views/home/item_notification.dart';
 import 'package:bumaco_aios/ui/widgets/cproduct_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:get/get.dart';
 
-import 'favourite_view.dart';
-
-class ProductView extends StatelessWidget {
-  const ProductView({Key? key}) : super(key: key);
+class FavouriteView extends StatelessWidget {
+  const FavouriteView({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     final productController = Get.find<ProductController>();
-    var categoryItem = CategoryModel(category: 'Product List');
-    if (Get.arguments != null) {
-      categoryItem = Get.arguments['arg_category_item'];
-    }
-
+    productController.getFavouriteList();
     return Scaffold(
       appBar: AppbarHome(
-        title: categoryItem.category,
+        title: 'Wish List',
         actionList: [
-          IconButton(
-            icon: Icon(Icons.favorite_rounded),
-            tooltip: 'Wish List',
-            onPressed: () {
-                Get.to(() => FavouriteView());
-              // Get.toNamed(wishlistRoute);
-            },
-          ), //IconB
           IconButton(
               onPressed: () {
                 productController.changeColumnCount(1);
@@ -62,24 +49,21 @@ class ProductView extends StatelessWidget {
                 () => productController.isLoading.isTrue
                     ? LoadingWidget()
                     : StaggeredGridView.countBuilder(
-                        controller: productController.scroll,
+                        controller: productController.scrollController,
                         crossAxisCount: productController.columnCount.value,
                         crossAxisSpacing: 4,
                         mainAxisSpacing: 4,
-                        itemCount: productController.allProductList.length,
+                        itemCount: productController.favouriteList.length,
                         padding: EdgeInsets.all(4),
                         staggeredTileBuilder: (int index) {
                           return StaggeredTile.fit(1);
                         },
                         itemBuilder: (context, index) {
                           ProductModel item =
-                              productController.allProductList[index];
+                              productController.favouriteList[index];
                           return CProductTile(
-                            pController: productController,
                             prod: item,
-                            index: index,
-                            itemSize: productController.allProductList.length,
-                            offset: productController.offset.value,
+                            pController: productController,
                           );
                         }),
               ),

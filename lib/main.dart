@@ -1,3 +1,5 @@
+import 'package:bumaco_aios/app_core/db/database/database.dart';
+import 'package:bumaco_aios/network/dio_client.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
@@ -5,6 +7,7 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'app_config/config.dart';
 import 'app_utils/utils.dart';
+import 'network/dio_client_impl.dart';
 import 'ui/controller/controllers.dart';
 
 Future<void> _messageHandler(RemoteMessage message) async {
@@ -19,6 +22,10 @@ void main() async {
   await GetStorage.init(BOX_APP);
   Get.lazyPut(() => SettingsController(),
       fenix: true, tag: SETTINGS_CONTROLLER);
+
+  await Get.putAsync<DioClient>(() => DioClientImpl().init());
+  await Get.putAsync<AppDatabase>(() => AppDatabase.init());
+
   return runApp(MyApp());
 }
 
@@ -26,7 +33,6 @@ class MyApp extends StatelessWidget {
   final _settingsController = SettingsController.to;
   @override
   Widget build(BuildContext context) {
-    
     // var lang = Localizations.localeOf(context).languageCode;
     return GetMaterialApp(
       enableLog: true,

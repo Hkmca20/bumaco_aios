@@ -1,9 +1,7 @@
 import 'package:bumaco_aios/app_core/models/models.dart';
 import 'package:bumaco_aios/app_utils/utils.dart';
 import 'package:bumaco_aios/network/dio_client.dart';
-import 'package:bumaco_aios/network/dio_client1.dart';
 import 'package:bumaco_aios/network/dio_client_impl.dart';
-import 'package:bumaco_aios/network/dio_client_impl1.dart';
 import 'package:get/get.dart';
 
 abstract class ProductRepository {
@@ -16,7 +14,7 @@ class ProductRepositoryImpl extends ProductRepository {
   late DioClient _client;
   ProductRepositoryImpl() {
     _client = Get.put(DioClientImpl());
-    _client.init();
+    // _client.init();
   }
 
   @override

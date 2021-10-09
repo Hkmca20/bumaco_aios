@@ -3,6 +3,7 @@ import 'dart:ui';
 import 'package:bumaco_aios/app_core/models/models.dart';
 import 'package:bumaco_aios/app_utils/app_bar_home.dart';
 import 'package:bumaco_aios/app_utils/app_const.dart';
+import 'package:bumaco_aios/app_utils/app_loading.dart';
 import 'package:bumaco_aios/ui/controller/controllers.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -20,7 +21,8 @@ class CProductView extends StatelessWidget {
     if (Get.arguments != null) {
       categoryItem = Get.arguments['arg_category_item'];
       productController.setCategoryId(categoryItem.id);
-    }
+    } else
+      categoryItem = CategoryModel(category: 'Products');
     return Scaffold(
       appBar: AppbarHome(title: categoryItem.category),
       body: SingleChildScrollView(
@@ -50,44 +52,46 @@ class CProductView extends StatelessWidget {
                 margin: EdgeInsets.symmetric(vertical: 8),
                 height: 200,
                 child: Obx(
-                  () => ListView.builder(
-                    scrollDirection: Axis.horizontal,
-                    itemBuilder: (context, index) {
-                      final item = productController.productList[index];
-                      return Card(
-                        child: InkWell(
-                          child: Column(
-                            children: [
-                              Flexible(
-                                child: Container(
-                                  height: double.infinity,
-                                  width: 120,
-                                  decoration: BoxDecoration(
-                                    image: DecorationImage(
-                                      image: NetworkImage(
-                                          ApiConstants.baseImageUrl +
-                                              item.shortDescription),
-                                      fit: BoxFit.fitHeight,
+                  () => productController.isLoading.isTrue
+                      ? LoadingWidget()
+                      : ListView.builder(
+                          scrollDirection: Axis.horizontal,
+                          itemBuilder: (context, index) {
+                            final item = productController.productList[index];
+                            return Card(
+                              child: InkWell(
+                                child: Column(
+                                  children: [
+                                    Flexible(
+                                      child: Container(
+                                        height: double.infinity,
+                                        width: 120,
+                                        decoration: BoxDecoration(
+                                          image: DecorationImage(
+                                            image: NetworkImage(
+                                                ApiConstants.baseImageUrl +
+                                                    item.shortDescription),
+                                            fit: BoxFit.fitHeight,
+                                          ),
+                                        ),
+                                      ),
                                     ),
-                                  ),
+                                    Container(
+                                      width: 150,
+                                      padding: EdgeInsets.all(10),
+                                      child: item.product.text
+                                          .size(12)
+                                          .softWrap(true)
+                                          .make(),
+                                    )
+                                  ],
                                 ),
+                                onTap: () {},
                               ),
-                              Container(
-                                width: 150,
-                                padding: EdgeInsets.all(10),
-                                child: item.product.text
-                                    .size(12)
-                                    .softWrap(true)
-                                    .make(),
-                              )
-                            ],
-                          ),
-                          onTap: () {},
+                            );
+                          },
+                          itemCount: productController.productList.length,
                         ),
-                      );
-                    },
-                    itemCount: productController.productList.length,
-                  ),
                 ),
               ),
               Row(
@@ -124,51 +128,56 @@ class CProductView extends StatelessWidget {
               ),
               Container(
                 child: Obx(
-                  () => GridView.count(
-                    crossAxisCount: 2,
-                    shrinkWrap: true,
-                    physics: NeverScrollableScrollPhysics(),
-                    padding: EdgeInsets.only(top: 8, left: 8, right: 8),
-                    children: List.generate(
-                        productController.productList.length, (index) {
-                      ProductModel item = productController.productList[index];
-                      return Container(
-                        child: Card(
-                          clipBehavior: Clip.antiAlias,
-                          child: InkWell(
-                              onTap: () {
-                                print('card onClick event');
-                              },
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Flexible(
-                                      child: Container(
-                                    height: double.infinity,
-                                    width: double.infinity,
-                                    decoration: BoxDecoration(
-                                        image: DecorationImage(
-                                            image: NetworkImage(
-                                                ApiConstants.baseImageUrl +
-                                                    item.shortDescription),
-                                            fit: BoxFit.cover)),
-                                  )),
-                                  ListTile(
-                                    title: item.product.text
-                                        .size(16)
-                                        .fontWeight(FontWeight.w900)
-                                        .make(),
-                                    subtitle: item.description.text
-                                        .size(12)
-                                        .fontWeight(FontWeight.w700)
-                                        .make(),
-                                  )
-                                ],
-                              )),
+                  () => productController.isLoading.isTrue
+                      ? LoadingWidget()
+                      : GridView.count(
+                          crossAxisCount: 2,
+                          shrinkWrap: true,
+                          physics: NeverScrollableScrollPhysics(),
+                          padding: EdgeInsets.only(top: 8, left: 8, right: 8),
+                          children: List.generate(
+                              productController.productList.length, (index) {
+                            ProductModel item =
+                                productController.productList[index];
+                            return Container(
+                              child: Card(
+                                clipBehavior: Clip.antiAlias,
+                                child: InkWell(
+                                    onTap: () {
+                                      print('card onClick event');
+                                    },
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Flexible(
+                                            child: Container(
+                                          height: double.infinity,
+                                          width: double.infinity,
+                                          decoration: BoxDecoration(
+                                              image: DecorationImage(
+                                                  image: NetworkImage(
+                                                      ApiConstants
+                                                              .baseImageUrl +
+                                                          item.shortDescription),
+                                                  fit: BoxFit.cover)),
+                                        )),
+                                        ListTile(
+                                          title: item.product.text
+                                              .size(16)
+                                              .fontWeight(FontWeight.w900)
+                                              .make(),
+                                          subtitle: item.description.text
+                                              .size(12)
+                                              .fontWeight(FontWeight.w700)
+                                              .make(),
+                                        )
+                                      ],
+                                    )),
+                              ),
+                            );
+                          }),
                         ),
-                      );
-                    }),
-                  ),
                 ),
               ),
               categoryItem.image == null
@@ -185,51 +194,56 @@ class CProductView extends StatelessWidget {
                     ),
               Container(
                 child: Obx(
-                  () => GridView.count(
-                    crossAxisCount: 2,
-                    shrinkWrap: true,
-                    physics: NeverScrollableScrollPhysics(),
-                    padding: EdgeInsets.only(top: 8, left: 8, right: 8),
-                    children: List.generate(
-                        productController.productList.length, (index) {
-                      ProductModel item = productController.productList[index];
-                      return Container(
-                        child: Card(
-                          clipBehavior: Clip.antiAlias,
-                          child: InkWell(
-                              onTap: () {
-                                print('card onClick event');
-                              },
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Flexible(
-                                      child: Container(
-                                    height: double.infinity,
-                                    width: double.infinity,
-                                    decoration: BoxDecoration(
-                                        image: DecorationImage(
-                                            image: NetworkImage(
-                                                ApiConstants.baseImageUrl +
-                                                    item.shortDescription),
-                                            fit: BoxFit.cover)),
-                                  )),
-                                  ListTile(
-                                    title: item.product.text
-                                        .size(16)
-                                        .fontWeight(FontWeight.w900)
-                                        .make(),
-                                    subtitle: item.description.text
-                                        .size(12)
-                                        .fontWeight(FontWeight.w700)
-                                        .make(),
-                                  )
-                                ],
-                              )),
+                  () => productController.isLoading.isTrue
+                      ? LoadingWidget()
+                      : GridView.count(
+                          crossAxisCount: 2,
+                          shrinkWrap: true,
+                          physics: NeverScrollableScrollPhysics(),
+                          padding: EdgeInsets.only(top: 8, left: 8, right: 8),
+                          children: List.generate(
+                              productController.productList.length, (index) {
+                            ProductModel item =
+                                productController.productList[index];
+                            return Container(
+                              child: Card(
+                                clipBehavior: Clip.antiAlias,
+                                child: InkWell(
+                                    onTap: () {
+                                      print('card onClick event');
+                                    },
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Flexible(
+                                            child: Container(
+                                          height: double.infinity,
+                                          width: double.infinity,
+                                          decoration: BoxDecoration(
+                                              image: DecorationImage(
+                                                  image: NetworkImage(
+                                                      ApiConstants
+                                                              .baseImageUrl +
+                                                          item.shortDescription),
+                                                  fit: BoxFit.cover)),
+                                        )),
+                                        ListTile(
+                                          title: item.product.text
+                                              .size(16)
+                                              .fontWeight(FontWeight.w900)
+                                              .make(),
+                                          subtitle: item.description.text
+                                              .size(12)
+                                              .fontWeight(FontWeight.w700)
+                                              .make(),
+                                        )
+                                      ],
+                                    )),
+                              ),
+                            );
+                          }),
                         ),
-                      );
-                    }),
-                  ),
                 ),
               ),
             ],

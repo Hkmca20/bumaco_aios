@@ -31,9 +31,10 @@ class SampleAvatar extends StatelessWidget {
               padding: EdgeInsets.all(2),
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
-                color: Colors.grey,
+                color: Colors.grey.shade200,
               ),
               child: CircleAvatar(
+                backgroundColor: kTransparentColor,
                 backgroundImage:
                     NetworkImage('${ApiConstants.baseImageUrl}${item.image}'),
                 // NetworkImage('${item.image}'),

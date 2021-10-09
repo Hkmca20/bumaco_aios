@@ -155,7 +155,7 @@ const BOX_IS_DARK = 'is_dark'; //bool
 const BOX_IS_NOTIFICATION = 'is_notification'; //bool
 
 //Database
-const DB_NAME = 'bumaco_db';
+const DB_NAME = 'bumaco_database.db';
 const DB_VERSION = 1;
 
 class ApiConstants {
@@ -184,12 +184,31 @@ class ApiConstants {
   static const userByIdApi = baseUrlApi + 'userapi/user?id=1';
 }
 
+mBanner({context, title, icon, actions}) =>
+    ScaffoldMessenger.of(context).showMaterialBanner(
+      MaterialBanner(
+        backgroundColor: Colors.yellow.shade100,
+        leading: Icon(icon ?? Icons.info_outline_rounded),
+        content: Text(title),
+        padding: EdgeInsets.all(15),
+        contentTextStyle: TextStyle(
+            fontSize: 18, fontWeight: FontWeight.bold, color: Colors.indigo),
+        actions: actions ??
+            [
+              TextButton(
+                  onPressed: () {
+                    ScaffoldMessenger.of(context).hideCurrentMaterialBanner();
+                  },
+                  child: Text('OK'))
+            ],
+      ),
+    );
 bumacoSnackbar(title, message) => Get.snackbar(
       title,
       message,
       snackPosition: SnackPosition.BOTTOM,
       backgroundColor: Colors.green.shade900,
-      icon: Icon(Icons.face_rounded, color: kWhiteColor),
+      icon: Icon(Icons.info_outline_rounded, color: kWhiteColor),
       colorText: kWhiteColor,
       borderColor: kWhiteColor,
       borderRadius: 4,

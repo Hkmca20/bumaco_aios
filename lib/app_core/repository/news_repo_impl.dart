@@ -14,7 +14,7 @@ class NewsRepoImpl extends NewsRepo {
   late DioClient1 _client;
   NewsRepoImpl() {
     _client = Get.put(DioClientImpl1());
-    _client.init();
+    // _client.init();
   }
   @override
   Future<List<Article>?> getNewsHeadlines() async {

@@ -1,8 +1,12 @@
-import 'package:dio/dio.dart';
+import 'package:get/get.dart';
 
-abstract class DioClient {
-  void init();
+import 'dio_client_impl.dart';
 
-  Future<Response> getRequest(String url);
-  
+abstract class DioClient extends GetxService {
+  Future<DioClient> init();
+
+  Future<dynamic> getRequest(String url);
+
+  Future<dynamic> request(
+      String url, Method method, Map<String, dynamic>? params);
 }

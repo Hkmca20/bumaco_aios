@@ -1,8 +1,6 @@
-// import 'dart:convert';
-
-import 'dart:math';
 import 'dart:ui';
 
+import 'package:bumaco_aios/app_utils/app_const.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'category_model.g.dart';
@@ -19,7 +17,7 @@ class CategoryModel {
     this.createdate,
     this.modifydate,
     this.status,
-    this.color,
+    this.color = kPrimaryColor,
   });
 
   @JsonKey(name: 'id')
@@ -49,7 +47,7 @@ class CategoryModel {
   @JsonKey(name: 'status')
   String? status;
 
-  Color? color;
+  Color color;
 
   factory CategoryModel.fromJson(Map<String, dynamic> json) =>
       _$CategoryModelFromJson(json);

@@ -1,21 +1,22 @@
-import 'dart:math';
-
 import 'package:bumaco_aios/app_core/models/models.dart';
 import 'package:bumaco_aios/app_utils/utils.dart';
+import 'package:bumaco_aios/ui/controller/product_controller.dart';
 import 'package:bumaco_aios/ui/shopping/product_detail_view1.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:transparent_image/transparent_image.dart';
 
 class CProductTile extends StatelessWidget {
-  const CProductTile(
-      {Key? key,
-      required this.prod,
-      this.index = 0,
-      this.itemSize = 0,
-      this.offset = 0.0})
-      : super(key: key);
+  const CProductTile({
+    Key? key,
+    required this.prod,
+    this.index = 0,
+    this.itemSize = 0,
+    this.offset = 0.0,
+    required this.pController,
+  }) : super(key: key);
 
+  final ProductController pController;
   final ProductModel prod;
   final double offset;
   final int index, itemSize;
@@ -33,7 +34,8 @@ class CProductTile extends StatelessWidget {
         padding: const EdgeInsets.all(8.0),
         child: InkWell(
           onTap: () {
-            Get.to(ProductDetailView1(), arguments: {'arg_product': prod});
+            Get.to(() => ProductDetailView1(),
+                arguments: {'arg_product': prod});
           },
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -77,6 +79,10 @@ class CProductTile extends StatelessWidget {
                                 : Icon(Icons.favorite_border),
                             onPressed: () {
                               prod.isFavorite.toggle();
+                              prod.isFavorite.isTrue
+                                  ? pController.insertFavourite(prod)
+                                  : pController.insertFavourite(prod);
+
                               String s = prod.isFavorite.isTrue
                                   ? 'Added to'
                                   : 'Removed from';
@@ -128,7 +134,7 @@ class CProductTile extends StatelessWidget {
               //     ),
               //   ),
               SizedBox(height: 8),
-              Text('\$${prod.mrp}', style: TextStyle(fontSize: 32)),
+              Text('\$ ${prod.mrp}', style: TextStyle(fontSize: 24)),
               SizedBox(height: 8),
               Center(
                 child: ElevatedButton(

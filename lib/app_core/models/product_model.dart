@@ -1,9 +1,11 @@
 import 'package:get/get.dart';
 import 'package:json_annotation/json_annotation.dart';
+import 'package:floor/floor.dart';
 
 part 'product_model.g.dart';
 
 @JsonSerializable()
+@entity
 class ProductModel {
   ProductModel({
     this.category = '',
@@ -19,6 +21,7 @@ class ProductModel {
     this.fimage = '',
     this.shortDescription = '',
     this.description = '',
+    // this.quantity = 0,
   });
 
   @JsonKey(name: 'category')
@@ -27,6 +30,7 @@ class ProductModel {
   final String childcategory;
   @JsonKey(name: 'subcategory')
   final String subcategory;
+  @primaryKey
   @JsonKey(name: 'id')
   final String id;
 
@@ -49,6 +53,12 @@ class ProductModel {
   @JsonKey(name: 'description')
   final String description;
 
+  // @PrimaryKey(autoGenerate: true)
+  // String uid = '';
+
+  // int quantity;
+
+  @ignore
   var isFavorite = false.obs;
 
   factory ProductModel.fromJson(Map<String, dynamic> json) =>

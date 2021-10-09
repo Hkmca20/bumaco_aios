@@ -14,7 +14,7 @@ class CategoryRepoImpl extends CategoryRepo {
   late DioClient _client;
   CategoryRepoImpl() {
     _client = Get.put(DioClientImpl());
-    _client.init();
+    // _client.init();
   }
 
   @override
