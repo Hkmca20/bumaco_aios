@@ -1,35 +1,35 @@
-import 'package:bumaco_aios/app_core/models/models.dart';
+import 'package:bumaco_aios/app_core/db/entity/entities.dart';
 import 'package:floor/floor.dart';
 
 @dao
 abstract class FavouriteDao {
-  @Query('SELECT * FROM productmodel')
-  Future<List<ProductModel>> findAllFavourites();
+  @Query('SELECT * FROM favouriteentity')
+  Future<List<FavouriteEntity>> findAllFavourites();
 
-  @Query('SELECT * FROM productmodel')
-  Stream<List<ProductModel>> findAllFavAsStream();
+  @Query('SELECT * FROM favouriteentity')
+  Stream<List<FavouriteEntity>> findAllFavAsStream();
 
-  @Query('SELECT * FROM productmodel WHERE id = :id')
-  Future<ProductModel?> findFavouriteById(String id);
+  @Query('SELECT * FROM favouriteentity WHERE id = :id')
+  Future<FavouriteEntity?> findFavouriteById(String id);
 
-  @Query('SELECT * FROM productmodel ORDER BY id DESC LIMIT 1')
-  Future<ProductModel?> findMaxFavourite();
+  @Query('SELECT * FROM favouriteentity ORDER BY id DESC LIMIT 1')
+  Future<FavouriteEntity?> findMaxFavourite();
 
-  @Query('SELECT * FROM productmodel ORDER BY id DESC')
-  Stream<List<ProductModel>> fetchStreamFavourite();
+  @Query('SELECT * FROM favouriteentity ORDER BY id DESC')
+  Stream<List<FavouriteEntity>> fetchStreamFavourite();
 
   @insert
-  Future<void> insertIntoFavourite(ProductModel product);
+  Future<void> insertIntoFavourite(FavouriteEntity product);
 
   @update
-  Future<void> updateFavourire(ProductModel product);
+  Future<void> updateFavourire(FavouriteEntity product);
 
   @delete
-  Future<void> deleteFavourire(ProductModel product);
+  Future<void> deleteFavourire(FavouriteEntity product);
 
-  @Query("DELETE FROM productmodel WHERE id = :id")
+  @Query("DELETE FROM favouriteentity WHERE id = :id")
   Future<void> deleteFavourireById(String id);
 
   @delete
-  Future<int> deleteAllFavourire(List<ProductModel> list);
+  Future<int> deleteAllFavourire(List<FavouriteEntity> list);
 }

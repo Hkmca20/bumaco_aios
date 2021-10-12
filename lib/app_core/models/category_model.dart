@@ -17,7 +17,7 @@ class CategoryModel {
     this.createdate,
     this.modifydate,
     this.status,
-    this.color = kPrimaryColor,
+    this.color = kWhiteColor,
   });
 
   @JsonKey(name: 'id')

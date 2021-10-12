@@ -1,5 +1,8 @@
+import 'dart:ui';
+
 import 'package:bumaco_aios/app_core/models/models.dart';
 import 'package:bumaco_aios/app_utils/utils.dart';
+import 'package:bumaco_aios/ui/controller/bucket_controller.dart';
 import 'package:bumaco_aios/ui/controller/product_controller.dart';
 import 'package:bumaco_aios/ui/shopping/product_detail_view1.dart';
 import 'package:flutter/material.dart';
@@ -13,10 +16,12 @@ class CProductTile extends StatelessWidget {
     this.index = 0,
     this.itemSize = 0,
     this.offset = 0.0,
+    required this.bController,
     required this.pController,
   }) : super(key: key);
 
   final ProductController pController;
+  final BucketController bController;
   final ProductModel prod;
   final double offset;
   final int index, itemSize;
@@ -57,36 +62,19 @@ class CProductTile extends StatelessWidget {
                       borderRadius: BorderRadius.all(Radius.circular(4)),
                     ),
                   ),
-                  // Container(
-                  //   height: 180,
-                  //   width: double.infinity,
-                  //   clipBehavior: Clip.antiAlias,
-                  //   decoration: BoxDecoration(
-                  //     borderRadius: BorderRadius.circular(4),
-                  //   ),
-                  //   child: Image.network(
-                  //     ApiConstants.baseImageUrl + prod.shortDescription,
-                  //     fit: BoxFit.cover,
-                  //   ),
-                  // ),
                   Positioned(
                     right: 0,
                     child: Obx(() => CircleAvatar(
                           backgroundColor: Colors.white54,
                           child: IconButton(
-                            icon: prod.isFavorite.value
+                            icon: prod.isFavorite.isTrue
                                 ? Icon(Icons.favorite_rounded)
                                 : Icon(Icons.favorite_border),
                             onPressed: () {
-                              prod.isFavorite.toggle();
                               prod.isFavorite.isTrue
-                                  ? pController.insertFavourite(prod)
+                                  ? pController.removeFavourite(prod)
                                   : pController.insertFavourite(prod);
-
-                              String s = prod.isFavorite.isTrue
-                                  ? 'Added to'
-                                  : 'Removed from';
-                              bumacoSnackbar('Alert', '$s Wishlist');
+                              prod.isFavorite.toggle();
                             },
                           ),
                         )),
@@ -134,12 +122,27 @@ class CProductTile extends StatelessWidget {
               //     ),
               //   ),
               SizedBox(height: 8),
-              Text('\$ ${prod.mrp}', style: TextStyle(fontSize: 24)),
+              Text.rich(TextSpan(children: [
+                TextSpan(
+                  text: prod.mrp == '' ? '' : '\$ ${prod.mrp}',
+                  style: TextStyle(
+                    fontSize: 16,
+                    color: kGreyLightColor,
+                    decoration: TextDecoration.lineThrough,
+                  ),
+                ),
+                TextSpan(
+                  text: '  \$ ${prod.mrp}',
+                  style: TextStyle(
+                    fontSize: 24,
+                  ),
+                ),
+              ])),
               SizedBox(height: 8),
               Center(
                 child: ElevatedButton(
                   onPressed: () {
-                    bumacoSnackbar('Alert', 'Adding to your cart list');
+                    bController.insertBucket(prod);
                   },
                   child: Text(
                     'Add to cart',

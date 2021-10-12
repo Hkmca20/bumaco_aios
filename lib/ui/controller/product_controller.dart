@@ -1,4 +1,5 @@
 import 'package:bumaco_aios/app_core/db/database/database.dart';
+import 'package:bumaco_aios/app_core/db/entity/favorite_entity.dart';
 import 'package:bumaco_aios/app_core/models/models.dart';
 import 'package:bumaco_aios/app_core/repository/product_repo.dart';
 import 'package:bumaco_aios/app_utils/utils.dart';
@@ -52,6 +53,13 @@ class ProductController extends GetxController with StateMixin, ScrollMixin {
       var products = await productRepository.getProduct(categoryId);
       if (products != null) {
         productList.value = products;
+        productList.forEach((e1) {
+          products.forEach((e2) {
+            if (e1.id == e2.id) {
+              e1.isFavorite.value = true;
+            }
+          });
+        });
         isToLoadMore = true;
       } else {
         isToLoadMore = false;
@@ -81,34 +89,68 @@ class ProductController extends GetxController with StateMixin, ScrollMixin {
   }
 
   getFavouriteList() async {
-    isLoading(true);
-   await Future.delayed(Duration(milliseconds: 500));
     final db = await $FloorAppDatabase.databaseBuilder(DB_NAME).build();
     final favDao = db.favouriteDao;
     final result = await favDao.findAllFavourites();
-    isLoading(false);
-    favouriteList.value = result;
+    favouriteList.clear();
+    result.forEach((element) {
+      ProductModel item = ProductModel(
+        category: element.category,
+        childcategory: element.childcategory,
+        subcategory: element.subcategory,
+        id: element.id,
+        brand: element.brand,
+        createdate: element.createdate,
+        description: element.description,
+        shortDescription: element.shortDescription,
+        fimage: element.fimage,
+        hasvery: element.hasvery,
+        mrp: element.mrp,
+        product: element.product,
+        productUrl: element.productUrl,
+      );
+      item.isFavorite.value = true;
+      favouriteList.add(item);
+    });
   }
 
-  insertFavourite(ProductModel item) async {
+  insertFavourite(ProductModel element) async {
     final db = await $FloorAppDatabase.databaseBuilder(DB_NAME).build();
     final favDao = db.favouriteDao;
-    await favDao.insertIntoFavourite(item);
+    final FavouriteEntity? checkItem =
+        await favDao.findFavouriteById(element.id);
+    if (checkItem != null && checkItem.id == element.id) {
+      bumacoSnackbar('Alert', 'Already added to your wishlist!');
+      return;
+    }
+    final entity = FavouriteEntity(
+      category: element.category,
+      childcategory: element.childcategory,
+      subcategory: element.subcategory,
+      id: element.id,
+      brand: element.brand,
+      createdate: element.createdate,
+      description: element.description,
+      shortDescription: element.shortDescription,
+      fimage: element.fimage,
+      hasvery: element.hasvery,
+      mrp: element.mrp,
+      product: element.product,
+      productUrl: element.productUrl,
+    );
+    await favDao.insertIntoFavourite(entity);
+    getFavouriteList();
+    bumacoSnackbar('Alert', '${entity.product} is added to your wishlist!');
   }
 
-  // _saveCall() {
-  //   final database = $FloorAppDatabase.databaseBuilder('tododatabase.db').build();
-  //   database.then((onValu){
-  //   onValu.todoDao.getMaxTodo().then((onValue){
-  //     int id = 1;
-  //     if(onValue != null){
-  //      id=onValue.id+1;
-  //     }
-  //     onValu.todoDao.insertTodo(Todo(id,widget._textEditingController.value.text,DateFormat('dd-mm-yyyy kk:mm').format(DateTime.now()),""));
-  //   });
-  // });
-  //   Navigator.pop(context);
-  // }
+  removeFavourite(item) async {
+    final db = await $FloorAppDatabase.databaseBuilder(DB_NAME).build();
+    final favDao = db.favouriteDao;
+    await favDao.deleteFavourireById(item.id);
+    getFavouriteList();
+    bumacoSnackbar('Alert', '${item.product} is removed to your wishlist!');
+  }
+  
   @override
   Future<void> onEndScroll() async {
     // if (isToLoadMore) {

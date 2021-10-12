@@ -246,3 +246,20 @@ bumacoBottomsheet(msg) => Get.bottomSheet(Container(
         ListTile(title: Text(msg)),
       ]),
     ));
+bumacoDialog(context, title, message, action) => showDialog<bool>(
+    context: context,
+    builder: (c) => AlertDialog(
+          title: Text(title),
+          content: Text(message),
+          actions: action ??
+              [
+                MaterialButton(
+                  child: Text('Yes'),
+                  onPressed: () => Navigator.pop(c, true),
+                ),
+                MaterialButton(
+                  child: Text('No'),
+                  onPressed: () => Navigator.pop(c, false),
+                ),
+              ],
+        ));

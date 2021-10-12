@@ -24,7 +24,11 @@ class AppBinding implements Bindings {
     // Get.put<Controller2>(Controller2());
 
     ///Other binding class
+    ///
+    // Get.lazyPut(() => LoginController(repository: LoginRepo()), fenix: true);//exm
+    // Get.lazyPut(() => HomeController(HomeRepo()), fenix: true);//exm hari
     Get.lazyPut(() => ProductController(), fenix: true);
+    Get.lazyPut(() => BucketController(), fenix: true);
     Get.lazyPut(() => ProductMakeupController(), fenix: true);
     Get.lazyPut(() => NewsController(), fenix: true);
     Get.lazyPut(() => NewsRepoImpl(), fenix: true);

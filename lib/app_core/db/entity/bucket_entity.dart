@@ -1,7 +1,10 @@
 import 'package:floor/floor.dart';
 
 @entity
-class FavouriteEntity {
+class BucketEntity {
+  // @PrimaryKey(autoGenerate: true)
+  // final String uid;
+
   final String category;
   final String childcategory;
   final String subcategory;
@@ -17,8 +20,12 @@ class FavouriteEntity {
   final String fimage;
   final String shortDescription;
   final String description;
+  int quantity;
+  final bool isFavourite;
+  final bool isBucket;
 
-  FavouriteEntity({
+  BucketEntity({
+    // this.uid = '',
     this.category = '',
     this.childcategory = '',
     this.subcategory = '',
@@ -32,7 +39,8 @@ class FavouriteEntity {
     this.fimage = '',
     this.shortDescription = '',
     this.description = '',
+    this.quantity = 0,
+    this.isFavourite = false,
+    this.isBucket = false,
   });
-  @override
-  String toString() => super.toString();
 }

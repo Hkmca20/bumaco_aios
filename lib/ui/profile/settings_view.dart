@@ -33,7 +33,6 @@ class SettingView extends StatelessWidget {
                         style: TextStyle(
                           fontWeight: FontWeight.w900,
                           fontSize: 28,
-                          color: Color(0xff000000),
                         ),
                       ),
                       SizedBox(height: 16),

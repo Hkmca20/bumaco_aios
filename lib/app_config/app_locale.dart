@@ -4,6 +4,9 @@ class BumacoLocale extends Translations {
   @override
   Map<String, Map<String, String>> get keys => {
         'en_US': {
+          // --core--
+          'app_name':'Bumaco',
+          'app_title':'Bumaco',
           // --Splash/Onboard--
           'hello': 'Hello',
           'message': 'Hi How are you, Welcome to Bumaco!!'
@@ -17,6 +20,8 @@ class BumacoLocale extends Translations {
           'message': 'हेलो आप कैसे है, बूमाको में आपका स्वागत है!!'
         },
         'ar_AE': {
+          'app_name':'بوماكو',
+          'app_title':'بوماكو',
           'hello': 'أهلا',
           'message': 'أهلا كيف حالك ، أتمنى لك يومًا رائعًا ، أهلا بك في "بوماكو'
         },

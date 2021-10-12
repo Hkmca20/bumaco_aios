@@ -5,15 +5,14 @@ import 'package:bumaco_aios/ui/controller/controllers.dart';
 import 'package:bumaco_aios/ui/views/home/item_avatar.dart';
 import 'package:bumaco_aios/ui/views/home/search_delegate.dart';
 import 'package:bumaco_aios/ui/views/search/search_view.dart';
-import 'package:bumaco_aios/ui/widgets/aproduct_card.dart';
-import 'package:bumaco_aios/ui/widgets/cproduct_card.dart';
 import 'package:bumaco_aios/ui/widgets/hero_carousel_card1.dart';
 import 'package:bumaco_aios/ui/widgets/widgets.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:velocity_x/src/extensions/string_ext.dart';
+import 'package:velocity_x/velocity_x.dart';
 
+import 'bucket_view.dart';
 import 'favourite_view.dart';
 import 'item_widget_1.dart';
 import 'item_widget_2.dart';
@@ -27,10 +26,11 @@ class HomeView extends StatelessWidget {
     final _screenSize = MediaQuery.of(context).size;
     final categoryController = Get.find<CategoryController>();
     final productController = Get.find<ProductController>();
+    final bController = Get.find<BucketController>();
     return Material(
       child: Scaffold(
         appBar: AppbarHome(
-          title: 'Bumaco',
+          title: 'app_title'.tr,
           actionList: [
             IconButton(
               icon: Icon(Icons.search_rounded),
@@ -62,7 +62,8 @@ class HomeView extends StatelessWidget {
               icon: Icon(Icons.shopping_cart_rounded),
               tooltip: 'View Cart Item',
               onPressed: () {
-                categoryController.fetchCategory();
+              Get.to(() => BucketView());
+                // categoryController.fetchCategory();
               },
             ),
           ],
@@ -72,7 +73,40 @@ class HomeView extends StatelessWidget {
             constraints: BoxConstraints(),
             child: Obx(
               () => Column(children: <Widget>[
-                SizedBox(height: 16), //--------------------------
+                categoryController.isLoading.isTrue
+                    ? SizedBox(
+                        height: 200,
+                        child: VxShimmer(
+                          child: 'Loading data...'.text.size(30).center.make(),
+                        ).centered(),
+                      )
+                    : SizedBox(height: 8),
+                SectionTile(title: 'New Arrival Products'),
+                Container(
+                  padding: EdgeInsets.all(10),
+                  height: 80,
+                  child: ListView.builder(
+                      physics: ClampingScrollPhysics(),
+                      scrollDirection: Axis.horizontal,
+                      itemCount: categoryController.categoryList.length,
+                      itemBuilder: (context, index) {
+                        final CategoryModel item =
+                            categoryController.categoryList[index];
+                        return Padding(
+                          padding: EdgeInsets.all(5),
+                          child: Chip(
+                            shadowColor: kPrimaryColor,
+                            label: item.category.text
+                                .size(20)
+                                .bold
+                                .amber600
+                                .make(),
+                            padding: EdgeInsets.all(14),
+                          ),
+                        );
+                      }),
+                ),
+                Divider(),
                 SectionTile(title: 'Category based on your profile'),
                 SizedBox(height: 8), //--------------------------
                 Container(
@@ -183,7 +217,6 @@ class HomeView extends StatelessWidget {
                       categoryController.categoryList.length, (index) {
                     final CategoryModel item =
                         categoryController.categoryList[index];
-
                     return ItemWidget1(
                         padding: EdgeInsets.only(left: 10.0),
                         screenWidth: _screenSize.width - 50,
@@ -220,14 +253,26 @@ class HomeView extends StatelessWidget {
                                     ),
                                   ),
                                 ),
-                                Container(
-                                  width: 150,
-                                  padding: EdgeInsets.all(10),
-                                  child: item.product.text
-                                      .size(12)
-                                      .softWrap(true)
-                                      .make(),
-                                )
+                                item.product.text
+                                    .size(16)
+                                    .fontWeight(FontWeight.w900)
+                                    .make()
+                                    .p2(),
+                                item.description.text
+                                    .size(12)
+                                    .fontWeight(FontWeight.w700)
+                                    .make()
+                                    .p2(),
+                                TextButton(
+                                  onPressed: () {
+                                    bController.insertBucket(item);
+                                  },
+                                  child: 'Add to Cart'
+                                      .text
+                                      .amber700
+                                      .make()
+                                      .centered(),
+                                ),
                               ],
                             ),
                             onTap: () {},
@@ -275,16 +320,26 @@ class HomeView extends StatelessWidget {
                                                     item.shortDescription),
                                             fit: BoxFit.cover)),
                                   )),
-                                  ListTile(
-                                    title: item.product.text
-                                        .size(16)
-                                        .fontWeight(FontWeight.w900)
-                                        .make(),
-                                    subtitle: item.description.text
-                                        .size(12)
-                                        .fontWeight(FontWeight.w700)
-                                        .make(),
-                                  )
+                                  (item.product +' \$ '+item.mrp).text
+                                      .size(16)
+                                      .fontWeight(FontWeight.w900)
+                                      .make()
+                                      .p2(),
+                                  item.description.text
+                                      .size(12)
+                                      .fontWeight(FontWeight.w700)
+                                      .make()
+                                      .p2(),
+                                  TextButton(
+                                    onPressed: () {
+                                      bController.insertBucket(item);
+                                    },
+                                    child: 'Add to Cart'
+                                        .text
+                                        .amber700
+                                        .make()
+                                        .centered(),
+                                  ),
                                 ],
                               )),
                         ),

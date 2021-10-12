@@ -14,7 +14,7 @@ Future<void> _messageHandler(RemoteMessage message) async {
   print('background message ${message.notification!.body}');
 }
 
-void main() async {
+Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   FirebaseMessaging.onBackgroundMessage(_messageHandler);
@@ -30,7 +30,7 @@ void main() async {
 }
 
 class MyApp extends StatelessWidget {
-  final _settingsController = SettingsController.to;
+  // final _settingsController = SettingsController.to;
   @override
   Widget build(BuildContext context) {
     // var lang = Localizations.localeOf(context).languageCode;
@@ -43,10 +43,10 @@ class MyApp extends StatelessWidget {
       // themeMode: _settingsController.themeMode,
       themeMode: ThemeMode.system,
       theme: setTheme(context),
-      // darkTheme: setDarkTheme(context),
+      darkTheme: setDarkTheme(context),
       translations: BumacoLocale(),
-      locale: localeList[0], //default locale from get device locale
-      fallbackLocale: localeList[0], //fallback if locale not present in device
+      locale: usLocale, //default locale from get device locale
+      fallbackLocale: usLocale, //fallback if locale not present in device
       initialRoute: initialRoute,
       // onGenerateRoute: (RouteSettings settings) {
       //   if (settings.name.contains('onboard')) {

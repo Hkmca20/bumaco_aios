@@ -1,6 +1,8 @@
 import 'package:bumaco_aios/app_core/models/models.dart';
 import 'package:bumaco_aios/app_utils/utils.dart';
 import 'package:bumaco_aios/ui/controller/controllers.dart';
+import 'package:bumaco_aios/ui/views/home/bucket_view.dart';
+import 'package:bumaco_aios/ui/views/home/favourite_view.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -18,7 +20,9 @@ class CategoryView extends StatelessWidget {
             icon: Icon(Icons.favorite_rounded),
             color: kPrimaryColorDark,
             tooltip: 'Wishlist',
-            onPressed: () {},
+            onPressed: () {
+              Get.to(() => FavouriteView());
+            },
           ), //IconB
           IconButton(
             icon: Icon(Icons.share_rounded),
@@ -31,7 +35,7 @@ class CategoryView extends StatelessWidget {
             color: kPrimaryColorDark,
             tooltip: 'View Cart Item',
             onPressed: () {
-              categoryController.fetchCategory();
+              Get.to(() => BucketView());
             },
           ),
         ],

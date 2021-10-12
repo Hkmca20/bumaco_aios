@@ -61,7 +61,8 @@ class ChildItemWidget extends StatelessWidget {
                           style: Theme.of(context)
                               .textTheme
                               .bodyText1!
-                              .copyWith(color: Colors.black54))
+                              .copyWith(color: kGreyLightColor)
+                              )
                     ],
                   )),
                   Container(

@@ -1,15 +1,15 @@
 import 'dart:async';
 import 'package:bumaco_aios/app_core/db/dao/bucket_dao.dart';
+import 'package:bumaco_aios/app_core/db/entity/entities.dart';
 import 'package:bumaco_aios/app_utils/app_const.dart';
 import 'package:sqflite/sqflite.dart' as sqflite;
 import 'package:floor/floor.dart';
 
 import 'package:bumaco_aios/app_core/db/dao/favorite_dao.dart';
-import 'package:bumaco_aios/app_core/models/models.dart';
 
 part 'database.g.dart';
 
-@Database(version: DB_VERSION, entities: [ProductModel])
+@Database(version: DB_VERSION, entities: [FavouriteEntity, BucketEntity])
 abstract class AppDatabase extends FloorDatabase {
   FavouriteDao get favouriteDao;
   BucketDao get bucketDao;

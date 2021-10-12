@@ -8,15 +8,17 @@ class AppbarHome extends StatelessWidget with PreferredSizeWidget {
 
   final String title;
   final List<IconButton>? actionList;
-  final Color color;
   final Color textColor;
   final Color iconColor;
+  final bool autoLeading;
+  final bool centerTitle;
 
   AppbarHome(
       {Key? key,
       required this.title,
       this.actionList,
-      this.color = kWhiteColor,
+      this.autoLeading = true,
+      this.centerTitle = false,
       this.textColor = kWhiteColor,
       this.iconColor = kPrimaryColor})
       : preferredSize = Size.fromHeight(kToolbarHeight),
@@ -25,7 +27,6 @@ class AppbarHome extends StatelessWidget with PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return VxAppBar(
-      backgroundColor: color,
       title: Flex(
         direction: Axis.horizontal,
         children: [
@@ -49,8 +50,8 @@ class AppbarHome extends StatelessWidget with PreferredSizeWidget {
           ),
         ],
       ),
-      automaticallyImplyLeading: true,
-      centerTitle: false,
+      automaticallyImplyLeading: autoLeading,
+      centerTitle: centerTitle,
       actionsIconTheme:
           IconTheme.of(context).copyWith(color: kPrimaryColorDark),
       iconTheme: IconTheme.of(context).copyWith(color: kPrimaryColorDark),
