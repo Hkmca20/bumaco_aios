@@ -1,4 +1,4 @@
-import 'package:bumaco_aios/app_core/db/database/database.dart';
+import 'package:bumaco_aios/app_core/db/database/app_database.dart';
 import 'package:bumaco_aios/network/dio_client.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';

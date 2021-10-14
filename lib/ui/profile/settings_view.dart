@@ -14,6 +14,7 @@ class SettingView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final _settingsController = SettingsController.to;
+    final _loginController = SigninController.to;
     return Scaffold(
       body: ListView(
         // Column(
@@ -190,11 +191,13 @@ class SettingView extends StatelessWidget {
               leading: Icon(Icons.notification_important_rounded,
                   color: kPrimaryColor),
               trailing: Icon(Icons.arrow_forward_ios_rounded),
-              title: Text(
-                'Notifications',
-                style: TextStyle(fontSize: 20),
+              title: Obx(
+                () => Text(
+                  'Language ${_loginController.selectedCountry}',
+                  style: TextStyle(fontSize: 20),
+                ),
               ),
-              onTap: () => {},
+              onTap: () => {_loginController.buildDialog(context)},
             ),
           ),
           Divider(height: 1),

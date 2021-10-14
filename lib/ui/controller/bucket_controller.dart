@@ -1,4 +1,4 @@
-import 'package:bumaco_aios/app_core/db/database/database.dart';
+import 'package:bumaco_aios/app_core/db/database/app_database.dart';
 import 'package:bumaco_aios/app_core/db/entity/entities.dart';
 import 'package:bumaco_aios/app_core/models/models.dart';
 import 'package:bumaco_aios/app_utils/utils.dart';
@@ -36,7 +36,7 @@ class BucketController extends GetxController {
       totalAmount.value += element.quantity * tempMrp;
     });
     taxAmount.value = (totalAmount * taxPercent) / 100;
-    if (totalAmount < 2000) shippingAmt.value = 350.0;
+    if (totalAmount > 0 && totalAmount < 2000) shippingAmt.value = 350.0;
     grandTotal.value = totalAmount.value + taxAmount.value + shippingAmt.value;
     bucketList.value = result;
     print('-----------finding ends' + totalAmount.toString());

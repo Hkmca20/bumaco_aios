@@ -49,9 +49,7 @@ class FavouriteView extends StatelessWidget {
           children: [
             Expanded(
               child: Obx(
-                () => productController.isLoading.isTrue
-                    ? LoadingWidget()
-                    : productController.favouriteList.length == 0
+                () => productController.favouriteList.length == 0
                         ? EmptyContentWidget()
                         : StaggeredGridView.countBuilder(
                             controller: productController.scrollController,

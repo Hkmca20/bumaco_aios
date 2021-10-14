@@ -1,4 +1,4 @@
-import 'package:bumaco_aios/app_core/db/database/database.dart';
+import 'package:bumaco_aios/app_core/db/database/app_database.dart';
 import 'package:bumaco_aios/app_core/db/entity/favorite_entity.dart';
 import 'package:bumaco_aios/app_core/models/models.dart';
 import 'package:bumaco_aios/app_core/repository/product_repo.dart';

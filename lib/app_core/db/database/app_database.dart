@@ -1,18 +1,22 @@
 import 'dart:async';
-import 'package:bumaco_aios/app_core/db/dao/bucket_dao.dart';
+import 'package:bumaco_aios/app_core/db/dao/daos.dart';
 import 'package:bumaco_aios/app_core/db/entity/entities.dart';
 import 'package:bumaco_aios/app_utils/app_const.dart';
 import 'package:sqflite/sqflite.dart' as sqflite;
 import 'package:floor/floor.dart';
+part 'app_database.g.dart';
 
-import 'package:bumaco_aios/app_core/db/dao/favorite_dao.dart';
-
-part 'database.g.dart';
-
-@Database(version: DB_VERSION, entities: [FavouriteEntity, BucketEntity])
+@Database(version: DB_VERSION, entities: [
+  FavouriteEntity,
+  BucketEntity,
+  AddressEntity,
+  NotificationEntity
+])
 abstract class AppDatabase extends FloorDatabase {
   FavouriteDao get favouriteDao;
   BucketDao get bucketDao;
+  AddressDao get addressDao;
+  NotificationDao get notificationDao;
 
   static Future<AppDatabase> init() async {
     AppDatabase instance =

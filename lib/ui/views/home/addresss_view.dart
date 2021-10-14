@@ -9,21 +9,22 @@ import 'package:velocity_x/velocity_x.dart';
 
 import 'add_address_view.dart';
 import 'empty_widget.dart';
+import 'item_address.dart';
 
-class BucketView extends StatelessWidget {
-  const BucketView({Key? key}) : super(key: key);
+class AddressView extends StatelessWidget {
+  const AddressView({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final bucketController = Get.find<BucketController>();
-    bucketController.getAllBucketFromLocal();
+    final addressController = Get.find<AddressController>();
+    addressController.findAllAddressList();
     return Scaffold(
       appBar: AppbarHome(
-        title: 'Cart - Checkout',
+        title: 'Address - Checkout',
         actionList: [],
       ),
       body: Obx(
-        () => bucketController.bucketList.length == 0
+        () => addressController.addressList.length == 0
             ? EmptyContentWidget()
             : ConstrainedBox(
                 constraints: BoxConstraints(),
@@ -37,7 +38,7 @@ class BucketView extends StatelessWidget {
                               Divider(),
                               Expanded(
                                   child: 'Address: '.text.size(14).make().p12()),
-                              '\$ ${bucketController.totalAmount}'
+                              '\$ ${'addressController.totalAmount'}'
                                   .text
                                   .size(14)
                                   .make()
@@ -54,14 +55,14 @@ class BucketView extends StatelessWidget {
                         height: MediaQuery.of(context).size.height / 2,
                         child: ListView.separated(
                             separatorBuilder: (context, index) => Divider(),
-                            itemCount: bucketController.bucketList.length,
+                            itemCount: addressController.addressList.length,
                             padding: EdgeInsets.all(4),
                             itemBuilder: (context, index) {
-                              BucketEntity item =
-                                  bucketController.bucketList[index];
-                              return ItemNotification(
+                              AddressEntity item =
+                                  addressController.addressList[index];
+                              return ItemAddress(
                                 item: item,
-                                bController: bucketController,
+                                aController: addressController,
                               );
                             }),
                       ),
@@ -73,45 +74,10 @@ class BucketView extends StatelessWidget {
                         [
                           HStack(
                             [
-                              Divider(),
-                              Expanded(
-                                  child: 'Total: '.text.size(14).make().p12()),
-                              '\$ ${bucketController.totalAmount}'
-                                  .text
-                                  .size(14)
-                                  .make()
-                                  .p12(),
-                            ],
-                          ),
-                          HStack(
-                            [
-                              Expanded(
-                                  child: 'Tax: '.text.size(14).make().p12()),
-                              '\$ ${bucketController.taxAmount}'
-                                  .text
-                                  .size(14)
-                                  .make()
-                                  .p12(),
-                            ],
-                          ),
-                          HStack(
-                            [
-                              Expanded(
-                                  child:
-                                      'Discount: '.text.size(14).make().p12()),
-                              '\$ ${bucketController.discountAmt}'
-                                  .text
-                                  .size(14)
-                                  .make()
-                                  .p12(),
-                            ],
-                          ),
-                          HStack(
-                            [
                               Expanded(
                                   child:
                                       'Shipping: '.text.size(14).make().p12()),
-                              '\$ ${bucketController.shippingAmt}'
+                              '\$ ${'bucketController.shippingAmt'}'
                                   .text
                                   .size(14)
                                   .make()
@@ -124,7 +90,7 @@ class BucketView extends StatelessWidget {
                               Expanded(
                                   child:
                                       'Payable : '.text.size(20).make().p12()),
-                              '\$ ${bucketController.grandTotal}'
+                              '\$ ${'bucketController.grandTotal'}'
                                   .text
                                   .size(24)
                                   .make()
@@ -134,9 +100,9 @@ class BucketView extends StatelessWidget {
                           MaterialButton(
                             height: 50.0,
                             onPressed: () {
-                              Get.to(() => AddAddressScreen(), arguments: {
-                                'get_payable_amt': bucketController.grandTotal
-                              });
+                              // Get.to(() => AddAddressScreen(), arguments: {
+                              //   'get_payable_amt': bucketController.grandTotal
+                              // });
                             },
                             // color: Color(0xff374ABE),
                             color: kPrimaryColor,

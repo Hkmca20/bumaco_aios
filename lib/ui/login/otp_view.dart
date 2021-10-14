@@ -3,6 +3,7 @@ import 'package:bumaco_aios/ui/controller/controllers.dart';
 import 'package:bumaco_aios/ui/widgets/app_logo_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:velocity_x/velocity_x.dart';
 
 class OTPView extends StatelessWidget {
   const OTPView({Key? key}) : super(key: key);
@@ -31,22 +32,35 @@ class OTPView extends StatelessWidget {
 
     var otpInputText = Container(
       margin: EdgeInsets.only(top: 40.0, left: 30.0, right: 30.0),
-      child: TextFormField(
-        style: TextStyle(color: kWhiteColor, fontSize: 22),
-        controller: _otpController.otpCTR,
-        decoration: InputDecoration(
-          suffixIcon: Icon(
-            Icons.password_rounded,
-            color: kWhiteColor,
-          ),
-          labelText: 'OTP',
-          border: OutlineInputBorder(),
-        ),
-        maxLines: 1,
-        minLines: 1,
+      child: VxPinView(
+        type: VxPinBorderType.round,
+        obscureText: false,
+        onSubmitted: _otpController.submitOTP(),
         keyboardType: TextInputType.number,
-        autofocus: false,
+        fill: true,
+        color: kWhiteColor,
+        contentColor: kBlackColor,
+        count: 5,
+        onChanged: (value) {
+          _otpController.changeOtp(value);
+        },
       ),
+      // child: TextFormField(
+      //   style: TextStyle(color: kWhiteColor, fontSize: 22),
+      //   controller: _otpController.otpCTR,
+      //   decoration: InputDecoration(
+      //     suffixIcon: Icon(
+      //       Icons.password_rounded,
+      //       color: kWhiteColor,
+      //     ),
+      //     labelText: 'OTP',
+      //     border: OutlineInputBorder(),
+      //   ),
+      //   maxLines: 1,
+      //   minLines: 1,
+      //   keyboardType: TextInputType.number,
+      //   autofocus: false,
+      // ),
     );
 
     var resendOtpLabel = Obx(() => GestureDetector(

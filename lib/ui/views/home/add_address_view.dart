@@ -3,12 +3,12 @@ import 'package:flutter/material.dart';
 
 import 'book_order_view.dart';
 
-class CreateAddressScreen extends StatefulWidget {
+class AddAddressScreen extends StatefulWidget {
   @override
   State<StatefulWidget> createState() => LunchState();
 }
 
-class LunchState extends State<CreateAddressScreen> {
+class LunchState extends State<AddAddressScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(

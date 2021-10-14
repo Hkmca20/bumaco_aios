@@ -10,9 +10,14 @@ class OTPController extends GetxController {
   var initialValue = 30;
   var resendText = ''.obs;
   var canResendOTP = false.obs;
-  final otpCTR = TextEditingController();
+  // final otpCTR = TextEditingController();
+  var otpText = '';
   final box = GetStorage(BOX_APP);
   late Timer _timerOTP;
+
+  changeOtp(otp) {
+    otpText = otp;
+  }
 
   @override
   void onInit() {
@@ -33,7 +38,7 @@ class OTPController extends GetxController {
 
   @override
   void onClose() {
-    otpCTR.clear();
+    // otpCTR.clear();
     if (_timerOTP.isActive) {
       _timerOTP.cancel();
     }
@@ -41,15 +46,15 @@ class OTPController extends GetxController {
   }
 
   submitOTP() async {
-    if (otpCTR.text.length < 4) {
-      bumacoSnackbar( 'Error', 'Invalid OTP');
+    if (otpText.length < 4) {
+      bumacoSnackbar('Error', 'Invalid OTP');
       return;
     }
     showLoadingDialog();
     await Future.delayed(Duration(microseconds: 3000));
     try {
       Get.back();
-      if (otpCTR.text == '12345') {
+      if (otpText == '12345') {
         Get.snackbar(
           'Login',
           'Successfull!',
