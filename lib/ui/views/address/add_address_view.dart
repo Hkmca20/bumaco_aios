@@ -1,20 +1,31 @@
 import 'package:bumaco_aios/app_utils/utils.dart';
+import 'package:bumaco_aios/ui/controller/controllers.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import '../home/book_order_view.dart';
 
-import 'book_order_view.dart';
-
-class AddAddressScreen extends StatefulWidget {
+class AddAddressView extends StatefulWidget {
   @override
-  State<StatefulWidget> createState() => LunchState();
+  State<StatefulWidget> createState() => AddAddressViewState();
 }
 
-class LunchState extends State<AddAddressScreen> {
+class AddAddressViewState extends State<AddAddressView> {
+  final _addressController = AddressController.to;
+  @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: kGreyLightColor,
       appBar: AppbarHome(
-        title: "Shipping Address",
+        title: "Add Shipping Address",
       ),
       body: SingleChildScrollView(
         child: initScreen(),
@@ -30,9 +41,13 @@ class LunchState extends State<AddAddressScreen> {
         Container(
           margin: EdgeInsets.only(top: 30.0, left: 30.0, right: 30.0),
           child: TextFormField(
+            controller: _addressController.nameCTR,
             decoration: InputDecoration(
               labelText: "Name", // Set text upper animation
-              border: OutlineInputBorder(),
+              suffixIcon: Icon(
+                Icons.person,
+                color: kPrimaryColor,
+              ),
             ),
             minLines: 1,
             autofocus: false,
@@ -40,12 +55,38 @@ class LunchState extends State<AddAddressScreen> {
           ),
         ),
 
-        // Address Line Edit text
+        // Address Line 1 Edit text
         Container(
           margin: EdgeInsets.only(top: 30.0, left: 30.0, right: 30.0),
           child: TextFormField(
+            controller: _addressController.aLine1CTR,
             decoration: InputDecoration(
-                labelText: "Address Line", border: OutlineInputBorder()),
+              labelText: "Address Line 1",
+              border: OutlineInputBorder(),
+              suffixIcon: Icon(
+                Icons.location_city_rounded,
+                color: kPrimaryColor,
+              ),
+            ),
+            minLines: 1,
+            keyboardType: TextInputType.emailAddress,
+            autofocus: false,
+          ),
+        ),
+
+        // Address Line 2 Edit text
+        Container(
+          margin: EdgeInsets.only(top: 30.0, left: 30.0, right: 30.0),
+          child: TextFormField(
+            controller: _addressController.aLine2CTR,
+            decoration: InputDecoration(
+              labelText: "Address Line 2 (optional)",
+              border: OutlineInputBorder(),
+              suffixIcon: Icon(
+                Icons.location_city_rounded,
+                color: kPrimaryColor,
+              ),
+            ),
             minLines: 1,
             keyboardType: TextInputType.emailAddress,
             autofocus: false,
@@ -56,9 +97,14 @@ class LunchState extends State<AddAddressScreen> {
         Container(
           margin: EdgeInsets.only(top: 30.0, left: 30.0, right: 30.0),
           child: TextFormField(
+            controller: _addressController.cityCTR,
             decoration: InputDecoration(
               labelText: "City", // Set text upper animation
               border: OutlineInputBorder(),
+              suffixIcon: Icon(
+                Icons.location_city_rounded,
+                color: kPrimaryColor,
+              ),
             ),
             minLines: 1,
             autofocus: false,
@@ -70,9 +116,14 @@ class LunchState extends State<AddAddressScreen> {
         Container(
           margin: EdgeInsets.only(top: 30.0, left: 30.0, right: 30.0),
           child: TextFormField(
+            controller: _addressController.pinCTR,
             decoration: InputDecoration(
               labelText: "Postal Code", // Set text upper animation
               border: OutlineInputBorder(),
+              suffixIcon: Icon(
+                Icons.pin_drop_rounded,
+                color: kPrimaryColor,
+              ),
             ),
             minLines: 1,
             autofocus: false,
@@ -84,9 +135,14 @@ class LunchState extends State<AddAddressScreen> {
         Container(
           margin: EdgeInsets.only(top: 30.0, left: 30.0, right: 30.0),
           child: TextFormField(
+            controller: _addressController.phoneCTR,
             decoration: InputDecoration(
               labelText: "Phone Number", // Set text upper animation
               border: OutlineInputBorder(),
+              suffixIcon: Icon(
+                Icons.phone_android_rounded,
+                color: kPrimaryColor,
+              ),
             ),
             minLines: 1,
             autofocus: false,
@@ -100,8 +156,7 @@ class LunchState extends State<AddAddressScreen> {
                 margin: EdgeInsets.only(top: 50.0, bottom: 10.0),
                 child: RaisedButton(
                   onPressed: () {
-                    Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => BookOrderView()));
+                    _addressController.submitAddress();
                   }, // Click Listener
 
                   shape: RoundedRectangleBorder(
@@ -111,8 +166,8 @@ class LunchState extends State<AddAddressScreen> {
                     decoration: BoxDecoration(
                         gradient: LinearGradient(
                             colors: [
-                              new Color(0xff374ABE),
-                              new Color(0xff64B6FF)
+                              kPrimaryColorDark, kPrimaryColor
+                              //  Color(0xff374ABE), Color(0xff64B6FF)
                             ],
                             begin: Alignment.centerLeft,
                             end: Alignment.centerRight),
@@ -125,7 +180,7 @@ class LunchState extends State<AddAddressScreen> {
                       child: const Text(
                         'Add Address',
                         textAlign: TextAlign.center,
-                        style: TextStyle(color: Colors.white),
+                        style: TextStyle(color: Colors.white, fontSize: 18),
                       ),
                     ),
                   ),

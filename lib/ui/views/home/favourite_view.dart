@@ -16,28 +16,28 @@ class FavouriteView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final productController = Get.find<ProductController>();
-    final bucketController = Get.find<BucketController>();
+    final productController = ProductController.to;
+    final bucketController = BucketController.to;
     productController.getFavouriteList();
     return Scaffold(
       appBar: AppbarHome(
-        title: 'Wish List',
+        title: 'wishlist'.tr,
         actionList: [
           IconButton(
               onPressed: () {
                 productController.changeColumnCount(1);
               },
-              tooltip: 'List Item',
+              tooltip: 'list_item'.tr,
               icon: Icon(Icons.view_list_rounded)),
           IconButton(
               onPressed: () {
                 productController.changeColumnCount(2);
               },
-              tooltip: 'Grid Item',
+              tooltip: 'grid_item'.tr,
               icon: Icon(Icons.grid_view_outlined)),
           IconButton(
             icon: Icon(Icons.shopping_cart_rounded),
-            tooltip: 'View Cart Item',
+            tooltip: 'view_cart_item'.tr,
             onPressed: () {
               productController.fetchAllProducts();
             },
@@ -50,26 +50,26 @@ class FavouriteView extends StatelessWidget {
             Expanded(
               child: Obx(
                 () => productController.favouriteList.length == 0
-                        ? EmptyContentWidget()
-                        : StaggeredGridView.countBuilder(
-                            controller: productController.scrollController,
-                            crossAxisCount: productController.columnCount.value,
-                            crossAxisSpacing: 4,
-                            mainAxisSpacing: 4,
-                            itemCount: productController.favouriteList.length,
-                            padding: EdgeInsets.all(4),
-                            staggeredTileBuilder: (int index) {
-                              return StaggeredTile.fit(1);
-                            },
-                            itemBuilder: (context, index) {
-                              ProductModel item =
-                                  productController.favouriteList[index];
-                              return CProductTile(
-                                prod: item,
-                                pController: productController,
-                                bController: bucketController,
-                              );
-                            }),
+                    ? EmptyContentWidget()
+                    : StaggeredGridView.countBuilder(
+                        controller: productController.scrollController,
+                        crossAxisCount: productController.columnCount.value,
+                        crossAxisSpacing: 4,
+                        mainAxisSpacing: 4,
+                        itemCount: productController.favouriteList.length,
+                        padding: EdgeInsets.all(4),
+                        staggeredTileBuilder: (int index) {
+                          return StaggeredTile.fit(1);
+                        },
+                        itemBuilder: (context, index) {
+                          ProductModel item =
+                              productController.favouriteList[index];
+                          return CProductTile(
+                            prod: item,
+                            pController: productController,
+                            bController: bucketController,
+                          );
+                        }),
               ),
             ),
           ],

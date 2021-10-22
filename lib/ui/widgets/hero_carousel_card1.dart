@@ -4,6 +4,7 @@ import 'package:bumaco_aios/app_utils/app_const.dart';
 import 'package:bumaco_aios/app_utils/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:transparent_image/transparent_image.dart';
 
 class HeroCarouselCard1 extends StatelessWidget {
   final CategoryModel? category;
@@ -29,14 +30,26 @@ class HeroCarouselCard1 extends StatelessWidget {
             borderRadius: BorderRadius.all(Radius.circular(5.0)),
             child: Stack(
               children: <Widget>[
-                Image.network(
-                    product == null
-                        ? (ApiConstants.baseImageUrl + (category!.image ?? ''))
-                        // (category!.image ?? '')
-                        : (ApiConstants.baseImageUrl +
-                            (product!.imageLink ?? '')),
-                    fit: BoxFit.cover,
-                    width: 1000.0),
+                Container(
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.all(Radius.circular(0)),
+                    child: FadeInImage.memoryNetwork(
+                      placeholder: kTransparentImage,
+                      image: product == null
+                          ? (ApiConstants.baseImageUrl +
+                              (category!.image ?? ''))
+                          // (category!.image ?? '')
+                          : (ApiConstants.baseImageUrl +
+                              (product!.imageLink ?? '')),
+                      fit: BoxFit.cover,
+                      width: 1000,
+                    ),
+                  ),
+                  decoration: BoxDecoration(
+                    color: Colors.transparent,
+                    borderRadius: BorderRadius.all(Radius.circular(0)),
+                  ),
+                ),
                 Positioned(
                   bottom: 0.0,
                   left: 0.0,
@@ -56,7 +69,7 @@ class HeroCarouselCard1 extends StatelessWidget {
                         EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
                     child: Text(
                         product == null
-                            ? category!.category 
+                            ? category!.category
                             : product!.name ?? '',
                         style: Theme.of(context)
                             .textTheme

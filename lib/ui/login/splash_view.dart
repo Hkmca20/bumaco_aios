@@ -120,7 +120,7 @@ class SplashState extends State<SplashView>
               child: Opacity(
                 opacity: _animOpacity.value,
                 child: Text(
-                  "Welcome to Bumaco",
+                  'wecome_message'.tr,
                   style: TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: 24.0,

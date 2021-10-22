@@ -5,12 +5,11 @@ import 'package:get/get.dart';
 
 showLoadingDialog() {
   Get.defaultDialog(
-    backgroundColor: kWhiteColor,
       title: '',
       content: Positioned.fill(
         child: Column(
           children: [
-            Text('Loading, Please wait..'),
+            Text('loading_please_wait'.tr + '..'),
             SizedBox(height: 20),
             LoadingWidget(),
             SizedBox(height: 20),

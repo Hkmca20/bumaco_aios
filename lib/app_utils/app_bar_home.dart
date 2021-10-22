@@ -32,21 +32,16 @@ class AppbarHome extends StatelessWidget with PreferredSizeWidget {
         children: [
           Expanded(
             child: ShaderMask(
-                shaderCallback: (Rect bounds) {
-                  return RadialGradient(
-                          colors: [Colors.yellow, Colors.deepOrange],
-                          center: Alignment.topLeft,
-                          radius: 1.0,
-                          tileMode: TileMode.clamp)
-                      .createShader(bounds);
-                },
-                child: Text(
-                  title,
-                  style: Theme.of(context)
-                      .textTheme
-                      .headline2!
-                      .copyWith(color: textColor, fontFamily: 'samantha'),
-                )),
+              shaderCallback: (Rect bounds) {
+                return RadialGradient(
+                        colors: [Colors.yellow, Colors.deepOrange],
+                        center: Alignment.topLeft,
+                        radius: 1.0,
+                        tileMode: TileMode.clamp)
+                    .createShader(bounds);
+              },
+              child: title.text.color(textColor).size(45).fontFamily('samantha').make(),
+            ),
           ),
         ],
       ),

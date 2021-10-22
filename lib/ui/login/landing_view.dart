@@ -183,7 +183,7 @@ class LandingView extends StatelessWidget {
   }
 
   var loginText = Text(
-    'Bumaco Login',
+    'app_title'.tr + ' ' + 'login'.tr,
     style: TextStyle(fontSize: 24, color: Colors.black),
   );
 
@@ -191,7 +191,7 @@ class LandingView extends StatelessWidget {
     return Container(
       margin: EdgeInsets.only(top: 20),
       child: ElevatedButton(
-        child: Text('SignIn with Email or mobile'),
+        child: Text('signin_with_email_or_mobile'.tr),
         onPressed: () {
           Get.toNamed(loginRoute);
         },
@@ -205,7 +205,7 @@ class LandingView extends StatelessWidget {
         top: 20,
       ),
       child: CustomButtonSocial(
-        text: 'SignIn with Google',
+        text: 'signin_with_google'.tr,
         onPress: () {
           signinController.googleSignInMethod();
         },
@@ -220,7 +220,7 @@ class LandingView extends StatelessWidget {
         top: 20,
       ),
       child: CustomButtonSocial(
-        text: 'SignIn with Facebook',
+        text: 'signin_with_facebook'.tr,
         onPress: () {
           bumacoSnackbar('Alert', 'Working');
           signinController.facebookSignInMethod();
@@ -238,7 +238,7 @@ class LandingView extends StatelessWidget {
       ),
       child: GestureDetector(
         child: Text(
-          'Skip and Continue',
+          'skip_and_continue'.tr,
           style: TextStyle(fontSize: 20),
         ),
         onTap: () => {

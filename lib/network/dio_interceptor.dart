@@ -3,8 +3,10 @@ import 'package:dio/dio.dart';
 class DioLogging extends Interceptor {
   @override
   void onRequest(RequestOptions options, RequestInterceptorHandler handler) {
-    print('REQUEST[${options.method}] => PATH: ${options.path}'
-        '=> Request Values: ${options.queryParameters}, => HEADERS: ${options.headers}');
+    print('REQUEST[${options.method}] => PATH: ${options.path} '
+        // '=> HEADERS: ${options.headers} '
+        '=> Request Values: ${options.queryParameters} '
+        );
     return super.onRequest(options, handler);
   }
 

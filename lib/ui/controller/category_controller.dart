@@ -1,8 +1,10 @@
 import 'package:bumaco_aios/app_core/models/models.dart';
 import 'package:bumaco_aios/app_core/repository/category_repo.dart';
+import 'package:bumaco_aios/app_utils/utils.dart';
 import 'package:get/get.dart';
 
 class CategoryController extends GetxController {
+  static CategoryController get to => Get.find(tag: CATEGORY_CONTROLLER);
   late CategoryRepo _categoryRepo;
 
   CategoryController() {
@@ -12,43 +14,43 @@ class CategoryController extends GetxController {
   List<CategoryModel> dummyCatList = [
     CategoryModel(
         id: '1',
-        bannerimage: "https://picsum.photos/250?image=8",
-        image: "https://picsum.photos/250?image=17",
+        bannerimage: "20210921090902_637035.jpg",
+        image: "20210921090902_637035.jpg",
         category: "Makeup"),
     CategoryModel(
         id: '1',
-        bannerimage: "https://picsum.photos/250?image=10",
-        image: "https://picsum.photos/250?image=18",
+        bannerimage: "20210921090902_637035.jpg",
+        image: "20210921090902_637035.jpg",
         category: "Hair"),
     CategoryModel(
         id: '1',
-        bannerimage: "https://picsum.photos/250?image=11",
-        image: "https://picsum.photos/250?image=19",
+        bannerimage: "20210921090902_637035.jpg",
+        image: "20210921090902_637035.jpg",
         category: "Face"),
     CategoryModel(
         id: '1',
-        bannerimage: "https://picsum.photos/250?image=12",
-        image: "https://picsum.photos/250?image=20",
+        bannerimage: "20210921090902_637035.jpg",
+        image: "20210921090902_637035.jpg",
         category: "Appliance"),
     CategoryModel(
         id: '1',
-        bannerimage: "https://picsum.photos/250?image=13",
-        image: "https://picsum.photos/250?image=21",
+        bannerimage: "20210921090902_637035.jpg",
+        image: "20210921090902_637035.jpg",
         category: "Electronics"),
     CategoryModel(
         id: '1',
-        bannerimage: "https://picsum.photos/250?image=14",
-        image: "https://picsum.photos/250?image=22",
+        bannerimage: "20210921090902_637035.jpg",
+        image: "20210921090902_637035.jpg",
         category: "Cloths"),
     CategoryModel(
         id: '1',
-        bannerimage: "https://picsum.photos/250?image=15",
-        image: "https://picsum.photos/250?image=23",
+        bannerimage: "20210921090902_637035.jpg",
+        image: "20210921090902_637035.jpg",
         category: "Dress"),
     CategoryModel(
         id: '1',
-        bannerimage: "https://picsum.photos/250?image=16",
-        image: "https://picsum.photos/250?image=24",
+        bannerimage: "20210921090902_637035.jpg",
+        image: "20210921090902_637035.jpg",
         category: "Others"),
   ];
   late RxList<CategoryModel> categoryList = <CategoryModel>[].obs;
@@ -62,11 +64,11 @@ class CategoryController extends GetxController {
     isLoading.toggle();
 
     if (result != null) {
-      categoryList.addAll(result) ;
+      categoryList.addAll(result);
     } else {
-    print('=======No categoryList found========');
-    categoryList.value = dummyCatList;
-    categoryList.addAll(dummyCatList);
+      print('=======No categoryList found========');
+      categoryList.value = dummyCatList;
+      categoryList.addAll(dummyCatList);
     }
   }
 }

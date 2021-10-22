@@ -1,4 +1,5 @@
 import 'package:bumaco_aios/app_utils/utils.dart';
+import 'package:get/get.dart';
 import 'package:bumaco_aios/ui/shopping/model/models.dart';
 import 'package:bumaco_aios/ui/widgets/widgets.dart';
 import 'package:flutter/material.dart';
@@ -9,7 +10,7 @@ class WishlistView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: BumacoAppbar(title: 'Wishlist'),
+      appBar: BumacoAppbar(title: 'wishlist'.tr),
       body: GridView.builder(
           padding: EdgeInsets.symmetric(horizontal: 4, vertical: 4),
           itemCount: Product.productList.length,

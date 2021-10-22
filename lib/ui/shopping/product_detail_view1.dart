@@ -27,7 +27,7 @@ class _ProductDetailView1State extends State<ProductDetailView1> {
     if (Get.arguments != null) {
       productItem = Get.arguments['arg_product'];
     }
-    final categoryController = Get.find<CategoryController>();
+    final categoryController =CategoryController.to;
     final screenSize = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppbarHome(

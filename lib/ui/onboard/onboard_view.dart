@@ -19,7 +19,7 @@ class OnboardingView extends StatelessWidget {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Image.asset(_controller.onboardingList[index].imageAsset),
+                      Image.asset(_controller.onboardingList[index].imgUrl),
                       SizedBox(height: 32),
                       Text(_controller.onboardingList[index].title,
                           style: TextStyle(

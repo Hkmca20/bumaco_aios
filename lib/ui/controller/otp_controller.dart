@@ -10,27 +10,31 @@ class OTPController extends GetxController {
   var initialValue = 30;
   var resendText = ''.obs;
   var canResendOTP = false.obs;
-  // final otpCTR = TextEditingController();
-  var otpText = '';
+  final otpCTR = TextEditingController();
+  // var otpText = '';
   final box = GetStorage(BOX_APP);
   late Timer _timerOTP;
 
-  changeOtp(otp) {
-    otpText = otp;
-  }
+  // updateOtp(otp) {
+  //   otpText = otp;
+  // }
 
   @override
   void onInit() {
     _timerOTP = Timer.periodic(
         Duration(seconds: 1),
         (t) => {
-              resendText.value = 'resend otp in $initialValue seconds',
+              resendText.value = 'resend_otp'.tr +
+                  ' ' +
+                  'in'.tr +
+                  ' $initialValue ' +
+                  'seconds'.tr,
               initialValue--,
               if (initialValue <= 0)
                 {
                   _timerOTP.cancel(),
                   canResendOTP.value = true,
-                  resendText.value = 'Resend OTP',
+                  resendText.value = 'resend_otp'.tr,
                 }
             });
     super.onInit();
@@ -38,7 +42,7 @@ class OTPController extends GetxController {
 
   @override
   void onClose() {
-    // otpCTR.clear();
+    otpCTR.clear();
     if (_timerOTP.isActive) {
       _timerOTP.cancel();
     }
@@ -46,24 +50,24 @@ class OTPController extends GetxController {
   }
 
   submitOTP() async {
-    if (otpText.length < 4) {
-      bumacoSnackbar('Error', 'Invalid OTP');
+    if (otpCTR.text.length < 4) {
+      bumacoSnackbar('error'.tr, 'Invalid OTP');
       return;
     }
     showLoadingDialog();
     await Future.delayed(Duration(microseconds: 3000));
     try {
       Get.back();
-      if (otpText == '12345') {
+      if (otpCTR.text == '12345') {
         Get.snackbar(
-          'Login',
+          'login'.tr,
           'Successfull!',
         );
         box.write(BOX_IS_LOGGEDIN, true);
-        Get.offAllNamed(shoppingRoute);
+        Get.offAllNamed(dashboardRoute);
       } else {
         bumacoSnackbar(
-          'Login',
+          'login'.tr,
           'Incorrect otp, please try again!',
         );
       }

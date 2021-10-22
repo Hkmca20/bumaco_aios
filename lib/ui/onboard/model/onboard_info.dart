@@ -1,8 +1,8 @@
-class OnboardInfo {
-  final imageAsset;
+class BannerItem {
+  final imgUrl;
   final title;
   final description;
 
-  OnboardInfo(this.imageAsset, this.title, this.description);
+  BannerItem(this.imgUrl, this.title, this.description);
 
 }

@@ -16,7 +16,7 @@ class OnboardController extends GetxController {
 
   var pageController = PageController();
 
-  List<OnboardInfo> onboardingList = [];
+  List<BannerItem> onboardingList = [];
 
   final box = GetStorage(BOX_APP);
   int get appOpenCount => box.read(BOX_APP_OPEN_COUNT) ?? 0;
@@ -34,13 +34,13 @@ class OnboardController extends GetxController {
   }
 
   _addItemToList() {
-    onboardingList.add(OnboardInfo('assets/images/order.png', 'Order your food',
+    onboardingList.add(BannerItem('assets/images/order.png', 'Order your food',
         'Now you can order food anytime right from your mobile'));
-    onboardingList.add(OnboardInfo(
+    onboardingList.add(BannerItem(
         'assets/images/cook.png',
         'Cooking safe food',
         'We are maintain safety and we keep clean while making food'));
-    onboardingList.add(OnboardInfo(
+    onboardingList.add(BannerItem(
         'assets/images/deliver.png',
         'Quick delivery',
         'Order your favorite meals will be immediately deliver'));

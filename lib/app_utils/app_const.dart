@@ -25,7 +25,7 @@ const kScafoldDarkBGColor = Colors.teal;
 const kAppbarBGColor = Color(0x55979797);
 
 // String
-const appName = 'Bumaco';
+const appName = 'bumaco';
 const appTitle = 'Bumaco';
 const String kPhoneNumberNullError = "Please Enter your phone number";
 const String kPhoneNumber10digit = "Please Enter 10 digit mobile number";
@@ -114,11 +114,21 @@ const OTP_CONTROLLER = '_otp_controller';
 const SHOPPING_CONTROLLER = '_shopping_controller';
 const CART_CONTROLLER = '_cart_controller';
 
+const DASHBOARD_CONTROLLER = '_dashboard_controller';
+const HOME_CONTROLLER = '_home_controller';
+const SEARCH_CONTROLLER = '_search_controller';
+const PRODUCT_CONTROLLER = '_product_controller';
+const BUCKET_CONTROLLER = '_bucket_controller';
+const ADDRESS_CONTROLLER = '_address_controller';
+const CATEGORY_CONTROLLER = '_category_controller';
+const C_CATEGORY_CONTROLLER = '_s_category_controller';
+const S_CATEGORY_CONTROLLER = '_s_category_controller';
+
 // Locales
 const hiLocale = Locale('hi', 'IN');
-const usLocale = Locale('en', 'US');
+const ukLocale = Locale('en', 'US');
 const arLocale = Locale('ar', 'AE');
-const localeList = <Locale>[usLocale, arLocale];
+const localeList = <Locale>[ukLocale, arLocale];
 
 // Fonts
 const FONT_IBM_PLEX_SANS_ARABIC = 'IBMPlexSansArabic';
@@ -235,7 +245,7 @@ showSnackbar(title, message) => Get.showSnackbar(
       ),
     );
 bumacoDefaultDialog(msg) => Get.defaultDialog(
-      title: "Alert",
+      title: 'alert'.tr,
       content: Text(msg),
     );
 bumacoBottomsheet(msg) => Get.bottomSheet(Container(
@@ -254,11 +264,11 @@ bumacoDialog(context, title, message, action) => showDialog<bool>(
           actions: action ??
               [
                 MaterialButton(
-                  child: Text('Yes'),
+                  child: Text('yes'.tr),
                   onPressed: () => Navigator.pop(c, true),
                 ),
                 MaterialButton(
-                  child: Text('No'),
+                  child: Text('no'.tr),
                   onPressed: () => Navigator.pop(c, false),
                 ),
               ],

@@ -13,7 +13,8 @@ class ChildCategoryView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final screenSize = MediaQuery.of(context).size;
-    final childCategoryController = Get.find<ChildCategoryController>();
+    // final childCategoryController = Get.find<ChildCategoryController>();
+    final childCategoryController = ChildCategoryController.to;
     final categoryId;
     late final CategoryModel categoryItem;
     if (Get.arguments != null) {

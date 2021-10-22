@@ -7,6 +7,7 @@ import 'package:bumaco_aios/ui/controller/product_controller.dart';
 import 'package:bumaco_aios/ui/shopping/product_detail_view1.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:velocity_x/velocity_x.dart';
 import 'package:transparent_image/transparent_image.dart';
 
 class CProductTile extends StatelessWidget {
@@ -52,8 +53,7 @@ class CProductTile extends StatelessWidget {
                       borderRadius: BorderRadius.all(Radius.circular(4)),
                       child: FadeInImage.memoryNetwork(
                         placeholder: kTransparentImage,
-                        image:
-                            ApiConstants.baseImageUrl + prod.shortDescription,
+                        image: ApiConstants.baseImageUrl + prod.fimage,
                         fit: BoxFit.cover,
                       ),
                     ),
@@ -82,18 +82,19 @@ class CProductTile extends StatelessWidget {
                 ],
               ),
               SizedBox(height: 8),
-              Text(
-                prod.product,
-                maxLines: 2,
-                style: TextStyle(fontWeight: FontWeight.w800, fontSize: 20),
-                overflow: TextOverflow.ellipsis,
-              ),
-              Text(
-                prod.description,
-                maxLines: 2,
-                style: TextStyle(fontSize: 12, color: Colors.grey),
-                overflow: TextOverflow.ellipsis,
-              ),
+              prod.product.text.capitalize.ellipsis
+                  .maxLines(2)
+                  .fontWeight(FontWeight.w800)
+                  .size(20)
+                  .make(),
+              '${prod.shortDescription} : ${prod.description}'
+                  .text
+                  .capitalize
+                  .ellipsis
+                  .maxLines(3)
+                  .color(kGreyLightColor)
+                  .size(12)
+                  .make(),
               // SizedBox(height: 8),
               // if (prod.rating != null)
               //   Container(
@@ -122,35 +123,35 @@ class CProductTile extends StatelessWidget {
               //     ),
               //   ),
               SizedBox(height: 8),
-              Text.rich(TextSpan(children: [
-                TextSpan(
-                  text: prod.mrp == '' ? '' : '\$ ${prod.mrp}',
-                  style: TextStyle(
-                    fontSize: 16,
-                    color: kGreyLightColor,
-                    decoration: TextDecoration.lineThrough,
+              Text.rich(
+                TextSpan(children: [
+                  TextSpan(
+                    text: prod.mrp == '' ? '' : '\$ ${prod.mrp}',
+                    style: TextStyle(
+                      fontSize: 16,
+                      color: kGreyLightColor,
+                      decoration: TextDecoration.lineThrough,
+                    ),
                   ),
-                ),
-                TextSpan(
-                  text: '  \$ ${prod.mrp}',
-                  style: TextStyle(
-                    fontSize: 24,
+                  TextSpan(
+                    text: '  \$ ${prod.mrp}',
+                    style: TextStyle(
+                      fontSize: 24,
+                    ),
                   ),
-                ),
-              ])),
+                ]),
+              ),
               SizedBox(height: 8),
               Center(
                 child: ElevatedButton(
                   onPressed: () {
                     bController.insertBucket(prod);
                   },
-                  child: Text(
-                    'Add to cart',
-                    style: Theme.of(context)
-                        .textTheme
-                        .bodyText1!
-                        .copyWith(color: kWhiteColor),
-                  ),
+                  child: Text('add_to_cart'.tr,
+                      style: Theme.of(context)
+                          .textTheme
+                          .bodyText1!
+                          .copyWith(color: kWhiteColor)),
                 ),
               ),
             ],

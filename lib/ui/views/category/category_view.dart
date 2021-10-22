@@ -1,7 +1,8 @@
 import 'package:bumaco_aios/app_core/models/models.dart';
 import 'package:bumaco_aios/app_utils/utils.dart';
 import 'package:bumaco_aios/ui/controller/controllers.dart';
-import 'package:bumaco_aios/ui/views/home/bucket_view.dart';
+import 'package:bumaco_aios/ui/views/home/banners/a_banner.dart';
+import 'package:bumaco_aios/ui/views/checkout/bucket_view.dart';
 import 'package:bumaco_aios/ui/views/home/favourite_view.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -11,7 +12,8 @@ class CategoryView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final categoryController = Get.find<CategoryController>();
+    // final categoryController = Get.find<CategoryController>();
+    final categoryController = CategoryController.to;
     return Scaffold(
       appBar: AppbarHome(
         title: appTitle,
@@ -48,6 +50,8 @@ class CategoryView extends StatelessWidget {
               itemBuilder: (context, index) {
                 CategoryModel item = categoryController.categoryList[index];
                 return Column(children: [
+                  ABanner(item: item),
+                  Divider(),
                   GestureDetector(
                     onTap: () {
                       Get.toNamed(childCategoryRoute,

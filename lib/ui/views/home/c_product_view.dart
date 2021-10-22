@@ -16,7 +16,7 @@ class CProductView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final productController = Get.find<ProductController>();
+    final productController = ProductController.to;
     late final CategoryModel categoryItem;
     if (Get.arguments != null) {
       categoryItem = Get.arguments['arg_category_item'];
@@ -70,7 +70,7 @@ class CProductView extends StatelessWidget {
                                           image: DecorationImage(
                                             image: NetworkImage(
                                                 ApiConstants.baseImageUrl +
-                                                    item.shortDescription),
+                                                    item.fimage),
                                             fit: BoxFit.fitHeight,
                                           ),
                                         ),
@@ -159,7 +159,7 @@ class CProductView extends StatelessWidget {
                                                   image: NetworkImage(
                                                       ApiConstants
                                                               .baseImageUrl +
-                                                          item.shortDescription),
+                                                          item.fimage),
                                                   fit: BoxFit.cover)),
                                         )),
                                         ListTile(
@@ -225,7 +225,7 @@ class CProductView extends StatelessWidget {
                                                   image: NetworkImage(
                                                       ApiConstants
                                                               .baseImageUrl +
-                                                          item.shortDescription),
+                                                          item.fimage),
                                                   fit: BoxFit.cover)),
                                         )),
                                         ListTile(

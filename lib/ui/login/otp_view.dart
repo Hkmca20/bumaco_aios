@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:bumaco_aios/app_utils/utils.dart';
 import 'package:bumaco_aios/ui/controller/controllers.dart';
 import 'package:bumaco_aios/ui/widgets/app_logo_widget.dart';
@@ -17,7 +19,7 @@ class OTPView extends StatelessWidget {
       onPressed: () => {
         _otpController.submitOTP(),
       },
-      child: const Text('Submit', textAlign: TextAlign.center),
+      child: Text('submit'.tr),
       // child: Ink(
       //   decoration: BoxDecoration(
       //     gradient: LinearGradient(colors: [Colors.teal, Colors.cyan]),
@@ -32,44 +34,55 @@ class OTPView extends StatelessWidget {
 
     var otpInputText = Container(
       margin: EdgeInsets.only(top: 40.0, left: 30.0, right: 30.0),
-      child: VxPinView(
-        type: VxPinBorderType.round,
-        obscureText: false,
-        onSubmitted: _otpController.submitOTP(),
-        keyboardType: TextInputType.number,
-        fill: true,
-        color: kWhiteColor,
-        contentColor: kBlackColor,
-        count: 5,
-        onChanged: (value) {
-          _otpController.changeOtp(value);
-        },
-      ),
-      // child: TextFormField(
-      //   style: TextStyle(color: kWhiteColor, fontSize: 22),
-      //   controller: _otpController.otpCTR,
-      //   decoration: InputDecoration(
-      //     suffixIcon: Icon(
-      //       Icons.password_rounded,
-      //       color: kWhiteColor,
-      //     ),
-      //     labelText: 'OTP',
-      //     border: OutlineInputBorder(),
-      //   ),
-      //   maxLines: 1,
-      //   minLines: 1,
+      // child: VxPinView(
+      //   radius: 1,
+      //   type: VxPinBorderType.round,
+      //   size: 40,
+      //   space: 10,
+      //   obscureText: false,
+      //   // onSubmitted: _otpController.submitOTP(),
       //   keyboardType: TextInputType.number,
-      //   autofocus: false,
+      //   fill: true,
+      //   // textInputAction: _otpController.submitOTP(),
+      //   color: kTransparentColor,
+      //   // contentColor: kBlackColor,
+      //   count: 5,
+      //   onChanged: (value) {
+      //     _otpController.updateOtp(value);
+      //   },
       // ),
+      child: TextFormField(
+        style: TextStyle(
+          letterSpacing: 14,
+          fontWeight: FontWeight.w800,
+          fontSize: 22,
+        ),
+        controller: _otpController.otpCTR,
+        decoration: InputDecoration(
+          suffixIcon: Icon(
+            Icons.password_rounded,
+            color: kWhiteColor,
+          ),
+          labelText: 'otp'.tr,
+          border: OutlineInputBorder(),
+        ),
+        maxLines: 1,
+        minLines: 1,
+        keyboardType: TextInputType.number,
+        autofocus: false,
+      ),
     );
 
     var resendOtpLabel = Obx(() => GestureDetector(
           onTap: () {
             if (_otpController.canResendOTP.value) {
-              Get.snackbar('OTP', 'Resending otp..');
+              Get.snackbar('otp'.tr, 'resend_otp'.tr);
             } else {
-              Get.snackbar('OTP',
-                  'Please wait for ${_otpController.initialValue} senconds');
+              Get.snackbar(
+                  'otp'.tr,
+                  'please_wait_for'.tr +
+                      ' ${_otpController.initialValue} ' +
+                      'senconds'.tr);
             }
           },
           child: Text(
@@ -79,9 +92,9 @@ class OTPView extends StatelessWidget {
         ));
 
     return Scaffold(
-      backgroundColor: kScafoldDarkBGColor,
+      // backgroundColor: kScafoldDarkBGColor,
       resizeToAvoidBottomInset: false,
-      appBar: BumacoAppbar(title: 'OTP'),
+      appBar: AppbarHome(title: 'otp'.tr),
       body: Container(
         margin: EdgeInsets.all(20),
         // decoration: BoxDecoration(

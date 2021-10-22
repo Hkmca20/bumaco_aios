@@ -1,5 +1,5 @@
 export 'cart_controller.dart';
-export 'language_controller.dart';
+export 'locale_controller.dart';
 export 'signin_controller.dart';
 export 'onboard_controller.dart';
 export 'otp_controller.dart';

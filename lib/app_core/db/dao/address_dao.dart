@@ -6,13 +6,13 @@ abstract class AddressDao {
   @Query('SELECT * FROM addressentity')
   Future<List<AddressEntity>> findAllAddress();
 
-  @Query('SELECT * FROM addressentity WHERE addressid = :addressid')
+  @Query('SELECT * FROM addressentity WHERE addressid=:addressid')
   Future<AddressEntity?> findAddressById(String addressid);
 
-  @Query("SELECT * from addressentity WHERE isdefault = true")
+  @Query('SELECT * from addressentity WHERE isdefault=true')
   Future<AddressEntity?> findDefaultAddress();
 
-  @Query("DELETE FROM addressentity WHERE addressid = :addressid")
+  @Query('DELETE FROM addressentity WHERE addressid=:addressid')
   Future<void> deleteAddressById(String addressid);
 
   @insert
@@ -20,6 +20,12 @@ abstract class AddressDao {
 
   @insert
   Future<void> insertAddressList(List<AddressEntity> entityList);
+
+  @Query('UPDATE addressentity SET isdefault=false WHERE isdefault=true')
+  Future<void> updateDefaultAddressRemove();
+
+  @Query('UPDATE addressentity SET isdefault=true WHERE addressid=:id')
+  Future<void> setDefaultAddressById(String id);
 
   @update
   Future<void> updateAddress(AddressEntity entity);

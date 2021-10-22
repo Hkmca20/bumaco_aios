@@ -1,5 +1,4 @@
 import 'package:bumaco_aios/app_core/models/models.dart';
-import 'package:bumaco_aios/app_utils/app_bar_main.dart';
 import 'package:bumaco_aios/app_utils/utils.dart';
 import 'package:bumaco_aios/ui/controller/controllers.dart';
 import 'package:flutter/material.dart';
@@ -10,7 +9,8 @@ class SubCategoryView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final subCategoryController = Get.find<SubCategoryController>();
+    // final subCategoryController = Get.find<SubCategoryController>();
+    final subCategoryController = SubCategoryController.to;
     final args = Get.arguments;
     final ChildCategoryModel childCategoryItem = args['arg_child_category_item'] ?? '';
     subCategoryController.setChildCategoryId(childCategoryItem.category);

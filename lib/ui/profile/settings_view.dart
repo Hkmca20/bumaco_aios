@@ -1,10 +1,11 @@
 import 'package:bumaco_aios/app_utils/utils.dart';
-import 'package:bumaco_aios/ui/cart/cart_view.dart';
 import 'package:bumaco_aios/ui/controller/controllers.dart';
 import 'package:bumaco_aios/ui/gallery/gallery_view.dart';
 import 'package:bumaco_aios/ui/profile/column_demo.dart';
+import 'package:bumaco_aios/ui/views/dashboard/tabbar_view.dart';
 import 'package:bumaco_aios/ui/views/home/c_product_view.dart';
 import 'package:bumaco_aios/ui/views/views.dart';
+import 'package:velocity_x/velocity_x.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -14,7 +15,7 @@ class SettingView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final _settingsController = SettingsController.to;
-    final _loginController = SigninController.to;
+    final _loaleController = LocaleController.to;
     return Scaffold(
       body: ListView(
         // Column(
@@ -29,13 +30,11 @@ class SettingView extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
                       SizedBox(height: 16),
-                      Text(
-                        "Hey,\nHarry",
-                        style: TextStyle(
-                          fontWeight: FontWeight.w900,
-                          fontSize: 28,
-                        ),
-                      ),
+                      "Hey,\nHarry"
+                          .text
+                          .size(28)
+                          .fontWeight(FontWeight.w900)
+                          .make(),
                       SizedBox(height: 16),
                       Padding(
                         padding: const EdgeInsets.only(right: 24.0),
@@ -47,13 +46,10 @@ class SettingView extends StatelessWidget {
                         ),
                       ),
                       SizedBox(height: 8),
-                      Text(
-                        "Logged in via dummyeamail@gmail.com",
-                        style: Theme.of(context).textTheme.bodyText1!.copyWith(
-                              fontSize: 12,
-                              color: Color(0xff8d8d8d),
-                            ),
-                      ),
+                      ('loggedin_via'.tr + 'dummyeamail@gmail.com')
+                          .text
+                          .color(kGreyLightColor)
+                          .make(),
                     ],
                   ),
                 ),
@@ -83,10 +79,7 @@ class SettingView extends StatelessWidget {
           SimpleBuilder(
             builder: (_) => SwitchListTile(
                 value: _settingsController.isNotification,
-                title: Text(
-                  'Notifications',
-                  style: TextStyle(fontSize: 20),
-                ),
+                title: 'notification'.tr.text.make(),
                 onChanged: _settingsController.changeNotification),
           ),
           // Divider(height: 1),
@@ -104,10 +97,7 @@ class SettingView extends StatelessWidget {
             builder: (_) => ListTile(
               leading: Icon(Icons.account_box_rounded, color: kPrimaryColor),
               trailing: Icon(Icons.arrow_forward_ios_rounded),
-              title: Text(
-                'Profile',
-                style: TextStyle(fontSize: 20),
-              ),
+              title: 'profile'.tr.text.make(),
               onTap: () => {
                 Get.toNamed(profileRoute),
               },
@@ -118,14 +108,11 @@ class SettingView extends StatelessWidget {
             builder: (_) => ListTile(
               leading: Icon(Icons.outbox_rounded, color: kPrimaryColor),
               trailing: Icon(Icons.arrow_forward_ios_rounded),
-              title: Text(
-                'Orders',
-                style: TextStyle(fontSize: 20),
-              ),
+              title: 'order'.tr.text.make(),
               onTap: () => {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => CProductView()),
+                  MaterialPageRoute(builder: (context) => TabbarView()),
                   // MaterialPageRoute(builder: (context) => GalleryPage()),
                 )
               },
@@ -136,10 +123,7 @@ class SettingView extends StatelessWidget {
             builder: (_) => ListTile(
               leading: Icon(Icons.location_city_rounded, color: kPrimaryColor),
               trailing: Icon(Icons.arrow_forward_ios_rounded),
-              title: Text(
-                'Shipping Address',
-                style: TextStyle(fontSize: 20),
-              ),
+              title: 'shipping_address'.tr.text.make(),
               onTap: () => {
                 // Get.toNamed(wishlistRoute)
                 // Get.toNamed(offerRoute)
@@ -151,12 +135,8 @@ class SettingView extends StatelessWidget {
                 // Get.toNamed(shrinkRoute)
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => CartPage()),
+                  MaterialPageRoute(builder: (context) => SearchView()),
                 )
-                // Navigator.push(
-                //   context,
-                //   MaterialPageRoute(builder: (context) => SearchView()),
-                // )
               },
             ),
           ),
@@ -166,10 +146,7 @@ class SettingView extends StatelessWidget {
               leading:
                   Icon(Icons.bluetooth_searching_rounded, color: kPrimaryColor),
               trailing: Icon(Icons.arrow_forward_ios_rounded),
-              title: Text(
-                'Blog',
-                style: TextStyle(fontSize: 20),
-              ),
+              title: 'blog'.tr.text.make(),
               onTap: () => {Get.toNamed(newsRoute)},
             ),
           ),
@@ -178,10 +155,7 @@ class SettingView extends StatelessWidget {
             builder: (_) => ListTile(
               leading: Icon(Icons.local_offer_rounded, color: kPrimaryColor),
               trailing: Icon(Icons.arrow_forward_ios_rounded),
-              title: Text(
-                'Offers',
-                style: TextStyle(fontSize: 20),
-              ),
+              title: 'offer'.tr.text.make(),
               onTap: () => {Get.toNamed(offerRoute)},
             ),
           ),
@@ -191,13 +165,11 @@ class SettingView extends StatelessWidget {
               leading: Icon(Icons.notification_important_rounded,
                   color: kPrimaryColor),
               trailing: Icon(Icons.arrow_forward_ios_rounded),
-              title: Obx(
-                () => Text(
-                  'Language ${_loginController.selectedCountry}',
-                  style: TextStyle(fontSize: 20),
-                ),
+              title: 'Country and Language (البلد واللغة)'.tr.text.make(),
+              subtitle: Obx(
+                () => Text('[${_loaleController.selectedCountry}]'),
               ),
-              onTap: () => {_loginController.buildDialog(context)},
+              onTap: () => {_loaleController.buildDialog(context)},
             ),
           ),
           Divider(height: 1),
@@ -205,10 +177,7 @@ class SettingView extends StatelessWidget {
             builder: (_) => ListTile(
               leading: Icon(Icons.info_outline_rounded, color: kPrimaryColor),
               trailing: Icon(Icons.arrow_forward_ios_rounded),
-              title: Text(
-                'FAQ',
-                style: TextStyle(fontSize: 20),
-              ),
+              title: 'faq'.tr.text.make(),
               onTap: () => {Get.toNamed(expansionRoute)},
             ),
           ),
@@ -217,10 +186,7 @@ class SettingView extends StatelessWidget {
             builder: (_) => ListTile(
               leading: Icon(Icons.logout_rounded, color: kPrimaryColor),
               trailing: Icon(Icons.arrow_forward_ios_rounded),
-              title: Text(
-                'Logout',
-                style: TextStyle(fontSize: 20),
-              ),
+              title: 'logout'.tr.text.make(),
               onTap: () => {
                 getStorage.write(BOX_IS_LOGGEDIN, false),
                 Get.offAllNamed(landingRoute),
@@ -229,7 +195,7 @@ class SettingView extends StatelessWidget {
           ),
           Divider(height: 1),
           SizedBox(height: 5),
-          Center(child: Text('Version: 1.2.0')),
+          Center(child: ('version'.tr + ': 1.2.0').text.make()),
         ],
       ),
       // ),

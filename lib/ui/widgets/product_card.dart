@@ -80,7 +80,7 @@ class ProductCard extends StatelessWidget {
                 Expanded(
                   child: IconButton(
                     onPressed: () {
-                      Get.snackbar('Alert', 'Added to wishlist!');
+                      Get.snackbar('alert'.tr, 'added_to'.tr + 'wishlist'.tr);
                     },
                     icon: Icon(Icons.add_circle, color: Colors.white),
                   ),
@@ -89,7 +89,8 @@ class ProductCard extends StatelessWidget {
                     ? Expanded(
                         child: IconButton(
                           onPressed: () {
-                            Get.snackbar('Alert', 'Removed from wishlist!');
+                            Get.snackbar(
+                                'alert'.tr, 'removed_from'.tr + 'wishlist'.tr);
                           },
                           icon: Icon(Icons.remove_circle, color: Colors.white),
                         ),

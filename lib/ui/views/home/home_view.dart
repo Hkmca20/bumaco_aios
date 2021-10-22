@@ -2,6 +2,7 @@ import 'package:bumaco_aios/app_core/models/models.dart';
 import 'package:bumaco_aios/app_utils/app_const.dart';
 import 'package:bumaco_aios/app_utils/utils.dart';
 import 'package:bumaco_aios/ui/controller/controllers.dart';
+import 'package:bumaco_aios/ui/views/home/banners/a_banner.dart';
 import 'package:bumaco_aios/ui/views/home/item_avatar.dart';
 import 'package:bumaco_aios/ui/views/home/search_delegate.dart';
 import 'package:bumaco_aios/ui/views/search/search_view.dart';
@@ -12,7 +13,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:velocity_x/velocity_x.dart';
 
-import 'bucket_view.dart';
+import '../checkout/bucket_view.dart';
 import 'favourite_view.dart';
 import 'item_widget_1.dart';
 import 'item_widget_2.dart';
@@ -24,18 +25,45 @@ class HomeView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final _screenSize = MediaQuery.of(context).size;
-    final categoryController = Get.find<CategoryController>();
-    final productController = Get.find<ProductController>();
-    final bController = Get.find<BucketController>();
+    final categoryController = CategoryController.to;
+    final productController = ProductController.to;
+    final homeController = HomeController.to;
+    final bController = BucketController.to;
+
     return Material(
       child: Scaffold(
+        floatingActionButton: Obx(
+          () => Visibility(
+            visible: homeController.showFAB.value,
+            child: FloatingActionButton.extended(
+              backgroundColor: Vx.amber500.withOpacity(0.8),
+              onPressed: () {
+                showBottomSheet(
+                    context: context,
+                    builder: (context) => Container(
+                          color: Colors.red,
+                        ));
+              },
+              icon: Icon(
+                Icons.add_shopping_cart,
+                color: kWhiteColor,
+              ),
+              label: Obx(
+                () => Text(
+                  bController.bucketList.length.toString(),
+                  style: TextStyle(color: kWhiteColor, fontSize: 24),
+                ),
+              ),
+            ),
+          ),
+        ),
         appBar: AppbarHome(
           title: 'app_title'.tr,
           actionList: [
             IconButton(
               icon: Icon(Icons.search_rounded),
               color: kPrimaryColorDark,
-              tooltip: 'Search',
+              tooltip: 'search'.tr,
               onPressed: () async {
                 final CountryModel? result = await showSearch<CountryModel>(
                   context: context,
@@ -46,29 +74,30 @@ class HomeView extends StatelessWidget {
             ), //IconButton
             IconButton(
               icon: Icon(Icons.share_rounded),
-              tooltip: 'Share',
+              tooltip: 'share'.tr,
               onPressed: () {
                 Get.to(() => SearchView());
               },
             ), //Ico
             IconButton(
               icon: Icon(Icons.favorite_rounded),
-              tooltip: 'Wishlist',
+              tooltip: 'wishlist'.tr,
               onPressed: () {
                 Get.to(() => FavouriteView());
               },
             ), //IconBnButton
             IconButton(
               icon: Icon(Icons.shopping_cart_rounded),
-              tooltip: 'View Cart Item',
+              tooltip: 'view_cart_item'.tr,
               onPressed: () {
-              Get.to(() => BucketView());
+                Get.to(() => BucketView());
                 // categoryController.fetchCategory();
               },
             ),
           ],
         ),
         body: SingleChildScrollView(
+          controller: homeController.scrollController,
           child: ConstrainedBox(
             constraints: BoxConstraints(),
             child: Obx(
@@ -77,11 +106,11 @@ class HomeView extends StatelessWidget {
                     ? SizedBox(
                         height: 200,
                         child: VxShimmer(
-                          child: 'Loading data...'.text.size(30).center.make(),
+                          child: 'loading_data'.tr.text.size(30).center.make(),
                         ).centered(),
                       )
                     : SizedBox(height: 8),
-                SectionTile(title: 'New Arrival Products'),
+                SectionTile(title: 'new_arrival_products'.tr),
                 Container(
                   padding: EdgeInsets.all(10),
                   height: 80,
@@ -107,7 +136,7 @@ class HomeView extends StatelessWidget {
                       }),
                 ),
                 Divider(),
-                SectionTile(title: 'Category based on your profile'),
+                SectionTile(title: 'category_based_on_profile'.tr),
                 SizedBox(height: 8), //--------------------------
                 Container(
                   height: 130,
@@ -133,7 +162,7 @@ class HomeView extends StatelessWidget {
                 //Start carousel here-------------------------
                 Divider(),
                 SizedBox(height: 4), //--------------------------
-                SectionTile(title: 'New Category'),
+                SectionTile(title: 'new_category'.tr),
                 CarouselSlider(
                   options: CarouselOptions(
                       autoPlay: true,
@@ -153,8 +182,17 @@ class HomeView extends StatelessWidget {
                 //Ends carousel here-------------------------
 
                 Divider(),
+                ABanner(
+                    item: CategoryModel(
+                  bannerimage: '20210921080915_492297.jpg',
+                  image: '20210921080915_492297.jpg',
+                  category: 'Great Offers',
+                  hasvery: 'f0gsggg8hd',
+                )),
+
+                Divider(),
                 SizedBox(height: 10), //--------------------------
-                SectionTile(title: 'Trending Products'),
+                SectionTile(title: 'trending_products'.tr),
                 Container(
                   height: 160,
                   child: ListView.builder(
@@ -177,7 +215,7 @@ class HomeView extends StatelessWidget {
 
                 Divider(),
                 SizedBox(height: 10), //--------------------------
-                SectionTile(title: 'New Arrival Products'),
+                SectionTile(title: 'new_arrival_products'.tr),
                 Container(
                   height: _screenSize.width / 3,
                   child: ListView.builder(
@@ -199,7 +237,7 @@ class HomeView extends StatelessWidget {
                 ),
                 Divider(),
                 SizedBox(height: 10), //--------------------------
-                SectionTile(title: 'Best Sellers'),
+                SectionTile(title: 'best_sellers'.tr),
                 Wrap(
                   children: List.generate(
                       categoryController.categoryList.length, (index) {
@@ -226,7 +264,7 @@ class HomeView extends StatelessWidget {
 
                 Divider(),
                 SizedBox(height: 10), //--------------------------
-                SectionTile(title: 'Popular Products'),
+                SectionTile(title: 'popular_products'.tr),
                 Container(
                   margin: EdgeInsets.symmetric(vertical: 8),
                   height: 200,
@@ -247,18 +285,20 @@ class HomeView extends StatelessWidget {
                                       image: DecorationImage(
                                         image: NetworkImage(
                                             ApiConstants.baseImageUrl +
-                                                item.shortDescription),
+                                                item.fimage),
                                         fit: BoxFit.fitHeight,
                                       ),
                                     ),
                                   ),
                                 ),
-                                item.product.text
+                                item.product.text.capitalize
                                     .size(16)
                                     .fontWeight(FontWeight.w900)
                                     .make()
                                     .p2(),
-                                item.description.text
+                                (item.description + ' - \$' + item.mrp)
+                                    .text
+                                    .capitalize
                                     .size(12)
                                     .fontWeight(FontWeight.w700)
                                     .make()
@@ -267,7 +307,8 @@ class HomeView extends StatelessWidget {
                                   onPressed: () {
                                     bController.insertBucket(item);
                                   },
-                                  child: 'Add to Cart'
+                                  child: 'add_to_cart'
+                                      .tr
                                       .text
                                       .amber700
                                       .make()
@@ -286,7 +327,7 @@ class HomeView extends StatelessWidget {
 
                 Divider(),
                 SizedBox(height: 10), //--------------------------
-                SectionTile(title: 'Trending Products'),
+                SectionTile(title: 'trending_products'.tr),
                 Container(
                   child: GridView.count(
                     crossAxisCount: 2,
@@ -317,15 +358,20 @@ class HomeView extends StatelessWidget {
                                         image: DecorationImage(
                                             image: NetworkImage(
                                                 ApiConstants.baseImageUrl +
-                                                    item.shortDescription),
+                                                    item.fimage),
                                             fit: BoxFit.cover)),
                                   )),
-                                  (item.product +' \$ '+item.mrp).text
+                                  item.product.text.capitalize
                                       .size(16)
                                       .fontWeight(FontWeight.w900)
                                       .make()
                                       .p2(),
-                                  item.description.text
+                                  (item.shortDescription +
+                                          ' (\$' +
+                                          item.mrp +
+                                          ')')
+                                      .text
+                                      .capitalize
                                       .size(12)
                                       .fontWeight(FontWeight.w700)
                                       .make()
@@ -334,7 +380,8 @@ class HomeView extends StatelessWidget {
                                     onPressed: () {
                                       bController.insertBucket(item);
                                     },
-                                    child: 'Add to Cart'
+                                    child: 'add_to_cart'
+                                        .tr
                                         .text
                                         .amber700
                                         .make()

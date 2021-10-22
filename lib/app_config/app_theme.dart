@@ -23,7 +23,7 @@ ThemeData setTheme(context) {
     primaryColor: shrinePink100,
     primaryColorLight: shrinePink100,
     primaryColorDark: kPrimaryColorDark,
-    scaffoldBackgroundColor: shrineBackgroundWhite,
+    // scaffoldBackgroundColor: shrineBackgroundWhite,
     cardColor: shrineBackgroundWhite,
     errorColor: shrineErrorRed,
     dividerColor: Colors.black12,
@@ -91,16 +91,16 @@ const ColorScheme _shrineColorScheme = ColorScheme(
 
 InputDecorationTheme inputDecorationTheme() {
   OutlineInputBorder outlineInputBorder = OutlineInputBorder(
-    borderRadius: BorderRadius.circular(32),
-    borderSide: BorderSide(color: Colors.white),
+    borderRadius: BorderRadius.circular(5),
+    borderSide: BorderSide(color: kPrimaryColor),
     gapPadding: 8,
   );
   UnderlineInputBorder underlineInputBorder = UnderlineInputBorder(
-    borderRadius: BorderRadius.circular(32),
-    borderSide: BorderSide(width: 0.7, color: Colors.white),
+    borderRadius: BorderRadius.circular(5),
+    borderSide: BorderSide(width: 2.0),
   );
   TextStyle kTextstyle =
-      TextStyle(decorationColor: kWhiteColor, color: kWhiteColor);
+      TextStyle(decorationColor: kPrimaryColor, color: kPrimaryColor);
   return InputDecorationTheme(
     // If  you are using latest version of flutter then lable text and hint text shown like this
     // if you r using flutter less then 1.20.* then maybe this is not working properly
@@ -116,9 +116,9 @@ InputDecorationTheme inputDecorationTheme() {
     hintStyle: kTextstyle,
     labelStyle: kTextstyle,
     helperStyle: kTextstyle,
-    hoverColor: kWhiteColor,
-    focusColor: kWhiteColor,
-    fillColor: kWhiteColor,
+    // hoverColor: kPrimaryColor,
+    // focusColor: kPrimaryColor,
+    // fillColor: kPrimaryColor,
   );
 }
 
@@ -158,7 +158,7 @@ TextTheme _buildShrineTextTheme(TextTheme base) {
 ElevatedButtonThemeData elevatedButtonTheme() {
   return ElevatedButtonThemeData(
     style: ElevatedButton.styleFrom(
-      textStyle: TextStyle(fontSize: 22),
+      textStyle: TextStyle(fontSize: 18),
       shape: RoundedRectangleBorder(
         // gradient: LinearGradient(
         //     // colors: [Colors.red, Colors.blue],
@@ -168,7 +168,7 @@ ElevatedButtonThemeData elevatedButtonTheme() {
         borderRadius: BorderRadius.circular(6),
         side: BorderSide(color: kPrimaryColor, width: 1),
       ),
-      padding: EdgeInsets.symmetric(horizontal: 22, vertical: 12),
+      padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
       elevation: 4,
       onPrimary: Colors.white,
       primary: kPrimaryColor,

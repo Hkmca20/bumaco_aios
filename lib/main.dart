@@ -45,8 +45,8 @@ class MyApp extends StatelessWidget {
       theme: setTheme(context),
       darkTheme: setDarkTheme(context),
       translations: BumacoLocale(),
-      locale: usLocale, //default locale from get device locale
-      fallbackLocale: usLocale, //fallback if locale not present in device
+      locale: ukLocale, //default locale from get device locale
+      fallbackLocale: ukLocale, //fallback if locale not present in device
       initialRoute: initialRoute,
       // onGenerateRoute: (RouteSettings settings) {
       //   if (settings.name.contains('onboard')) {

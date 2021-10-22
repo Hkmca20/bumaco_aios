@@ -14,6 +14,7 @@ class _LoginViewState extends State<LoginView>
   // late Animation<double> _anim;
   // late AnimationController _animController;
   final _loginController = SigninController.to;
+  final _loaleController = LocaleController.to;
 
   @override
   void initState() {
@@ -31,9 +32,9 @@ class _LoginViewState extends State<LoginView>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: kScafoldDarkBGColor,
-      // resizeToAvoidBottomInset: false,
-      appBar: BumacoAppbar(title: 'Login'),
+      // backgroundColor: kScafoldDarkBGColor,
+      resizeToAvoidBottomInset: false,
+      appBar: AppbarHome(title: 'app_title'.tr + ' ' + 'login'.tr),
       body: Stack(
           alignment: Alignment.topLeft,
           textDirection: TextDirection.rtl,
@@ -94,22 +95,18 @@ class _LoginViewState extends State<LoginView>
 
   chooseLaunguageButton() {
     return Container(
-      margin: EdgeInsets.only(top: 20.0, left: 10.0, right: 10.0),
+      margin: EdgeInsets.only(top: 30.0, left: 10.0, right: 10.0),
       child: GestureDetector(
         onTap: () {
-          _loginController.buildDialog(context);
+          _loaleController.buildDialog(context);
         },
         child: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-          Text(
-            'Your country : ',
-            style: Theme.of(context).textTheme.headline6!.copyWith(color: kWhiteColor),
-          ),
+          Text('choose_country'.tr + ' : ',
+              style: Theme.of(context).textTheme.headline5!),
           SizedBox(width: 10),
           Obx(
-            () => Text(
-              _loginController.selectedCountry.value,
-            style: Theme.of(context).textTheme.headline6!.copyWith(color: kWhiteColor),
-            ),
+            () => Text(_loaleController.selectedCountry.value,
+                style: Theme.of(context).textTheme.headline5!),
           ),
         ]),
       ),
@@ -118,16 +115,20 @@ class _LoginViewState extends State<LoginView>
 
   mobileEditText(context) {
     return Container(
-      margin: EdgeInsets.only(top: 40.0, left: 10.0, right: 30.0),
+      margin: EdgeInsets.only(top: 30.0, left: 20.0, right: 20.0),
       child: TextFormField(
-        style: TextStyle(color: kWhiteColor, fontSize: 22),
+        style: TextStyle(
+          fontSize: 22,
+          fontWeight: FontWeight.w800,
+          letterSpacing: 2,
+        ),
         controller: _loginController.mobileCTR,
         decoration: InputDecoration(
-          // contentPadding: ,
-          labelText: 'Mobile Number',
+          contentPadding: EdgeInsets.symmetric(horizontal: 30, vertical: 18),
+          labelText: 'mobile_no'.tr,
           suffixIcon: Icon(
             Icons.phone_android,
-            color: kWhiteColor,
+            color: kPrimaryColor,
           ),
         ),
         maxLines: 1,
@@ -142,7 +143,7 @@ class _LoginViewState extends State<LoginView>
     return Container(
       margin: EdgeInsets.only(top: 40),
       child: ElevatedButton(
-        child: Text('Submit'),
+        child: Text('submit'.tr),
         onPressed: () {
           _loginController.submitSignIn();
         },

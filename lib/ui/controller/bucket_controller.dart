@@ -5,6 +5,7 @@ import 'package:bumaco_aios/app_utils/utils.dart';
 import 'package:get/get.dart';
 
 class BucketController extends GetxController {
+  static BucketController get to => Get.find(tag: BUCKET_CONTROLLER);
   var isLoading = true.obs;
   var bucketList = <BucketEntity>[].obs;
   var totalAmount = 0.0.obs;
@@ -33,6 +34,7 @@ class BucketController extends GetxController {
       if (element.mrp != '') {
         tempMrp = double.parse(element.mrp);
       }
+      element.totalPrice = element.quantity * tempMrp;
       totalAmount.value += element.quantity * tempMrp;
     });
     taxAmount.value = (totalAmount * taxPercent) / 100;
@@ -50,11 +52,11 @@ class BucketController extends GetxController {
     if (checkItem != null && checkItem.id == element.id) {
       final q = checkItem.quantity + 1;
       if (q > 5) {
-        bumacoSnackbar('Alert', 'Allowed max 5 quantity');
+        bumacoSnackbar('alert'.tr, 'allowed_max_5_qua'.tr);
         return;
       }
       bucketDao.updateQuantityInBucket(q, checkItem.id);
-      bumacoSnackbar('Alert', '${element.product} quantity updated!');
+      bumacoSnackbar('alert'.tr, '${element.product} ' + 'quantity_updated'.tr);
       return;
     }
     final entity = BucketEntity(
@@ -74,7 +76,8 @@ class BucketController extends GetxController {
         isBucket: true,
         quantity: 1);
     await bucketDao.insertIntoBucket(entity);
-    bumacoSnackbar('Alert', '${entity.product} is added to your cart!');
+    bumacoSnackbar(
+        'alert'.tr, '${entity.product} ' + 'added_to'.tr + ' ' + 'cart'.tr);
   }
 
   increDecreQuantity(BucketEntity entity, bool increment) async {
@@ -84,15 +87,16 @@ class BucketController extends GetxController {
     if (q <= 0) {
       bucketDao.deleteBucketById(entity.id);
       getAllBucketFromLocal();
-      bumacoSnackbar('Alert', '${entity.product} item removed!');
+      bumacoSnackbar(
+          'Alert', '${entity.product} ' + 'removed_from'.tr + ' ' + 'cart'.tr);
       return;
     } else if (q > 5) {
-      bumacoSnackbar('Alert', 'Allowed max 5 quantity');
+      bumacoSnackbar('alert'.tr, 'allowed_max_5_qua'.tr);
       return;
     }
     bucketDao.updateQuantityInBucket(q, entity.id);
     getAllBucketFromLocal();
-    bumacoSnackbar('Alert', '${entity.product} quantity updated!');
+    bumacoSnackbar('Alert', '${entity.product} ' + 'quantity_updated'.tr);
   }
 
   removeBucket(entity) async {
@@ -105,7 +109,8 @@ class BucketController extends GetxController {
         bucketDao.updateQuantityInBucket(quantity, checkItem.id);
       } else {
         bucketDao.deleteBucketById(entity.id);
-        bumacoSnackbar('Alert', '${entity.product} is removed to your cart!');
+        bumacoSnackbar('alert'.tr,
+            '${entity.product} ' + 'removed_from'.tr + ' ' + 'cart'.tr);
       }
       getAllBucketFromLocal();
     }

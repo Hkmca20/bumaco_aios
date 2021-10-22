@@ -1,19 +1,19 @@
 import 'package:bumaco_aios/app_utils/app_bar_home.dart';
 import 'package:bumaco_aios/app_utils/utils.dart';
 import 'package:bumaco_aios/ui/controller/controllers.dart';
-import 'package:bumaco_aios/ui/views/home/item_notification.dart';
+import 'package:bumaco_aios/ui/views/checkout/item_bucket.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:velocity_x/velocity_x.dart';
 
-import 'add_address_view.dart';
+import '../address/add_address_view.dart';
 
 class BucketView extends StatelessWidget {
   const BucketView({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final bucketController = Get.find<BucketController>();
+    final bucketController = BucketController.to;
     bucketController.getAllBucketFromLocal();
     return Scaffold(
       appBar: AppbarHome(
@@ -41,7 +41,7 @@ class BucketView extends StatelessWidget {
                     height: 50.0,
                     onPressed: () {
                       Navigator.of(context).push(MaterialPageRoute(
-                          builder: (context) => AddAddressScreen()));
+                          builder: (context) => AddAddressView()));
                     },
                     // color: Color(0xff374ABE),
                     color: kPrimaryColor,
