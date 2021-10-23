@@ -5,3 +5,4 @@ export 'sub_category_model.dart';
 export 'product_model.dart';
 export 'product_makeup_model.dart';
 export 'address_model.dart';
+export 'banner_model.dart';

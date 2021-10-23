@@ -1,6 +1,3 @@
-import 'dart:ui';
-
-import 'package:bumaco_aios/app_utils/app_const.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'category_model.g.dart';
@@ -8,16 +5,15 @@ part 'category_model.g.dart';
 @JsonSerializable()
 class CategoryModel {
   CategoryModel({
-    this.id ='',
+    this.id = '',
     this.hasvery,
     this.category = '',
     this.url,
-    this.image,
-    this.bannerimage = 'https://icons8.com/preloaders/preloaders/1474/Walk.gif',//https://via.placeholder.com/350x150
+    this.image = '',
+    this.bannerimage = '',
     this.createdate,
     this.modifydate,
     this.status,
-    this.color = kWhiteColor,
   });
 
   @JsonKey(name: 'id')
@@ -33,7 +29,7 @@ class CategoryModel {
   String? url;
 
   @JsonKey(name: 'image')
-  String? image;
+  String image;
 
   @JsonKey(name: 'bannerimage')
   String bannerimage;
@@ -46,8 +42,6 @@ class CategoryModel {
 
   @JsonKey(name: 'status')
   String? status;
-
-  Color color;
 
   factory CategoryModel.fromJson(Map<String, dynamic> json) =>
       _$CategoryModelFromJson(json);

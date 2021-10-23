@@ -120,6 +120,7 @@ const SEARCH_CONTROLLER = '_search_controller';
 const PRODUCT_CONTROLLER = '_product_controller';
 const BUCKET_CONTROLLER = '_bucket_controller';
 const ADDRESS_CONTROLLER = '_address_controller';
+const BANNER_CONTROLLER = '_banner_controller';
 const CATEGORY_CONTROLLER = '_category_controller';
 const C_CATEGORY_CONTROLLER = '_s_category_controller';
 const S_CATEGORY_CONTROLLER = '_s_category_controller';
@@ -177,6 +178,8 @@ class ApiConstants {
   static const childCategoryApi = 'categoryapi/childcategory';
   static const subCategoryApi = 'categoryapi/subcategory';
   static const productApi = 'productapi/productdata/';
+  static const bannerSliderApi = 'bannerapi/homeslider/';
+  static const bannerApi = 'bannerapi/position';
   static const allProductApi = 'productapi/product';
   static const allUserApi = 'userapi/user';
   // static const productApi =

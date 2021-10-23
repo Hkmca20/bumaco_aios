@@ -3,12 +3,12 @@ import 'package:bumaco_aios/app_core/db/entity/entities.dart';
 import 'package:bumaco_aios/app_utils/app_const.dart';
 import 'package:bumaco_aios/ui/controller/controllers.dart';
 import 'package:get/get.dart';
+import 'package:transparent_image/transparent_image.dart';
 import 'package:velocity_x/velocity_x.dart';
 import 'package:flutter/material.dart';
 
 class ItemBucket extends StatelessWidget {
-  const ItemBucket(
-      {Key? key, required this.item, required this.bController})
+  const ItemBucket({Key? key, required this.item, required this.bController})
       : super(key: key);
 
   final BucketEntity item;
@@ -21,8 +21,9 @@ class ItemBucket extends StatelessWidget {
         [
           Expanded(
             child: ClipRRect(
-              child: Image(
-                image: NetworkImage(ApiConstants.baseImageUrl + item.fimage),
+              child: FadeInImage.memoryNetwork(
+                placeholder: kTransparentImage,
+                image: ApiConstants.baseImageUrl + item.fimage,
                 fit: BoxFit.cover,
               ),
               borderRadius: BorderRadius.all(Radius.circular(4)),

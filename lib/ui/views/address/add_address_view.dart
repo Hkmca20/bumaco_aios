@@ -1,8 +1,6 @@
 import 'package:bumaco_aios/app_utils/utils.dart';
 import 'package:bumaco_aios/ui/controller/controllers.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import '../home/book_order_view.dart';
 
 class AddAddressView extends StatefulWidget {
   @override

@@ -1,6 +1,7 @@
 import 'package:bumaco_aios/app_utils/app_const.dart';
 import 'package:bumaco_aios/ui/controller/controllers.dart';
 import 'package:bumaco_aios/ui/shopping/all_product_view.dart';
+import 'package:bumaco_aios/ui/views/home/home_ba_view.dart';
 import 'package:bumaco_aios/ui/views/views.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
@@ -18,7 +19,7 @@ class DashboardView extends StatelessWidget {
           body: IndexedStack(
             index: controller.tabIndex,
             children: [
-              HomeView(),
+              HomeBaView(),
               CategoryView(),
               AllProducts(),
               SettingView(),
@@ -36,10 +37,8 @@ class DashboardView extends StatelessWidget {
             elevation: 0,
             items: [
               bottomNavBar(icon: Icons.home, label: 'home'.tr),
-              bottomNavBar(
-                  icon: Icons.shopping_bag_rounded, label: 'category'.tr),
-              bottomNavBar(
-                  icon: Icons.travel_explore_rounded, label: 'blog'.tr),
+              bottomNavBar(icon: Icons.category_outlined, label: 'Shop'),
+              bottomNavBar(icon: Icons.explore_outlined, label: 'blog'.tr),
               bottomNavBar(
                   icon: Icons.person_outline_rounded, label: 'account'.tr),
             ],

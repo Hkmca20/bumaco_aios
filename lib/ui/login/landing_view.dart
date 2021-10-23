@@ -1,7 +1,9 @@
 import 'dart:ui';
+import 'package:bumaco_aios/app_core/models/models.dart';
 import 'package:bumaco_aios/app_utils/utils.dart';
 import 'package:bumaco_aios/ui/controller/controllers.dart';
 import 'package:bumaco_aios/ui/login/widgets/auth_widget.dart';
+import 'package:bumaco_aios/ui/views/home/banners/cbanner_home.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -80,8 +82,10 @@ class LandingView extends StatelessWidget {
   }
 
   final signinController = SigninController.to;
+  final bannerController = BannerController.to;
   @override
   Widget build(BuildContext context) {
+    final _screenSize = MediaQuery.of(context).size;
     return Scaffold(
       body: Stack(
         alignment: Alignment.topLeft,
@@ -90,11 +94,11 @@ class LandingView extends StatelessWidget {
         clipBehavior: Clip.hardEdge,
         children: [
           Container(
-            height: MediaQuery.of(context).size.height,
+            height: _screenSize.height,
             decoration: BoxDecoration(
                 image: DecorationImage(
               fit: BoxFit.cover,
-              image: AssetImage(bg3),
+              image: AssetImage(bg4),
             )),
             // color: Colors.blue,
           ),
@@ -107,42 +111,78 @@ class LandingView extends StatelessWidget {
                 filter: ImageFilter.blur(sigmaX: 2.0, sigmaY: 2.0),
                 child: Container(
                   // the size where the blurring starts
-                  height: MediaQuery.of(context).size.height * 0.4,
+                  height: _screenSize.height * 0.4,
                   color: Colors.transparent,
                 ),
               ),
             ),
           ),
           Positioned(
-            left: 10,
-            top: 150,
-            child: Text(
-              "Welcome to Bumaco,\nAn Online Shop to \nyour doorstep",
-              style: TextStyle(
-                fontSize: 40,
-                fontWeight: FontWeight.bold,
-                color: Colors.white,
-              ),
+            width: _screenSize.width,
+            top: 70,
+            child: Column(
+              children: [
+                Text(
+                  'Bumaco',
+                  style: TextStyle(
+                    fontSize: 40,
+                    fontWeight: FontWeight.bold,
+                    color: kWhiteColor,
+                  ),
+                ),
+                Text(
+                  'Your Buety. Our Passion',
+                  style: TextStyle(
+                    fontSize: 11,
+                    color: kWhiteColor,
+                  ),
+                ),
+              ],
             ),
           ),
           Positioned(
+              left: 0,
+              right: 0,
+              top: 150,
+              child: Obx(
+                () => bannerController.isLoading.isTrue
+                    ? LoadingWidget()
+                    : CBannerHomeWidget(
+                        bannerHeight: _screenSize.height / 3,
+                        fitImage: BoxFit.fill,
+                        bannerList:
+                            bannerController.bannerPositionList[12].bannerlist,
+                      ),
+              )),
+          Positioned(
             width: MediaQuery.of(context).size.width,
-            bottom: 20,
-            child: Card(
-              margin: EdgeInsets.only(top: 20, bottom: 20),
-              shadowColor: Colors.white54,
-              elevation: 5,
-              color: Colors.transparent,
-              child: Padding(
-                padding: const EdgeInsets.all(20.0),
-                child: Column(
-                  children: [
-                    loginText,
-                    loginButton(context),
-                    googleButton(context),
-                    facebookButton(context),
-                    skipLabel(context),
-                  ],
+            bottom: 0,
+            child: SingleChildScrollView(
+              child: Card(
+                margin: EdgeInsets.only(top: 5, bottom: 5),
+                shadowColor: Colors.white10.withOpacity(0.1),
+                elevation: 5,
+                color: Colors.black12.withOpacity(0.1),
+                child: Padding(
+                  padding: const EdgeInsets.all(10.0),
+                  child: Column(
+                    children: [
+                      bannerController.isLoading.isTrue
+                          ? Container()
+                          : CBannerHomeWidget(
+                              bannerHeight: _screenSize.width / 5,
+                              fitImage: BoxFit.fill,
+                              bannerList: bannerController
+                                  .bannerPositionList[3].bannerlist,
+                            ),
+                      SizedBox(height: 40),
+                      loginText,
+                      loginButton(context),
+                      googleButton(context),
+                      // facebookButton(context),
+                      skipLabel(context),
+                    ],
+                  ),
                 ),
               ),
             ),
@@ -183,13 +223,14 @@ class LandingView extends StatelessWidget {
   }
 
   var loginText = Text(
-    'app_title'.tr + ' ' + 'login'.tr,
-    style: TextStyle(fontSize: 24, color: Colors.black),
+    'login'.tr + ' ' + 'or'.tr + ' ' + 'register'.tr,
+    style: TextStyle(fontSize: 20, color: kWhiteColor),
   );
 
   loginButton(context) {
     return Container(
-      margin: EdgeInsets.only(top: 20),
+      margin: EdgeInsets.symmetric(horizontal: 10, vertical: 2),
+      width: MediaQuery.of(context).size.width - 40,
       child: ElevatedButton(
         child: Text('signin_with_email_or_mobile'.tr),
         onPressed: () {
@@ -201,9 +242,7 @@ class LandingView extends StatelessWidget {
 
   googleButton(context) {
     return Container(
-      margin: EdgeInsets.only(
-        top: 20,
-      ),
+      margin: EdgeInsets.symmetric(horizontal: 10, vertical: 2),
       child: CustomButtonSocial(
         text: 'signin_with_google'.tr,
         onPress: () {
@@ -216,13 +255,11 @@ class LandingView extends StatelessWidget {
 
   facebookButton(context) {
     return Container(
-      margin: EdgeInsets.only(
-        top: 20,
-      ),
+      margin: EdgeInsets.symmetric(horizontal: 10, vertical: 2),
       child: CustomButtonSocial(
         text: 'signin_with_facebook'.tr,
         onPress: () {
-          bumacoSnackbar('Alert', 'Working');
+          bumacoSnackbar('alert'.tr, 'Working');
           signinController.facebookSignInMethod();
         },
         imageName: iconFacebook,
@@ -231,21 +268,18 @@ class LandingView extends StatelessWidget {
   }
 
   skipLabel(context) {
-    return Container(
-      color: Colors.transparent,
-      margin: EdgeInsets.only(
-        top: 20,
-      ),
-      child: GestureDetector(
+    return InkWell(
+      child: Container(
+        padding: EdgeInsets.symmetric(horizontal: 20, vertical: 2),
         child: Text(
           'skip_and_continue'.tr,
-          style: TextStyle(fontSize: 20),
+          style: TextStyle(color: kWhiteColor, fontSize: 22),
         ),
-        onTap: () => {
-          getStorage.write(BOX_IS_LOGGEDIN, true),
-          Get.offAllNamed(shoppingRoute),
-        },
       ),
+      onTap: () => {
+        getStorage.write(BOX_IS_LOGGEDIN, true),
+        Get.offAllNamed(shoppingRoute),
+      },
     );
   }
 }

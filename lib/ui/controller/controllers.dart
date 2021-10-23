@@ -16,3 +16,4 @@ export 'product_makeup_controller.dart';
 export 'home_controller.dart';
 export 'search_controller.dart';
 export 'address_controller.dart';
+export 'banner_controller.dart';

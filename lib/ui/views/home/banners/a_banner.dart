@@ -29,6 +29,11 @@ class ABanner extends StatelessWidget {
                 padding: EdgeInsets.fromLTRB(10, 10, 10, 10),
                 child: Column(
                   children: <Widget>[
+                    // CachedNetworkImage(
+                    //   placeholder: (context, url) =>
+                    //       CircularProgressIndicator(),
+                    //   imageUrl: ApiConstants.baseImageUrl + item.bannerimage,
+                    // ),
                     Container(
                       child: ClipRRect(
                         borderRadius: BorderRadius.all(Radius.circular(0)),

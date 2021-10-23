@@ -17,7 +17,11 @@ class AddressView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final _addressController = AddressController.to;
-    _addressController.findAllAddressList();
+
+    if (Get.arguments != null) {
+      print('check argument not null here--------------');
+      _addressController.setisFromBucketPage(Get.arguments['get_is_bucket']);
+    }
     return Scaffold(
       appBar: AppbarHome(
         title: 'Address List',
@@ -27,7 +31,6 @@ class AddressView extends StatelessWidget {
             tooltip: 'Add an address',
             onPressed: () {
               Get.to(() => AddAddressView());
-              // Get.toNamed(wishlistRoute);
             },
           ),
         ],
@@ -39,14 +42,21 @@ class AddressView extends StatelessWidget {
                 constraints: BoxConstraints(),
                 child: Column(
                   children: [
-                    Container(
-                      child:
-                          'Plase select an address from below list for delivery.'
-                              .text
-                              .size(14)
-                              .make()
-                              .p12(),
-                    ),
+                    _addressController.isBucketPage
+                        ? Column(children: [
+                            'Plase select an address from below list for delivery.'
+                                .text
+                                .size(14)
+                                .make()
+                                .p12(),
+                            MaterialButton(
+                                color: kPrimaryColor,
+                                onPressed: () {
+                                  Get.to(() => AddAddressView());
+                                },
+                                child: 'Add New Address'.text.white.make())
+                          ])
+                        : Container(),
                     Divider(),
                     Obx(
                       () => Expanded(

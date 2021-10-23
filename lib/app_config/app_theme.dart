@@ -158,15 +158,15 @@ TextTheme _buildShrineTextTheme(TextTheme base) {
 ElevatedButtonThemeData elevatedButtonTheme() {
   return ElevatedButtonThemeData(
     style: ElevatedButton.styleFrom(
-      textStyle: TextStyle(fontSize: 18),
+      textStyle: TextStyle(fontSize: 16),
       shape: RoundedRectangleBorder(
         // gradient: LinearGradient(
         //     // colors: [Colors.red, Colors.blue],
         //     colors: [gradientColorBlue1, gradientColorBlue2],
         //     begin: Alignment.centerLeft,
         //     end: Alignment.centerRight),
-        borderRadius: BorderRadius.circular(6),
-        side: BorderSide(color: kPrimaryColor, width: 1),
+        borderRadius: BorderRadius.circular(4),
+        side: BorderSide(color: kPrimaryColor, width: 0),
       ),
       padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
       elevation: 4,

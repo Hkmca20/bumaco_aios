@@ -41,14 +41,12 @@ class BucketController extends GetxController {
     if (totalAmount > 0 && totalAmount < 2000) shippingAmt.value = 350.0;
     grandTotal.value = totalAmount.value + taxAmount.value + shippingAmt.value;
     bucketList.value = result;
-    print('-----------finding ends' + totalAmount.toString());
   }
 
   insertBucket(ProductModel element) async {
     final db = await $FloorAppDatabase.databaseBuilder(DB_NAME).build();
     final bucketDao = db.bucketDao;
     final BucketEntity? checkItem = await bucketDao.findBucketById(element.id);
-    print('------------------checkItem $checkItem');
     if (checkItem != null && checkItem.id == element.id) {
       final q = checkItem.quantity + 1;
       if (q > 5) {

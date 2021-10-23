@@ -1,5 +1,7 @@
+import 'package:bumaco_aios/app_core/repository/banner_repo.dart';
 import 'package:bumaco_aios/app_core/repository/news_repo_impl.dart';
 import 'package:bumaco_aios/app_utils/app_const.dart';
+import 'package:bumaco_aios/ui/controller/banner_controller.dart';
 import 'package:bumaco_aios/ui/controller/controllers.dart';
 import 'package:bumaco_aios/ui/controller/locale_controller.dart';
 import 'package:bumaco_aios/ui/controller/signin_controller.dart';
@@ -32,6 +34,7 @@ class AppBinding implements Bindings {
     Get.lazyPut(() => BucketController(), fenix: true, tag: BUCKET_CONTROLLER);
     Get.lazyPut(() => AddressController(),
         fenix: true, tag: ADDRESS_CONTROLLER);
+    Get.lazyPut(() => BannerController(), fenix: true, tag: BANNER_CONTROLLER);
     Get.lazyPut(() => ProductMakeupController(), fenix: true);
     Get.lazyPut(() => NewsController(), fenix: true);
     Get.lazyPut(() => NewsRepoImpl(), fenix: true);
@@ -42,5 +45,7 @@ class AppBinding implements Bindings {
         fenix: true, tag: C_CATEGORY_CONTROLLER);
     Get.lazyPut(() => SubCategoryController(),
         fenix: true, tag: S_CATEGORY_CONTROLLER);
+        
+    Get.lazyPut(() => BannerRepoImpl(), fenix: true);
   }
 }

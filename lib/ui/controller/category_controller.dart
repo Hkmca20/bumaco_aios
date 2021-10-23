@@ -60,7 +60,6 @@ class CategoryController extends GetxController {
     isLoading.toggle();
 
     final result = await _categoryRepo.getCategory();
-    await Future.delayed(Duration(seconds: 2));
     isLoading.toggle();
 
     if (result != null) {

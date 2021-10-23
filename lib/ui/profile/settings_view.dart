@@ -2,6 +2,7 @@ import 'package:bumaco_aios/app_utils/utils.dart';
 import 'package:bumaco_aios/ui/controller/controllers.dart';
 import 'package:bumaco_aios/ui/gallery/gallery_view.dart';
 import 'package:bumaco_aios/ui/profile/column_demo.dart';
+import 'package:bumaco_aios/ui/views/address/addresss_view.dart';
 import 'package:bumaco_aios/ui/views/dashboard/tabbar_view.dart';
 import 'package:bumaco_aios/ui/views/home/c_product_view.dart';
 import 'package:bumaco_aios/ui/views/views.dart';
@@ -133,10 +134,12 @@ class SettingView extends StatelessWidget {
                 // Get.toNamed(newsRoute)
                 // Get.toNamed(ratingRoute)
                 // Get.toNamed(shrinkRoute)
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => SearchView()),
-                )
+                Get.to(() => AddressView(),
+                    arguments: {'get_is_bucket': false}),
+                // Navigator.push(
+                //   context,
+                //   MaterialPageRoute(builder: (context) => SearchView()),
+                // )
               },
             ),
           ),

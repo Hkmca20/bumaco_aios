@@ -78,14 +78,14 @@ class SplashState extends State<SplashView>
       Get.offAndToNamed(dashboardRoute);
       // Get.offAndToNamed(newsRoute);
     } else {
-      if (_splashController.appOpenCount > 2) {
+      // if (_splashController.appOpenCount > 2) {
         // Get.offAndToNamed(ratingRoute);
         // Get.offAndToNamed(shrinkRoute);
         Get.offAndToNamed(landingRoute);
         // Get.offAndToNamed(googleSigninDemoRoute);
-      } else {
-        Get.offAndToNamed(onboardRoute);
-      }
+      // } else {
+      //   Get.offAndToNamed(onboardRoute);
+      // }
     }
   }
 

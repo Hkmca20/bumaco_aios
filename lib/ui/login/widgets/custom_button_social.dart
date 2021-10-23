@@ -16,11 +16,14 @@ class CustomButtonSocial extends StatelessWidget {
   Widget build(BuildContext context) {
     return ElevatedButton(
       style: ElevatedButton.styleFrom(
-          primary: kWhiteColor,
-          alignment: Alignment.center,
-          padding: EdgeInsets.symmetric(vertical: 15),
-          textStyle: TextStyle(
-              fontSize: 30, color: kWhiteColor, fontWeight: FontWeight.bold)),
+        primary: kWhiteColor.withOpacity(0.9),
+        alignment: Alignment.center,
+        elevation: 0.0,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(4),
+        ),
+        padding: EdgeInsets.symmetric(vertical: 10),
+      ),
       onPressed: onPress,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -30,8 +33,8 @@ class CustomButtonSocial extends StatelessWidget {
           Text(
             text,
             style: TextStyle(
-                fontSize: 20,
-                color: kPrimaryColor,
+                fontSize: 16,
+                color: kBlackColor,
                 fontWeight: FontWeight.normal),
           ),
         ],

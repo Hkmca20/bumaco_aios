@@ -11,6 +11,11 @@ class AddressController extends GetxController {
   var defaultAddress = '';
   var selectedAddress = ''.obs;
 
+  var isBucketPage = false;
+  setisFromBucketPage(val) {
+    isBucketPage = val;
+  }
+
   final nameCTR = TextEditingController(),
       aLine1CTR = TextEditingController(),
       aLine2CTR = TextEditingController(),
@@ -50,23 +55,24 @@ class AddressController extends GetxController {
     final db = await $FloorAppDatabase.databaseBuilder(DB_NAME).build();
     final addressDao = db.addressDao;
     addressList.value = await addressDao.findAllAddress();
-    print('------------------checkItem ${addressList.length}');
     final AddressEntity? entity = await addressDao.findDefaultAddress();
-    print('------------------checkItem $entity');
-    defaultAddress = entity!.street1 +
-        ',' +
+    defaultAddress = 'H.No. ' +
+        entity!.street1 +
+        ' ' +
         entity.street2 +
-        ',' +
+        ', ' +
         entity.city +
-        ',' +
+        ', ' +
         entity.state +
-        ',' +
+        ', ' +
         entity.country +
-        ',' +
+        ', ' +
+        entity.locality +
+        ' - ' +
         entity.pinCode +
         ' (' +
         entity.type +
-        ')';
+        ', Default)';
     print(defaultAddress);
 
     if (selectedAddress.value.isEmpty) selectedAddress.value = defaultAddress;
@@ -81,21 +87,34 @@ class AddressController extends GetxController {
     bumacoSnackbar('alert'.tr, '${entity.street1} ' + 'added_to'.tr);
   }
 
+  Future<void> removeAddress(AddressEntity addressEntity) async {
+    final db = await $FloorAppDatabase.databaseBuilder(DB_NAME).build();
+    final addressDao = db.addressDao;
+    AddressEntity? checkAddress =
+        await addressDao.findAddressById(addressEntity.addressid);
+    if (checkAddress!.isDefault) {
+      bumacoSnackbar('alert'.tr, 'Default address can\'t be delete');
+      return;
+    }
+    await addressDao.deleteAddressById(addressEntity.addressid);
+    findAllAddressList();
+  }
+
   Future<void> setDefaultAddress(AddressEntity entity) async {
     final db = await $FloorAppDatabase.databaseBuilder(DB_NAME).build();
     final addressDao = db.addressDao;
     await addressDao.updateDefaultAddressRemove();
     await addressDao.setDefaultAddressById(entity.addressid);
     findAllAddressList();
-    bumacoSnackbar('alert'.tr, '${entity.street1} ' + 'added_to'.tr);
   }
 
   findAddressByIdAndSelect(AddressEntity addressentity) async {
     final db = await $FloorAppDatabase.databaseBuilder(DB_NAME).build();
     final addressDao = db.addressDao;
-    AddressEntity? entity = await addressDao.findAddressById(addressentity.addressid);
+    AddressEntity? entity =
+        await addressDao.findAddressById(addressentity.addressid);
     if (entity != null) {
-      selectedAddress.value = 'H.No.' +
+      selectedAddress.value = 'H.No. ' +
           entity.addressid +
           ', ' +
           entity.street1 +
@@ -110,10 +129,7 @@ class AddressController extends GetxController {
           ',' +
           entity.locality +
           ' - ' +
-          entity.pinCode +
-          ' (' +
-          entity.type +
-          ')';
+          entity.pinCode;
     }
   }
 
@@ -122,7 +138,7 @@ class AddressController extends GetxController {
       bumacoSnackbar('alert'.tr, 'Name field is required to proceed!');
       return;
     }
-    if (aLine1CTR.text.length < 5) {
+    if (aLine1CTR.text.length < 3) {
       bumacoSnackbar('alert'.tr, 'Address line 1 is required to proceed!');
       return;
     }
@@ -138,7 +154,6 @@ class AddressController extends GetxController {
       bumacoSnackbar('alert'.tr, 'Phone number field is required to proceed!');
       return;
     }
-    print('validated and save and submit');
     final now = DateTime.now().toString();
     final entity = AddressEntity(
         now,
@@ -154,8 +169,16 @@ class AddressController extends GetxController {
         pinCTR.text,
         true);
     insertAddress(entity).then((value) => {
-          // Get.to(() => BookOrderView()),
-          print('insert success------>'),
+          nameCTR.clear(),
+          aLine1CTR.clear(),
+          aLine2CTR.clear(),
+          cityCTR.clear(),
+          pinCTR.clear(),
+          phoneCTR.clear(),
+          // if (isBucketPage) {//todo think here or all working..
+          // },
+          Get.back(),
+          Get.back()
         });
   }
 }

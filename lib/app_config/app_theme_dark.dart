@@ -30,7 +30,7 @@ ThemeData setDarkTheme(context) {
 ElevatedButtonThemeData elevatedButtonThemeDark() {
   return ElevatedButtonThemeData(
     style: ElevatedButton.styleFrom(
-      textStyle: TextStyle(fontSize: 18),
+      textStyle: TextStyle(fontSize: 16),
       shape: RoundedRectangleBorder(
         // gradient: LinearGradient(
         //     // colors: [Colors.red, Colors.blue],

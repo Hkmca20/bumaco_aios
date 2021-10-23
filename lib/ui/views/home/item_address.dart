@@ -1,6 +1,7 @@
 import 'dart:ui';
 
 import 'package:bumaco_aios/app_core/db/entity/entities.dart';
+import 'package:bumaco_aios/app_utils/utils.dart';
 import 'package:bumaco_aios/ui/controller/controllers.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -18,8 +19,10 @@ class ItemAddress extends StatelessWidget {
     final isDefault = item.isDefault ? '(Default)' : '';
     return InkWell(
       onTap: () {
-        aController.findAddressByIdAndSelect(item);
-        Get.back();
+        if (aController.isBucketPage) {
+          aController.findAddressByIdAndSelect(item);
+          Get.back();
+        }
       },
       child: VxBox(
         child: HStack(
@@ -38,7 +41,7 @@ class ItemAddress extends StatelessWidget {
                 padding: EdgeInsets.only(bottom: 8),
                 child: VStack(
                   [
-                    ('H.No.${item.addressid}, ${item.street1} , ${item.street2} $isDefault')
+                    ('H.No. ${item.addressid}, ${item.street1} , ${item.street2} $isDefault')
                         .text
                         .size(20)
                         .fontWeight(FontWeight.w900)
@@ -56,23 +59,56 @@ class ItemAddress extends StatelessWidget {
                   crossAlignment: CrossAxisAlignment.start,
                 ),
               ),
-              flex: 8,
+              flex: 7,
             ),
             Expanded(
-              child: InkWell(
-                onTap: () {
-                  aController.setDefaultAddress(item);
-                },
-                child: ClipRRect(
-                  child: Icon(
-                    item.isDefault
-                        ? Icons.radio_button_checked_rounded
-                        : Icons.radio_button_off_rounded,
+              flex: 2,
+              child: Column(
+                children: [
+                  Visibility(
+                    visible: !item.isDefault,
+                    child: InkWell(
+                      onTap: () {
+                        aController.removeAddress(item).then((value) =>
+                            bumacoSnackbar(
+                                'alert'.tr,
+                                '${item.street1} ' +
+                                    'removed_from'.tr +
+                                    ' ' +
+                                    'address'.tr));
+                      },
+                      child: ClipRRect(
+                        child: Icon(
+                          Icons.delete,
+                        ),
+                        borderRadius: BorderRadius.all(Radius.circular(4)),
+                      ).p16(),
+                    ),
                   ),
-                  borderRadius: BorderRadius.all(Radius.circular(4)),
-                ),
+                  SizedBox(height: 10),
+                  InkWell(
+                    onTap: () {
+                      aController.setDefaultAddress(item).then((value) =>
+                          bumacoSnackbar(
+                              'alert'.tr,
+                              '${item.street1} ' +
+                                  'added_to'.tr +
+                                  ' ' +
+                                  'address'.tr));
+                    },
+                    child: Container(
+                      child: ClipRRect(
+                        child: Icon(
+                          item.isDefault
+                              ? Icons.radio_button_checked_rounded
+                              : Icons.radio_button_off_rounded,
+                        ),
+                        borderRadius: BorderRadius.all(Radius.circular(4)),
+                      ),
+                    ).p16(),
+                  ),
+                ],
               ),
-              flex: 1,
             ),
           ],
           crossAlignment: CrossAxisAlignment.center,

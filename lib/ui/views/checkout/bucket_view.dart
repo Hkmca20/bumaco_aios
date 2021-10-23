@@ -4,6 +4,7 @@ import 'package:bumaco_aios/app_utils/utils.dart';
 import 'package:bumaco_aios/ui/controller/controllers.dart';
 import 'package:bumaco_aios/ui/views/address/addresss_view.dart';
 import 'package:bumaco_aios/ui/views/checkout/item_bucket.dart';
+import 'package:bumaco_aios/ui/views/home/book_order_view.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:velocity_x/velocity_x.dart';
@@ -18,6 +19,7 @@ class BucketView extends StatelessWidget {
   Widget build(BuildContext context) {
     final _addressController = AddressController.to;
     final bucketController = BucketController.to;
+    
     return Scaffold(
       appBar: AppbarHome(
         title: 'cart'.tr + ' - ' + 'checkout'.tr,
@@ -43,7 +45,8 @@ class BucketView extends StatelessWidget {
                               //     color: Colors.red,
                               //   ),
                               // );
-                              Get.to(() => AddressView());
+                              Get.to(() => AddressView(),
+                                  arguments: {'get_is_bucket': true});
                             },
                             child: HStack(
                               [
@@ -171,9 +174,13 @@ class BucketView extends StatelessWidget {
                           MaterialButton(
                             height: 50.0,
                             onPressed: () {
-                              Get.to(() => AddAddressView(), arguments: {
-                                'get_payable_amt': bucketController.grandTotal
-                              });
+                              _addressController.addressList.length == 0
+                                  ? Get.to(() => AddAddressView(),
+                                      arguments: {'get_is_bucket': true})
+                                  : Get.to(() => BookOrderView(), arguments: {
+                                      'get_payable_amt':
+                                          bucketController.grandTotal
+                                    });
                             },
                             // color: Color(0xff374ABE),
                             color: kPrimaryColor,
