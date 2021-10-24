@@ -23,27 +23,21 @@ class ItemWidget11 extends StatelessWidget {
       padding: _padding,
       child: InkWell(
         onTap: () {
-          Get.toNamed(childCategoryRoute,
-              arguments: {'arg_category_id': item.id});
+          Get.toNamed(productRoute, arguments: {
+            'arg_category_item': CategoryModel(category: item.bannerposition)
+          });
         },
         child: Container(
           margin: EdgeInsets.symmetric(horizontal: 2),
           width: _screenWidth,
-          // height: 200,
           child: Card(
             clipBehavior: Clip.hardEdge,
             elevation: 4,
-            child: InkWell(
-              onTap: () {
-                Get.toNamed(childCategoryRoute,
-                    arguments: {'arg_category_item': item});
-              },
-              child: Image(
-                  fit: BoxFit.contain,
-                  image:
-                      Image.network('${ApiConstants.baseImageUrl}${item.image}')
-                          .image),
-            ),
+            child: Image(
+                fit: BoxFit.cover,
+                image:
+                    Image.network('${ApiConstants.baseImageUrl}${item.image}')
+                        .image),
           ),
         ),
       ),

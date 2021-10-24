@@ -8,6 +8,7 @@ import 'package:bumaco_aios/ui/rating/rating_view.dart';
 import 'package:bumaco_aios/ui/shopping/all_product_view.dart';
 import 'package:bumaco_aios/ui/shopping/staggered_img_view.dart';
 import 'package:bumaco_aios/ui/views/home/c_product_view.dart';
+import 'package:bumaco_aios/ui/views/home/product_view.dart';
 import 'package:bumaco_aios/ui/views/views.dart';
 import 'package:get/get.dart';
 
@@ -61,10 +62,15 @@ List<GetPage<dynamic>> get setRoute => [
           transitionDuration: kTransitionDuration,
           page: () => StaggeredImg()),
       GetPage(
-          name: productsRoute,
+          name: cProductRoute,
           transition: Transition.fade,
           transitionDuration: kTransitionDuration,
           page: () => CProductView()),
+      GetPage(
+          name: productRoute,
+          transition: Transition.fade,
+          transitionDuration: kTransitionDuration,
+          page: () => ProductView()),
       GetPage(
           name: allProductsRoute,
           transition: Transition.fade,

@@ -89,7 +89,7 @@ AppBarTheme _appBarThemeDark() {
   return AppBarTheme(
     elevation: 2,
     toolbarHeight: 56,
-    // iconTheme: IconThemeData(color: kPrimaryColor),
-    // actionsIconTheme: IconThemeData(color: kPrimaryColor),
+    // iconTheme: IconThemeData(color: kWhiteColor),
+    // actionsIconTheme: IconThemeData(color: kWhiteColor),
   );
 }

@@ -12,7 +12,8 @@ class SubCategoryView extends StatelessWidget {
     // final subCategoryController = Get.find<SubCategoryController>();
     final subCategoryController = SubCategoryController.to;
     final args = Get.arguments;
-    final ChildCategoryModel childCategoryItem = args['arg_child_category_item'] ?? '';
+    final ChildCategoryModel childCategoryItem =
+        args['arg_child_category_item'] ?? '';
     subCategoryController.setChildCategoryId(childCategoryItem.category);
     return Scaffold(
       appBar: AppbarHome(
@@ -38,9 +39,13 @@ class SubCategoryView extends StatelessWidget {
                 return Column(children: [
                   GestureDetector(
                       onTap: () {
-                        Get.toNamed(allProductsRoute, arguments: {
-                          'arg_sub_category_item': item
+                        Get.toNamed(productRoute, arguments: {
+                          'arg_category_item':
+                              CategoryModel(category: item.image!)
                         });
+                        // Get.toNamed(allProductsRoute, arguments: {
+                        //   'arg_sub_category_item': item
+                        // });
                       },
                       child: Image.network(
                           ('${ApiConstants.baseImageUrl}${item.bannerimage}'))),

@@ -25,7 +25,7 @@ class BookOrderView extends StatelessWidget {
                 ),
               ),
               Chip(
-                  label: '\$ 250'
+                  label: 'ORDER ID: A1CINBA398044'
                       .text
                       .size(24)
                       .fontWeight(FontWeight.w700)

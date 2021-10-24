@@ -1,7 +1,6 @@
 import 'package:bumaco_aios/app_core/models/banner_list_model.dart';
 import 'package:bumaco_aios/app_core/models/models.dart';
 import 'package:bumaco_aios/app_core/repository/banner_repo.dart';
-import 'package:bumaco_aios/app_core/repository/category_repo.dart';
 import 'package:bumaco_aios/app_utils/utils.dart';
 import 'package:get/get.dart';
 
@@ -12,12 +11,11 @@ class BannerController extends GetxController {
   BannerController() {
     addItemToListPosition();
     _bannerRepo = Get.find<BannerRepoImpl>();
-    // fetchHomeSlider();
     fetchBanners();
   }
 
-  late RxList<BannerListModel> bannerPositionList = <BannerListModel>[].obs;
-  late RxList<BannerModel> sliderList = <BannerModel>[].obs;
+  RxList<BannerListModel> bannerPositionList = <BannerListModel>[].obs;
+  RxList<BannerModel> sliderList = <BannerModel>[].obs;
   RxBool isLoading = false.obs;
 
   void fetchHomeSlider() async {
@@ -44,8 +42,7 @@ class BannerController extends GetxController {
     } else {
       print('=======No HomeSliderList found========');
     }
-    isLoading.toggle();
-    for (int i = 1; i < 18; i++) {
+    for (int i = 1; i < 12; i++) {
       result = await _bannerRepo.getBannerPositions(i);
       if (result != null) {
         bannerPositionList.insert(i,
@@ -54,6 +51,7 @@ class BannerController extends GetxController {
         print('=======Not found BannerList at pos:$i ========');
       }
     }
+    isLoading.toggle();
   }
 
   void addItemToListPosition() {

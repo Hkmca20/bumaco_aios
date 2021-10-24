@@ -1,6 +1,7 @@
 import 'dart:ui';
 
 import 'package:bumaco_aios/app_utils/app_const.dart';
+import 'package:bumaco_aios/ui/controller/home_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:velocity_x/velocity_x.dart';
 
@@ -14,6 +15,7 @@ class AppbarSHome extends StatelessWidget with PreferredSizeWidget {
   final Color iconColor;
   final bool autoLeading;
   final bool centerTitle;
+  var homeController = HomeController.to;
 
   AppbarSHome(
       {Key? key,
@@ -44,15 +46,24 @@ class AppbarSHome extends StatelessWidget with PreferredSizeWidget {
               //       .createShader(bounds);
               // },
               // child:
-              title.text
-                  // .color(textColor)
-                  .size(26)
-                  .fontWeight(FontWeight.w700)
-                  // .fontFamily('samantha')
-                  .make(),
+              InkWell(
+                onTap: () {
+                  homeController.buildDialog(context);
+                },
+                child: title.text
+                    // .color(textColor)
+                    .size(26)
+                    .fontWeight(FontWeight.w700)
+                    // .fontFamily('samantha')
+                    .make(),
+              ),
               // ),
               SizedBox(width: 2),
-              Icon(Icons.keyboard_arrow_down_rounded)
+              InkWell(
+                  onTap: () {
+                    homeController.buildDialog(context);
+                  },
+                  child: Icon(Icons.keyboard_arrow_down_rounded))
             ]),
           )
         ],

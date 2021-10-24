@@ -10,7 +10,7 @@ class NewsHeadline extends StatelessWidget {
   Widget build(BuildContext context) {
     final newsController = Get.find<NewsController>();
     return Scaffold(
-      appBar: BumacoAppbar(title: 'Blogs'),
+      appBar: AppbarHome(title: 'Blogs'),
       // bottomNavigationBar: getBottomNavigationBar(),
       body: Obx(() => newsController.isLoading.isTrue
           ? Center(child: LoadingWidget())

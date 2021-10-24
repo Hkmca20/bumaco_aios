@@ -18,12 +18,21 @@ class BucketView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final _addressController = AddressController.to;
-    final bucketController = BucketController.to;
-    
+    // final bucketController = BucketController.to;
+    final bucketController = Get.find<BucketController>();
+
     return Scaffold(
       appBar: AppbarHome(
         title: 'cart'.tr + ' - ' + 'checkout'.tr,
-        actionList: [],
+        actionList: [
+          IconButton(
+            icon: Icon(Icons.location_city_outlined),
+            tooltip: 'Address List',
+            onPressed: () {
+              Get.to(() => AddressView(), arguments: {'get_is_bucket': true});
+            },
+          ),
+        ],
       ),
       body: Obx(
         () => bucketController.bucketList.length == 0

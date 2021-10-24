@@ -4,6 +4,7 @@ import 'package:bumaco_aios/ui/shopping/model/product.dart';
 import 'package:bumaco_aios/ui/widgets/hero_carousel_card.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:velocity_x/velocity_x.dart';
 import 'package:get/get.dart';
 
 class ProductDetailView extends StatefulWidget {
@@ -24,8 +25,7 @@ class _ProductDetailViewState extends State<ProductDetailView> {
       appBar: BumacoAppbar(
         title: productItem.produntName,
       ),
-      body: 
-      ListView(children: [
+      body: ListView(children: [
         //Product Image section
         CarouselSlider(
             options: CarouselOptions(
@@ -59,16 +59,8 @@ class _ProductDetailViewState extends State<ProductDetailView> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text(productItem.produntName,
-                          style: Theme.of(context)
-                              .textTheme
-                              .headline5!
-                              .copyWith(color: Colors.white)),
-                      Text('\$${productItem.produntPrice}',
-                          style: Theme.of(context)
-                              .textTheme
-                              .headline5!
-                              .copyWith(color: Colors.white)),
+                      productItem.produntName.text.white.make(),
+                      '\$${productItem.produntPrice}'.text.white.make(),
                     ],
                   ),
                 ),

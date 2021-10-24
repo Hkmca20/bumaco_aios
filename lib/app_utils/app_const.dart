@@ -85,6 +85,8 @@ const profileRoute = '/profile';
 const shoppingRoute = '/shopping';
 const staggerdImgRoute = '/staggerdImg';
 const productsRoute = '/products';
+const cProductRoute = '/cProducts';
+const productRoute = '/product';
 const allProductsRoute = '/allProducts';
 const catalogRoute = '/catalog';
 const productDetailRoute = '/product_detail';
@@ -160,7 +162,11 @@ const BOX_APP_OPEN_COUNT = 'app_open_count'; //int
 // GetUtils.isEmail('abc@gmail.com') ? validate() :errorMessage();
 
 const BOX_COUNTRY = 'country'; //string
-const BOX_MOBILE_EMAIL = 'mobile_email'; //string
+const BOX_NAME = 'name'; //string
+const BOX_MOBILE = 'mobile'; //string
+const BOX_EMAIL = 'email'; //string
+const BOX_PROFILE_PHOTO = 'photo'; //string
+const BOX_GOOGLE_ID = 'google_id'; //string
 const BOX_IS_LOGGEDIN = 'is_loggedin'; //bool
 const BOX_IS_DARK = 'is_dark'; //bool
 const BOX_IS_NOTIFICATION = 'is_notification'; //bool

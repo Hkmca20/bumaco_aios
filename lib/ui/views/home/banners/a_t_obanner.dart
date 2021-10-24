@@ -1,13 +1,12 @@
 import 'package:bumaco_aios/app_core/models/banner_model.dart';
-import 'package:bumaco_aios/app_core/models/category_model.dart';
 import 'package:bumaco_aios/app_utils/app_const.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:transparent_image/transparent_image.dart';
 import 'package:velocity_x/velocity_x.dart';
 
-class ABanner extends StatelessWidget {
-  const ABanner({
+class ATOBanner extends StatelessWidget {
+  const ATOBanner({
     Key? key,
     required this.item,
   }) : super(key: key);

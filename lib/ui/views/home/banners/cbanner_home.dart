@@ -4,6 +4,7 @@ import 'package:bumaco_aios/app_core/models/models.dart';
 import 'package:bumaco_aios/app_utils/app_const.dart';
 import 'package:bumaco_aios/app_utils/utils.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:transparent_image/transparent_image.dart';
 
 class CBannerHomeWidget extends StatefulWidget {
@@ -14,6 +15,7 @@ class CBannerHomeWidget extends StatefulWidget {
     this.onTap,
     this.fitImage = BoxFit.cover,
     this.curve = Curves.linear,
+    this.autoscroll = false,
   })  : assert(bannerList != null),
         super(key: key);
 
@@ -22,13 +24,14 @@ class CBannerHomeWidget extends StatefulWidget {
   final onTap;
   final fitImage;
   final curve;
+  final autoscroll;
 
   @override
   State<CBannerHomeWidget> createState() => _CBannerHomeWidgetState();
 }
 
 var _curIndex = 0;
-var _pageController = PageController();
+final _pageController = PageController();
 late Timer _timer;
 
 class _CBannerHomeWidgetState extends State<CBannerHomeWidget>
@@ -44,7 +47,7 @@ class _CBannerHomeWidgetState extends State<CBannerHomeWidget>
       _pageController.animateToPage(
         _curIndex,
         duration: Duration(seconds: 1),
-        curve: Curves.fastOutSlowIn,
+        curve: Curves.easeIn,
       );
       // });
     });
@@ -54,7 +57,7 @@ class _CBannerHomeWidgetState extends State<CBannerHomeWidget>
   void initState() {
     super.initState();
     print("------>initState");
-    if (widget.bannerList!.length > 1) {
+    if (widget.bannerList!.length > 1 && widget.autoscroll) {
       _initTimer();
     }
     // Add the observer.
@@ -67,12 +70,16 @@ class _CBannerHomeWidgetState extends State<CBannerHomeWidget>
     print('------>AppLifecycleState: $state');
     switch (state) {
       case AppLifecycleState.resumed:
-        _initTimer();
+        if (widget.bannerList!.length > 1 && widget.autoscroll) {
+          _initTimer();
+        }
         break;
       case AppLifecycleState.inactive:
         break;
       case AppLifecycleState.paused:
-        _timer.cancel();
+        if (widget.bannerList!.length > 1 && widget.autoscroll) {
+          _timer.cancel();
+        }
         break;
       case AppLifecycleState.detached:
         break;
@@ -85,7 +92,6 @@ class _CBannerHomeWidgetState extends State<CBannerHomeWidget>
     print('------>dispose()');
     // Remove the observer
     WidgetsBinding.instance!.removeObserver(this);
-    _timer.cancel();
     super.dispose();
   }
 
@@ -118,12 +124,15 @@ class _CBannerHomeWidgetState extends State<CBannerHomeWidget>
               final item = widget.bannerList![index % length];
               return GestureDetector(
                 onPanDown: (details) {
-                  _cancelTimer();
-                  _initTimer();
+                  if (widget.bannerList!.length > 1 && widget.autoscroll) {
+                    _cancelTimer();
+                    _initTimer();
+                  }
                 },
                 onTap: () {
-                  bumacoSnackbar(
-                      'Alert', 'Banner clicked id = ${index % length} ');
+                  Get.toNamed(productRoute, arguments: {
+                    'arg_category_item': CategoryModel(category: item.category)
+                  });
                 },
                 child: Container(
                   child: ClipRRect(

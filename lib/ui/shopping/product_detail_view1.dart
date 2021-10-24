@@ -10,6 +10,7 @@ import 'package:bumaco_aios/ui/views/home/item_widget_3.dart';
 import 'package:bumaco_aios/ui/widgets/aproduct_card.dart';
 import 'package:bumaco_aios/ui/widgets/hero_carousel_card.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:velocity_x/velocity_x.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -27,7 +28,7 @@ class _ProductDetailView1State extends State<ProductDetailView1> {
     if (Get.arguments != null) {
       productItem = Get.arguments['arg_product'];
     }
-    final categoryController =CategoryController.to;
+    final categoryController = CategoryController.to;
     final screenSize = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppbarHome(
@@ -45,7 +46,7 @@ class _ProductDetailView1State extends State<ProductDetailView1> {
                   enlargeStrategy: CenterPageEnlargeStrategy.height,
                   enableInfiniteScroll: true),
               items: [
-                ItemWidget2(
+                ItemWidget1(
                   padding: EdgeInsets.all(2),
                   item: categoryController.categoryList[0],
                   screenWidth: screenSize.width,
@@ -61,30 +62,29 @@ class _ProductDetailView1State extends State<ProductDetailView1> {
             children: [
               Container(
                 width: MediaQuery.of(context).size.width,
-                height: 60,
+                height: 70,
                 alignment: Alignment.bottomCenter,
                 color: Colors.black.withAlpha(50),
               ),
               Container(
                 margin: EdgeInsets.all(5),
                 width: MediaQuery.of(context).size.width - 10,
-                height: 50,
+                height: 60,
                 color: kPrimaryColor,
                 child: Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 20),
+                  padding: EdgeInsets.symmetric(horizontal: 10),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text(productItem.name ?? '',
-                          style: Theme.of(context)
-                              .textTheme
-                              .headline6!
-                              .copyWith(color: Colors.white)),
-                      Text('\$${productItem.price}',
-                          style: Theme.of(context)
-                              .textTheme
-                              .headline6!
-                              .copyWith(color: Colors.white)),
+                      Expanded(
+                        child: '${productItem.name}'
+                            .text
+                            .maxLines(2)
+                            .ellipsis
+                            .white
+                            .make(),
+                      ),
+                      'Price: \$${productItem.price}'.text.white.make(),
                     ],
                   ),
                 ),

@@ -25,8 +25,13 @@ class SigninController extends GetxController {
     print('onInit==========>');
     _googleSignIn.onCurrentUserChanged.listen((GoogleSignInAccount? account) {
       _currentUser = account;
-      print('Current user --------------->');
+      // box.write(BOX_GOOGLE_ID, _currentUser!.id);
+      Get.back();
+      print('Current user --------------->');//print id here
       print(_currentUser);
+
+      // getStorage.write(BOX_IS_LOGGEDIN, true);
+      // Get.offAllNamed(dashboardRoute);
     });
     _googleSignIn.signInSilently();
     super.onInit();
@@ -51,7 +56,7 @@ class SigninController extends GetxController {
       if (mobileCTR.text == '9999999999') {
         // Get.toNamed(otpRoute, arguments: 'OTP has been sent to ${mobileCTR.text}');
         bumacoSnackbar('Login', 'OTP sent successfully on ${mobileCTR.text}');
-        box.write(BOX_MOBILE_EMAIL, mobileCTR.text);
+        box.write(BOX_MOBILE, mobileCTR.text);
         Get.toNamed(otpRoute);
       } else {
         bumacoSnackbar('Login', 'Failed, please try again!');
@@ -64,17 +69,18 @@ class SigninController extends GetxController {
   }
 
   void googleSignInMethod() async {
-    // GoogleSignInAccount? googleUser = _currentUser;
-    // if (googleUser != null) {
-    //   print('user.displayName=========> ${googleUser.displayName}');
-    //   print('user.email=========>${googleUser.email}');
-    //   print('user.ID=========>${googleUser.id}');
-    //   print('user.photoUrl=========>${googleUser.photoUrl}');
-    //   _handleSignOut();
-    // } else {
-    _handleSignIn();
-    // _handleSignOut();
-    // }
+    GoogleSignInAccount? googleUser = _currentUser;
+    if (googleUser != null) {
+      //   print('user.displayName=========> ${googleUser.displayName}');
+      //   print('user.email=========>${googleUser.email}');
+      //   print('user.ID=========>${googleUser.id}');
+      //   print('user.photoUrl=========>${googleUser.photoUrl}');
+      handleSignOut();
+    } else {
+      showLoadingDialog();
+      _handleSignIn();
+      // _handleSignOut();
+    }
     // print(googleUser);
   }
 
@@ -96,6 +102,15 @@ class SigninController extends GetxController {
         print(
             'handle --------signInWithCredential------${profile.user!.email}');
 
+        box.write(BOX_NAME, profile.user!.displayName);
+        box.write(BOX_EMAIL, profile.user!.email);
+        // if (profile.user!.phoneNumber!.isNotEmpty) {
+        //   box.write(BOX_MOBILE,profile.user!.phoneNumber);
+        // }
+        box.write(BOX_PROFILE_PHOTO, profile.user!.photoURL);
+        getStorage.write(BOX_IS_LOGGEDIN, true);
+        Get.offAllNamed(dashboardRoute);
+
         // saveUser(user);
         // Get.offAll(HomeView());
       });
@@ -104,7 +119,7 @@ class SigninController extends GetxController {
     }
   }
 
-  Future<void> _handleSignOut() => _googleSignIn.disconnect();
+  Future<void> handleSignOut() => _googleSignIn.disconnect();
 
   void facebookSignInMethod() async {
     // final AccessToken result = await FacebookAuth.instance.login();

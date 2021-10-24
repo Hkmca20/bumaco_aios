@@ -21,8 +21,8 @@ class DashboardView extends StatelessWidget {
             children: [
               HomeBaView(),
               CategoryView(),
-              HomeView(),
-              // AllProducts(),
+              // HomeView(),
+              AllProducts(),
               SettingView(),
             ],
           ),

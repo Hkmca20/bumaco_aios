@@ -2,7 +2,7 @@ import 'package:bumaco_aios/app_core/models/models.dart';
 import 'package:bumaco_aios/app_utils/app_const.dart';
 import 'package:bumaco_aios/app_utils/utils.dart';
 import 'package:bumaco_aios/ui/controller/controllers.dart';
-import 'package:bumaco_aios/ui/views/home/banners/a_banner.dart';
+import 'package:bumaco_aios/ui/views/home/banners/a_t_banner.dart';
 import 'package:bumaco_aios/ui/views/home/item_avatar.dart';
 import 'package:bumaco_aios/ui/views/home/search_delegate.dart';
 import 'package:bumaco_aios/ui/views/search/search_view.dart';
@@ -28,7 +28,7 @@ class HomeView extends StatelessWidget {
     final categoryController = CategoryController.to;
     final productController = ProductController.to;
     final homeController = HomeController.to;
-    final bController = BucketController.to;
+    final bController = Get.find<BucketController>();
 
     return Material(
       child: Scaffold(
@@ -62,7 +62,6 @@ class HomeView extends StatelessWidget {
           actionList: [
             IconButton(
               icon: Icon(Icons.search_rounded),
-              color: kPrimaryColorDark,
               tooltip: 'search'.tr,
               onPressed: () async {
                 final CountryModel? result = await showSearch<CountryModel>(
@@ -97,7 +96,6 @@ class HomeView extends StatelessWidget {
           ],
         ),
         body: SingleChildScrollView(
-          controller: homeController.scrollController,
           child: ConstrainedBox(
             constraints: BoxConstraints(),
             child: Obx(
@@ -182,7 +180,7 @@ class HomeView extends StatelessWidget {
                 //Ends carousel here-------------------------
 
                 Divider(),
-                ABanner(
+                ATBanner(
                     item: BannerModel(
                   bannerimage: '20210921080915_492297.jpg',
                   image: '20210921080915_492297.jpg',

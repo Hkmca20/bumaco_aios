@@ -6,6 +6,8 @@ import 'package:bumaco_aios/ui/views/address/addresss_view.dart';
 import 'package:bumaco_aios/ui/views/dashboard/tabbar_view.dart';
 import 'package:bumaco_aios/ui/views/home/c_product_view.dart';
 import 'package:bumaco_aios/ui/views/views.dart';
+import 'package:get_storage/get_storage.dart';
+import 'package:transparent_image/transparent_image.dart';
 import 'package:velocity_x/velocity_x.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -17,6 +19,12 @@ class SettingView extends StatelessWidget {
   Widget build(BuildContext context) {
     final _settingsController = SettingsController.to;
     final _loaleController = LocaleController.to;
+    final box = GetStorage(BOX_APP);
+    final googleProfileName = box.read(BOX_NAME) ?? 'hey\nHarry';
+    final googleEmail = box.read(BOX_EMAIL) ?? 'dummyeamail@gmail.com';
+    final googleProfilePic = box.read(BOX_PROFILE_PHOTO) ??
+        'https://cdn.shopify.com/s/files/1/1338/0845/collections/lippie-pencil_grande.jpg?v=1512588769';
+
     return Scaffold(
       body: ListView(
         // Column(
@@ -31,9 +39,11 @@ class SettingView extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
                       SizedBox(height: 16),
-                      "Hey,\nHarry"
+                      googleProfileName
+                          .toString()
                           .text
-                          .size(28)
+                          .capitalize
+                          .size(22)
                           .fontWeight(FontWeight.w900)
                           .make(),
                       SizedBox(height: 16),
@@ -47,28 +57,46 @@ class SettingView extends StatelessWidget {
                         ),
                       ),
                       SizedBox(height: 8),
-                      ('loggedin_via'.tr + 'dummyeamail@gmail.com')
+                      ('loggedin_via'.tr + ' ' + googleEmail)
                           .text
                           .color(kGreyLightColor)
                           .make(),
                     ],
                   ),
                 ),
-                ClipOval(
-                    child: Image.network(
-                  "https://cdn.shopify.com/s/files/1/1338/0845/collections/lippie-pencil_grande.jpg?v=1512588769",
-                  fit: BoxFit.cover,
-                  width: 90.0,
-                  height: 90.0,
-                )),
+                Container(
+                  width: 100,
+                  height: 100,
+                  padding: EdgeInsets.all(10),
+                  child: ClipOval(
+                    // borderRadius: BorderRadius.all(Radius.circular(0)),
+                    child: FadeInImage.memoryNetwork(
+                      placeholder: kTransparentImage,
+                      image: googleProfilePic.toString().contains('https')
+                          ? googleProfilePic
+                          : ApiConstants.baseImageUrl + googleProfilePic,
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                  decoration: BoxDecoration(
+                    color: Colors.transparent,
+                    borderRadius: BorderRadius.all(Radius.circular(0)),
+                  ),
+                ),
                 // Container(
                 //   width: 100,
                 //   height: 100,
-                //   decoration: BoxDecoration(
-                //     borderRadius: BorderRadius.circular(24),
-                //     image: DecorationImage(
+                //   padding: EdgeInsets.all(10),
+                //   child: ClipRRect(
+                //     borderRadius: BorderRadius.all(Radius.circular(0)),
+                //     child: Image(
                 //       image: Image.asset(img_mask5).image,
+                //       fit: BoxFit.cover,
                 //     ),
+                //   ),
+                //   decoration: BoxDecoration(
+                //     color: Colors.transparent,
+                //     borderRadius: BorderRadius.all(Radius.circular(0)),
                 //   ),
                 // ),
               ],
@@ -100,7 +128,7 @@ class SettingView extends StatelessWidget {
               trailing: Icon(Icons.arrow_forward_ios_rounded),
               title: 'profile'.tr.text.make(),
               onTap: () => {
-                Get.toNamed(profileRoute),
+                // Get.toNamed(profileRoute),
               },
             ),
           ),
@@ -111,11 +139,8 @@ class SettingView extends StatelessWidget {
               trailing: Icon(Icons.arrow_forward_ios_rounded),
               title: 'order'.tr.text.make(),
               onTap: () => {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => TabbarView()),
-                  // MaterialPageRoute(builder: (context) => GalleryPage()),
-                )
+                // Get.to(() => TabbarView()),
+                // Get.to(() => GalleryPage()),
               },
             ),
           ),
@@ -176,15 +201,15 @@ class SettingView extends StatelessWidget {
             ),
           ),
           Divider(height: 1),
-          SimpleBuilder(
-            builder: (_) => ListTile(
-              leading: Icon(Icons.info_outline_rounded, color: kPrimaryColor),
-              trailing: Icon(Icons.arrow_forward_ios_rounded),
-              title: 'faq'.tr.text.make(),
-              onTap: () => {Get.toNamed(expansionRoute)},
-            ),
-          ),
-          Divider(height: 1),
+          // SimpleBuilder(
+          //   builder: (_) => ListTile(
+          //     leading: Icon(Icons.info_outline_rounded, color: kPrimaryColor),
+          //     trailing: Icon(Icons.arrow_forward_ios_rounded),
+          //     title: 'faq'.tr.text.make(),
+          //     onTap: () => {Get.toNamed(expansionRoute)},
+          //   ),
+          // ),
+          // Divider(height: 1),
           SimpleBuilder(
             builder: (_) => ListTile(
               leading: Icon(Icons.logout_rounded, color: kPrimaryColor),
@@ -193,6 +218,7 @@ class SettingView extends StatelessWidget {
               onTap: () => {
                 getStorage.write(BOX_IS_LOGGEDIN, false),
                 Get.offAllNamed(landingRoute),
+                SigninController.to.handleSignOut()
               },
             ),
           ),

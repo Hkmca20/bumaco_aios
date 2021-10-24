@@ -144,25 +144,21 @@ class LandingView extends StatelessWidget {
               left: 0,
               right: 0,
               top: 150,
-              child: Obx(
-                () => bannerController.isLoading.isTrue
-                    ? LoadingWidget()
-                    : CBannerHomeWidget(
-                        bannerHeight: _screenSize.height / 3,
-                        fitImage: BoxFit.fill,
-                        bannerList: [
-                          BannerModel(
-                              image:
-                                  'https://raw.githubusercontent.com/Hkmca20/bumaco_aios/main/assets/images/img_wha1.jpeg?token=AOUJUYWCUCJNIBKX5ZWHX3DBOQ7OS'),
-                         BannerModel(
-                              image:
-                                  'https://raw.githubusercontent.com/Hkmca20/bumaco_aios/main/assets/images/img_wha22.jpeg?token=AOUJUYTJR3Z72BP2K4Q7FJ3BOQ7W4'),
-                         BannerModel(
-                              image:
-                                  'https://raw.githubusercontent.com/Hkmca20/bumaco_aios/main/assets/images/img_wha3.jpeg?token=AOUJUYW3SJQGRQS6L4ZTOHDBOQ7XM'),
-                        ],
-                        // bannerController.bannerPositionList[12].bannerlist,
-                      ),
+              child: CBannerHomeWidget(
+                bannerHeight: _screenSize.height / 3,
+                fitImage: BoxFit.fill,
+                bannerList: [
+                  BannerModel(
+                      image:
+                          'https://i.ibb.co/YtRkZBH/Whats-App-Image-2021-10-23-at-10-17-32-PM.jpg'),
+                  BannerModel(
+                      image:
+                          'https://i.ibb.co/JyXz8nT/Whats-App-Image-2021-10-23-at-10-16-53-PM.jpg'),
+                  BannerModel(
+                      image:
+                          'https://i.ibb.co/xYh55kS/Whats-App-Image-2021-10-23-at-10-16-18-PM.jpg'),
+                ],
+                // bannerController.bannerPositionList[12].bannerlist,
               )),
           Positioned(
             width: MediaQuery.of(context).size.width,
@@ -177,14 +173,17 @@ class LandingView extends StatelessWidget {
                   padding: const EdgeInsets.all(10.0),
                   child: Column(
                     children: [
-                      bannerController.isLoading.isTrue
-                          ? Container()
-                          : CBannerHomeWidget(
-                              bannerHeight: _screenSize.width / 5,
-                              fitImage: BoxFit.fill,
-                              bannerList: bannerController
-                                  .bannerPositionList[1].bannerlist,
-                            ),
+                      Obx(
+                        () => bannerController.isLoading.isTrue
+                            ? LoadingWidget()
+                            : CBannerHomeWidget(
+                                bannerHeight: _screenSize.width / 5,
+                                fitImage: BoxFit.fill,
+                                autoscroll: true,
+                                bannerList: bannerController
+                                    .bannerPositionList[8].bannerlist,
+                              ),
+                      ),
                       SizedBox(height: 40),
                       loginText,
                       loginButton(context),
@@ -288,7 +287,7 @@ class LandingView extends StatelessWidget {
       ),
       onTap: () => {
         getStorage.write(BOX_IS_LOGGEDIN, true),
-        Get.offAllNamed(shoppingRoute),
+        Get.offAllNamed(dashboardRoute),
       },
     );
   }

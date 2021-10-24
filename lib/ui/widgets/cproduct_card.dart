@@ -40,8 +40,8 @@ class CProductTile extends StatelessWidget {
         padding: const EdgeInsets.all(8.0),
         child: InkWell(
           onTap: () {
-            Get.to(() => ProductDetailView1(),
-                arguments: {'arg_product': prod});
+            // Get.to(() => ProductDetailView1(),
+            //     arguments: {'arg_product': prod});
           },
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -95,33 +95,35 @@ class CProductTile extends StatelessWidget {
                   .color(kGreyLightColor)
                   .size(12)
                   .make(),
-              // SizedBox(height: 8),
+              SizedBox(height: 4),
               // if (prod.rating != null)
-              //   Container(
-              //     decoration: BoxDecoration(
-              //       color: Colors.green,
-              //       borderRadius: BorderRadius.circular(12),
-              //     ),
-              //     padding:
-              //         const EdgeInsets.symmetric(horizontal: 4, vertical: 2),
-              //     child: Row(
-              //       mainAxisSize: MainAxisSize.min,
-              //       children: [
-              //         Text(
-              //           prod.rating.toString(),
-              //           style: TextStyle(color: Colors.white),
-              //         ),
-              //         Transform.rotate(
-              //           angle: pi * value,
-              //           child: Icon(
-              //             Icons.star,
-              //             size: 16,
-              //             color: Colors.white,
-              //           ),
-              //         ),
-              //       ],
-              //     ),
-              //   ),
+              Container(
+                decoration: BoxDecoration(
+                  color: Colors.green,
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 2),
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Text(
+                      // prod.rating.toString(),
+                      5.toString(),
+                      style: TextStyle(color: Colors.white),
+                    ),
+              SizedBox(width: 4),
+                    // Transform.rotate(
+                    //   angle: pi * value,
+                      // child:
+                       Icon(
+                        Icons.star,
+                        size: 16,
+                        color: Colors.white,
+                      ),
+                    // ),
+                  ],
+                ),
+              ),
               SizedBox(height: 8),
               Text.rich(
                 TextSpan(children: [

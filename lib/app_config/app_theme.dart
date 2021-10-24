@@ -97,7 +97,7 @@ InputDecorationTheme inputDecorationTheme() {
   );
   UnderlineInputBorder underlineInputBorder = UnderlineInputBorder(
     borderRadius: BorderRadius.circular(5),
-    borderSide: BorderSide(width: 2.0),
+    borderSide: BorderSide(width: 0.0),
   );
   TextStyle kTextstyle =
       TextStyle(decorationColor: kPrimaryColor, color: kPrimaryColor);
@@ -182,8 +182,8 @@ AppBarTheme _appBarThemeLight() {
   return AppBarTheme(
     elevation: 2,
     backgroundColor: kWhiteColor,
-    // iconTheme: IconThemeData(color: kPrimaryColor),
-    // actionsIconTheme: IconThemeData(color: kPrimaryColor),
+    // iconTheme: IconThemeData(color: kBlackColor),
+    // actionsIconTheme: IconThemeData(color: kBlackColor),
     toolbarHeight: 56,
   );
 }

@@ -22,6 +22,11 @@ class SearchView extends StatefulWidget {
 }
 
 class _SearchViewState extends State<SearchView> {
+OutlineInputBorder oBorder = OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(5),
+                        borderSide: BorderSide(color: kGreyLightColor),
+                        gapPadding: 8,
+                      );
   @override
   Widget build(BuildContext context) {
     final List<RecentSearchInfo> recentSearcheTerms = [
@@ -74,90 +79,96 @@ class _SearchViewState extends State<SearchView> {
         ],
       ),
       body: SafeArea(
-        child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: <
-            Widget>[
-          Container(
-            height: 80,
-            padding: EdgeInsets.all(10),
-            child: TextField(
-              style: Theme.of(context).textTheme.headline6,
-              // onChanged: onTextChange,
-              decoration: InputDecoration(
-                  fillColor: Colors.black.withOpacity(0.1),
-                  filled: true,
-                  prefixIcon: Icon(
-                    Icons.search,
-                    color: kGreyLightColor,
-                  ),
-                  hintText: 'Search something ...',
-                  hintStyle: Theme.of(context)
-                      .textTheme
-                      .headline5!
-                      .copyWith(color: kGreyLightColor),
-                  border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(4),
-                      borderSide: BorderSide.none),
-                  contentPadding: EdgeInsets.all(10)),
-            ),
-          ),
-          SizedBox(height: 4),
-          SectionTile(title: 'Recent Searches'),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 24.0),
-            child: Wrap(
-              spacing: 3.0, // gap between adjacent chips
-              runSpacing: 3.0, // gap between lines
-              children: List.generate(recentSearcheTerms.length, (index) {
-                return Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 4.0),
-                  child: Chip(
-                    label: Text(recentSearcheTerms[index].title),
-                    padding: EdgeInsets.all(4),
-                    backgroundColor: recentSearcheTerms[index].backgroundColor,
-                  ),
-                );
-              }),
-            ),
-          ),
-          Divider(),
-          SectionTile(title: 'Popular Searches'),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 24.0),
-            child: Wrap(
-              spacing: 3.0,
-              runSpacing: 3.0,
-              children: List.generate(recentSearcheTerms.length, (index) {
-                return Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 4.0),
-                  child: Chip(
-                    label: Text(recentSearcheTerms[index].title),
-                    padding: EdgeInsets.all(4),
-                    backgroundColor: recentSearcheTerms[index].backgroundColor,
-                  ),
-                );
-              }),
-            ),
-          ),
-          Divider(),
-          SectionTile(title: 'Popular Categories'),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 24.0),
-            child: Wrap(
-              spacing: 3.0,
-              runSpacing: 3.0,
-              children: List.generate(recentSearcheTerms.length, (index) {
-                return Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 4.0),
-                  child: Chip(
-                    label: Text(recentSearcheTerms[index].title),
-                    padding: EdgeInsets.all(4),
-                    backgroundColor: recentSearcheTerms[index].backgroundColor,
-                  ),
-                );
-              }),
-            ),
-          ),
-        ]),
+        child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              Container(
+                height: 60,
+                padding: EdgeInsets.all(12),
+                child: TextField(
+                  style: Theme.of(context).textTheme.headline6,
+                  // onChanged: onTextChange,
+                  decoration: InputDecoration(
+                      focusedBorder: oBorder,
+                      enabledBorder: oBorder,
+                      fillColor: Colors.black.withOpacity(0.1),
+                      filled: true,
+                      prefixIcon: Icon(
+                        Icons.search,
+                        color: kGreyLightColor,
+                      ),
+                      hintText: 'Search on Bumaco',
+                      hintStyle: Theme.of(context)
+                          .textTheme
+                          .headline6!
+                          .copyWith(color: kGreyLightColor),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(12),
+                        borderSide:
+                            BorderSide(color: kGreyLightColor, width: 1.0),
+                      ),
+                      contentPadding: EdgeInsets.all(5)),
+                ),
+              ),
+              SizedBox(height: 4),
+              SectionTile(title: 'Recent Searches'),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 24.0),
+                child: Wrap(
+                  spacing: 3.0, // gap between adjacent chips
+                  runSpacing: 3.0, // gap between lines
+                  children: List.generate(recentSearcheTerms.length, (index) {
+                    return Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 4.0),
+                      child: Chip(
+                        label: Text(recentSearcheTerms[index].title),
+                        padding: EdgeInsets.all(4),
+                        backgroundColor:
+                            recentSearcheTerms[index].backgroundColor,
+                      ),
+                    );
+                  }),
+                ),
+              ),
+              Divider(),
+              // SectionTile(title: 'Popular Searches'),
+              // Padding(
+              //   padding: const EdgeInsets.symmetric(horizontal: 24.0),
+              //   child: Wrap(
+              //     spacing: 3.0,
+              //     runSpacing: 3.0,
+              //     children: List.generate(recentSearcheTerms.length, (index) {
+              //       return Padding(
+              //         padding: const EdgeInsets.symmetric(horizontal: 4.0),
+              //         child: Chip(
+              //           label: Text(recentSearcheTerms[index].title),
+              //           padding: EdgeInsets.all(4),
+              //           backgroundColor: recentSearcheTerms[index].backgroundColor,
+              //         ),
+              //       );
+              //     }),
+              //   ),
+              // ),
+              // Divider(),
+              // SectionTile(title: 'Popular Categories'),
+              // Padding(
+              //   padding: const EdgeInsets.symmetric(horizontal: 24.0),
+              //   child: Wrap(
+              //     spacing: 3.0,
+              //     runSpacing: 3.0,
+              //     children: List.generate(recentSearcheTerms.length, (index) {
+              //       return Padding(
+              //         padding: const EdgeInsets.symmetric(horizontal: 4.0),
+              //         child: Chip(
+              //           label: Text(recentSearcheTerms[index].title),
+              //           padding: EdgeInsets.all(4),
+              //           backgroundColor: recentSearcheTerms[index].backgroundColor,
+              //         ),
+              //       );
+              //     }),
+              //   ),
+              // ),
+            ]),
       ),
     );
   }

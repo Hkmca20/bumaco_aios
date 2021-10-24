@@ -17,30 +17,30 @@ class AllProducts extends StatelessWidget {
       appBar: AppbarHome(
         title: 'Bumaco',
         actionList: [
+          // IconButton(
+          //   icon: Icon(Icons.favorite_rounded),
+          //   tooltip: 'Wish List',
+          //   onPressed: () {
+          //     Get.toNamed(wishlistRoute);
+          //   },
+          // ), //IconB
+          // IconButton(
+          //     onPressed: () {
+          //       productMakeupController.changeColumnCount(1);
+          //     },
+          //     tooltip: 'List Item',
+          //     icon: Icon(Icons.view_list_rounded)),
+          // IconButton(
+          //     onPressed: () {
+          //       productMakeupController.changeColumnCount(2);
+          //     },
+          //     tooltip: 'Grid Item',
+          //     icon: Icon(Icons.grid_view_outlined)),
           IconButton(
-            icon: Icon(Icons.favorite_rounded),
-            tooltip: 'Wish List',
-            onPressed: () {
-              Get.toNamed(wishlistRoute);
-            },
-          ), //IconB
-          IconButton(
-              onPressed: () {
-                productMakeupController.changeColumnCount(1);
-              },
-              tooltip: 'List Item',
-              icon: Icon(Icons.view_list_rounded)),
-          IconButton(
-              onPressed: () {
-                productMakeupController.changeColumnCount(2);
-              },
-              tooltip: 'Grid Item',
-              icon: Icon(Icons.grid_view_outlined)),
-          IconButton(
-            icon: Icon(Icons.shopping_cart_rounded),
+            icon: Icon(Icons.shopping_bag_outlined),
             tooltip: 'View Cart Item',
             onPressed: () {
-              productMakeupController.fetchProductMakeup();
+              // productMakeupController.fetchProductMakeup();
             },
           ),
         ],

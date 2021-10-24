@@ -13,7 +13,8 @@ class BucketView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final bucketController = BucketController.to;
+    // final bucketController = BucketController.to;
+    final bucketController = Get.find<BucketController>();
     bucketController.getAllBucketFromLocal();
     return Scaffold(
       appBar: AppbarHome(

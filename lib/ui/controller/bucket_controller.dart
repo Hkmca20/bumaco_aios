@@ -5,7 +5,7 @@ import 'package:bumaco_aios/app_utils/utils.dart';
 import 'package:get/get.dart';
 
 class BucketController extends GetxController {
-  static BucketController get to => Get.find(tag: BUCKET_CONTROLLER);
+  // static BucketController get to => Get.find(tag: BUCKET_CONTROLLER);
   var isLoading = true.obs;
   var bucketList = <BucketEntity>[].obs;
   var totalAmount = 0.0.obs;
@@ -74,6 +74,7 @@ class BucketController extends GetxController {
         isBucket: true,
         quantity: 1);
     await bucketDao.insertIntoBucket(entity);
+    getAllBucketFromLocal();
     bumacoSnackbar(
         'alert'.tr, '${entity.product} ' + 'added_to'.tr + ' ' + 'cart'.tr);
   }
