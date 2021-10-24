@@ -5,6 +5,7 @@ import 'package:bumaco_aios/ui/views/home/banners/a_banner.dart';
 import 'package:bumaco_aios/ui/views/checkout/bucket_view.dart';
 import 'package:bumaco_aios/ui/views/home/favourite_view.dart';
 import 'package:flutter/material.dart';
+import 'package:velocity_x/velocity_x.dart';
 import 'package:get/get.dart';
 
 class CategoryView extends StatelessWidget {
@@ -42,34 +43,27 @@ class CategoryView extends StatelessWidget {
           ),
         ],
       ),
-      body: Obx(() => categoryController.isLoading.isTrue
-          ? Center(
-              child: LoadingWidget(),
-            )
-          : ListView.separated(
-              itemBuilder: (context, index) {
-                CategoryModel item = categoryController.categoryList[index];
-                return Column(children: [
-                  ABanner(item: item),
-                  Divider(),
-                  GestureDetector(
+      body: Obx(
+        () => categoryController.isLoading.isTrue
+            ? Center(
+                child: LoadingWidget(),
+              )
+            : ListView.builder(
+                itemCount: categoryController.categoryList.length,
+                itemBuilder: (context, index) {
+                  CategoryModel item = categoryController.categoryList[index];
+                  return InkWell(
                     onTap: () {
                       Get.toNamed(childCategoryRoute,
                           arguments: {'arg_category_item': item});
                     },
-                    child: Image.network(
-                      ('${ApiConstants.baseImageUrl}${item.bannerimage}'),
-                      // ('${item.bannerimage}'),
-                    ),
-                  ),
-                  Padding(
-                    padding: EdgeInsets.all(10),
                     child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         Container(
-                          height: 72.0,
-                          width: 72.0,
+                          margin: EdgeInsets.all(5),
+                          height: 40.0,
+                          width: 40.0,
                           decoration: BoxDecoration(
                             color: Colors.grey,
                             boxShadow: [
@@ -79,7 +73,7 @@ class CategoryView extends StatelessWidget {
                                   blurRadius: 2.0)
                             ],
                             borderRadius:
-                                BorderRadius.all(Radius.circular(12.0)),
+                                BorderRadius.all(Radius.circular(2.0)),
                             image: DecorationImage(
                               image: Image.network(
                                       '${ApiConstants.baseImageUrl}${item.image}')
@@ -90,21 +84,9 @@ class CategoryView extends StatelessWidget {
                         ),
                         SizedBox(width: 8.0),
                         Expanded(
-                            child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(item.category,
-                                style: Theme.of(context).textTheme.headline5),
-                            Text(item.category,
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .headline6!
-                                    .copyWith(color: Colors.black54))
-                          ],
-                        )),
+                          child: item.category.text.size(20).make(),
+                        ),
                         Container(
-                          height: 72,
                           child: Icon(
                             Icons.arrow_forward_ios_rounded,
                             color: Colors.grey,
@@ -112,11 +94,10 @@ class CategoryView extends StatelessWidget {
                         )
                       ],
                     ),
-                  ),
-                ]);
-              },
-              separatorBuilder: (context, index) => Divider(),
-              itemCount: categoryController.categoryList.length)),
+                  );
+                },
+              ),
+      ),
     );
   }
 }

@@ -78,24 +78,37 @@ class HomeBaView extends StatelessWidget {
                 Get.to(() => FavouriteView());
               },
             ), //IconBnButton
-            // IconButton(
-            //   icon: Stack(children: [
-            //     Icon(Icons.shopping_bag_outlined),
-            //     Positioned(
-            //       top: 0.0,
-            //       right: 0.0,
-            //       child: new Icon(
-            //         Icons.brightness_1_rounded,
-            //         size: 10.0,
-            //         color: kPrimaryColor,
-            //       ),
-            //     ),
-            //   ]),
-            //   tooltip: 'view_cart_item'.tr,
-            //   onPressed: () {
-            //     Get.to(() => BucketView());
-            //   },
-            // ),
+            IconButton(
+              icon: Stack(children: [
+                Positioned(
+                  top: 5.0,
+                  right: 5.0,
+                  child: Icon(Icons.shopping_bag_outlined),
+                ),
+                Positioned(
+                  top: -1.0,
+                  right: -1.0,
+                  child: Icon(
+                    Icons.brightness_1_rounded,
+                    size: 17.0,
+                    color: kPrimaryColor,
+                  ),
+                ),
+                Positioned(
+                  top: 1.0,
+                  right: 4.0,
+                  child: Obx(() => bController.bucketList.length.text
+                      .size(11)
+                      .white
+                      .make()
+                      .centered()),
+                ),
+              ]),
+              tooltip: 'view_cart_item'.tr,
+              onPressed: () {
+                Get.to(() => BucketView());
+              },
+            ),
           ],
         ),
         body: Obx(
@@ -133,7 +146,7 @@ class HomeBaView extends StatelessWidget {
                                 hintText: 'Search something ...',
                                 hintStyle: Theme.of(context)
                                     .textTheme
-                                    .headline5!
+                                    .headline6!
                                     .copyWith(color: kGreyLightColor),
                                 border: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(4),
@@ -142,79 +155,65 @@ class HomeBaView extends StatelessWidget {
                           ),
                         ),
                       ),
-                      SizedBox(height: 10), Divider(),
-                      // Container(
-                      //   height: 110,
-                      //   child: ListView.builder(
-                      //     physics: ClampingScrollPhysics(),
-                      //     scrollDirection: Axis.horizontal,
-                      //     itemCount: categoryController.categoryList.length,
-                      //     itemBuilder: (context, index) {
-                      //       final CategoryModel item =
-                      //           categoryController.categoryList[index];
-                      //       return Card(
-                      //         color: Colors.primaries[
-                      //                 Random().nextInt(Colors.primaries.length)]
-                      //             .withOpacity(0.3)
-                      //         // [Random().nextInt(9) * 100]
-                      //         ,
-                      //         child: InkWell(
-                      //           child: Column(
-                      //             children: [
-                      //               Flexible(
-                      //                 child: Container(
-                      //                   height: 100,
-                      //                   width: _screenSize.width / 4,
-                      //                   child: ClipRRect(
-                      //                     borderRadius: BorderRadius.all(
-                      //                         Radius.circular(4)),
-                      //                     child: FadeInImage.memoryNetwork(
-                      //                       placeholder: kTransparentImage,
-                      //                       image: ApiConstants.baseImageUrl +
-                      //                           item.image,
-                      //                       fit: BoxFit.cover,
-                      //                     ),
-                      //                   ),
-                      //                   decoration: BoxDecoration(
-                      //                     color: Colors.transparent,
-                      //                     borderRadius: BorderRadius.all(
-                      //                         Radius.circular(4)),
-                      //                   ),
-                      //                 ),
-                      //                 // child: Container(
-                      //                 //   height: 100,
-                      //                 //   width: _screenSize.width / 4,
-                      //                 //   decoration: BoxDecoration(
-                      //                 //     image: DecorationImage(
-                      //                 //       image: NetworkImage(
-                      //                 //           ApiConstants.baseImageUrl +
-                      //                 //               item.image),
-                      //                 //       fit: BoxFit.cover,
-                      //                 //     ),
-                      //                 //   ),
-                      //                 // ),
-                      //               ),
-                      //               item.category.text.capitalize
-                      //                   .size(16)
-                      //                   .make()
-                      //                   .p2(),
-                      //             ],
-                      //           ),
-                      //           onTap: () {},
-                      //         ),
-                      //       );
-                      //     },
-                      //   ),
-                      // ),
+                      Divider(),
+                      Container(
+                        height: 110,
+                        child: ListView.builder(
+                          physics: ClampingScrollPhysics(),
+                          scrollDirection: Axis.horizontal,
+                          itemCount: categoryController.categoryList.length,
+                          itemBuilder: (context, index) {
+                            final CategoryModel item =
+                                categoryController.categoryList[index];
+                            return Card(
+                              color: Colors.primaries[
+                                      Random().nextInt(Colors.primaries.length)]
+                                  .withOpacity(0.3)
+                              // [Random().nextInt(9) * 100]
+                              ,
+                              child: InkWell(
+                                child: Column(
+                                  children: [
+                                    Flexible(
+                                      child: Container(
+                                        height: 100,
+                                        width: _screenSize.width / 4,
+                                        child: ClipRRect(
+                                          borderRadius: BorderRadius.all(
+                                              Radius.circular(4)),
+                                          child: FadeInImage.memoryNetwork(
+                                            placeholder: kTransparentImage,
+                                            image: ApiConstants.baseImageUrl +
+                                                item.image,
+                                            fit: BoxFit.cover,
+                                          ),
+                                        ),
+                                        decoration: BoxDecoration(
+                                          color: Colors.transparent,
+                                          borderRadius: BorderRadius.all(
+                                              Radius.circular(4)),
+                                        ),
+                                      ),
+                                    ),
+                                    item.category.text.capitalize
+                                        .size(16)
+                                        .make()
+                                        .p2(),
+                                  ],
+                                ),
+                                onTap: () {},
+                              ),
+                            );
+                          },
+                        ),
+                      ),
                       Divider(),
                       CBannerHomeWidget(
-                          bannerHeight: 110.0,
-                          fitImage: BoxFit.fill,
-                          bannerList: bannerController.sliderList),
+                        bannerHeight: 110.0,
+                        fitImage: BoxFit.fill,
+                        bannerList: bannerController.sliderList,
+                      ),
                       Divider(),
-                      // bannerController.bannerPositionList.length > 0
-                      //     ? LoadingWidget()
-                      //     :
                       Wrap(
                         spacing: 3,
                         runSpacing: 3,
@@ -231,10 +230,7 @@ class HomeBaView extends StatelessWidget {
                       ),
                       Divider(),
 
-                      SectionTile(title: 'In The Spotlight'),
-                      // bannerController.bannerPositionList.length > 1
-                      //     ? LoadingWidget()
-                      //     :
+                      SectionTile(title: 'IN THE SPOTLIGHT'),
                       Wrap(
                         spacing: 3,
                         runSpacing: 3,
@@ -250,9 +246,6 @@ class HomeBaView extends StatelessWidget {
                         }),
                       ),
                       Divider(),
-                      // bannerController.bannerPositionList.length > 2
-                      //     ? LoadingWidget()
-                      //     :
                       Wrap(
                         spacing: 3,
                         runSpacing: 3,
@@ -268,10 +261,7 @@ class HomeBaView extends StatelessWidget {
                         }),
                       ),
                       Divider(),
-                      SectionTile(title: 'Only at Bumaco'),
-                      // bannerController.bannerPositionList.length > 3
-                      //     ? LoadingWidget()
-                      //     :
+                      SectionTile(title: 'ONLY AT NYKAA'),
                       Wrap(
                         spacing: 3,
                         runSpacing: 3,
@@ -287,16 +277,134 @@ class HomeBaView extends StatelessWidget {
                         }),
                       ),
                       Divider(),
-                      // bannerController.bannerPositionList.length > 4
-                      //     ? LoadingWidget()
-                      //     :
+                      SectionTile(title: 'TRENDING STORES & GUIDE'),
                       CBannerHomeWidget(
                           bannerHeight: 220.0,
                           fitImage: BoxFit.fill,
                           bannerList: bannerController
                               .bannerPositionList[5].bannerlist),
                       Divider(),
-                      SectionTile(title: 'In The Spotlight'),
+                      SectionTile(title: 'FEATURED BRAND'),
+                      Wrap(
+                        spacing: 3,
+                        runSpacing: 3,
+                        children: List.generate(
+                            bannerController.bannerPositionList[6].bannerlist!
+                                .length, (index) {
+                          final BannerModel item = bannerController
+                              .bannerPositionList[6].bannerlist![index];
+                          return ItemWidget11(
+                              padding: EdgeInsets.only(left: 0.0),
+                              screenWidth: _screenSize.width - 20,
+                              item: item);
+                        }),
+                      ),
+                      Divider(),
+                      Wrap(
+                        spacing: 3,
+                        runSpacing: 3,
+                        children: List.generate(
+                            bannerController.bannerPositionList[7].bannerlist!
+                                .length, (index) {
+                          final BannerModel item = bannerController
+                              .bannerPositionList[7].bannerlist![index];
+                          return ItemWidget11(
+                              padding: EdgeInsets.only(left: 0.0),
+                              screenWidth: _screenSize.width - 20,
+                              item: item);
+                        }),
+                      ),
+                      Divider(),
+                      SectionTile(title: 'CATEGORY IN FOCUS'),
+                      Wrap(
+                        spacing: 3,
+                        runSpacing: 3,
+                        children: List.generate(
+                            bannerController.bannerPositionList[8].bannerlist!
+                                .length, (index) {
+                          final BannerModel item = bannerController
+                              .bannerPositionList[8].bannerlist![index];
+                          return ItemWidget11(
+                              padding: EdgeInsets.only(left: 0.0),
+                              screenWidth: _screenSize.width - 20,
+                              item: item);
+                        }),
+                      ),
+                      Divider(),
+                      SectionTile(title: 'HIDDEN GEMS'),
+                      Wrap(
+                        spacing: 3,
+                        runSpacing: 3,
+                        children: List.generate(
+                            bannerController.bannerPositionList[9].bannerlist!
+                                .length, (index) {
+                          final BannerModel item = bannerController
+                              .bannerPositionList[9].bannerlist![index];
+                          return ItemWidget11(
+                              padding: EdgeInsets.only(left: 0.0),
+                              screenWidth: _screenSize.width - 20,
+                              item: item);
+                        }),
+                      ),
+                      Divider(),
+                      Wrap(
+                        spacing: 3,
+                        runSpacing: 3,
+                        children: List.generate(
+                            bannerController.bannerPositionList[10].bannerlist!
+                                .length, (index) {
+                          final BannerModel item = bannerController
+                              .bannerPositionList[10].bannerlist![index];
+                          return ItemWidget22(
+                              padding: EdgeInsets.only(left: 0.0),
+                              screenWidth: _screenSize.width - 20,
+                              item: item);
+                        }),
+                      ),
+                      Divider(),
+                      SectionTile(title: 'EDITOR\'S CHOICE'),
+                      Wrap(
+                        spacing: 3,
+                        runSpacing: 3,
+                        children: List.generate(
+                            bannerController.bannerPositionList[11].bannerlist!
+                                .length, (index) {
+                          final BannerModel item = bannerController
+                              .bannerPositionList[11].bannerlist![index];
+                          return ItemWidget11(
+                              padding: EdgeInsets.only(left: 0.0),
+                              screenWidth: _screenSize.width - 20,
+                              item: item);
+                        }),
+                      ),
+                      Divider(),
+                      SectionTile(title: 'MORE OFFERS FOR YOU'),
+                      Wrap(
+                        spacing: 3,
+                        runSpacing: 3,
+                        children: List.generate(
+                            bannerController.bannerPositionList[12].bannerlist!
+                                .length, (index) {
+                          final BannerModel item = bannerController
+                              .bannerPositionList[12].bannerlist![index];
+                          return ItemWidget11(
+                              padding: EdgeInsets.only(left: 0.0),
+                              screenWidth: _screenSize.width - 20,
+                              item: item);
+                        }),
+                      ),
+                      Divider(),
+                      Wrap(
+                        spacing: 3,
+                        runSpacing: 3,
+                        children: List.generate(
+                            bannerController.bannerPositionList[13].bannerlist!
+                                .length, (index) {
+                          final BannerModel item = bannerController
+                              .bannerPositionList[13].bannerlist![index];
+                          return ABanner(item: item);
+                        }),
+                      ),
                       // Divider(),
                       // SizedBox(height: 8), //--------------------------
                       // Container(
@@ -343,38 +451,29 @@ class HomeBaView extends StatelessWidget {
                       //Ends carousel here-------------------------
 
                       Divider(),
-                      ABanner(
-                          item: CategoryModel(
-                        bannerimage: '20210921080915_492297.jpg',
-                        image: '20210921080915_492297.jpg',
-                        category: 'Great Offers',
-                        hasvery: 'f0gsggg8hd',
-                      )),
-
-                      Divider(),
                       SizedBox(height: 10), //--------------------------
-                      SectionTile(title: 'trending_products'.tr),
-                      Container(
-                        height: 160,
-                        child: ListView.builder(
-                            physics: ClampingScrollPhysics(),
-                            scrollDirection: Axis.horizontal,
-                            itemCount: bannerController.sliderList.length,
-                            itemBuilder: (context, index) {
-                              final BannerModel item =
-                                  bannerController.sliderList[index];
-                              EdgeInsets _padding = index == 0
-                                  ? const EdgeInsets.only(
-                                      left: 20.0, right: 0.0)
-                                  : const EdgeInsets.only(
-                                      left: 0.0, right: 0.0);
+                      // SectionTile(title: 'trending_products'.tr),
+                      // Container(
+                      //   height: 160,
+                      //   child: ListView.builder(
+                      //       physics: ClampingScrollPhysics(),
+                      //       scrollDirection: Axis.horizontal,
+                      //       itemCount: bannerController.sliderList.length,
+                      //       itemBuilder: (context, index) {
+                      //         final BannerModel item =
+                      //             bannerController.sliderList[index];
+                      //         EdgeInsets _padding = index == 0
+                      //             ? const EdgeInsets.only(
+                      //                 left: 20.0, right: 0.0)
+                      //             : const EdgeInsets.only(
+                      //                 left: 0.0, right: 0.0);
 
-                              return ItemWidget22(
-                                  padding: _padding,
-                                  item: item,
-                                  screenWidth: _screenSize.width);
-                            }),
-                      ),
+                      //         return ItemWidget22(
+                      //             padding: _padding,
+                      //             item: item,
+                      //             screenWidth: _screenSize.width);
+                      //       }),
+                      // ),
 
                       // SectionTile(title: 'new_arrival_products'.tr),
                       // SectionTile(title: 'category_based_on_profile'.tr),
@@ -430,77 +529,77 @@ class HomeBaView extends StatelessWidget {
                       // SizedBox(height: 10), //--------------------------
                       // SectionTile(title: 'popular_products'.tr),
                       // Divider(),
-                      SizedBox(height: 10), //--------------------------
-                      SectionTile(title: 'trending_products'.tr),
-                      Container(
-                        child: GridView.count(
-                          crossAxisCount: 2,
-                          shrinkWrap: true,
-                          physics: NeverScrollableScrollPhysics(),
-                          padding: EdgeInsets.only(top: 8, left: 8, right: 8),
-                          children: List.generate(
-                              productController.allProductList.length, (index) {
-                            final item =
-                                productController.allProductList[index];
-                            return Container(
-                              child: Card(
-                                clipBehavior: Clip.antiAlias,
-                                child: InkWell(
-                                    onTap: () {
-                                      print('----card onClick event');
-                                      // mBanner(
-                                      //     context: context,
-                                      //     title: 'Brand: ' + item.brand,);
-                                    },
-                                    child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Flexible(
-                                            child: Container(
-                                          height: double.infinity,
-                                          width: double.infinity,
-                                          decoration: BoxDecoration(
-                                              image: DecorationImage(
-                                                  image: NetworkImage(
-                                                      ApiConstants
-                                                              .baseImageUrl +
-                                                          item.fimage),
-                                                  fit: BoxFit.cover)),
-                                        )),
-                                        item.product.text.capitalize
-                                            .size(16)
-                                            .fontWeight(FontWeight.w900)
-                                            .make()
-                                            .p2(),
-                                        (item.shortDescription +
-                                                ' (\$' +
-                                                item.mrp +
-                                                ')')
-                                            .text
-                                            .capitalize
-                                            .size(12)
-                                            .fontWeight(FontWeight.w700)
-                                            .make()
-                                            .p2(),
-                                        TextButton(
-                                          onPressed: () {
-                                            bController.insertBucket(item);
-                                          },
-                                          child: 'add_to_cart'
-                                              .tr
-                                              .text
-                                              .amber700
-                                              .make()
-                                              .centered(),
-                                        ),
-                                      ],
-                                    )),
-                              ),
-                            );
-                          }),
-                        ),
-                      ),
+                      // SizedBox(height: 10), //--------------------------
+                      // SectionTile(title: 'trending_products'.tr),
+                      // Container(
+                      //   child: GridView.count(
+                      //     crossAxisCount: 2,
+                      //     shrinkWrap: true,
+                      //     physics: NeverScrollableScrollPhysics(),
+                      //     padding: EdgeInsets.only(top: 8, left: 8, right: 8),
+                      //     children: List.generate(
+                      //         productController.allProductList.length, (index) {
+                      //       final item =
+                      //           productController.allProductList[index];
+                      //       return Container(
+                      //         child: Card(
+                      //           clipBehavior: Clip.antiAlias,
+                      //           child: InkWell(
+                      //               onTap: () {
+                      //                 print('----card onClick event');
+                      //                 // mBanner(
+                      //                 //     context: context,
+                      //                 //     title: 'Brand: ' + item.brand,);
+                      //               },
+                      //               child: Column(
+                      //                 crossAxisAlignment:
+                      //                     CrossAxisAlignment.start,
+                      //                 children: [
+                      //                   Flexible(
+                      //                       child: Container(
+                      //                     height: double.infinity,
+                      //                     width: double.infinity,
+                      //                     decoration: BoxDecoration(
+                      //                         image: DecorationImage(
+                      //                             image: NetworkImage(
+                      //                                 ApiConstants
+                      //                                         .baseImageUrl +
+                      //                                     item.fimage),
+                      //                             fit: BoxFit.cover)),
+                      //                   )),
+                      //                   item.product.text.capitalize
+                      //                       .size(16)
+                      //                       .fontWeight(FontWeight.w900)
+                      //                       .make()
+                      //                       .p2(),
+                      //                   (item.shortDescription +
+                      //                           ' (\$' +
+                      //                           item.mrp +
+                      //                           ')')
+                      //                       .text
+                      //                       .capitalize
+                      //                       .size(12)
+                      //                       .fontWeight(FontWeight.w700)
+                      //                       .make()
+                      //                       .p2(),
+                      //                   TextButton(
+                      //                     onPressed: () {
+                      //                       bController.insertBucket(item);
+                      //                     },
+                      //                     child: 'add_to_cart'
+                      //                         .tr
+                      //                         .text
+                      //                         .amber700
+                      //                         .make()
+                      //                         .centered(),
+                      //                   ),
+                      //                 ],
+                      //               )),
+                      //         ),
+                      //       );
+                      //     }),
+                      //   ),
+                      // ),
 
                       SizedBox(height: 100), //--------------------------
                     ]),

@@ -183,7 +183,7 @@ class HomeView extends StatelessWidget {
 
                 Divider(),
                 ABanner(
-                    item: CategoryModel(
+                    item: BannerModel(
                   bannerimage: '20210921080915_492297.jpg',
                   image: '20210921080915_492297.jpg',
                   category: 'Great Offers',

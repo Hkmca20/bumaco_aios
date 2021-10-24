@@ -150,8 +150,18 @@ class LandingView extends StatelessWidget {
                     : CBannerHomeWidget(
                         bannerHeight: _screenSize.height / 3,
                         fitImage: BoxFit.fill,
-                        bannerList:
-                            bannerController.bannerPositionList[12].bannerlist,
+                        bannerList: [
+                          BannerModel(
+                              image:
+                                  'https://raw.githubusercontent.com/Hkmca20/bumaco_aios/main/assets/images/img_wha1.jpeg?token=AOUJUYWCUCJNIBKX5ZWHX3DBOQ7OS'),
+                         BannerModel(
+                              image:
+                                  'https://raw.githubusercontent.com/Hkmca20/bumaco_aios/main/assets/images/img_wha22.jpeg?token=AOUJUYTJR3Z72BP2K4Q7FJ3BOQ7W4'),
+                         BannerModel(
+                              image:
+                                  'https://raw.githubusercontent.com/Hkmca20/bumaco_aios/main/assets/images/img_wha3.jpeg?token=AOUJUYW3SJQGRQS6L4ZTOHDBOQ7XM'),
+                        ],
+                        // bannerController.bannerPositionList[12].bannerlist,
                       ),
               )),
           Positioned(
@@ -173,7 +183,7 @@ class LandingView extends StatelessWidget {
                               bannerHeight: _screenSize.width / 5,
                               fitImage: BoxFit.fill,
                               bannerList: bannerController
-                                  .bannerPositionList[3].bannerlist,
+                                  .bannerPositionList[1].bannerlist,
                             ),
                       SizedBox(height: 40),
                       loginText,

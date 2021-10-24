@@ -1,3 +1,4 @@
+import 'package:bumaco_aios/app_core/models/banner_model.dart';
 import 'package:bumaco_aios/app_core/models/category_model.dart';
 import 'package:bumaco_aios/app_utils/app_const.dart';
 import 'package:flutter/material.dart';
@@ -11,7 +12,7 @@ class ABanner extends StatelessWidget {
     required this.item,
   }) : super(key: key);
 
-  final CategoryModel item;
+  final BannerModel item;
   @override
   Widget build(BuildContext context) {
     return Center(
@@ -39,7 +40,7 @@ class ABanner extends StatelessWidget {
                         borderRadius: BorderRadius.all(Radius.circular(0)),
                         child: FadeInImage.memoryNetwork(
                           placeholder: kTransparentImage,
-                          image: ApiConstants.baseImageUrl + item.bannerimage,
+                          image: ApiConstants.baseImageUrl + item.image,
                           fit: BoxFit.cover,
                         ),
                       ),

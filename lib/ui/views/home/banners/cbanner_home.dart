@@ -54,7 +54,9 @@ class _CBannerHomeWidgetState extends State<CBannerHomeWidget>
   void initState() {
     super.initState();
     print("------>initState");
-    _initTimer();
+    if (widget.bannerList!.length > 1) {
+      _initTimer();
+    }
     // Add the observer.
     WidgetsBinding.instance!.addObserver(this);
   }
@@ -128,7 +130,9 @@ class _CBannerHomeWidgetState extends State<CBannerHomeWidget>
                     borderRadius: BorderRadius.all(Radius.circular(0)),
                     child: FadeInImage.memoryNetwork(
                       placeholder: kTransparentImage,
-                      image: ApiConstants.baseImageUrl + item.image,
+                      image: item.image.contains('https')
+                          ? item.image
+                          : ApiConstants.baseImageUrl + item.image,
                       fit: widget.fitImage,
                     ),
                   ),
@@ -141,25 +145,27 @@ class _CBannerHomeWidgetState extends State<CBannerHomeWidget>
             },
           ),
         ),
-        Positioned(
-          bottom: 5,
-          child: Row(
-            children: widget.bannerList!.map((s) {
-              return Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 3.0),
-                child: ClipOval(
-                  child: Container(
-                    width: 8,
-                    height: 8,
-                    color: s == widget.bannerList![_curIndex % length]
-                        ? kPrimaryColor
-                        : Colors.grey,
-                  ),
+        widget.bannerList!.length > 1
+            ? Positioned(
+                bottom: 5,
+                child: Row(
+                  children: widget.bannerList!.map((s) {
+                    return Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 3.0),
+                      child: ClipOval(
+                        child: Container(
+                          width: 8,
+                          height: 8,
+                          color: s == widget.bannerList![_curIndex % length]
+                              ? kPrimaryColor
+                              : Colors.grey,
+                        ),
+                      ),
+                    );
+                  }).toList(),
                 ),
-              );
-            }).toList(),
-          ),
-        ),
+              )
+            : Container(),
       ],
     );
   }

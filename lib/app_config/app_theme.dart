@@ -181,8 +181,9 @@ ElevatedButtonThemeData elevatedButtonTheme() {
 AppBarTheme _appBarThemeLight() {
   return AppBarTheme(
     elevation: 2,
-    iconTheme: IconThemeData(color: kPrimaryColor),
-    actionsIconTheme: IconThemeData(color: kPrimaryColor),
+    backgroundColor: kWhiteColor,
+    // iconTheme: IconThemeData(color: kPrimaryColor),
+    // actionsIconTheme: IconThemeData(color: kPrimaryColor),
     toolbarHeight: 56,
   );
 }

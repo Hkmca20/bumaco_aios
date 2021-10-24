@@ -26,7 +26,7 @@ class ItemWidget22 extends StatelessWidget {
           Get.toNamed(childCategoryRoute,
               arguments: {'arg_category_item': item});
         },
-        child: Container(
+        child: Container(height: 100,
           margin: EdgeInsets.symmetric(horizontal: 4),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(10.0),
@@ -39,7 +39,6 @@ class ItemWidget22 extends StatelessWidget {
             ],
             image: DecorationImage(
               image: Image.network('${ApiConstants.baseImageUrl}${item.image}').image,
-              // image: Image.network('${item.image}').image,
               fit: BoxFit.fill,
             ),
           ),
@@ -59,7 +58,7 @@ class ItemWidget22 extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
                         Text(
-                          '${item.category}',
+                          '${item.hasvery}',
                           style: new TextStyle(color: Colors.white),
                         )
                       ],

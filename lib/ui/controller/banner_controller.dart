@@ -10,6 +10,7 @@ class BannerController extends GetxController {
   late BannerRepo _bannerRepo;
 
   BannerController() {
+    addItemToListPosition();
     _bannerRepo = Get.find<BannerRepoImpl>();
     // fetchHomeSlider();
     fetchBanners();
@@ -38,20 +39,59 @@ class BannerController extends GetxController {
     result = await _bannerRepo.getBannerHomeSlider();
     if (result != null) {
       sliderList.addAll(result);
-      bannerPositionList.add(
-          BannerListModel(bannerposition: 'homeslider', bannerlist: result));
+      bannerPositionList.insert(
+          0, BannerListModel(bannerposition: 'homeslider', bannerlist: result));
     } else {
       print('=======No HomeSliderList found========');
     }
+    isLoading.toggle();
     for (int i = 1; i < 18; i++) {
       result = await _bannerRepo.getBannerPositions(i);
       if (result != null) {
-        bannerPositionList.add(
+        bannerPositionList.insert(i,
             BannerListModel(bannerposition: 'position$i', bannerlist: result));
       } else {
-        print('=======Not found BannerList for pos:$i ========');
+        print('=======Not found BannerList at pos:$i ========');
       }
     }
-    isLoading.toggle();
+  }
+
+  void addItemToListPosition() {
+    bannerPositionList
+        .add(BannerListModel(bannerposition: 'homeslider', bannerlist: []));
+    bannerPositionList
+        .add(BannerListModel(bannerposition: 'position1', bannerlist: []));
+    bannerPositionList
+        .add(BannerListModel(bannerposition: 'position2', bannerlist: []));
+    bannerPositionList
+        .add(BannerListModel(bannerposition: 'position3', bannerlist: []));
+    bannerPositionList
+        .add(BannerListModel(bannerposition: 'position4', bannerlist: []));
+    bannerPositionList
+        .add(BannerListModel(bannerposition: 'position5', bannerlist: []));
+    bannerPositionList
+        .add(BannerListModel(bannerposition: 'position6', bannerlist: []));
+    bannerPositionList
+        .add(BannerListModel(bannerposition: 'position7', bannerlist: []));
+    bannerPositionList
+        .add(BannerListModel(bannerposition: 'position8', bannerlist: []));
+    bannerPositionList
+        .add(BannerListModel(bannerposition: 'position9', bannerlist: []));
+    bannerPositionList
+        .add(BannerListModel(bannerposition: 'position10', bannerlist: []));
+    bannerPositionList
+        .add(BannerListModel(bannerposition: 'position11', bannerlist: []));
+    bannerPositionList
+        .add(BannerListModel(bannerposition: 'position12', bannerlist: []));
+    bannerPositionList
+        .add(BannerListModel(bannerposition: 'position13', bannerlist: []));
+    bannerPositionList
+        .add(BannerListModel(bannerposition: 'position14', bannerlist: []));
+    bannerPositionList
+        .add(BannerListModel(bannerposition: 'position15', bannerlist: []));
+    bannerPositionList
+        .add(BannerListModel(bannerposition: 'position16', bannerlist: []));
+    bannerPositionList
+        .add(BannerListModel(bannerposition: 'position17', bannerlist: []));
   }
 }
