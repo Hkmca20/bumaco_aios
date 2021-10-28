@@ -2,6 +2,7 @@ import 'package:bumaco_aios/app_core/models/models.dart';
 import 'package:bumaco_aios/app_utils/utils.dart';
 import 'package:bumaco_aios/ui/controller/controllers.dart';
 import 'package:bumaco_aios/ui/views/checkout/bucket_view.dart';
+import 'package:bumaco_aios/ui/views/home/banners/cbanner_home.dart';
 import 'package:bumaco_aios/ui/views/home/favourite_view.dart';
 import 'package:bumaco_aios/ui/views/home/item_widget_11.dart';
 import 'package:flutter/material.dart';
@@ -9,19 +10,20 @@ import 'package:get/get.dart';
 import 'package:velocity_x/velocity_x.dart';
 
 class CategoryView extends StatelessWidget {
-  const CategoryView({Key? key}) : super(key: key);
+  CategoryView({Key? key}) : super(key: key);
 
+  // final categoryController = Get.find<CategoryController>();
+  // final bController = Get.find<BucketController>();
+  final bController = BucketController.to;
+  final categoryController = CategoryController.to;
+  final bannerController = BannerController.to;
   @override
   Widget build(BuildContext context) {
-    // final categoryController = Get.find<CategoryController>();
-    final bController = Get.find<BucketController>();
-    final categoryController = CategoryController.to;
-    final bannerController = BannerController.to;
     final _screenSize = MediaQuery.of(context).size;
 
     return Scaffold(
       appBar: AppbarHome(
-        title: appTitle,
+        title: appTitleEN,
         actionList: [
           IconButton(
             icon: Icon(Icons.search_outlined),
@@ -36,38 +38,38 @@ class CategoryView extends StatelessWidget {
             },
           ), //IconB
           IconButton(
-              icon: bController.bucketList.length == 0
-                  ? Icon(Icons.shopping_bag_outlined)
-                  : Stack(children: [
-                      Positioned(
-                        top: 5.0,
-                        right: 5.0,
-                        child: Icon(Icons.shopping_bag_outlined),
+            icon: bController.bucketList.length == 0
+                ? Icon(Icons.shopping_bag_outlined)
+                : Stack(children: [
+                    Positioned(
+                      top: 5.0,
+                      right: 5.0,
+                      child: Icon(Icons.shopping_bag_outlined),
+                    ),
+                    Positioned(
+                      top: -1.0,
+                      right: -1.0,
+                      child: Icon(
+                        Icons.brightness_1_rounded,
+                        size: 17.0,
+                        color: kPrimaryColor,
                       ),
-                      Positioned(
-                        top: -1.0,
-                        right: -1.0,
-                        child: Icon(
-                          Icons.brightness_1_rounded,
-                          size: 17.0,
-                          color: kPrimaryColor,
-                        ),
-                      ),
-                      Positioned(
-                        top: 1.0,
-                        right: 4.0,
-                        child: Obx(() => bController.bucketList.length.text
-                            .size(11)
-                            .white
-                            .make()
-                            .centered()),
-                      ),
-                    ]),
-              tooltip: 'view_cart_item'.tr,
-              onPressed: () {
-                Get.to(() => BucketView());
-              },
-            ),
+                    ),
+                    Positioned(
+                      top: 1.0,
+                      right: 4.0,
+                      child: Obx(() => bController.bucketList.length.text
+                          .size(11)
+                          .white
+                          .make()
+                          .centered()),
+                    ),
+                  ]),
+            tooltip: 'view_cart_item'.tr,
+            onPressed: () {
+              Get.to(() => BucketView());
+            },
+          ),
         ],
       ),
       body: Obx(
@@ -99,16 +101,19 @@ class CategoryView extends StatelessWidget {
                       },
                     ),
                     Divider(),
-                    // Container(
-                    //   margin:
-                    //       EdgeInsets.symmetric(horizontal: 25, vertical: 10),
-                    //   child: CBannerHomeWidget(
-                    //     bannerHeight: 110.0,
-                    //     fitImage: BoxFit.fill,
-                    //     bannerList: bannerController.sliderList,
-                    //   ),
-                    // ),
-                    // Divider(),
+                    Container(
+                      margin:
+                          EdgeInsets.symmetric(horizontal: 25, vertical: 10),
+                      child: CBannerHomeWidget(
+                        bannerHeight: 110.0,
+                        fitImage: BoxFit.fill,
+                        bannerList: bannerController.sliderList,
+                      ),
+                    ),
+                    Divider(),
+                    Align(
+                        alignment: Alignment.topLeft,
+                        child: 'CATEGORIES'.text.make().p12()),
                     ListView.separated(
                       separatorBuilder: (context, index) =>
                           Divider(indent: 55, endIndent: 20),

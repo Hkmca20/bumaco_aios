@@ -25,8 +25,10 @@ const kScafoldDarkBGColor = Colors.teal;
 const kAppbarBGColor = Color(0x55979797);
 
 // String
-const appName = 'bumaco';
-const appTitle = 'Bumaco';
+const appNameEN = '9Gates';
+const appNameAE = '9 بوابات';
+const appTitleEN = '9Gates';
+const appTitleAE = '9 بوابات';
 const String kPhoneNumberNullError = "Please Enter your phone number";
 const String kPhoneNumber10digit = "Please Enter 10 digit mobile number";
 const String kInvalidChar = "Invalid character";
@@ -170,6 +172,7 @@ const BOX_GOOGLE_ID = 'google_id'; //string
 const BOX_IS_LOGGEDIN = 'is_loggedin'; //bool
 const BOX_IS_DARK = 'is_dark'; //bool
 const BOX_IS_NOTIFICATION = 'is_notification'; //bool
+const BOX_GATE_SELECTED = 'gate_selected'; //string
 
 //Database
 const DB_NAME = 'bumaco_database.db';

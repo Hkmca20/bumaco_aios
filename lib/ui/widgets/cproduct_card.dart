@@ -4,18 +4,22 @@ import 'package:bumaco_aios/app_core/models/models.dart';
 import 'package:bumaco_aios/app_utils/utils.dart';
 import 'package:bumaco_aios/ui/controller/bucket_controller.dart';
 import 'package:bumaco_aios/ui/controller/product_controller.dart';
+import 'package:bumaco_aios/ui/rating/rating_view.dart';
+import 'package:bumaco_aios/ui/shopping/cproduct_detail_view.dart';
+import 'package:bumaco_aios/ui/shopping/product_detail_view.dart';
 import 'package:bumaco_aios/ui/shopping/product_detail_view1.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:velocity_x/velocity_x.dart';
 import 'package:transparent_image/transparent_image.dart';
 
+import 'star_rating.dart';
+
 class CProductTile extends StatelessWidget {
   const CProductTile({
     Key? key,
     required this.prod,
     this.index = 0,
-    this.itemSize = 0,
     this.offset = 0.0,
     required this.bController,
     required this.pController,
@@ -25,7 +29,7 @@ class CProductTile extends StatelessWidget {
   final BucketController bController;
   final ProductModel prod;
   final double offset;
-  final int index, itemSize;
+  final int index;
 
   @override
   Widget build(BuildContext context) {
@@ -40,8 +44,8 @@ class CProductTile extends StatelessWidget {
         padding: const EdgeInsets.all(8.0),
         child: InkWell(
           onTap: () {
-            // Get.to(() => ProductDetailView1(),
-            //     arguments: {'arg_product': prod});
+            Get.to(() => CProductDetailView(),
+                arguments: {'arg_product_item': prod});
           },
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -85,8 +89,9 @@ class CProductTile extends StatelessWidget {
               prod.product.text.capitalize.ellipsis
                   .maxLines(2)
                   .fontWeight(FontWeight.w800)
-                  .size(20)
-                  .make(),
+                  .size(18)
+                  .make()
+                  .p2(),
               '${prod.shortDescription} : ${prod.description}'
                   .text
                   .capitalize
@@ -95,55 +100,68 @@ class CProductTile extends StatelessWidget {
                   .color(kGreyLightColor)
                   .size(12)
                   .make(),
+              SizedBox(height: 8),
+              Row(children: [
+                Text.rich(
+                  TextSpan(children: [
+                    TextSpan(
+                      text: prod.mrp == '' ? '' : '\$${prod.mrp}',
+                      style: TextStyle(
+                        fontSize: 16,
+                        color: kGreyLightColor,
+                        decoration: TextDecoration.lineThrough,
+                      ),
+                    ),
+                    TextSpan(
+                      text: '  \$${prod.mrp}',
+                      style: TextStyle(
+                        fontSize: 18,
+                      ),
+                    ),
+                  ]),
+                ),
+                Expanded(child: SizedBox(width: 5)),
+                '20% Off'.text.bold.color(kPrimaryColor).make()
+              ]),
               SizedBox(height: 4),
               // if (prod.rating != null)
-              Container(
-                decoration: BoxDecoration(
-                  color: Colors.green,
-                  borderRadius: BorderRadius.circular(12),
+              HStack([
+                StarRating(
+                  iconsize: 12,
+                  rating: 4.5,
+                  onRatingChanged: (rating) => rating = rating,
                 ),
-                padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 2),
-                child: Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Text(
-                      // prod.rating.toString(),
-                      5.toString(),
-                      style: TextStyle(color: Colors.white),
-                    ),
-              SizedBox(width: 4),
-                    // Transform.rotate(
-                    //   angle: pi * value,
-                      // child:
-                       Icon(
-                        Icons.star,
-                        size: 16,
-                        color: Colors.white,
-                      ),
-                    // ),
-                  ],
-                ),
-              ),
+                ' (17)'.text.make(),
+              ]),
+              // Container(
+              //   decoration: BoxDecoration(
+              //     color: Colors.green,
+              //     borderRadius: BorderRadius.circular(12),
+              //   ),
+              //   padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 2),
+              //   child: Row(
+              //     mainAxisSize: MainAxisSize.min,
+              //     children: [
+              //       Text(
+              //         // prod.rating.toString(),
+              //         5.toString(),
+              //         style: TextStyle(color: Colors.white),
+              //       ),
+              //       SizedBox(width: 4),
+              //       // Transform.rotate(
+              //       //   angle: pi * value,
+              //       // child:
+              //       Icon(
+              //         Icons.star,
+              //         size: 16,
+              //         color: Colors.white,
+              //       ),
+              //       // ),
+              //     ],
+              //   ),
+              // ),
               SizedBox(height: 8),
-              Text.rich(
-                TextSpan(children: [
-                  TextSpan(
-                    text: prod.mrp == '' ? '' : '\$ ${prod.mrp}',
-                    style: TextStyle(
-                      fontSize: 16,
-                      color: kGreyLightColor,
-                      decoration: TextDecoration.lineThrough,
-                    ),
-                  ),
-                  TextSpan(
-                    text: '  \$ ${prod.mrp}',
-                    style: TextStyle(
-                      fontSize: 24,
-                    ),
-                  ),
-                ]),
-              ),
-              SizedBox(height: 8),
+              Divider(),
               Center(
                 child: ElevatedButton(
                   onPressed: () {

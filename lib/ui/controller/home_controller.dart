@@ -1,6 +1,7 @@
 import 'package:bumaco_aios/app_utils/utils.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
+import 'package:get_storage/get_storage.dart';
 
 class HomeController extends GetxController {
   static HomeController get to => Get.find(tag: HOME_CONTROLLER);
@@ -50,6 +51,19 @@ class HomeController extends GetxController {
     {'name': 'Bikes & Moto gate'.toUpperCase(), 'locale': 'ID1'},
     {'name': 'Rent & Shared Assents gate'.toUpperCase(), 'locale': 'ID1'},
   ];
+  final box = GetStorage(BOX_APP);
+  updateSelectedGate(gate) {
+    box.write(BOX_GATE_SELECTED, selectedCountry.value);
+  }
+
+  getSelectedGate() {
+    return
+        // selectedCountry.value == '' ?
+        'BEAUTY GATE'
+    //  :
+    //  box.read(BOX_GATE_SELECTED)
+     ;
+  }
 
   buildDialog(BuildContext context) {
     showDialog(
@@ -67,6 +81,7 @@ class HomeController extends GetxController {
                               Get.back();
                               print(locale[index]['name'] + ' selected----');
                               selectedCountry.value = locale[index]['name'];
+                              updateSelectedGate(selectedCountry.value);
                             },
                             child: Text(locale[index]['name']))),
                     separatorBuilder: (context, index) => Divider(

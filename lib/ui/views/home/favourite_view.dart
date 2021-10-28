@@ -18,8 +18,8 @@ class FavouriteView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final productController = ProductController.to;
-    final bucketController = Get.find<BucketController>();
-    // final bucketController = BucketController.to;
+    // final bucketController = Get.find<BucketController>();
+    final bucketController = BucketController.to;
     productController.getFavouriteList();
     return Scaffold(
       appBar: AppbarHome(

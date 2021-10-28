@@ -124,7 +124,7 @@ class SettingView extends StatelessWidget {
           Divider(height: 1),
           SimpleBuilder(
             builder: (_) => ListTile(
-              leading: Icon(Icons.account_box_rounded, color: kPrimaryColor),
+              leading: Icon(Icons.account_box_rounded),
               trailing: Icon(Icons.arrow_forward_ios_rounded),
               title: 'profile'.tr.text.make(),
               onTap: () => {
@@ -135,9 +135,11 @@ class SettingView extends StatelessWidget {
           Divider(height: 1),
           SimpleBuilder(
             builder: (_) => ListTile(
-              leading: Icon(Icons.outbox_rounded, color: kPrimaryColor),
+              leading: Icon(Icons.outbox_rounded),
               trailing: Icon(Icons.arrow_forward_ios_rounded),
               title: 'order'.tr.text.make(),
+              // subtitle:
+              //     'Check your order status (track, return, cancel)'.text.make(),
               onTap: () => {
                 // Get.to(() => TabbarView()),
                 // Get.to(() => GalleryPage()),
@@ -147,7 +149,7 @@ class SettingView extends StatelessWidget {
           Divider(height: 1),
           SimpleBuilder(
             builder: (_) => ListTile(
-              leading: Icon(Icons.location_city_rounded, color: kPrimaryColor),
+              leading: Icon(Icons.location_city_rounded),
               trailing: Icon(Icons.arrow_forward_ios_rounded),
               title: 'shipping_address'.tr.text.make(),
               onTap: () => {
@@ -171,8 +173,7 @@ class SettingView extends StatelessWidget {
           Divider(height: 1),
           SimpleBuilder(
             builder: (_) => ListTile(
-              leading:
-                  Icon(Icons.bluetooth_searching_rounded, color: kPrimaryColor),
+              leading: Icon(Icons.bluetooth_searching_rounded),
               trailing: Icon(Icons.arrow_forward_ios_rounded),
               title: 'blog'.tr.text.make(),
               onTap: () => {Get.toNamed(newsRoute)},
@@ -181,7 +182,7 @@ class SettingView extends StatelessWidget {
           Divider(height: 1),
           SimpleBuilder(
             builder: (_) => ListTile(
-              leading: Icon(Icons.local_offer_rounded, color: kPrimaryColor),
+              leading: Icon(Icons.local_offer_rounded),
               trailing: Icon(Icons.arrow_forward_ios_rounded),
               title: 'offer'.tr.text.make(),
               onTap: () => {Get.toNamed(offerRoute)},
@@ -190,8 +191,7 @@ class SettingView extends StatelessWidget {
           Divider(height: 1),
           SimpleBuilder(
             builder: (_) => ListTile(
-              leading: Icon(Icons.notification_important_rounded,
-                  color: kPrimaryColor),
+              leading: Icon(Icons.notification_important_rounded),
               trailing: Icon(Icons.arrow_forward_ios_rounded),
               title: 'Country and Language (البلد واللغة)'.tr.text.make(),
               subtitle: Obx(
@@ -201,18 +201,18 @@ class SettingView extends StatelessWidget {
             ),
           ),
           Divider(height: 1),
-          // SimpleBuilder(
-          //   builder: (_) => ListTile(
-          //     leading: Icon(Icons.info_outline_rounded, color: kPrimaryColor),
-          //     trailing: Icon(Icons.arrow_forward_ios_rounded),
-          //     title: 'faq'.tr.text.make(),
-          //     onTap: () => {Get.toNamed(expansionRoute)},
-          //   ),
-          // ),
-          // Divider(height: 1),
           SimpleBuilder(
             builder: (_) => ListTile(
-              leading: Icon(Icons.logout_rounded, color: kPrimaryColor),
+              leading: Icon(Icons.info_outline_rounded),
+              trailing: Icon(Icons.arrow_forward_ios_rounded),
+              title: 'faq'.tr.text.make(),
+              onTap: () => {Get.toNamed(expansionRoute)},
+            ),
+          ),
+          Divider(height: 1),
+          SimpleBuilder(
+            builder: (_) => ListTile(
+              leading: Icon(Icons.logout_rounded),
               trailing: Icon(Icons.arrow_forward_ios_rounded),
               title: 'logout'.tr.text.make(),
               onTap: () => {

@@ -17,9 +17,9 @@ class BucketView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final _addressController = AddressController.to;
-    // final bucketController = BucketController.to;
-    final bucketController = Get.find<BucketController>();
+    final _aController = AddressController.to;
+    final bController = BucketController.to;
+    // final bucketController = Get.find<BucketController>();
 
     return Scaffold(
       appBar: AppbarHome(
@@ -35,7 +35,7 @@ class BucketView extends StatelessWidget {
         ],
       ),
       body: Obx(
-        () => bucketController.bucketList.length == 0
+        () => bController.bucketList.length == 0
             ? EmptyContentWidget()
             : ConstrainedBox(
                 constraints: BoxConstraints(),
@@ -66,7 +66,7 @@ class BucketView extends StatelessWidget {
                                     .p12(),
                                 Expanded(
                                   child:
-                                      '${_addressController.selectedAddress.value}'
+                                      '${_aController.selectedAddress.value}'
                                           .text
                                           .maxLines(3)
                                           .size(14)
@@ -85,14 +85,14 @@ class BucketView extends StatelessWidget {
                     Expanded(
                       child: ListView.separated(
                         separatorBuilder: (context, index) => Divider(),
-                        itemCount: bucketController.bucketList.length,
+                        itemCount: bController.bucketList.length,
                         padding: EdgeInsets.all(4),
                         itemBuilder: (context, index) {
                           BucketEntity item =
-                              bucketController.bucketList[index];
+                              bController.bucketList[index];
                           return ItemBucket(
                             item: item,
-                            bController: bucketController,
+                            bController: bController,
                           );
                         },
                       ),
@@ -112,7 +112,7 @@ class BucketView extends StatelessWidget {
                                       .size(14)
                                       .make()
                                       .p12()),
-                              '\$ ${bucketController.totalAmount}'
+                              '\$ ${bController.totalAmount}'
                                   .text
                                   .size(14)
                                   .make()
@@ -127,7 +127,7 @@ class BucketView extends StatelessWidget {
                                       .size(14)
                                       .make()
                                       .p12()),
-                              '\$ ${bucketController.taxAmount}'
+                              '\$ ${bController.taxAmount}'
                                   .text
                                   .size(14)
                                   .make()
@@ -142,7 +142,7 @@ class BucketView extends StatelessWidget {
                                       .size(14)
                                       .make()
                                       .p12()),
-                              '\$ ${bucketController.discountAmt}'
+                              '\$ ${bController.discountAmt}'
                                   .text
                                   .size(14)
                                   .make()
@@ -157,7 +157,7 @@ class BucketView extends StatelessWidget {
                                       .size(14)
                                       .make()
                                       .p12()),
-                              '\$ ${bucketController.shippingAmt}'
+                              '\$ ${bController.shippingAmt}'
                                   .text
                                   .size(14)
                                   .make()
@@ -173,7 +173,7 @@ class BucketView extends StatelessWidget {
                                       .size(20)
                                       .make()
                                       .p12()),
-                              '\$ ${bucketController.grandTotal}'
+                              '\$ ${bController.grandTotal}'
                                   .text
                                   .size(24)
                                   .make()
@@ -183,12 +183,12 @@ class BucketView extends StatelessWidget {
                           MaterialButton(
                             height: 50.0,
                             onPressed: () {
-                              _addressController.addressList.length == 0
+                              _aController.addressList.length == 0
                                   ? Get.to(() => AddAddressView(),
                                       arguments: {'get_is_bucket': true})
                                   : Get.to(() => BookOrderView(), arguments: {
                                       'get_payable_amt':
-                                          bucketController.grandTotal
+                                          bController.grandTotal
                                     });
                             },
                             // color: Color(0xff374ABE),

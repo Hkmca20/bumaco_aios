@@ -1,3 +1,4 @@
+import 'package:bumaco_aios/app_utils/app_const.dart';
 import 'package:get/get_navigation/src/root/internacionalization.dart';
 
 class BumacoLocale extends Translations {
@@ -5,8 +6,8 @@ class BumacoLocale extends Translations {
   Map<String, Map<String, String>> get keys => {
         'en_US': {
           // --core--
-          'app_name': 'Bumaco',
-          'app_title': 'Bumaco',
+          'app_name': appNameEN,
+          'app_title': appTitleEN,
           'alert': 'Alert',
           'error': 'Error',
           'ok': 'OK',
@@ -102,7 +103,7 @@ class BumacoLocale extends Translations {
           // --Account View--
           'notification': 'Notification',
           'profile': 'Profile',
-          'orders': 'Order',
+          'order': 'Order',
           'shipping_address': 'Shipping Address',
           'blog': 'Blog',
           'offer': 'Offer',
@@ -112,11 +113,10 @@ class BumacoLocale extends Translations {
           'loggedin_via': 'Logged in via',
           '': '',
         },
-        'hi_IN': {'hello': 'नमस्ते', 'message': 'बूमाको में आपका स्वागत है'},
         'ar_AE': {
           // --core--
-          'app_name': 'بوماكو',
-          'app_title': 'بوماكو',
+          'app_name': appNameAE,
+          'app_title': appTitleAE,
           'alert': 'إنذار',
           'error': 'خطأ',
           'ok': 'نعم',

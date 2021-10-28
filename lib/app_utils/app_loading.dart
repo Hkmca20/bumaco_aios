@@ -2,10 +2,12 @@ import 'package:bumaco_aios/app_utils/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
+import 'package:velocity_x/velocity_x.dart';
 
 showLoadingDialog() {
   Get.defaultDialog(
       title: '',
+      backgroundColor: Vx.white.withOpacity(0.2),
       content: Positioned.fill(
         child: Column(
           children: [

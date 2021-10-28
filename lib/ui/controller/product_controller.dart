@@ -177,7 +177,34 @@ class ProductController extends GetxController with StateMixin, ScrollMixin {
       isLoading(true);
       var products = await productRepository.getProductAll();
       if (products != null) {
-        allProductList.value = products;
+        // allProductList.value = products;
+        allProductList.addAll(products);
+
+        if (products.length > 0) {
+          ProductModel m = products[0];
+          m.id = '200';
+          allProductList.add(m);
+
+          ProductModel m2 = products[0];
+          m2.id = '201';
+          allProductList.add(m2);
+
+          ProductModel m3 = products[0];
+          m3.id = '202';
+          allProductList.add(m3);
+
+          ProductModel m4 = products[0];
+          m4.id = '204';
+          allProductList.add(m4);
+
+          ProductModel m5 = products[0];
+          m5.id = '205';
+          allProductList.add(m5);
+
+          ProductModel m6 = products[0];
+          m6.id = '206';
+          allProductList.add(m6);
+        }
         isToLoadMore = true;
       } else {
         isToLoadMore = false;

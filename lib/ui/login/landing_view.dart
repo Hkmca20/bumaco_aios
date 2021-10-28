@@ -123,7 +123,7 @@ class LandingView extends StatelessWidget {
             child: Column(
               children: [
                 Text(
-                  'Bumaco',
+                  'app_title'.tr,
                   style: TextStyle(
                     fontSize: 40,
                     fontWeight: FontWeight.bold,
@@ -131,7 +131,7 @@ class LandingView extends StatelessWidget {
                   ),
                 ),
                 Text(
-                  'Your Buety. Our Passion',
+                  'Your Beauty. Our Passion',
                   style: TextStyle(
                     fontSize: 11,
                     color: kWhiteColor,

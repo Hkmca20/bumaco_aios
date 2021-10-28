@@ -31,7 +31,7 @@ class AppBinding implements Bindings {
     // Get.lazyPut(() => HomeController(HomeRepo()), fenix: true);//exm hari
     Get.lazyPut(() => ProductController(),
         fenix: true, tag: PRODUCT_CONTROLLER);
-    Get.lazyPut(() => BucketController(), fenix: true);
+    Get.lazyPut(() => BucketController(), fenix: true, tag: BUCKET_CONTROLLER);
     Get.lazyPut(() => AddressController(),
         fenix: true, tag: ADDRESS_CONTROLLER);
     Get.lazyPut(() => BannerController(), fenix: true, tag: BANNER_CONTROLLER);

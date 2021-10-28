@@ -18,14 +18,18 @@ class ChildItemWidget extends StatelessWidget {
         height: 110,
         child: InkWell(
           onTap: () {
-            Get.toNamed(subCategoryRoute,
-                arguments: {'arg_child_category_item': item});
+            Get.toNamed(productRoute, arguments: {
+              'arg_category_item': CategoryModel(category: item.category!)
+            });
+            //   Get.toNamed(subCategoryRoute,
+            //       arguments: {'arg_child_category_item': item});
           },
           child: Card(
             margin: EdgeInsets.all(2),
             shadowColor: Colors.grey,
             elevation: 1,
-            child: Padding(padding: EdgeInsets.all(8),
+            child: Padding(
+              padding: EdgeInsets.all(8),
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -61,8 +65,7 @@ class ChildItemWidget extends StatelessWidget {
                           style: Theme.of(context)
                               .textTheme
                               .bodyText1!
-                              .copyWith(color: kGreyLightColor)
-                              )
+                              .copyWith(color: kGreyLightColor))
                     ],
                   )),
                   Container(

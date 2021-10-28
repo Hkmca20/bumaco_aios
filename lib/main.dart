@@ -38,7 +38,7 @@ class MyApp extends StatelessWidget {
       enableLog: true,
       defaultTransition: Transition.native,
       transitionDuration: Duration(milliseconds: 250),
-      title: appName,
+      title: appNameEN,
       debugShowCheckedModeBanner: false,
       // themeMode: _settingsController.themeMode,
       themeMode: ThemeMode.system,

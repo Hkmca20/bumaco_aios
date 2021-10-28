@@ -15,7 +15,7 @@ class AllProducts extends StatelessWidget {
     // final _choiceIndex = 0;
     return Scaffold(
       appBar: AppbarHome(
-        title: 'Bumaco',
+        title: appNameEN,
         actionList: [
           // IconButton(
           //   icon: Icon(Icons.favorite_rounded),

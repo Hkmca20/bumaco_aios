@@ -28,7 +28,7 @@ class ProductModel {
   @JsonKey(name: 'subcategory')
   final String subcategory;
   @JsonKey(name: 'id')
-  final String id;
+  String id;
 
   @JsonKey(name: 'has_very')
   final String hasvery;

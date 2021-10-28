@@ -74,7 +74,7 @@ const Color shrineBackgroundWhite = Colors.white;
 const defaultLetterSpacing = 0.03;
 
 const ColorScheme _shrineColorScheme = ColorScheme(
-  primary: shrinePink100,
+  primary: kPrimaryColor,
   primaryVariant: shrineBrown900,
   secondary: shrinePink50,
   secondaryVariant: shrineBrown900,
@@ -165,11 +165,11 @@ ElevatedButtonThemeData elevatedButtonTheme() {
         //     colors: [gradientColorBlue1, gradientColorBlue2],
         //     begin: Alignment.centerLeft,
         //     end: Alignment.centerRight),
-        borderRadius: BorderRadius.circular(4),
+        borderRadius: BorderRadius.circular(1),
         side: BorderSide(color: kPrimaryColor, width: 0),
       ),
       padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-      elevation: 4,
+      elevation: 0,
       onPrimary: Colors.white,
       primary: kPrimaryColor,
       shadowColor: kPrimaryColor,

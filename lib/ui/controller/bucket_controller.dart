@@ -5,7 +5,7 @@ import 'package:bumaco_aios/app_utils/utils.dart';
 import 'package:get/get.dart';
 
 class BucketController extends GetxController {
-  // static BucketController get to => Get.find(tag: BUCKET_CONTROLLER);
+  static BucketController get to => Get.find(tag: BUCKET_CONTROLLER);
   var isLoading = true.obs;
   var bucketList = <BucketEntity>[].obs;
   var totalAmount = 0.0.obs;
@@ -21,10 +21,16 @@ class BucketController extends GetxController {
     super.onInit();
   }
 
+  updateBucketList(buckets) {
+    bucketList.value = buckets;
+    update();
+  }
+
   getAllBucketFromLocal() async {
     final db = await $FloorAppDatabase.databaseBuilder(DB_NAME).build();
     final bucketDao = db.bucketDao;
     final result = await bucketDao.findAllBucket();
+    updateBucketList(result);
     totalAmount.value = 0.0;
     taxAmount.value = 0.0;
     shippingAmt.value = 0.0;
@@ -40,7 +46,6 @@ class BucketController extends GetxController {
     taxAmount.value = (totalAmount * taxPercent) / 100;
     if (totalAmount > 0 && totalAmount < 2000) shippingAmt.value = 350.0;
     grandTotal.value = totalAmount.value + taxAmount.value + shippingAmt.value;
-    bucketList.value = result;
   }
 
   insertBucket(ProductModel element) async {
@@ -54,6 +59,7 @@ class BucketController extends GetxController {
         return;
       }
       bucketDao.updateQuantityInBucket(q, checkItem.id);
+      getAllBucketFromLocal();
       bumacoSnackbar('alert'.tr, '${element.product} ' + 'quantity_updated'.tr);
       return;
     }

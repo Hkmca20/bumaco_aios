@@ -50,6 +50,8 @@ class ItemBucket extends StatelessWidget {
                   ('${item.shortDescription} : ${item.description}')
                       .text
                       .capitalize
+                      .ellipsis
+                      .maxLines(3)
                       .make()
                       .px2(),
                 ],
