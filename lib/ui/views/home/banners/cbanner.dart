@@ -3,7 +3,10 @@ import 'dart:async';
 import 'package:bumaco_aios/app_utils/app_const.dart';
 import 'package:bumaco_aios/app_utils/utils.dart';
 import 'package:bumaco_aios/ui/controller/controllers.dart';
+import 'package:bumaco_aios/ui/widgets/app_logo_widget.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:velocity_x/velocity_x.dart';
 import 'package:transparent_image/transparent_image.dart';
 
 class CBannerWidget extends StatefulWidget {
@@ -26,7 +29,7 @@ class CBannerWidget extends StatefulWidget {
 }
 
 var _curIndex = 0;
-var _pageController = PageController();
+late PageController _pageController;
 late Timer _timer;
 
 class _CBannerWidgetState extends State<CBannerWidget>
@@ -52,6 +55,7 @@ class _CBannerWidgetState extends State<CBannerWidget>
   void initState() {
     super.initState();
     print("------>initState");
+    _pageController = PageController();
     _initTimer();
     // Add the observer.
     WidgetsBinding.instance!.addObserver(this);
@@ -68,7 +72,7 @@ class _CBannerWidgetState extends State<CBannerWidget>
       case AppLifecycleState.inactive:
         break;
       case AppLifecycleState.paused:
-        _timer.cancel();
+        _cancelTimer();
         break;
       case AppLifecycleState.detached:
         break;
@@ -77,11 +81,11 @@ class _CBannerWidgetState extends State<CBannerWidget>
 
   @override
   void dispose() {
-    WidgetsBinding.instance!.removeObserver(this);
     print('------>dispose()');
     // Remove the observer
     WidgetsBinding.instance!.removeObserver(this);
-    _timer.cancel();
+    _cancelTimer();
+    _pageController.dispose();
     super.dispose();
   }
 
@@ -111,8 +115,8 @@ class _CBannerWidgetState extends State<CBannerWidget>
               setState(() {});
             },
             itemBuilder: (context, index) {
-              final imageUrl =
-                  widget.productController.bannerList[index % length].imgUrl;
+              final imageUrl = ApiConstants.baseImageUrl +
+                  widget.productController.bannerList[index % length].image;
               return GestureDetector(
                 onPanDown: (details) {
                   _cancelTimer();
@@ -125,11 +129,20 @@ class _CBannerWidgetState extends State<CBannerWidget>
                 child: Container(
                   child: ClipRRect(
                     borderRadius: BorderRadius.all(Radius.circular(0)),
-                    child: FadeInImage.memoryNetwork(
-                      placeholder: kTransparentImage,
-                      image: imageUrl,
+                    child: CachedNetworkImage(
+                      imageUrl: imageUrl,
+                      filterQuality: FilterQuality.medium,
+                      placeholderFadeInDuration: 1.seconds,
                       fit: BoxFit.cover,
+                      placeholder: (context, url) => AppLogoWidget(),
+                      // CircularProgressIndicator(),
+                      errorWidget: (context, url, error) => Icon(Icons.error),
                     ),
+                    // FadeInImage.memoryNetwork(
+                    //   placeholder: kTransparentImage,
+                    //   image: imageUrl,
+                    //   fit: BoxFit.cover,
+                    // ),
                   ),
                   decoration: BoxDecoration(
                     color: Colors.transparent,

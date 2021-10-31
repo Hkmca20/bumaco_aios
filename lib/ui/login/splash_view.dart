@@ -79,10 +79,10 @@ class SplashState extends State<SplashView>
       // Get.offAndToNamed(newsRoute);
     } else {
       // if (_splashController.appOpenCount > 2) {
-        // Get.offAndToNamed(ratingRoute);
-        // Get.offAndToNamed(shrinkRoute);
-        Get.offAndToNamed(landingRoute);
-        // Get.offAndToNamed(googleSigninDemoRoute);
+      // Get.offAndToNamed(ratingRoute);
+      // Get.offAndToNamed(shrinkRoute);
+      Get.offAndToNamed(landingRoute);
+      // Get.offAndToNamed(googleSigninDemoRoute);
       // } else {
       //   Get.offAndToNamed(onboardRoute);
       // }
@@ -103,11 +103,12 @@ class SplashState extends State<SplashView>
       children: <Widget>[
         Container(
           decoration: BoxDecoration(
-              color: new Color(0xff7990DD),
-              gradient: LinearGradient(
-                  colors: [(new Color(0xff7990DD)), new Color(0xff374ABE)],
-                  begin: Alignment.centerRight,
-                  end: Alignment.centerLeft)),
+            color: kPrimaryColor,
+            gradient: LinearGradient(
+                colors: [kPrimaryColor, kPrimaryColorDark],
+                begin: Alignment.centerRight,
+                end: Alignment.centerLeft),
+          ),
         ),
         Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -130,6 +131,7 @@ class SplashState extends State<SplashView>
             ),
             Padding(padding: EdgeInsets.only(top: 20.0)),
             CircularProgressIndicator(
+              color: kGreyLightColor,
               backgroundColor: Colors.white,
               strokeWidth: 1,
             )

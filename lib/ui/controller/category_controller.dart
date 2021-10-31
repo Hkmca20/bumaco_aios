@@ -119,7 +119,6 @@ class CategoryController extends GetxController {
     // } else {
     print('=======No categoryList found========');
     categoryList.value = dummyCatList;
-    categoryList.addAll(dummyCatList);
     // }
   }
 }

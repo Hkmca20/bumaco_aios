@@ -6,19 +6,26 @@ import 'package:velocity_x/velocity_x.dart';
 
 showLoadingDialog() {
   Get.defaultDialog(
-      title: '',
-      backgroundColor: Vx.white.withOpacity(0.2),
-      content: Positioned.fill(
-        child: Column(
-          children: [
-            Text('loading_please_wait'.tr + '..'),
-            SizedBox(height: 20),
-            LoadingWidget(),
-            SizedBox(height: 20),
-          ],
-        ),
+    title: 'app_title'.tr,
+    // backgroundColor: kTransparentColor,
+    content: Container(
+      // decoration:
+      //     BoxDecoration(border: Border.symmetric(horizontal: BorderSide.none)),
+      width: 130,
+      height: 150,
+      child: VStack(
+        [
+          ('loading_please_wait'.tr + '..').text.make().centered(),
+          SizedBox(height: 20),
+          LoadingWidget(),
+          SizedBox(height: 10),
+        ],
+        crossAlignment: CrossAxisAlignment.center,
+        alignment: MainAxisAlignment.center,
       ),
-      barrierDismissible: false);
+    ),
+    barrierDismissible: false,
+  );
 }
 
 hideLoading() {

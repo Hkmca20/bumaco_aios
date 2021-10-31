@@ -1,20 +1,17 @@
 import 'dart:async';
-import 'dart:convert' show json;
 
 import 'package:bumaco_aios/app_utils/app_const.dart';
 import 'package:bumaco_aios/app_utils/app_loading.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:http/http.dart' as http;
 
 class SigninController extends GetxController {
   static SigninController get to => Get.find(tag: LOGIN_CONTROLLER);
-  final mobileCTR = TextEditingController();
+  late TextEditingController mobileCTR;
   RxBool isLoggedIn = false.obs;
 
   GoogleSignIn _googleSignIn = GoogleSignIn();
@@ -23,11 +20,12 @@ class SigninController extends GetxController {
   @override
   void onInit() {
     print('onInit==========>');
+    mobileCTR = TextEditingController();
     _googleSignIn.onCurrentUserChanged.listen((GoogleSignInAccount? account) {
       _currentUser = account;
       // box.write(BOX_GOOGLE_ID, _currentUser!.id);
       Get.back();
-      print('Current user --------------->');//print id here
+      print('Current user --------------->'); //print id here
       print(_currentUser);
 
       // getStorage.write(BOX_IS_LOGGEDIN, true);
@@ -68,23 +66,21 @@ class SigninController extends GetxController {
     }
   }
 
-  void googleSignInMethod() async {
+  void googleSignInMethod(context) async {
     GoogleSignInAccount? googleUser = _currentUser;
     if (googleUser != null) {
       //   print('user.displayName=========> ${googleUser.displayName}');
       //   print('user.email=========>${googleUser.email}');
       //   print('user.ID=========>${googleUser.id}');
       //   print('user.photoUrl=========>${googleUser.photoUrl}');
-      handleSignOut();
+      handleSignOut(context);
     } else {
       showLoadingDialog();
-      _handleSignIn();
-      // _handleSignOut();
+      _handleSignIn(context);
     }
-    // print(googleUser);
   }
 
-  Future<void> _handleSignIn() async {
+  Future<void> _handleSignIn(context) async {
     try {
       print('handle --------signin');
       GoogleSignInAccount? googleSignInAccount = await _googleSignIn.signIn();
@@ -119,7 +115,7 @@ class SigninController extends GetxController {
     }
   }
 
-  Future<void> handleSignOut() => _googleSignIn.disconnect();
+  Future<void> handleSignOut(context) => _googleSignIn.disconnect();
 
   void facebookSignInMethod() async {
     // final AccessToken result = await FacebookAuth.instance.login();

@@ -49,27 +49,25 @@ class HomeController extends GetxController {
     {'name': 'Stars & Fans gate'.toUpperCase(), 'locale': 'ID1'},
     {'name': 'Pets gate'.toUpperCase(), 'locale': 'ID1'},
     {'name': 'Bikes & Moto gate'.toUpperCase(), 'locale': 'ID1'},
-    {'name': 'Rent & Shared Assents gate'.toUpperCase(), 'locale': 'ID1'},
+    {'name': 'Rent & Shared gate'.toUpperCase(), 'locale': 'ID1'},
   ];
   final box = GetStorage(BOX_APP);
   updateSelectedGate(gate) {
-    box.write(BOX_GATE_SELECTED, selectedCountry.value);
+    box.write(BOX_GATE_SELECTED, gate);
   }
 
   getSelectedGate() {
-    return
-        // selectedCountry.value == '' ?
-        'BEAUTY GATE'
-    //  :
-    //  box.read(BOX_GATE_SELECTED)
-     ;
+    return (box.read(BOX_GATE_SELECTED) != null &&
+            box.read(BOX_GATE_SELECTED) != '')
+        ? box.read(BOX_GATE_SELECTED)
+        : 'BEAUTY GATE';
   }
 
   buildDialog(BuildContext context) {
     showDialog(
         context: context,
         builder: (builder) => AlertDialog(
-              title: Text('SELECT A STORE'),
+              title: Text('SELECT A GATE'),
               content: Container(
                 width: double.maxFinite,
                 child: ListView.separated(

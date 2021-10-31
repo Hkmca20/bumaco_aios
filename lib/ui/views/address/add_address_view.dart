@@ -148,7 +148,7 @@ class AddAddressViewState extends State<AddAddressView> {
           ),
         ),
 
-        // Login Button
+        // Submit Button
         Center(
             child: Container(
                 margin: EdgeInsets.only(top: 50.0, bottom: 10.0),

@@ -1,216 +1,260 @@
+import 'dart:ui';
+
+import 'package:bumaco_aios/app_utils/app_const.dart';
+import 'package:bumaco_aios/app_utils/asset_path.dart';
+import 'package:bumaco_aios/ui/controller/profile_controller.dart';
+import 'package:bumaco_aios/ui/widgets/widgets.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:transparent_image/transparent_image.dart';
+import 'package:velocity_x/velocity_x.dart';
+
+import 'radio_option.dart';
 
 class ProfileUI2 extends StatelessWidget {
+  final profileController = Get.find<ProfileController>();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         body: SafeArea(
-      child: Column(
-        children: [
-          Container(
-            decoration: BoxDecoration(
-                image: DecorationImage(
-                    image: NetworkImage(
-                        "https://i.picsum.photos/id/159/536/354.jpg?hmac=59u2RZ-L-Vjfrvsa9T21nZU7ylv03-EGGKErZCaf488"),
-                    fit: BoxFit.cover)),
-            child: Container(
-              width: double.infinity,
-              height: 200,
-              child: Container(
-                alignment: Alignment(0.0, 2.5),
-                child: CircleAvatar(
-                  backgroundImage: NetworkImage(
-                      "https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50"),
-                  radius: 60.0,
-                ),
-              ),
-            ),
-          ),
-          SizedBox(
-            height: 60,
-          ),
-          Text(
-            "Gupta",
-            style: TextStyle(
-                fontSize: 25.0,
-                color: Colors.blueGrey,
-                letterSpacing: 2.0,
-                fontWeight: FontWeight.w400),
-          ),
-          SizedBox(
-            height: 10,
-          ),
-          Text(
-            "Delhi, India - 112233",
-            style: TextStyle(
-                fontSize: 18.0,
-                color: Colors.black45,
-                letterSpacing: 2.0,
-                fontWeight: FontWeight.w300),
-          ),
-          SizedBox(
-            height: 10,
-          ),
-          Text(
-            "XYZ Company",
-            style: TextStyle(
-                fontSize: 15.0,
-                color: Colors.black45,
-                letterSpacing: 2.0,
-                fontWeight: FontWeight.w300),
-          ),
-          SizedBox(
-            height: 10,
-          ),
-          Card(
-              margin: EdgeInsets.symmetric(horizontal: 20.0, vertical: 8.0),
-              elevation: 2.0,
-              child: Padding(
-                  padding: EdgeInsets.symmetric(vertical: 12, horizontal: 30),
-                  child: Text(
-                    "Skill Sets",
-                    style: TextStyle(
-                        letterSpacing: 2.0, fontWeight: FontWeight.w300),
-                  ))),
-          SizedBox(
-            height: 15,
-          ),
-          Text(
-            "Apps",
-            style: TextStyle(
-                fontSize: 18.0,
-                color: Colors.black45,
-                letterSpacing: 2.0,
-                fontWeight: FontWeight.w300),
-          ),
-          Card(
-            margin: EdgeInsets.symmetric(horizontal: 20.0, vertical: 8.0),
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  Expanded(
-                    child: Column(
-                      children: [
-                        Text(
-                          "xxx",
-                          style: TextStyle(
-                              color: Colors.blueAccent,
-                              fontSize: 22.0,
-                              fontWeight: FontWeight.w600),
-                        ),
-                        SizedBox(
-                          height: 7,
-                        ),
-                        Text(
-                          "00",
-                          style: TextStyle(
-                              color: Colors.black,
-                              fontSize: 22.0,
-                              fontWeight: FontWeight.w300),
-                        )
-                      ],
-                    ),
-                  ),
-                  Expanded(
-                    child: Column(
-                      children: [
-                        Text(
-                          "yyy",
-                          style: TextStyle(
-                              color: Colors.blueAccent,
-                              fontSize: 22.0,
-                              fontWeight: FontWeight.w600),
-                        ),
-                        SizedBox(
-                          height: 7,
-                        ),
-                        Text(
-                          "000",
-                          style: TextStyle(
-                              color: Colors.black,
-                              fontSize: 22.0,
-                              fontWeight: FontWeight.w300),
-                        )
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ),
-          SizedBox(
-            height: 50,
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              RaisedButton(
-                onPressed: () {},
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(80.0),
-                ),
-                child: Ink(
-                  decoration: BoxDecoration(
-                    gradient: LinearGradient(
-                        begin: Alignment.centerLeft,
-                        end: Alignment.centerRight,
-                        colors: [Colors.pink, Colors.redAccent]),
-                    borderRadius: BorderRadius.circular(30.0),
-                  ),
-                  child: Container(
-                    constraints: BoxConstraints(
-                      maxWidth: 100.0,
-                      maxHeight: 40.0,
-                    ),
-                    alignment: Alignment.center,
-                    child: Text(
-                      "Contact me",
-                      style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 12.0,
-                          letterSpacing: 2.0,
-                          fontWeight: FontWeight.w300),
-                    ),
-                  ),
-                ),
-              ),
-              RaisedButton(
-                onPressed: () {},
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(80.0),
-                ),
-                child: Ink(
-                  decoration: BoxDecoration(
-                    gradient: LinearGradient(
-                        begin: Alignment.centerLeft,
-                        end: Alignment.centerRight,
-                        colors: [Colors.pink, Colors.redAccent]),
-                    borderRadius: BorderRadius.circular(80.0),
-                  ),
-                  child: Container(
-                    constraints: BoxConstraints(
-                      maxWidth: 100.0,
-                      maxHeight: 40.0,
-                    ),
-                    alignment: Alignment.center,
-                    child: Text(
-                      "Portfolio",
-                      style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 12.0,
-                          letterSpacing: 2.0,
-                          fontWeight: FontWeight.w300),
-                    ),
-                  ),
-                ),
-              )
-            ],
-          )
-        ],
+      child: SingleChildScrollView(
+        child: initScreen(context),
       ),
     ));
+  }
+
+  Widget initScreen(context) {
+    ValueChanged<String?> _valueChangedHandler() {
+      return (value) => profileController.genderGroupValue.value = value!;
+    }
+
+    return Column(
+      children: [
+        InkWell(
+          onTap: () async {
+            // FilePickerResult result = await FilePicker.platform.pickFiles(
+            //   allowMultiple: true,
+            //   allowedExtensions: ['jpg', 'pdf'],
+            //   type: FileType.custom,
+            // );
+            // if (result != null) {}
+          },
+          child: Container(
+            decoration: BoxDecoration(
+                image:
+                    DecorationImage(image: AssetImage(bg2), fit: BoxFit.cover)),
+            child: Container(
+              width: double.infinity,
+              height: 150,
+              child: Container(
+                alignment: Alignment(0.0, 4.5),
+                child: CircleAvatar(
+                  backgroundColor: kWhiteColor.withOpacity(0.5),
+                  backgroundImage: FadeInImage.memoryNetwork(
+                          placeholder: kTransparentImage,
+                          image:  profileController.profilePhoto)
+                      .image,
+                  // NetworkImage(profileController.profilePhoto),
+                  radius: 60,
+                ),
+              ),
+            ),
+          ),
+        ),
+        SizedBox(height: 60),
+        Text(
+          profileController.nameCTR.text,
+          style: TextStyle(
+              fontSize: 25.0,
+              color: Colors.blueGrey,
+              letterSpacing: 2.0,
+              fontWeight: FontWeight.w400),
+        ),
+        SizedBox(
+          height: 10,
+        ),
+        (profileController.emailCTR.text == ''
+                ? profileController.mobileCTR.text
+                : profileController.emailCTR.text)
+            .text
+            .size(18)
+            .fontWeight(FontWeight.w400)
+            .make(),
+        SizedBox(height: 10),
+        VxDivider(),
+        SizedBox(height: 20),
+        //-----------------textfields------------------
+//Gender
+        Padding(
+          padding: EdgeInsets.symmetric(horizontal: 30),
+          child: HStack([
+            Expanded(
+              flex: 3,
+              child: Obx(
+                () => MyRadioOption<String>(
+                  value: '1',
+                  groupValue: profileController.genderGroupValue.value,
+                  onChanged: _valueChangedHandler(),
+                  icon: Icons.female_outlined,
+                  text: 'Miss',
+                ),
+              ),
+              // Radio(
+              //     value: 0, groupValue: _value, onChanged: (value){_value =value;}),
+            ),
+            // Mr Radio
+            Expanded(
+              flex: 3,
+              child: Obx(
+                () => MyRadioOption<String>(
+                  value: '2',
+                  groupValue: profileController.genderGroupValue.value,
+                  onChanged: _valueChangedHandler(),
+                  icon: Icons.male_outlined,
+                  text: 'Mr',
+                ),
+              ),
+              // Radio(
+              //       value: 1, groupValue: _value, onChanged:  (value){_value =value;}),
+            ),
+            Expanded(flex: 4, child: SizedBox())
+          ]),
+        ),
+
+        // NameEdit text
+        Container(
+          margin: EdgeInsets.only(top: 30.0, left: 30.0, right: 30.0),
+          child: TextFormField(
+            controller: profileController.nameCTR,
+            decoration: InputDecoration(
+              labelText: "Name", // Set text upper animation
+              suffixIcon: Icon(
+                Icons.person_outline,
+                color: kPrimaryColor,
+              ),
+            ),
+            minLines: 1,
+            autofocus: false,
+            keyboardType: TextInputType.text,
+          ),
+        ),
+
+        // Phone Number Edit text
+        Container(
+          margin: EdgeInsets.only(top: 30.0, left: 30.0, right: 30.0),
+          child: TextFormField(
+            controller: profileController.mobileCTR,
+            decoration: InputDecoration(
+              labelText: "Phone Number", // Set text upper animation
+              border: OutlineInputBorder(),
+              suffixIcon: Icon(
+                Icons.phone_android_rounded,
+                color: kPrimaryColor,
+              ),
+            ),
+            minLines: 1,
+            autofocus: false,
+            keyboardType: TextInputType.number,
+          ),
+        ),
+
+        // Email Id Edit text
+        Container(
+          margin: EdgeInsets.only(top: 30.0, left: 30.0, right: 30.0),
+          child: TextFormField(
+            controller: profileController.emailCTR,
+            decoration: InputDecoration(
+              labelText: "Email Id", // Set text upper animation
+              border: OutlineInputBorder(),
+              suffixIcon: Icon(
+                Icons.email_outlined,
+                color: kPrimaryColor,
+              ),
+            ),
+            minLines: 1,
+            autofocus: false,
+            keyboardType: TextInputType.number,
+          ),
+        ),
+
+        // Date Of Birth Edit text
+        Container(
+          margin: EdgeInsets.only(top: 30.0, left: 30.0, right: 30.0),
+          child: TextFormField(
+            controller: profileController.dobCTR,
+            decoration: InputDecoration(
+              labelText: "DOB", // Set text upper animation
+              border: OutlineInputBorder(),
+              suffixIcon: Icon(
+                Icons.calendar_today_outlined,
+                color: kPrimaryColor,
+              ),
+            ),
+            minLines: 1,
+            autofocus: false,
+            keyboardType: TextInputType.number,
+          ),
+        ),
+
+//Button Section--------------------
+        HStack([
+          // Submit Button
+          Expanded(
+              flex: 5,
+              child: Container(
+                  decoration: BoxDecoration(
+                      gradient: LinearGradient(
+                          colors: [
+                            kPrimaryColorDark, kPrimaryColor
+                            //  Color(0xff374ABE), Color(0xff64B6FF)
+                          ],
+                          begin: Alignment.centerLeft,
+                          end: Alignment.centerRight),
+                      borderRadius: BorderRadius.all(Radius.circular(5.0))),
+                  margin:
+                      EdgeInsets.symmetric(vertical: 50.0, horizontal: 10.0),
+                  child: MaterialButton(
+                    onPressed: () {
+                      Get.back();
+                    }, // Click Listener
+                    child: 'BACK'
+                        .text
+                        .size(18)
+                        .white
+                        .align(TextAlign.center)
+                        .make(),
+                  ))),
+          // Submit Button
+          Expanded(
+              flex: 5,
+              child: Container(
+                  decoration: BoxDecoration(
+                      gradient: LinearGradient(
+                          colors: [
+                            kPrimaryColorDark, kPrimaryColor
+                            //  Color(0xff374ABE), Color(0xff64B6FF)
+                          ],
+                          begin: Alignment.centerLeft,
+                          end: Alignment.centerRight),
+                      borderRadius: BorderRadius.all(Radius.circular(5.0))),
+                  margin:
+                      EdgeInsets.symmetric(vertical: 50.0, horizontal: 10.0),
+                  child: MaterialButton(
+                    onPressed: () {
+                      profileController.submitButton(context);
+                    }, // Click Listener
+                    child: 'UPDATE'
+                        .text
+                        .size(18)
+                        .white
+                        .align(TextAlign.center)
+                        .make(),
+                  ))),
+        ])
+      ],
+    );
   }
 }

@@ -1,5 +1,5 @@
+import 'package:bumaco_aios/app_core/models/models.dart';
 import 'package:bumaco_aios/app_utils/app_const.dart';
-import 'package:bumaco_aios/ui/onboard/model/onboard_info.dart';
 import 'package:bumaco_aios/ui/login/signin_view.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/state_manager.dart';
@@ -16,7 +16,7 @@ class OnboardController extends GetxController {
 
   var pageController = PageController();
 
-  List<BannerItem> onboardingList = [];
+  List<BannerModel> onboardingList = [];
 
   final box = GetStorage(BOX_APP);
   int get appOpenCount => box.read(BOX_APP_OPEN_COUNT) ?? 0;
@@ -34,15 +34,18 @@ class OnboardController extends GetxController {
   }
 
   _addItemToList() {
-    onboardingList.add(BannerItem('assets/images/order.png', 'Order your food',
-        'Now you can order food anytime right from your mobile'));
-    onboardingList.add(BannerItem(
-        'assets/images/cook.png',
-        'Cooking safe food',
-        'We are maintain safety and we keep clean while making food'));
-    onboardingList.add(BannerItem(
-        'assets/images/deliver.png',
-        'Quick delivery',
-        'Order your favorite meals will be immediately deliver'));
+    onboardingList.add(BannerModel(
+        image: 'assets/images/order.png',
+        bannertext: 'Order your food',
+        category: 'Now you can order food anytime right from your mobile'));
+    onboardingList.add(BannerModel(
+        image: 'assets/images/cook.png',
+        bannertext: 'Cooking safe food',
+        category:
+            'We are maintain safety and we keep clean while making food'));
+    onboardingList.add(BannerModel(
+        image: 'assets/images/deliver.png',
+        bannertext: 'Quick delivery',
+        category: 'Order your favorite meals will be immediately deliver'));
   }
 }

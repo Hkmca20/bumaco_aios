@@ -16,17 +16,23 @@ class AddressController extends GetxController {
     isBucketPage = val;
   }
 
-  final nameCTR = TextEditingController(),
-      aLine1CTR = TextEditingController(),
-      aLine2CTR = TextEditingController(),
-      cityCTR = TextEditingController(),
-      pinCTR = TextEditingController(),
-      phoneCTR = TextEditingController();
+  late TextEditingController nameCTR,
+      aLine1CTR,
+      aLine2CTR,
+      cityCTR,
+      pinCTR,
+      phoneCTR;
 
   @override
   onInit() {
-    findAllAddressList();
     super.onInit();
+    nameCTR = TextEditingController();
+    aLine1CTR = TextEditingController();
+    aLine2CTR = TextEditingController();
+    cityCTR = TextEditingController();
+    pinCTR = TextEditingController();
+    phoneCTR = TextEditingController();
+    findAllAddressList();
   }
 
   @override

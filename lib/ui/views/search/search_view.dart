@@ -97,7 +97,7 @@ OutlineInputBorder oBorder = OutlineInputBorder(
                         Icons.search,
                         color: kGreyLightColor,
                       ),
-                      hintText: 'Search on Bumaco',
+                      hintText: 'Search on ' + 'app_name'.tr,
                       hintStyle: Theme.of(context)
                           .textTheme
                           .headline6!

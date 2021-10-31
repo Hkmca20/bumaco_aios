@@ -38,6 +38,9 @@ const String kOtpNullError = "Please Enter your phone number";
 const String kValidEmail = "Invalid email id";
 const String kOtp4digit = "Please Enter correct otp";
 
+//ALL ARGUMENTS
+const String ARG_PAYABLE_AMT = 'arg_payable_amt';
+
 // Patterns
 final RegExp numericRegExp = RegExp(r'\d');
 final RegExp a2zRegExp = RegExp('[a-zA-Z]');
@@ -167,12 +170,52 @@ const BOX_COUNTRY = 'country'; //string
 const BOX_NAME = 'name'; //string
 const BOX_MOBILE = 'mobile'; //string
 const BOX_EMAIL = 'email'; //string
+const BOX_GENDER = 'gender'; //string
+const BOX_DOB = 'dob'; //string
 const BOX_PROFILE_PHOTO = 'photo'; //string
 const BOX_GOOGLE_ID = 'google_id'; //string
 const BOX_IS_LOGGEDIN = 'is_loggedin'; //bool
 const BOX_IS_DARK = 'is_dark'; //bool
 const BOX_IS_NOTIFICATION = 'is_notification'; //bool
-const BOX_GATE_SELECTED = 'gate_selected'; //string
+const BOX_GATE_SELECTED = 'gate_selected'; //bool
+const BOX_BADGE_ACCOUNT = 'badge_account'; //bool
+
+getStorageStringValue(key) {
+  final box = GetStorage(BOX_APP);
+  final _value = box.read(key);
+  if (_value != null) {
+    return _value;
+  } else {
+    return '';
+  }
+}
+getStorageBoolValue(key) {
+  final box = GetStorage(BOX_APP);
+  final _value = box.read(key);
+  if (_value != null) {
+    return _value;
+  } else {
+    return false;
+  }
+}
+getStorageIntValue(key) {
+  final box = GetStorage(BOX_APP);
+  final _value = box.read(key);
+  if (_value != null) {
+    return _value;
+  } else {
+    return 0;
+  }
+}
+getStorageDoubleValue(key) {
+  final box = GetStorage(BOX_APP);
+  final _value = box.read(key);
+  if (_value != null) {
+    return _value;
+  } else {
+    return 0.0;
+  }
+}
 
 //Database
 const DB_NAME = 'bumaco_database.db';
@@ -240,7 +283,7 @@ bumacoSnackbar(title, message) => Get.snackbar(
       margin: EdgeInsets.all(15),
       duration: Duration(seconds: 3),
       isDismissible: true,
-      dismissDirection: SnackDismissDirection.HORIZONTAL,
+      dismissDirection: SnackDismissDirection.VERTICAL,
       forwardAnimationCurve: Curves.easeOutBack,
     );
 showSnackbar(title, message) => Get.showSnackbar(

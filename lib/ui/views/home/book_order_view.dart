@@ -7,9 +7,9 @@ import 'package:velocity_x/velocity_x.dart';
 
 class BookOrderView extends StatelessWidget {
   const BookOrderView({Key? key}) : super(key: key);
-
   @override
   Widget build(BuildContext context) {
+    final payableAmount = Get.arguments[ARG_PAYABLE_AMT];
     return WillPopScope(
       onWillPop: () async => false,
       child: Scaffold(
@@ -21,9 +21,11 @@ class BookOrderView extends StatelessWidget {
               VxShimmer(
                 child: Icon(
                   Icons.online_prediction_rounded,
-                  size: 250,color: Vx.amber500,
+                  size: 250,
+                  color: Vx.amber500,
                 ),
               ),
+              'PAID AMOUNT: $payableAmount'.text.bold.make(),
               Chip(
                   label: 'ORDER ID: A1CINBA398044'
                       .text
@@ -33,11 +35,8 @@ class BookOrderView extends StatelessWidget {
                       .p12()),
               SizedBox(height: 25, width: double.infinity),
               Chip(
-                  label: 'Order placed successfully!'
-                      .text
-                      .size(24)
-                      .make()
-                      .p12()),
+                  label:
+                      'Order placed successfully!'.text.size(24).make().p12()),
               SizedBox(height: 25, width: double.infinity),
               ElevatedButton(
                 onPressed: () {

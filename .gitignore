@@ -11,6 +11,7 @@
 *.jks
 key*.properties
 *.g.dart
+*.env
 
 # IntelliJ related
 *.iml

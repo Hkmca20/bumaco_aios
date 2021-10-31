@@ -26,6 +26,13 @@ class BucketView extends StatelessWidget {
         title: 'cart'.tr + ' - ' + 'checkout'.tr,
         actionList: [
           IconButton(
+            icon: Icon(Icons.delete),
+            tooltip: 'Delete Cart Items',
+            onPressed: () {
+              bController.removeAllBucket();
+            },
+          ),
+          IconButton(
             icon: Icon(Icons.location_city_outlined),
             tooltip: 'Address List',
             onPressed: () {
@@ -65,13 +72,12 @@ class BucketView extends StatelessWidget {
                                     .make()
                                     .p12(),
                                 Expanded(
-                                  child:
-                                      '${_aController.selectedAddress.value}'
-                                          .text
-                                          .maxLines(3)
-                                          .size(14)
-                                          .make()
-                                          .p12(),
+                                  child: '${_aController.selectedAddress.value}'
+                                      .text
+                                      .maxLines(3)
+                                      .size(14)
+                                      .make()
+                                      .p12(),
                                 ),
                               ],
                             ),
@@ -88,8 +94,7 @@ class BucketView extends StatelessWidget {
                         itemCount: bController.bucketList.length,
                         padding: EdgeInsets.all(4),
                         itemBuilder: (context, index) {
-                          BucketEntity item =
-                              bController.bucketList[index];
+                          BucketEntity item = bController.bucketList[index];
                           return ItemBucket(
                             item: item,
                             bController: bController,
@@ -112,7 +117,7 @@ class BucketView extends StatelessWidget {
                                       .size(14)
                                       .make()
                                       .p12()),
-                              '\$ ${bController.totalAmount}'
+                              '\$${bController.totalAmount}'
                                   .text
                                   .size(14)
                                   .make()
@@ -127,7 +132,7 @@ class BucketView extends StatelessWidget {
                                       .size(14)
                                       .make()
                                       .p12()),
-                              '\$ ${bController.taxAmount}'
+                              '\$${bController.taxAmount}'
                                   .text
                                   .size(14)
                                   .make()
@@ -142,7 +147,7 @@ class BucketView extends StatelessWidget {
                                       .size(14)
                                       .make()
                                       .p12()),
-                              '\$ ${bController.discountAmt}'
+                              '\$${bController.discountAmt}'
                                   .text
                                   .size(14)
                                   .make()
@@ -157,7 +162,7 @@ class BucketView extends StatelessWidget {
                                       .size(14)
                                       .make()
                                       .p12()),
-                              '\$ ${bController.shippingAmt}'
+                              '\$${bController.shippingAmt}'
                                   .text
                                   .size(14)
                                   .make()
@@ -173,7 +178,7 @@ class BucketView extends StatelessWidget {
                                       .size(20)
                                       .make()
                                       .p12()),
-                              '\$ ${bController.grandTotal}'
+                              '\$${bController.grandTotal}'
                                   .text
                                   .size(24)
                                   .make()
@@ -187,8 +192,7 @@ class BucketView extends StatelessWidget {
                                   ? Get.to(() => AddAddressView(),
                                       arguments: {'get_is_bucket': true})
                                   : Get.to(() => BookOrderView(), arguments: {
-                                      'get_payable_amt':
-                                          bController.grandTotal
+                                      ARG_PAYABLE_AMT: bController.grandTotal
                                     });
                             },
                             // color: Color(0xff374ABE),

@@ -112,7 +112,7 @@ class AuthView extends StatelessWidget {
               CustomButtonSocial(
                 text: 'Sign In with Google',
                 onPress: () {
-                  signinController.googleSignInMethod();
+                  signinController.googleSignInMethod(context);
                 },
                 imageName: 'assets/images/ic_google.png',
               ),

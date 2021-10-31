@@ -1,6 +1,9 @@
+import 'package:bumaco_aios/app_core/models/models.dart';
 import 'package:bumaco_aios/app_utils/app_bar_home.dart';
 import 'package:bumaco_aios/app_utils/app_const.dart';
 import 'package:flutter/material.dart';
+import 'package:velocity_x/velocity_x.dart';
+import 'package:get/get.dart';
 
 class TabbarView extends StatefulWidget {
   const TabbarView({Key? key}) : super(key: key);
@@ -15,11 +18,18 @@ class _TabbarViewState extends State<TabbarView>
   late List<Tab> tabBars;
   late List<Widget> tabBarViews;
   final tabIconSize = 30.0;
+  late final ProductModel productItem;
 
   @override
   void initState() {
+    if (Get.arguments != null) {
+      productItem = Get.arguments['arg_product_item'];
+    } else {
+      bumacoSnackbar('alert'.tr, 'Details not found!');
+      Get.back();
+    }
     controller = new TabController(vsync: this, length: 3);
-    controller.index = 1;
+    controller.index = 0;
     tabBars = [
       Tab(
           text: 'Description',
@@ -32,7 +42,11 @@ class _TabbarViewState extends State<TabbarView>
           icon: Icon(Icons.delivery_dining_rounded, size: tabIconSize)),
       Tab(text: 'Policy', icon: Icon(Icons.policy_rounded, size: tabIconSize)),
     ];
-    tabBarViews = [TestScreen1(), TestScreen2(), TestScreen3()];
+    tabBarViews = [
+      DescriptionView(productItem: productItem),
+      DeliveryView(productItem: productItem),
+      PolicyView(productItem: productItem)
+    ];
 
     super.initState();
   }
@@ -54,91 +68,49 @@ class _TabbarViewState extends State<TabbarView>
         child: SafeArea(
             child: TabBar(
           controller: controller,
-          tabs: tabBars,labelColor: kPrimaryColor,
-          indicatorColor: kPrimaryColor,unselectedLabelColor: kGreyLightColor,
+          tabs: tabBars,
+          labelColor: kPrimaryColor,
+          indicatorColor: kPrimaryColor,
+          unselectedLabelColor: kGreyLightColor,
         )),
         color: theme.primaryColor,
       ),
       body: TabBarView(
         children: tabBarViews,
         controller: controller,
-        physics: NeverScrollableScrollPhysics(),
+        // physics: NeverScrollableScrollPhysics(),
       ),
     );
   }
 }
 
-class TestScreen1 extends StatefulWidget {
-  @override
-  createState() => _TestScreen1State();
-}
-
-class _TestScreen1State extends State<TestScreen1> {
-  @override
-  void initState() {
-    super.initState();
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-  }
+class DescriptionView extends StatelessWidget {
+  final ProductModel productItem;
+  const DescriptionView({Key? key, required this.productItem})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return new Scaffold(
-        body: Center(
-      child: Text("Test"),
-    ));
+    return new Scaffold(body: productItem.description.text.bold.make().p16());
   }
 }
 
-class TestScreen2 extends StatefulWidget {
-  @override
-  createState() => _TestScreen2State();
-}
-
-class _TestScreen2State extends State<TestScreen2> {
-  @override
-  void initState() {
-    super.initState();
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-  }
+class DeliveryView extends StatelessWidget {
+  final ProductModel productItem;
+  const DeliveryView({Key? key, required this.productItem}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return new Scaffold(
-        body: Center(
-      child: Text("Test"),
-    ));
+    return new Scaffold(body: productItem.shortDescription.text.bold.make().p16());
   }
 }
 
-class TestScreen3 extends StatefulWidget {
-  @override
-  createState() => _TestScreen3State();
-}
-
-class _TestScreen3State extends State<TestScreen3> {
-  @override
-  void initState() {
-    super.initState();
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-  }
+class PolicyView extends StatelessWidget {
+  final ProductModel productItem;
+  const PolicyView({Key? key, required this.productItem}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return new Scaffold(
-        body: Center(
-      child: Text("Test"),
-    ));
+    return new Scaffold(body: productItem.product.text.bold.make().p16());
   }
 }

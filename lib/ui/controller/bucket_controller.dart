@@ -120,4 +120,12 @@ class BucketController extends GetxController {
       getAllBucketFromLocal();
     }
   }
+
+  removeAllBucket() async {
+    final db = await $FloorAppDatabase.databaseBuilder(DB_NAME).build();
+    final bucketDao = db.bucketDao;
+    bucketDao.deleteAllBucket();
+    bumacoSnackbar('alert'.tr, 'All data ' + 'removed_from'.tr + ' ' + 'cart'.tr);
+      getAllBucketFromLocal();
+  }
 }

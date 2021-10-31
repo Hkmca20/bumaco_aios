@@ -2,6 +2,8 @@ import 'dart:ui';
 import 'package:bumaco_aios/app_core/db/entity/entities.dart';
 import 'package:bumaco_aios/app_utils/app_const.dart';
 import 'package:bumaco_aios/ui/controller/controllers.dart';
+import 'package:bumaco_aios/ui/widgets/app_logo_widget.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:get/get.dart';
 import 'package:transparent_image/transparent_image.dart';
 import 'package:velocity_x/velocity_x.dart';
@@ -21,11 +23,19 @@ class ItemBucket extends StatelessWidget {
         [
           Expanded(
             child: ClipRRect(
-              child: FadeInImage.memoryNetwork(
-                placeholder: kTransparentImage,
-                image: ApiConstants.baseImageUrl + item.fimage,
+              child: CachedNetworkImage(
+                imageUrl: ApiConstants.baseImageUrl + item.fimage,
+                filterQuality: FilterQuality.high,
+                placeholderFadeInDuration: 1.seconds,
                 fit: BoxFit.cover,
+                placeholder: (context, url) => AppLogoWidget(),
+                errorWidget: (context, url, error) => Icon(Icons.error),
               ),
+              // FadeInImage.memoryNetwork(
+              //   placeholder: kTransparentImage,
+              //   image: ApiConstants.baseImageUrl + item.fimage,
+              //   fit: BoxFit.cover,
+              // ),
               borderRadius: BorderRadius.all(Radius.circular(4)),
             ),
             flex: 2,
@@ -63,7 +73,7 @@ class ItemBucket extends StatelessWidget {
           ),
           VStack(
             [
-              ('\$${item.mrp} x ${item.quantity.toString()} = ${item.totalPrice}')
+              ('\$${item.mrp}x${item.quantity.toString()} = ${item.totalPrice}')
                   .text
                   .size(16)
                   .make()
@@ -82,7 +92,7 @@ class ItemBucket extends StatelessWidget {
                   ),
                   item.quantity.text
                       .fontWeight(FontWeight.bold)
-                      .color(kPrimaryColor)
+                      // .color(kPrimaryColor)
                       .size(22)
                       .capitalize
                       .make()
@@ -100,6 +110,7 @@ class ItemBucket extends StatelessWidget {
                 alignment: MainAxisAlignment.end,
               ),
             ],
+            crossAlignment: CrossAxisAlignment.center,
           ),
         ],
         crossAlignment: CrossAxisAlignment.center,

@@ -1,7 +1,9 @@
+import 'package:bumaco_aios/app_utils/app_bar_home.dart';
 import 'package:bumaco_aios/app_utils/app_bar_main.dart';
 import 'package:bumaco_aios/ui/rating/rating_controller.dart';
 import 'package:flare_flutter/flare_actor.dart';
 import 'package:flutter/material.dart';
+import 'package:velocity_x/velocity_x.dart';
 
 class RatingView extends StatefulWidget {
   RatingView({Key? key, required this.title}) : super(key: key);
@@ -19,6 +21,7 @@ class _RatingViewState extends State<RatingView> {
 
   void _onChanged(double value) {
     if (_rating == value) return;
+    if (value < 1.0) return;
 
     setState(() {
       var direction = _rating < value ? '+' : '-';
@@ -30,10 +33,10 @@ class _RatingViewState extends State<RatingView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: BumacoAppbar(title: widget.title),
+      appBar: AppbarHome(title: widget.title),
       body: Center(
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.start,
           children: <Widget>[
             Container(
               height: 300,
@@ -46,6 +49,7 @@ class _RatingViewState extends State<RatingView> {
                 animation: _currentAnimation,
               ),
             ),
+            SizedBox(height: 5),
             Slider(
               value: _rating,
               min: 1,
@@ -56,6 +60,18 @@ class _RatingViewState extends State<RatingView> {
             Text(
               '$_rating',
               style: Theme.of(context).textTheme.headline4,
+            ),
+            SizedBox(height: 40),
+            VxRating(
+              onRatingUpdate: (value) {
+                print(double.parse(value));
+                _onChanged(double.parse(value));
+              },
+              maxRating: 5,
+              value: 4.5,
+              count: 5,
+              selectionColor: Colors.teal,
+              size: 30,
             ),
           ],
         ),

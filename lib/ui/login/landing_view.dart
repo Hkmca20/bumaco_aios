@@ -255,7 +255,7 @@ class LandingView extends StatelessWidget {
       child: CustomButtonSocial(
         text: 'signin_with_google'.tr,
         onPress: () {
-          signinController.googleSignInMethod();
+          signinController.googleSignInMethod(context);
         },
         imageName: iconGoogle,
       ),

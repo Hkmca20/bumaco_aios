@@ -1,5 +1,6 @@
 import 'package:bumaco_aios/app_core/models/models.dart';
 import 'package:bumaco_aios/app_utils/utils.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -33,11 +34,17 @@ class ItemWidget11 extends StatelessWidget {
           child: Card(
             clipBehavior: Clip.hardEdge,
             elevation: 4,
-            child: Image(
+            child: ClipRRect(
+              child: CachedNetworkImage(
+                imageUrl: '${ApiConstants.baseImageUrl}${item.image}',
+                filterQuality: FilterQuality.low,
+                placeholderFadeInDuration: 1.seconds,
                 fit: BoxFit.cover,
-                image:
-                    Image.network('${ApiConstants.baseImageUrl}${item.image}')
-                        .image),
+                placeholder: (context, url) => LoadingWidget(),
+                errorWidget: (context, url, error) => Icon(Icons.error),
+              ),
+              borderRadius: BorderRadius.all(Radius.circular(4)),
+            ),
           ),
         ),
       ),

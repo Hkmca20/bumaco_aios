@@ -24,6 +24,12 @@ abstract class BucketDao {
   @Query("DELETE FROM bucketentity WHERE id = :id")
   Future<void> deleteBucketById(String id);
 
+  @Query("DELETE FROM bucketentity WHERE isbucket = true")
+  Future<void> deleteAllBucket();
+
+  @Query("DELETE FROM bucketentity WHERE isfavourite = true")
+  Future<void> deleteAllFavorites();
+ 
   @insert
   Future<void> insertIntoBucket(BucketEntity product);
 

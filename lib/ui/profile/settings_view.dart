@@ -6,6 +6,8 @@ import 'package:bumaco_aios/ui/views/address/addresss_view.dart';
 import 'package:bumaco_aios/ui/views/dashboard/tabbar_view.dart';
 import 'package:bumaco_aios/ui/views/home/c_product_view.dart';
 import 'package:bumaco_aios/ui/views/views.dart';
+import 'package:bumaco_aios/ui/widgets/widgets.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:transparent_image/transparent_image.dart';
 import 'package:velocity_x/velocity_x.dart';
@@ -67,44 +69,33 @@ class SettingView extends StatelessWidget {
                 Container(
                   width: 100,
                   height: 100,
-                  padding: EdgeInsets.all(10),
-                  child: ClipOval(
-                    // borderRadius: BorderRadius.all(Radius.circular(0)),
-                    child: FadeInImage.memoryNetwork(
-                      placeholder: kTransparentImage,
-                      image: googleProfilePic.toString().contains('https')
-                          ? googleProfilePic
-                          : ApiConstants.baseImageUrl + googleProfilePic,
-                      fit: BoxFit.cover,
+                  margin: EdgeInsets.all(10),
+                  child: ClipRRect(
+                    child: InkWell(
+                      onTap: () {
+                        Get.to(() => ProfileUI2());
+                      },
+                      child: CachedNetworkImage(
+                        imageUrl: googleProfilePic.toString().contains('https')
+                            ? googleProfilePic
+                            : ApiConstants.baseImageUrl + googleProfilePic,
+                        placeholder: (context, url) => AppLogoWidget(),
+                        errorWidget: (context, url, error) => Icon(Icons.error),
+                        fit: BoxFit.cover,
+                      ),
                     ),
                   ),
                   decoration: BoxDecoration(
-                    color: Colors.transparent,
-                    borderRadius: BorderRadius.all(Radius.circular(0)),
+                    color: kPrimaryColor,
+                    borderRadius: BorderRadius.all(Radius.circular(1)),
                   ),
                 ),
-                // Container(
-                //   width: 100,
-                //   height: 100,
-                //   padding: EdgeInsets.all(10),
-                //   child: ClipRRect(
-                //     borderRadius: BorderRadius.all(Radius.circular(0)),
-                //     child: Image(
-                //       image: Image.asset(img_mask5).image,
-                //       fit: BoxFit.cover,
-                //     ),
-                //   ),
-                //   decoration: BoxDecoration(
-                //     color: Colors.transparent,
-                //     borderRadius: BorderRadius.all(Radius.circular(0)),
-                //   ),
-                // ),
               ],
             ),
           ),
-          SizedBox(height: 32),
+          SizedBox(height: 24),
 
-          Divider(height: 1),
+          VxDivider(),
           SimpleBuilder(
             builder: (_) => SwitchListTile(
                 value: _settingsController.isNotification,
@@ -128,7 +119,7 @@ class SettingView extends StatelessWidget {
               trailing: Icon(Icons.arrow_forward_ios_rounded),
               title: 'profile'.tr.text.make(),
               onTap: () => {
-                // Get.toNamed(profileRoute),
+                Get.toNamed(profileRoute),
               },
             ),
           ),
@@ -218,7 +209,7 @@ class SettingView extends StatelessWidget {
               onTap: () => {
                 getStorage.write(BOX_IS_LOGGEDIN, false),
                 Get.offAllNamed(landingRoute),
-                SigninController.to.handleSignOut()
+                SigninController.to.handleSignOut(context)
               },
             ),
           ),

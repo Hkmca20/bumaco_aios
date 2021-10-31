@@ -5,7 +5,6 @@ import 'package:bumaco_aios/app_core/db/entity/favorite_entity.dart';
 import 'package:bumaco_aios/app_core/models/models.dart';
 import 'package:bumaco_aios/app_core/repository/product_repo.dart';
 import 'package:bumaco_aios/app_utils/utils.dart';
-import 'package:bumaco_aios/ui/onboard/model/onboard_info.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -19,11 +18,11 @@ class ProductController extends GetxController with StateMixin, ScrollMixin {
   var productList = <ProductModel>[].obs;
   var allProductList = <ProductModel>[].obs;
   late ProductRepository productRepository;
-  late ScrollController scrollController = ScrollController();
+  ScrollController scrollController = ScrollController();
   var currIndex = 0.obs;
   bool get isLastPage => currIndex.value == bannerList.length - 1;
   var pageController = PageController();
-  List<BannerItem> bannerList = [];
+  List<BannerModel> bannerList = [];
   // late Timer _timer;
 
   void timerCallback(Timer timer) {
@@ -45,64 +44,52 @@ class ProductController extends GetxController with StateMixin, ScrollMixin {
 
   _addItemToList() {
     bannerList.add(
-      BannerItem(
-          'https://brandhype.co.in/bumaco/uploads/20210930100936_4655011.jpg',
-          'Makeup A',
-          'Descrip A'),
+      BannerModel(
+          image: '20210930100936_4655011.jpg',
+          bannertext: 'Makeup A',
+          category: 'Descrip A'),
     );
     bannerList.add(
-      BannerItem(
-          'https://brandhype.co.in/bumaco/uploads/20210921100958_123815.jpg',
-          'Makeup B',
-          'Descrip B'),
+      BannerModel(
+          image: '20210921100958_123815.jpg',
+          bannertext: 'Makeup B',
+          category: 'Descrip B'),
     );
     bannerList.add(
-      BannerItem(
-          'https://brandhype.co.in/bumaco/uploads/20210921100958_566827.jpg',
-          'Makeup C',
-          'Descrip C'),
+      BannerModel(
+          image: '20210921100958_566827.jpg',
+          bannertext: 'Makeup C',
+          category: 'Descrip C'),
     );
     bannerList.add(
-      BannerItem(
-          'https://brandhype.co.in/bumaco/uploads/20210921090902_637035.jpg',
-          'Makeup D',
-          'Descrip D'),
+      BannerModel(
+          image: '20210921090902_637035.jpg',
+          bannertext: 'Makeup D',
+          category: 'Descrip D'),
     );
     bannerList.add(
-      BannerItem(
-          'https://brandhype.co.in/bumaco/uploads/20210921090917_488404.jpg',
-          'Makeup E',
-          'Descrip E'),
+      BannerModel(
+          image: '20210921090917_488404.jpg',
+          bannertext: 'Makeup E',
+          category: 'Descrip E'),
     );
     bannerList.add(
-      BannerItem(
-          'https://brandhype.co.in/bumaco/uploads/20210921090902_513258.jpg',
-          'Makeup F',
-          'Descrip F'),
+      BannerModel(
+          image: '20210921090902_513258.jpg',
+          bannertext: 'Makeup F',
+          category: 'Descrip F'),
     );
     bannerList.add(
-      BannerItem(
-          'https://brandhype.co.in/bumaco/uploads/20210921080915_492297.jpg',
-          'Makeup G',
-          'Descrip G'),
+      BannerModel(
+          image: '20210921080915_492297.jpg',
+          bannertext: 'Makeup G',
+          category: 'Descrip G'),
     );
     bannerList.add(
-      BannerItem(
-          'https://brandhype.co.in/bumaco/uploads/20210930100936_4655011.jpg',
-          'Makeup H',
-          'Descrip H'),
-    );
-    bannerList.add(
-      BannerItem(
-          'https://brandhype.co.in/bumaco/uploads/20210930100936_4655011.jpg',
-          'Makeup I',
-          'Descrip I'),
-    );
-    bannerList.add(
-      BannerItem(
-          'https://brandhype.co.in/bumaco/uploads/20210930100936_4655011.jpg',
-          'Makeup J',
-          'Descrip J'),
+      BannerModel(
+          image: '20210930100936_4655011.jpg',
+          bannertext: 'Makeup H',
+          category: 'Descrip H'),
     );
   }
 
@@ -112,8 +99,13 @@ class ProductController extends GetxController with StateMixin, ScrollMixin {
     fetchProductsById(categoryId);
   }
 
+  var categoryItem = CategoryModel(id: '0', category: 'Product List');
+
   @override
   void onInit() {
+    if (Get.arguments != null) {
+      categoryItem = Get.arguments['arg_category_item'];
+    }
     productRepository = Get.put(ProductRepositoryImpl());
     // addScrollListener();
     fetchAllProducts();
@@ -124,10 +116,10 @@ class ProductController extends GetxController with StateMixin, ScrollMixin {
 
   @override
   void onClose() {
-    // _timer.cancel();
     scrollController.removeListener(() {
-      print('product scrollControl removed');
+      print('product scrollControl removed------');
     });
+    scrollController.dispose();
     super.onClose();
   }
 

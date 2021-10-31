@@ -9,14 +9,17 @@ import 'package:bumaco_aios/ui/controller/controllers.dart';
 import 'package:bumaco_aios/ui/views/home/banners/cbanner_home.dart';
 import 'package:bumaco_aios/ui/views/home/item_widget_11.dart';
 import 'package:bumaco_aios/ui/views/search/search_view.dart';
+import 'package:bumaco_aios/ui/widgets/cproduct_card.dart';
 import 'package:bumaco_aios/ui/widgets/widgets.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:velocity_x/velocity_x.dart';
 
 import '../checkout/bucket_view.dart';
 import 'banners/a_t_obanner.dart';
+import 'banners/carousel/banner_carousel.dart';
 import 'favourite_view.dart';
 
 class A9GateCategory extends StatelessWidget {
@@ -45,6 +48,7 @@ class HomeBaView extends StatelessWidget {
   final homeController = HomeController.to;
   // final bController = Get.find<BucketController>();
   final bController = BucketController.to;
+  final pController = ProductController.to;
   final cController = CategoryController.to;
   final box = GetStorage(BOX_APP);
 
@@ -150,9 +154,17 @@ class HomeBaView extends StatelessWidget {
               constraints: BoxConstraints(),
               child: Column(
                 children: [
-                  SizedBox(height: 60),
+                  SizedBox(height: 50),
                   // createDrawerHeader(),
-                  'BEAUTY GATE'.text.size(20).bold.make(),
+                  HStack([
+                    ImageIcon(AssetImage(logo100Path)).p4(),
+                    Obx(
+                      () => homeController.selectedCountry.value.text
+                          .size(24)
+                          .make()
+                          .p4(),
+                    ),
+                  ]),
                   // homeController.getSelectedGate().text.size(20).bold.make(),
                   Obx(
                     () => cController.isLoading.isTrue
@@ -601,22 +613,6 @@ class HomeBaView extends StatelessWidget {
                       // Divider(),
                       // SizedBox(height: 4), //--------------------------
                       // SectionTile(title: 'new_category'.tr),
-                      // CarouselSlider(
-                      //   options: CarouselOptions(
-                      //       autoPlay: true,
-                      //       aspectRatio: 2.0,
-                      //       viewportFraction: 1.0,
-                      //       autoPlayAnimationDuration: Duration(milliseconds: 2000),
-                      //       autoPlayInterval: Duration(milliseconds: 5000),
-                      //       enlargeCenterPage: true,
-                      //       enlargeStrategy: CenterPageEnlargeStrategy.height,
-                      //       enableInfiniteScroll: true),
-                      //   items: bannerController.sliderList
-                      //       .map((element) => HeroCarouselCard11(
-                      //             category: element,
-                      //           ))
-                      //       .toList(),
-                      // ),
                       //Ends carousel here-------------------------
 
                       // Divider(),
@@ -698,78 +694,31 @@ class HomeBaView extends StatelessWidget {
                       // SizedBox(height: 10), //--------------------------
                       // SectionTile(title: 'popular_products'.tr),
                       // Divider(),
-                      // SizedBox(height: 10), //--------------------------
-                      // SectionTile(title: 'trending_products'.tr),
-                      // Container(
-                      //   child: GridView.count(
-                      //     crossAxisCount: 2,
-                      //     shrinkWrap: true,
-                      //     physics: NeverScrollableScrollPhysics(),
-                      //     padding: EdgeInsets.only(top: 8, left: 8, right: 8),
-                      //     children: List.generate(
-                      //         productController.allProductList.length, (index) {
-                      //       final item =
-                      //           productController.allProductList[index];
-                      //       return Container(
-                      //         child: Card(
-                      //           clipBehavior: Clip.antiAlias,
-                      //           child: InkWell(
-                      //               onTap: () {
-                      //                 print('----card onClick event');
-                      //                 // mBanner(
-                      //                 //     context: context,
-                      //                 //     title: 'Brand: ' + item.brand,);
-                      //               },
-                      //               child: Column(
-                      //                 crossAxisAlignment:
-                      //                     CrossAxisAlignment.start,
-                      //                 children: [
-                      //                   Flexible(
-                      //                       child: Container(
-                      //                     height: double.infinity,
-                      //                     width: double.infinity,
-                      //                     decoration: BoxDecoration(
-                      //                         image: DecorationImage(
-                      //                             image: NetworkImage(
-                      //                                 ApiConstants
-                      //                                         .baseImageUrl +
-                      //                                     item.fimage),
-                      //                             fit: BoxFit.cover)),
-                      //                   )),
-                      //                   item.product.text.capitalize
-                      //                       .size(16)
-                      //                       .fontWeight(FontWeight.w900)
-                      //                       .make()
-                      //                       .p2(),
-                      //                   (item.shortDescription +
-                      //                           ' (\$' +
-                      //                           item.mrp +
-                      //                           ')')
-                      //                       .text
-                      //                       .capitalize
-                      //                       .size(12)
-                      //                       .fontWeight(FontWeight.w700)
-                      //                       .make()
-                      //                       .p2(),
-                      //                   TextButton(
-                      //                     onPressed: () {
-                      //                       bController.insertBucket(item);
-                      //                     },
-                      //                     child: 'add_to_cart'
-                      //                         .tr
-                      //                         .text
-                      //                         .amber700
-                      //                         .make()
-                      //                         .centered(),
-                      //                   ),
-                      //                 ],
-                      //               )),
-                      //         ),
-                      //       );
-                      //     }),
-                      //   ),
-                      // ),
-
+                      SizedBox(height: 10), //--------------------------
+                      SectionTile(title: 'trending_products'.tr),
+                      Container(
+                        child: StaggeredGridView.count(
+                          crossAxisCount: 2,
+                          mainAxisSpacing: 4.0,
+                          crossAxisSpacing: 4.0,
+                          shrinkWrap: true,
+                          physics: NeverScrollableScrollPhysics(),
+                          staggeredTiles: List.generate(
+                              pController.allProductList.length, (index) {
+                            return StaggeredTile.fit(1);
+                          }),
+                          padding: EdgeInsets.only(top: 8, left: 8, right: 8),
+                          children: List.generate(
+                              pController.allProductList.length, (index) {
+                            final item = pController.allProductList[index];
+                            return CProductTile(
+                                prod: item,
+                                bController: bController,
+                                pController: pController);
+                          }),
+                        ),
+                      ),
+                      Divider(),
                       SizedBox(height: 100), //--------------------------
                     ]),
                   ),

@@ -3,9 +3,10 @@ import 'dart:async';
 import 'package:bumaco_aios/app_core/models/models.dart';
 import 'package:bumaco_aios/app_utils/app_const.dart';
 import 'package:bumaco_aios/app_utils/utils.dart';
+import 'package:bumaco_aios/ui/widgets/app_logo_widget.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:transparent_image/transparent_image.dart';
 
 class CBannerHomeWidget extends StatefulWidget {
   CBannerHomeWidget({
@@ -31,7 +32,7 @@ class CBannerHomeWidget extends StatefulWidget {
 }
 
 var _curIndex = 0;
-final _pageController = PageController();
+late PageController _pageController;
 late Timer _timer;
 
 class _CBannerHomeWidgetState extends State<CBannerHomeWidget>
@@ -57,8 +58,10 @@ class _CBannerHomeWidgetState extends State<CBannerHomeWidget>
   void initState() {
     super.initState();
     print("------>initState");
-    if (widget.bannerList!.length > 1 && widget.autoscroll) {
-      _initTimer();
+    _pageController = PageController();
+    _initTimer();
+    if (!widget.autoscroll) {
+      _timer.cancel();
     }
     // Add the observer.
     WidgetsBinding.instance!.addObserver(this);
@@ -70,16 +73,16 @@ class _CBannerHomeWidgetState extends State<CBannerHomeWidget>
     print('------>AppLifecycleState: $state');
     switch (state) {
       case AppLifecycleState.resumed:
-        if (widget.bannerList!.length > 1 && widget.autoscroll) {
+        if (widget.autoscroll) {
           _initTimer();
         }
         break;
       case AppLifecycleState.inactive:
         break;
       case AppLifecycleState.paused:
-        if (widget.bannerList!.length > 1 && widget.autoscroll) {
-          _timer.cancel();
-        }
+        // if (widget.autoscroll) {
+        _timer.cancel();
+        // }
         break;
       case AppLifecycleState.detached:
         break;
@@ -88,8 +91,8 @@ class _CBannerHomeWidgetState extends State<CBannerHomeWidget>
 
   @override
   void dispose() {
-    WidgetsBinding.instance!.removeObserver(this);
     print('------>dispose()');
+    _pageController.dispose();
     // Remove the observer
     WidgetsBinding.instance!.removeObserver(this);
     super.dispose();
@@ -104,78 +107,91 @@ class _CBannerHomeWidgetState extends State<CBannerHomeWidget>
   @override
   Widget build(BuildContext context) {
     var length = widget.bannerList!.length;
-    return Stack(
-      alignment: Alignment.bottomCenter,
-      children: [
-        Container(
-          height: widget.bannerHeight,
-          child: PageView.builder(
-            controller: _pageController,
-            onPageChanged: (index) {
-              print('currentIndex----------$_curIndex');
-              if (index == 0) {
-                _curIndex = length;
-              } else {
-                _curIndex = index;
-              }
-              setState(() {});
-            },
-            itemBuilder: (context, index) {
-              final item = widget.bannerList![index % length];
-              return GestureDetector(
-                onPanDown: (details) {
-                  if (widget.bannerList!.length > 1 && widget.autoscroll) {
-                    _cancelTimer();
-                    _initTimer();
-                  }
-                },
-                onTap: () {
-                  Get.toNamed(productRoute, arguments: {
-                    'arg_category_item': CategoryModel(category: item.category)
-                  });
-                },
-                child: Container(
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.all(Radius.circular(0)),
-                    child: FadeInImage.memoryNetwork(
-                      placeholder: kTransparentImage,
-                      image: item.image.contains('https')
-                          ? item.image
-                          : ApiConstants.baseImageUrl + item.image,
-                      fit: widget.fitImage,
+    if (length == 0) {
+      return Container();
+    } else
+      return Stack(
+        alignment: Alignment.bottomCenter,
+        children: [
+          Container(
+            height: widget.bannerHeight,
+            child: PageView.builder(
+              controller: _pageController,
+              onPageChanged: (index) {
+                print('currentIndex----------$_curIndex');
+                if (index == 0) {
+                  _curIndex = length;
+                } else {
+                  _curIndex = index;
+                }
+                setState(() {});
+              },
+              itemBuilder: (context, index) {
+                final item = widget.bannerList![index % length];
+                return GestureDetector(
+                  onPanDown: (details) {
+                    if (widget.autoscroll) {
+                      _cancelTimer();
+                      _initTimer();
+                    }
+                  },
+                  onTap: () {
+                    Get.toNamed(productRoute, arguments: {
+                      'arg_category_item':
+                          CategoryModel(category: item.category)
+                    });
+                  },
+                  child: Container(
+                    child: ClipRRect(
+                        borderRadius: BorderRadius.all(Radius.circular(0)),
+                        child: CachedNetworkImage(
+                          imageUrl: item.image.contains('https')
+                              ? item.image
+                              : ApiConstants.baseImageUrl + item.image,
+                          fit: widget.fitImage,
+                          placeholder: (context, url) => AppLogoWidget(),
+                          errorWidget: (context, url, error) =>
+                              Icon(Icons.error),
+                        )
+                        // FadeInImage.memoryNetwork(
+                        //   placeholder: kTransparentImage,
+                        //   image: item.image.contains('https')
+                        //       ? item.image
+                        //       : ApiConstants.baseImageUrl + item.image,
+                        //   fit: widget.fitImage,
+                        // ),
+                        ),
+                    decoration: BoxDecoration(
+                      color: Colors.transparent,
+                      borderRadius: BorderRadius.all(Radius.circular(0)),
                     ),
                   ),
-                  decoration: BoxDecoration(
-                    color: Colors.transparent,
-                    borderRadius: BorderRadius.all(Radius.circular(0)),
-                  ),
-                ),
-              );
-            },
+                );
+              },
+            ),
           ),
-        ),
-        widget.bannerList!.length > 1
-            ? Positioned(
-                bottom: 5,
-                child: Row(
-                  children: widget.bannerList!.map((s) {
-                    return Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 3.0),
-                      child: ClipOval(
-                        child: Container(
-                          width: 8,
-                          height: 8,
-                          color: s == widget.bannerList![_curIndex % length]
-                              ? kPrimaryColor
-                              : Colors.grey,
+          widget.bannerList!.length > 1
+              ? Positioned(
+                  bottom: 5,
+                  child: Row(
+                    children: widget.bannerList!.map((s) {
+                      return Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 3.0),
+                        child: ClipOval(
+                          child: Container(
+                            width: 8,
+                            height: 8,
+                            color: s == widget.bannerList![_curIndex % length]
+                                ? kPrimaryColor
+                                : Colors.grey,
+                          ),
                         ),
-                      ),
-                    );
-                  }).toList(),
-                ),
-              )
-            : Container(),
-      ],
-    );
+                      );
+                    }).toList(),
+                  ),
+                )
+              : Container(),
+        ],
+      );
   }
 }

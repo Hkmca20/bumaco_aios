@@ -38,7 +38,35 @@ class FavouriteView extends StatelessWidget {
           //     tooltip: 'grid_item'.tr,
           //     icon: Icon(Icons.grid_view_outlined)),
           IconButton(
-            icon: Icon(Icons.shopping_bag_outlined),
+            icon: Obx(
+              () => bucketController.bucketList.length == 0
+                  ? Icon(Icons.shopping_bag_outlined)
+                  : Stack(children: [
+                      Positioned(
+                        top: 5.0,
+                        right: 5.0,
+                        child: Icon(Icons.shopping_bag_outlined),
+                      ),
+                      Positioned(
+                        top: -1.0,
+                        right: -1.0,
+                        child: Icon(
+                          Icons.brightness_1_rounded,
+                          size: 17.0,
+                          color: kPrimaryColor,
+                        ),
+                      ),
+                      Positioned(
+                        top: 1.0,
+                        right: 4.0,
+                        child: bucketController.bucketList.length.text
+                            .size(11)
+                            .white
+                            .make()
+                            .centered(),
+                      ),
+                    ]),
+            ),
             tooltip: 'view_cart_item'.tr,
             onPressed: () {
               Get.back();
@@ -56,7 +84,6 @@ class FavouriteView extends StatelessWidget {
                 () => productController.favouriteList.length == 0
                     ? EmptyContentWidget()
                     : StaggeredGridView.countBuilder(
-                        controller: productController.scrollController,
                         crossAxisCount: productController.columnCount.value,
                         crossAxisSpacing: 4,
                         mainAxisSpacing: 4,

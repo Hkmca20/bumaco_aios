@@ -23,7 +23,7 @@ class CustomBannerWidget extends StatelessWidget {
           final item = _controller.bannerList[index];
           return GestureDetector(
             onTap: () {
-              bumacoSnackbar('On click', item.title);
+              bumacoSnackbar('On click', item.category);
             },
             child: Container(
               child: Column(
@@ -34,7 +34,7 @@ class CustomBannerWidget extends StatelessWidget {
                       borderRadius: BorderRadius.all(Radius.circular(4)),
                       child: FadeInImage.memoryNetwork(
                         placeholder: kTransparentImage,
-                        image: item.imgUrl,
+                        image: item.image,
                         fit: BoxFit.cover,
                       ),
                     ),

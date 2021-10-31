@@ -4,6 +4,7 @@ import 'package:bumaco_aios/app_utils/app_const.dart';
 import 'package:bumaco_aios/ui/controller/banner_controller.dart';
 import 'package:bumaco_aios/ui/controller/controllers.dart';
 import 'package:bumaco_aios/ui/controller/locale_controller.dart';
+import 'package:bumaco_aios/ui/controller/profile_controller.dart';
 import 'package:bumaco_aios/ui/controller/signin_controller.dart';
 import 'package:bumaco_aios/ui/controller/otp_controller.dart';
 import 'package:bumaco_aios/ui/controller/splash_controller.dart';
@@ -45,7 +46,8 @@ class AppBinding implements Bindings {
         fenix: true, tag: C_CATEGORY_CONTROLLER);
     Get.lazyPut(() => SubCategoryController(),
         fenix: true, tag: S_CATEGORY_CONTROLLER);
-        
+    Get.lazyPut(() => ProfileController(), fenix: true);
+
     Get.lazyPut(() => BannerRepoImpl(), fenix: true);
   }
 }

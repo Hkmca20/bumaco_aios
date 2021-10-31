@@ -47,21 +47,21 @@
 	<key>NSLocationAlwaysUsageDescription</key>
 	<string>This app requires access to your location for deliver goods.</string>
 
-<!-- Google Sign-in Section -->
-<key>CFBundleURLTypes</key>
-<array>
-	<dict>
-		<key>CFBundleTypeRole</key>
-		<string>Editor</string>
-		<key>CFBundleURLSchemes</key>
-		<array>
-			<!-- TODO Replace this value: -->
-			<!-- Copied from GoogleService-Info.plist key REVERSED_CLIENT_ID -->
-			<string>com.googleusercontent.apps.758677051271-5p8ensrbijvsir54m4qgr9p8pb9v2590</string>
-		</array>
-	</dict>
-</array>
-<!-- End of the Google Sign-in Section -->
+	<!-- Google Sign-in Section -->
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<!-- TODO Replace this value: -->
+				<!-- Copied from GoogleService-Info.plist key REVERSED_CLIENT_ID -->
+				<string>com.googleusercontent.apps.758677051271-5p8ensrbijvsir54m4qgr9p8pb9v2590</string>
+			</array>
+		</dict>
+	</array>
+	<!-- End of the Google Sign-in Section -->
 
 	<false/>	
 </dict>
