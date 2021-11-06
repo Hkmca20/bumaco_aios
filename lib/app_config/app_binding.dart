@@ -47,6 +47,7 @@ class AppBinding implements Bindings {
     Get.lazyPut(() => SubCategoryController(),
         fenix: true, tag: S_CATEGORY_CONTROLLER);
     Get.lazyPut(() => ProfileController(), fenix: true);
+    Get.lazyPut(() => FilterController(), fenix: true);
 
     Get.lazyPut(() => BannerRepoImpl(), fenix: true);
   }

@@ -24,16 +24,16 @@ class SplashState extends State<SplashView>
   void initState() {
     super.initState();
     _animController = AnimationController(
-        vsync: this, duration: Duration(milliseconds: 2500));
+        vsync: this, duration: Duration(milliseconds: 2000));
     _animController.addListener(() {
       if (_animController.status == AnimationStatus.completed) {
         print('Controller completed task-----');
       }
     });
-    _animColor = ColorTween(begin: Colors.blue, end: Colors.yellow)
+    _animColor = ColorTween(begin: Colors.blue, end: Colors.white)
         .animate(_animController);
     _animSize =
-        Tween<double>(begin: 100.0, end: 200.0).animate(_animController);
+        Tween<double>(begin: 100.0, end: 150.0).animate(_animController);
     _animOpacity = Tween<double>(begin: 0.0, end: 1.0).animate(_animController);
 
     // Rebuilding the screen when animation goes ahead
@@ -132,7 +132,7 @@ class SplashState extends State<SplashView>
             Padding(padding: EdgeInsets.only(top: 20.0)),
             CircularProgressIndicator(
               color: kGreyLightColor,
-              backgroundColor: Colors.white,
+              backgroundColor: kWhiteColor,
               strokeWidth: 1,
             )
           ],

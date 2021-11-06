@@ -8,6 +8,7 @@ import 'package:bumaco_aios/ui/controller/banner_controller.dart';
 import 'package:bumaco_aios/ui/controller/controllers.dart';
 import 'package:bumaco_aios/ui/views/home/banners/cbanner_home.dart';
 import 'package:bumaco_aios/ui/views/home/item_widget_11.dart';
+import 'package:bumaco_aios/ui/views/search/csearch_view.dart';
 import 'package:bumaco_aios/ui/views/search/search_view.dart';
 import 'package:bumaco_aios/ui/widgets/cproduct_card.dart';
 import 'package:bumaco_aios/ui/widgets/widgets.dart';
@@ -105,42 +106,24 @@ class HomeBaView extends StatelessWidget {
           title: 'app_title'.tr,
           actionList: [
             IconButton(
-              icon: Icon(Icons.favorite_border_outlined),
+              icon: Obx(() => pController.favouriteList.length == 0
+                  ? Icon(Icons.favorite_border_outlined)
+                  : Icon(Icons.favorite_border_outlined).p4().badge(
+                      count: pController.favouriteList.length,
+                      color: kPrimaryColor,
+                      size: 12)),
               tooltip: 'wishlist'.tr,
               onPressed: () {
                 Get.to(() => FavouriteView());
               },
             ), //IconBnButton
             IconButton(
-              icon: Obx(
-                () => bController.bucketList.length == 0
-                    ? Icon(Icons.shopping_bag_outlined)
-                    : Stack(children: [
-                        Positioned(
-                          top: 5.0,
-                          right: 5.0,
-                          child: Icon(Icons.shopping_bag_outlined),
-                        ),
-                        Positioned(
-                          top: -1.0,
-                          right: -1.0,
-                          child: Icon(
-                            Icons.brightness_1_rounded,
-                            size: 17.0,
-                            color: kPrimaryColor,
-                          ),
-                        ),
-                        Positioned(
-                          top: 1.0,
-                          right: 4.0,
-                          child: Obx(() => bController.bucketList.length.text
-                              .size(11)
-                              .white
-                              .make()
-                              .centered()),
-                        ),
-                      ]),
-              ),
+              icon: Obx(() => bController.bucketList.length == 0
+                  ? Icon(Icons.shopping_bag_outlined)
+                  : Icon(Icons.shopping_bag_outlined).p4().badge(
+                      count: bController.bucketList.length,
+                      color: kPrimaryColor,
+                      size: 12)),
               tooltip: 'view_cart_item'.tr,
               onPressed: () {
                 Get.to(() => BucketView());
@@ -294,7 +277,7 @@ class HomeBaView extends StatelessWidget {
                         padding: EdgeInsets.all(12),
                         child: InkWell(
                           onTap: () {
-                            Get.to(() => SearchView());
+                            Get.to(() => CSearchView());
                           },
                           // child: Container(color: kPrimaryColor,),
                           child: TextFormField(
@@ -304,7 +287,7 @@ class HomeBaView extends StatelessWidget {
                                 fillColor: Colors.black.withOpacity(0.1),
                                 filled: true,
                                 prefixIcon: Icon(Icons.search),
-                                hintText: 'Search on Bumaco',
+                                hintText: 'Search on 9Gates',
                                 hintStyle: Theme.of(context)
                                     .textTheme
                                     .headline6!

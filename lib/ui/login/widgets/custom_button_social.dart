@@ -1,5 +1,6 @@
 import 'package:bumaco_aios/app_utils/app_const.dart';
 import 'package:flutter/material.dart';
+import 'package:velocity_x/velocity_x.dart';
 
 class CustomButtonSocial extends StatelessWidget {
   final String text;
@@ -30,13 +31,7 @@ class CustomButtonSocial extends StatelessWidget {
         children: [
           Image.asset(imageName),
           SizedBox(width: 10),
-          Text(
-            text,
-            style: TextStyle(
-                fontSize: 16,
-                color: kBlackColor,
-                fontWeight: FontWeight.normal),
-          ),
+          text.text.size(16).black.make(),
         ],
       ),
     );

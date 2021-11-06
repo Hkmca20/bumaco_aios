@@ -4,7 +4,7 @@ import 'package:bumaco_aios/app_utils/utils.dart';
 import 'package:bumaco_aios/ui/controller/controllers.dart';
 import 'package:bumaco_aios/ui/views/home/banners/a_t_banner.dart';
 import 'package:bumaco_aios/ui/views/home/item_avatar.dart';
-import 'package:bumaco_aios/ui/views/home/search_delegate.dart';
+import 'package:bumaco_aios/ui/views/search/search_delegate.dart';
 import 'package:bumaco_aios/ui/views/search/search_view.dart';
 import 'package:bumaco_aios/ui/widgets/hero_carousel_card1.dart';
 import 'package:bumaco_aios/ui/widgets/widgets.dart';

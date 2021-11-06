@@ -39,7 +39,7 @@ class _OfferViewState extends State<OfferView> {
         width: MediaQuery.of(context).size.width,
         decoration: BoxDecoration(
           image: DecorationImage(
-            image: AssetImage("assets/images/bg_3.jpg"),
+            image: AssetImage(bg3),
             fit: BoxFit.cover,
           ),
         ),

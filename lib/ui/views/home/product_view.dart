@@ -18,13 +18,14 @@ import 'favourite_view.dart';
 import 'package:velocity_x/velocity_x.dart';
 
 class ProductView extends StatelessWidget {
-  const ProductView({Key? key}) : super(key: key);
+  ProductView({Key? key}) : super(key: key);
+  final productController = ProductController.to;
+  final bController = BucketController.to;
+  // final bucketController = Get.find<BucketController>();
+  final fController = Get.find<FilterController>();
 
   @override
   Widget build(BuildContext context) {
-    final productController = ProductController.to;
-    final bController = BucketController.to;
-    // final bucketController = Get.find<BucketController>();
     final _screenSize = MediaQuery.of(context).size;
 
     return Material(
@@ -40,14 +41,6 @@ class ProductView extends StatelessWidget {
                 Get.to(() => SearchView());
               },
             ),
-            IconButton(
-              icon: Icon(Icons.favorite_border_outlined),
-              tooltip: 'Wish List',
-              onPressed: () {
-                Get.to(() => FavouriteView());
-                // Get.toNamed(wishlistRoute);
-              },
-            ), //IconB
             // IconButton(
             //   onPressed: () {
             //     print(productController.columnCount);
@@ -61,35 +54,25 @@ class ProductView extends StatelessWidget {
             //       : Icons.grid_view_outlined)),
             // ),
             IconButton(
-              icon: Obx(
-                () => bController.bucketList.length == 0
-                    ? Icon(Icons.shopping_bag_outlined)
-                    : Stack(children: [
-                        Positioned(
-                          top: 5.0,
-                          right: 5.0,
-                          child: Icon(Icons.shopping_bag_outlined),
-                        ),
-                        Positioned(
-                          top: -1.0,
-                          right: -1.0,
-                          child: Icon(
-                            Icons.brightness_1_rounded,
-                            size: 17.0,
-                            color: kPrimaryColor,
-                          ),
-                        ),
-                        Positioned(
-                          top: 1.0,
-                          right: 4.0,
-                          child: bController.bucketList.length.text
-                              .size(11)
-                              .white
-                              .make()
-                              .centered(),
-                        ),
-                      ]),
-              ),
+              icon: Obx(() => productController.favouriteList.length == 0
+                  ? Icon(Icons.favorite_border_outlined)
+                  : Icon(Icons.favorite_border_outlined).p4().badge(
+                      count: productController.favouriteList.length,
+                      color: kPrimaryColor,
+                      size: 12)),
+              tooltip: 'wishlist'.tr,
+              onPressed: () {
+                Get.to(() => FavouriteView());
+                // Get.toNamed(wishlistRoute);
+              },
+            ), //IconBnButton
+            IconButton(
+              icon: Obx(() => bController.bucketList.length == 0
+                  ? Icon(Icons.shopping_bag_outlined)
+                  : Icon(Icons.shopping_bag_outlined).p4().badge(
+                      count: bController.bucketList.length,
+                      color: kPrimaryColor,
+                      size: 12)),
               tooltip: 'view_cart_item'.tr,
               onPressed: () {
                 Get.to(() => BucketView());
@@ -200,13 +183,20 @@ class ProductView extends StatelessWidget {
                   child: HStack(
                     [
                       InkWell(
-                        onTap: () {},
+                        onTap: () {
+                          showSortBottomSheet(context);
+                        },
                         child: HStack(
                           [
                             Icon(Icons.sort).p12(),
                             VStack([
                               'Sort By'.text.bold.make(),
-                              'Popularity'.text.size(12).make(),
+                              Obx(
+                                () => fController.selectedSortText.value.text
+                                    .size(12)
+                                    .make()
+                                    .p2(),
+                              ),
                             ]).p12(),
                           ],
                           alignment: MainAxisAlignment.start,
@@ -224,7 +214,19 @@ class ProductView extends StatelessWidget {
                         child: HStack([
                           Icon(Icons.center_focus_strong_outlined).p12(),
                           VStack([
-                            'Filter'.text.bold.make(),
+                            Obx(
+                              () => 'Filter'
+                                  .text
+                                  .bold
+                                  .make()
+                                  .badge(
+                                      color: productController
+                                              .sortFilterText.value.isEmpty
+                                          ? kTransparentColor
+                                          : kPrimaryColor,
+                                      size: 8)
+                                  .p2(),
+                            ),
                             'Apply Filters'.text.size(12).make(),
                           ]).p12(),
                         ]),
@@ -392,5 +394,71 @@ class ProductView extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  List<String> _items = [
+    'Popularity',
+    'Discount: High to Low',
+    'Price: Low to High',
+    'Price: High to Low',
+    'Customer Top Rated',
+    'New Arrivals'
+  ];
+
+  void showSortBottomSheet(context) {
+    showModalBottomSheet(
+        context: context,
+        builder: (context) {
+          return VStack([
+            VxDivider(
+              color: kGreyLightColor,
+              width: 3,
+              indent: 150,
+              endIndent: 150,
+            ).p8(),
+            'Sort By'.text.bold.size(24).make().p8(),
+            Container(
+              padding: EdgeInsets.all(8),
+              height: 280,
+              alignment: Alignment.center,
+              child: ListView.separated(
+                  itemCount: _items.length,
+                  separatorBuilder: (context, int) {
+                    return Divider();
+                  },
+                  itemBuilder: (context, index) {
+                    return GestureDetector(
+                        child: HStack([
+                          Expanded(
+                              child: _items[index]
+                                  .text
+                                  .size(16)
+                                  .fontWeight(FontWeight.w300)
+                                  .make()
+                                  .p4()),
+                          Obx(
+                            () => Radio(
+                                activeColor: kPrimaryColor,
+                                toggleable: true,
+                                value: index,
+                                groupValue: fController.selectedSortRadio.value,
+                                onChanged: (value) {
+                                  // print(
+                                  //     '------------${fController.selectedRadio.value}');
+                                  // fController.selectedRadio.value = value;
+                                  // int.parse(value.toString());
+                                }),
+                          ),
+                        ]),
+                        onTap: () {
+                          fController.selectedSortRadio.value = index;
+                          fController.selectedSortText.value = _items[index];
+                          productController.fetchAllProducts();
+                          Get.back();
+                        });
+                  }),
+            ),
+          ]);
+        });
   }
 }

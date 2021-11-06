@@ -1,13 +1,17 @@
 import 'dart:async';
+import 'dart:ui';
 
 import 'package:bumaco_aios/app_utils/app_const.dart';
 import 'package:bumaco_aios/app_utils/app_loading.dart';
+import 'package:bumaco_aios/app_utils/utils.dart';
+import 'package:bumaco_aios/ui/login/widgets/custom_button_social.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:velocity_x/velocity_x.dart';
 
 class SigninController extends GetxController {
   static SigninController get to => Get.find(tag: LOGIN_CONTROLLER);
@@ -126,5 +130,99 @@ class SigninController extends GetxController {
     //   await _auth.signInWithCredential(facebookAuthCredential).then((user) {
     //     saveUser(user);
     //   });
+  }
+
+  void loginPopupBottomSheet(context) {
+    showModalBottomSheet(
+        clipBehavior: Clip.antiAliasWithSaveLayer,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.vertical(top: Radius.circular(15)),
+          // BorderRadius.circular(15.0),
+        ),
+        context: context,
+        builder: (context) {
+          return VStack([
+            VxDivider(
+              color: kGreyLightColor,
+              width: 3,
+              indent: 150,
+              endIndent: 150,
+            ).p8(),
+            SizedBox(height: 10),
+            'Login or Register to proceed'
+                .text
+                .fontWeight(FontWeight.w600)
+                .size(16)
+                .make()
+                .p20(),
+            VStack([
+              loginButton(context),
+              SizedBox(height: 10),
+              googleButton(context),
+              SizedBox(height: 10),
+              // facebookButton(context),
+            ]),
+          ]);
+        });
+  }
+
+  loginButton(context) {
+    return Container(
+      margin: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+      width: MediaQuery.of(context).size.width - 40,
+      decoration: BoxDecoration(
+        color: kTransparentColor,
+        borderRadius: BorderRadius.circular(2),
+        boxShadow: [
+          BoxShadow(
+              blurRadius: 10, color: kPrimaryLightColor, offset: Offset(1, 3))
+        ],
+      ),
+      child: ElevatedButton(
+        child: 'signin_with_email_or_mobile'.tr.text.make().p4(),
+        onPressed: () {
+          Get.toNamed(loginRoute);
+        },
+      ),
+    ).centered();
+  }
+
+  googleButton(context) {
+    return Container(
+      margin: EdgeInsets.symmetric(horizontal: 20, vertical: 2),
+      decoration: BoxDecoration(
+          color: kTransparentColor,
+          borderRadius: BorderRadius.circular(1),
+          border: Border.all(
+            color: kGreyLightColor,
+            width: 0.5,
+          )),
+      child: CustomButtonSocial(
+        text: 'signin_with_google'.tr,
+        onPress: () {
+          googleSignInMethod(context);
+        },
+        imageName: iconGoogle,
+      ),
+    );
+  }
+
+  facebookButton(context) {
+    return Container(
+      margin: EdgeInsets.symmetric(horizontal: 10, vertical: 2),
+      decoration: BoxDecoration(
+          border: Border.all(
+        color: kGreyLightColor,
+        width: 0.5,
+      )),
+      child: CustomButtonSocial(
+        text: 'signin_with_facebook'.tr,
+        onPress: () {
+          bumacoSnackbar('alert'.tr, 'Working');
+          facebookSignInMethod();
+        },
+        imageName: iconFacebook,
+      ),
+    );
   }
 }

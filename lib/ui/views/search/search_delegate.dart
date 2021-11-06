@@ -15,7 +15,7 @@ List<CountryModel> countryModelList = <CountryModel>[
   CountryModel(name: 'United States of America', code: 'US')
 ];
 
-class CustomDelegate extends SearchDelegate<CountryModel> {
+class CustomDelegate<T> extends SearchDelegate<CountryModel> {
   List<CountryModel> data = countryModelList;
   CustomDelegate({
     String hintText = "Search here...",

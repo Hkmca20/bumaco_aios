@@ -55,7 +55,7 @@ class ProfileUI2 extends StatelessWidget {
                   backgroundColor: kWhiteColor.withOpacity(0.5),
                   backgroundImage: FadeInImage.memoryNetwork(
                           placeholder: kTransparentImage,
-                          image:  profileController.profilePhoto)
+                          image: profileController.profilePhoto)
                       .image,
                   // NetworkImage(profileController.profilePhoto),
                   radius: 60,
@@ -65,14 +65,15 @@ class ProfileUI2 extends StatelessWidget {
           ),
         ),
         SizedBox(height: 60),
-        Text(
-          profileController.nameCTR.text,
-          style: TextStyle(
-              fontSize: 25.0,
-              color: Colors.blueGrey,
-              letterSpacing: 2.0,
-              fontWeight: FontWeight.w400),
-        ),
+        (profileController.nameCTR.text == ''
+                ? 'Guest User'
+                : profileController.nameCTR.text)
+            .text
+            .size(25)
+            .color(Colors.blueGrey)
+            .letterSpacing(2)
+            .fontWeight(FontWeight.w400)
+            .make(),
         SizedBox(
           height: 10,
         ),
@@ -102,8 +103,6 @@ class ProfileUI2 extends StatelessWidget {
                   text: 'Miss',
                 ),
               ),
-              // Radio(
-              //     value: 0, groupValue: _value, onChanged: (value){_value =value;}),
             ),
             // Mr Radio
             Expanded(
@@ -117,8 +116,6 @@ class ProfileUI2 extends StatelessWidget {
                   text: 'Mr',
                 ),
               ),
-              // Radio(
-              //       value: 1, groupValue: _value, onChanged:  (value){_value =value;}),
             ),
             Expanded(flex: 4, child: SizedBox())
           ]),

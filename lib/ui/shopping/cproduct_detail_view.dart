@@ -1,4 +1,3 @@
-import 'dart:io';
 import 'dart:ui';
 
 import 'package:bumaco_aios/app_core/models/models.dart';
@@ -6,26 +5,17 @@ import 'package:bumaco_aios/app_utils/utils.dart';
 import 'package:bumaco_aios/ui/controller/bucket_controller.dart';
 import 'package:bumaco_aios/ui/controller/controllers.dart';
 import 'package:bumaco_aios/ui/gallery/gallery_view.dart';
-import 'package:bumaco_aios/ui/profile/hero_card.dart';
-import 'package:bumaco_aios/ui/shopping/model/product.dart';
 import 'package:bumaco_aios/ui/views/checkout/bucket_view.dart';
 import 'package:bumaco_aios/ui/views/dashboard/tabbar_view.dart';
-import 'package:bumaco_aios/ui/views/home/banners/cbanner.dart';
 import 'package:bumaco_aios/ui/views/home/favourite_view.dart';
 import 'package:bumaco_aios/ui/views/views.dart';
-import 'package:bumaco_aios/ui/widgets/chero_carousel_card.dart';
-import 'package:bumaco_aios/ui/widgets/hero_carousel_card.dart';
-import 'package:bumaco_aios/ui/widgets/section_tile.dart';
 import 'package:bumaco_aios/ui/widgets/star_rating.dart';
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:carousel_slider/carousel_slider.dart';
-import 'package:dio/dio.dart';
-import 'package:share/share.dart';
 import 'package:flutter/material.dart';
-import 'package:transparent_image/transparent_image.dart';
-import 'package:velocity_x/velocity_x.dart';
-import 'package:get/get.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
+import 'package:get/get.dart';
+import 'package:share/share.dart';
+import 'package:velocity_x/velocity_x.dart';
 
 class CProductDetailView extends StatefulWidget {
   CProductDetailView({Key? key}) : super(key: key);
@@ -68,42 +58,25 @@ class _CProductDetailViewState extends State<CProductDetailView> {
             },
           ),
           IconButton(
-            icon: Icon(Icons.favorite_border_outlined),
-            tooltip: 'Wish List',
+            icon: Obx(() => productController.favouriteList.length == 0
+                ? Icon(Icons.favorite_border_outlined)
+                : Icon(Icons.favorite_border_outlined).p4().badge(
+                    count: productController.favouriteList.length,
+                    color: kPrimaryColor,
+                    size: 12)),
+            tooltip: 'wishlist'.tr,
             onPressed: () {
               Get.to(() => FavouriteView());
+              // Get.toNamed(wishlistRoute);
             },
-          ), //IconB
+          ), //IconBnButton
           IconButton(
-            icon: Obx(
-              () => bController.bucketList.length == 0
-                  ? Icon(Icons.shopping_bag_outlined)
-                  : Stack(children: [
-                      Positioned(
-                        top: 5.0,
-                        right: 5.0,
-                        child: Icon(Icons.shopping_bag_outlined),
-                      ),
-                      Positioned(
-                        top: -1.0,
-                        right: -1.0,
-                        child: Icon(
-                          Icons.brightness_1_rounded,
-                          size: 17.0,
-                          color: kPrimaryColor,
-                        ),
-                      ),
-                      Positioned(
-                        top: 1.0,
-                        right: 4.0,
-                        child: bController.bucketList.length.text
-                            .size(11)
-                            .white
-                            .make()
-                            .centered(),
-                      ),
-                    ]),
-            ),
+            icon: Obx(() => bController.bucketList.length == 0
+                ? Icon(Icons.shopping_bag_outlined)
+                : Icon(Icons.shopping_bag_outlined).p4().badge(
+                    count: bController.bucketList.length,
+                    color: kPrimaryColor,
+                    size: 12)),
             tooltip: 'view_cart_item'.tr,
             onPressed: () {
               Get.to(() => BucketView());
@@ -290,18 +263,36 @@ class _CProductDetailViewState extends State<CProductDetailView> {
           padding: EdgeInsets.symmetric(horizontal: 20, vertical: 5),
           child: HStack([
             Expanded(
-              child: HStack([
-                Icon(Icons.policy_rounded, color: kPrimaryColor),
-                '100% Authentic'.text.make()
-              ], alignment: MainAxisAlignment.center),
+              child: GestureDetector(
+                onTap: () {
+                  IconData icon = Icons.point_of_sale_outlined;
+                  String title = '100% Authentic';
+                  String message =
+                      '100% Authentic, directly purchased from Nykaa Naturals.';
+                  openFullDialog(context, _screenSize, icon, title, message);
+                },
+                child: HStack([
+                  Icon(Icons.policy_rounded, color: kPrimaryColor),
+                  '100% Authentic'.text.make()
+                ], alignment: MainAxisAlignment.center),
+              ),
             ),
             Container(
                 height: 40, child: VerticalDivider(color: kDarkGreyColor)),
             Expanded(
-              child: HStack([
-                Icon(Icons.repeat_rounded, color: kPrimaryColor),
-                'Return Policy'.text.make()
-              ], alignment: MainAxisAlignment.center),
+              child: GestureDetector(
+                onTap: () {
+                  IconData icon = Icons.keyboard_return_outlined;
+                  String title = 'Easy Return Policy';
+                  String message =
+                      'Returns/replacements are accepted for unused products only in case of defects, damages during delivery, missing or wrong products delivered. Return requests can be raised on the \'My Order\' section within 15 days of delivery.';
+                  openFullDialog(context, _screenSize, icon, title, message);
+                },
+                child: HStack([
+                  Icon(Icons.repeat_rounded, color: kPrimaryColor),
+                  'Return Policy'.text.make()
+                ], alignment: MainAxisAlignment.center),
+              ),
             ),
           ]),
         ),
@@ -477,6 +468,59 @@ class _CProductDetailViewState extends State<CProductDetailView> {
               SizedBox(width: 10),
             ],
           ),
+        ),
+      ),
+    );
+  }
+
+  Future<dynamic> openFullDialog(BuildContext context, Size _screenSize,
+      IconData icon, String title, String message) {
+    return showDialog(
+      context: context,
+      barrierDismissible: false,
+      barrierColor: Colors.black87,
+      builder: (_) => Material(
+        type: MaterialType.transparency,
+        child: VStack(
+          [
+            Expanded(
+              flex: 4,
+              child: VStack(
+                [
+                  Icon(
+                    icon,
+                    size: 40,
+                    color: kPrimaryColor,
+                  ).centered().p8(),
+                  title.text.bold.white.center.size(24).make().centered().p8(),
+                  message.text.white.center.size(18).make().centered().p16(),
+                ],
+                alignment: MainAxisAlignment.center,
+              ),
+            ),
+            GestureDetector(
+              onTap: () {
+                Get.back();
+              },
+              child: Container(
+                width: _screenSize.width - 50,
+                margin: EdgeInsets.only(bottom: 20),
+                decoration: BoxDecoration(
+                    border: Border.all(width: 1, color: kWhiteColor),
+                    borderRadius: BorderRadius.all(Radius.circular(5.0))),
+                padding:
+                    EdgeInsets.symmetric(vertical: 10.0, horizontal: 100.0),
+                child: 'OK, GOT IT'
+                    .text
+                    .size(18)
+                    .white
+                    .align(TextAlign.center)
+                    .make()
+                    .expand(),
+              ),
+            ),
+          ],
+          crossAlignment: CrossAxisAlignment.center,
         ),
       ),
     );

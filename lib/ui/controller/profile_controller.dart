@@ -19,6 +19,9 @@ class ProfileController extends GetxController {
     dobCTR = TextEditingController();
 
     profilePhoto = getStorageStringValue(BOX_PROFILE_PHOTO);
+    if (profilePhoto == '')
+      profilePhoto =
+          'https://cdn.shopify.com/s/files/1/1338/0845/collections/lippie-pencil_grande.jpg?v=1512588769';
     nameCTR.text = getStorageStringValue(BOX_NAME).toString().toUpperCase();
     emailCTR.text = getStorageStringValue(BOX_EMAIL);
     mobileCTR.text = getStorageStringValue(BOX_MOBILE);

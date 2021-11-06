@@ -1,5 +1,7 @@
 import 'package:bumaco_aios/app_core/models/banner_model.dart';
 import 'package:bumaco_aios/app_utils/app_const.dart';
+import 'package:bumaco_aios/ui/widgets/app_logo_widget.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:transparent_image/transparent_image.dart';
@@ -29,18 +31,17 @@ class ATOBanner extends StatelessWidget {
                 padding: EdgeInsets.fromLTRB(10, 10, 10, 10),
                 child: Column(
                   children: <Widget>[
-                    // CachedNetworkImage(
-                    //   placeholder: (context, url) =>
-                    //       CircularProgressIndicator(),
-                    //   imageUrl: ApiConstants.baseImageUrl + item.bannerimage,
-                    // ),
                     Container(
                       child: ClipRRect(
                         borderRadius: BorderRadius.all(Radius.circular(0)),
-                        child: FadeInImage.memoryNetwork(
-                          placeholder: kTransparentImage,
-                          image: ApiConstants.baseImageUrl + item.image,
+                        child: CachedNetworkImage(
+                          imageUrl: ApiConstants.baseImageUrl + item.image,
+                          filterQuality: FilterQuality.medium,
+                          placeholderFadeInDuration: 1.seconds,
                           fit: BoxFit.cover,
+                          placeholder: (context, url) => AppLogoWidget(),
+                          errorWidget: (context, url, error) =>
+                              Icon(Icons.error),
                         ),
                       ),
                       decoration: BoxDecoration(
@@ -71,7 +72,7 @@ class ATOBanner extends StatelessWidget {
                       child: 'See All'.text.bold.white.size(16).make(),
                       color: Colors.green[600],
                       onPressed: () {
-                        Get.toNamed(childCategoryRoute,
+                        Get.toNamed(productRoute,
                             arguments: {'get_category': item});
                       },
                     ) //RaisedButton

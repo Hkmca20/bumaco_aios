@@ -1,5 +1,6 @@
 import 'package:bumaco_aios/app_utils/utils.dart';
 import 'package:bumaco_aios/ui/controller/controllers.dart';
+import 'package:bumaco_aios/ui/controller/signin_controller.dart';
 import 'package:bumaco_aios/ui/gallery/gallery_view.dart';
 import 'package:bumaco_aios/ui/profile/column_demo.dart';
 import 'package:bumaco_aios/ui/views/address/addresss_view.dart';
@@ -22,8 +23,8 @@ class SettingView extends StatelessWidget {
     final _settingsController = SettingsController.to;
     final _loaleController = LocaleController.to;
     final box = GetStorage(BOX_APP);
-    final googleProfileName = box.read(BOX_NAME) ?? 'hey\nHarry';
-    final googleEmail = box.read(BOX_EMAIL) ?? 'dummyeamail@gmail.com';
+    final googleProfileName = box.read(BOX_NAME) ?? 'hey\nGuest';
+    final googleEmail = box.read(BOX_EMAIL) ?? 'guest user';
     final googleProfilePic = box.read(BOX_PROFILE_PHOTO) ??
         'https://cdn.shopify.com/s/files/1/1338/0845/collections/lippie-pencil_grande.jpg?v=1512588769';
 
@@ -44,7 +45,6 @@ class SettingView extends StatelessWidget {
                       googleProfileName
                           .toString()
                           .text
-                          .capitalize
                           .size(22)
                           .fontWeight(FontWeight.w900)
                           .make(),
@@ -119,7 +119,10 @@ class SettingView extends StatelessWidget {
               trailing: Icon(Icons.arrow_forward_ios_rounded),
               title: 'profile'.tr.text.make(),
               onTap: () => {
-                Get.toNamed(profileRoute),
+                if (!getStorageBoolValue(BOX_IS_LOGGEDIN))
+                  Get.toNamed(profileRoute)
+                else
+                  SigninController.to.loginPopupBottomSheet(context),
               },
             ),
           ),

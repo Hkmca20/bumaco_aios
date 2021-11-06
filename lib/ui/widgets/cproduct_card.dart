@@ -4,16 +4,12 @@ import 'package:bumaco_aios/app_core/models/models.dart';
 import 'package:bumaco_aios/app_utils/utils.dart';
 import 'package:bumaco_aios/ui/controller/bucket_controller.dart';
 import 'package:bumaco_aios/ui/controller/product_controller.dart';
-import 'package:bumaco_aios/ui/rating/rating_view.dart';
 import 'package:bumaco_aios/ui/shopping/cproduct_detail_view.dart';
-import 'package:bumaco_aios/ui/shopping/product_detail_view.dart';
-import 'package:bumaco_aios/ui/shopping/product_detail_view1.dart';
 import 'package:bumaco_aios/ui/widgets/widgets.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:velocity_x/velocity_x.dart';
-import 'package:transparent_image/transparent_image.dart';
 
 import 'star_rating.dart';
 
@@ -121,14 +117,14 @@ class CProductTile extends StatelessWidget {
               //     .size(12)
               //     .make()
               //     .p12(),
-              prod.product.text.capitalize.ellipsis
+              prod.product.text.capitalize.ellipsis.bold
                   .maxLines(2)
                   .color(kGreyLightColor)
                   .size(12)
-                  .bold
                   .make()
                   .p12()
-                  .centered(),
+                  .centered()
+                  .h8(context),
               SizedBox(height: 4),
               '2pcs'
                   .text

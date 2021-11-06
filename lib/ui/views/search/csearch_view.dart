@@ -14,14 +14,9 @@ class RecentSearchInfo {
   RecentSearchInfo(this.title, this.backgroundColor);
 }
 
-class SearchView extends StatefulWidget {
-  const SearchView({Key? key}) : super(key: key);
+class CSearchView extends StatelessWidget {
+  CSearchView({Key? key}) : super(key: key);
 
-  @override
-  State<SearchView> createState() => _SearchViewState();
-}
-
-class _SearchViewState extends State<SearchView> {
   OutlineInputBorder oBorder = OutlineInputBorder(
     borderRadius: BorderRadius.circular(5),
     borderSide: BorderSide(color: kGreyLightColor),
@@ -46,9 +41,9 @@ class _SearchViewState extends State<SearchView> {
           IconButton(
             icon: Icon(Icons.search),
             tooltip: 'search'.tr,
-            onPressed: () {
+            onPressed: () async {
               final result =
-                  showSearch(context: context, delegate: SearchData());
+                  await showSearch(context: context, delegate: SearchData());
               print('------------SearchView2>' + result.toString());
             },
           ),
@@ -69,17 +64,17 @@ class _SearchViewState extends State<SearchView> {
         child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              searchTextField(),
+              searchTextField(context),
               SizedBox(height: 4),
               SectionTile(title: 'Recent Searches'),
-              recentSearchItems(),
+              recentSearchItems(context),
               Divider(),
             ]),
       ),
     );
   }
 
-  searchTextField() {
+  searchTextField(context) {
     return Container(
       height: 60,
       padding: EdgeInsets.all(12),
@@ -120,7 +115,7 @@ class _SearchViewState extends State<SearchView> {
     );
   }
 
-  recentSearchItems() {
+  recentSearchItems(context) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 24.0),
       child: Wrap(
@@ -141,12 +136,24 @@ class _SearchViewState extends State<SearchView> {
   }
 }
 
-final cityList = ['aaaaaa', 'bbbbbbbbbbb', 'cccccccc'];
+final cityList = ['aaxxaaaa', 'bbbbyybbbbbbb', 'cccczzcccc'];
 final recentCItyList = ['ddddddddddd', 'eeeeeeee', 'ffffffffff', 'ggggggggg'];
 
-class SearchData extends SearchDelegate<String> {
+class SearchData<T> extends SearchDelegate<String> {
+  // @override
+  // String get searchFieldLabel => 'My hint text';
+  SearchData({
+    String hintText = "Search here...",
+  }) : super(
+          searchFieldLabel: hintText,
+          keyboardType: TextInputType.text,
+          textInputAction: TextInputAction.search,
+          searchFieldStyle: TextStyle(
+            color: kPrimaryColor,
+          ),
+        );
   @override
-  List<Widget>? buildActions(BuildContext context) {
+  List<Widget> buildActions(BuildContext context) {
     return [
       IconButton(
           onPressed: () {
@@ -157,7 +164,7 @@ class SearchData extends SearchDelegate<String> {
   }
 
   @override
-  Widget? buildLeading(BuildContext context) {
+  Widget buildLeading(BuildContext context) {
     return IconButton(
       icon: AnimatedIcon(
           icon: AnimatedIcons.menu_arrow, progress: transitionAnimation),
@@ -183,7 +190,10 @@ class SearchData extends SearchDelegate<String> {
   Widget buildSuggestions(BuildContext context) {
     final suggestionList = query.isEmpty
         ? recentCItyList
-        : cityList.where((element) => element.startsWith(query)).toList();
+        : cityList
+            .where((element) =>
+                (element.contains(query) || element.startsWith(query)))
+            .toList();
 
     return ListView.builder(
         itemCount: suggestionList.length,
@@ -193,22 +203,17 @@ class SearchData extends SearchDelegate<String> {
               showResults(context);
             },
             leading: Icon(Icons.search),
-            title: RichText(
-              text: TextSpan(
-                text: suggestionList[index].substring(0, query.length),
-                style: TextStyle(
-                    // color: kBlackColor,
-                    fontWeight: FontWeight.bold),
-                children: [
-                  TextSpan(
-                      text: suggestionList[index].substring(query.length),
-                      style: TextStyle(
-                          // color: kDarkGreyColor
-                          fontWeight: FontWeight.normal))
-                ],
-              ),
-              // title: suggestionList[index].text.make(),
-            ),
+            // title: RichText(
+            //   text: TextSpan(
+            //       text: suggestionList[index].substring(0, query.length),
+            //       style: TextStyle(fontWeight: FontWeight.bold),
+            //       children: [
+            //         TextSpan(
+            //             text: suggestionList[index].substring(query.length),
+            //             style: TextStyle(fontWeight: FontWeight.normal))
+            //       ]),
+            // ),
+            title: suggestionList[index].text.make(),
             trailing: Icon(Icons.location_city),
           );
         });

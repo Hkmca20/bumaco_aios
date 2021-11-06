@@ -252,6 +252,11 @@ class LandingView extends StatelessWidget {
   googleButton(context) {
     return Container(
       margin: EdgeInsets.symmetric(horizontal: 10, vertical: 2),
+      decoration: BoxDecoration(
+          border: Border.all(
+        color: kGreyLightColor,
+        width: 0.5,
+      )),
       child: CustomButtonSocial(
         text: 'signin_with_google'.tr,
         onPress: () {

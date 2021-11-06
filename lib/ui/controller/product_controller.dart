@@ -101,6 +101,13 @@ class ProductController extends GetxController with StateMixin, ScrollMixin {
 
   var categoryItem = CategoryModel(id: '0', category: 'Product List');
 
+  var sortFilterText = ''.obs;
+  searchSortFilterProducts(str) {
+    print('----------search+Sort+Filter--->Text=>' + str);
+    sortFilterText.value = str;
+    fetchAllProducts();
+  }
+
   @override
   void onInit() {
     if (Get.arguments != null) {

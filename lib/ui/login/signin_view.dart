@@ -3,6 +3,7 @@ import 'package:bumaco_aios/ui/controller/controllers.dart';
 import 'package:bumaco_aios/ui/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:velocity_x/velocity_x.dart';
 
 class LoginView extends StatefulWidget {
   @override
@@ -150,4 +151,5 @@ class _LoginViewState extends State<LoginView>
       ),
     );
   }
+  
 }

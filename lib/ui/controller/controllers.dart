@@ -17,3 +17,5 @@ export 'home_controller.dart';
 export 'search_controller.dart';
 export 'address_controller.dart';
 export 'banner_controller.dart';
+export 'profile_controller.dart';
+export 'filter_controller.dart';

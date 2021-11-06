@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:bumaco_aios/app_core/db/database/app_database.dart';
 import 'package:bumaco_aios/network/dio_client.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -34,6 +36,17 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // var lang = Localizations.localeOf(context).languageCode;
+    // Detect the OS 
+    print(Platform.operatingSystem);
+    print(Platform.operatingSystemVersion);
+    print(Platform.version);
+    // PackageInfo.fromPlatform().then((PackageInfo packageInfo) {
+    //   String appName = packageInfo.appName;
+    //   String packageName = packageInfo.packageName;
+    //   String version = packageInfo.version;
+    //   String buildNumber = packageInfo.buildNumber;
+    // });
+  
     return GetMaterialApp(
       enableLog: true,
       defaultTransition: Transition.native,
