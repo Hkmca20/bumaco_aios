@@ -17,7 +17,7 @@ class RecentSearchInfo {
 class CSearchView extends StatelessWidget {
   CSearchView({Key? key}) : super(key: key);
 
-  OutlineInputBorder oBorder = OutlineInputBorder(
+  final OutlineInputBorder oBorder = OutlineInputBorder(
     borderRadius: BorderRadius.circular(5),
     borderSide: BorderSide(color: kGreyLightColor),
     gapPadding: 8,
@@ -167,7 +167,9 @@ class SearchData<T> extends SearchDelegate<String> {
   Widget buildLeading(BuildContext context) {
     return IconButton(
       icon: AnimatedIcon(
-          icon: AnimatedIcons.menu_arrow, progress: transitionAnimation),
+        icon: AnimatedIcons.menu_arrow,
+        progress: transitionAnimation,
+      ),
       onPressed: () {
         close(context, query);
       },

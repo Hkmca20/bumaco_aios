@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:velocity_x/velocity_x.dart';
 
 const kPrimaryColor = Colors.pink; //Color(0xFFFF7643);
 const kPrimaryColorDark = Colors.redAccent;
@@ -183,38 +184,25 @@ const BOX_BADGE_ACCOUNT = 'badge_account'; //bool
 getStorageStringValue(key) {
   final box = GetStorage(BOX_APP);
   final _value = box.read(key);
-  if (_value != null) {
-    return _value;
-  } else {
-    return '';
-  }
+  return _value ?? '';
 }
+
 getStorageBoolValue(key) {
   final box = GetStorage(BOX_APP);
   final _value = box.read(key);
-  if (_value != null) {
-    return _value;
-  } else {
-    return false;
-  }
+  return _value ?? false;
 }
+
 getStorageIntValue(key) {
   final box = GetStorage(BOX_APP);
   final _value = box.read(key);
-  if (_value != null) {
-    return _value;
-  } else {
-    return 0;
-  }
+  return _value ?? 0;
 }
+
 getStorageDoubleValue(key) {
   final box = GetStorage(BOX_APP);
   final _value = box.read(key);
-  if (_value != null) {
-    return _value;
-  } else {
-    return 0.0;
-  }
+  return _value ?? 0.0;
 }
 
 //Database
@@ -328,3 +316,10 @@ bumacoDialog(context, title, message, action) => showDialog<bool>(
                 ),
               ],
         ));
+bumacoToast(context, msg) => VxToast.show(
+      context,
+      msg: msg,
+      position: VxToastPosition.bottom,
+      bgColor: kWhiteColor,
+      textColor: kBlackColor,
+    );

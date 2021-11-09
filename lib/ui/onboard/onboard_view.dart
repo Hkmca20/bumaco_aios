@@ -1,11 +1,16 @@
+import 'dart:ui';
+
+import 'package:bumaco_aios/app_utils/app_const.dart';
 import 'package:bumaco_aios/ui/controller/onboard_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:velocity_x/velocity_x.dart';
 
 class OnboardingView extends StatelessWidget {
   final _controller = OnboardController.to;
   @override
   Widget build(BuildContext context) {
+    final _screenSize = MediaQuery.of(context).size;
     return Scaffold(
       body: SafeArea(
         child: Stack(
@@ -17,21 +22,29 @@ class OnboardingView extends StatelessWidget {
               itemBuilder: (context, index) {
                 return Container(
                   child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-                      Image.asset(_controller.onboardingList[index].image),
-                      SizedBox(height: 32),
-                      Text(_controller.onboardingList[index].bannertext,
-                          style: TextStyle(
-                              fontSize: 24, fontWeight: FontWeight.w500)),
-                      SizedBox(height: 32),
+                      Container(
+                          margin: EdgeInsets.only(top: 50),
+                          width: _screenSize.width - 20,
+                          height: _screenSize.width - 40,
+                          child: Image.asset(
+                              _controller.onboardingList[index].image)),
+                      SizedBox(height: 28),
+                      _controller.onboardingList[index].bannertext.text
+                          .size(24)
+                          .fontWeight(FontWeight.w500)
+                          .align(TextAlign.center)
+                          .make()
+                          .p16()
+                          .centered(),
+                      SizedBox(height: 20),
                       Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 64),
-                        child: Text(
-                            _controller.onboardingList[index].category,
-                            textAlign: TextAlign.center,
-                            style: TextStyle(fontSize: 18)),
-                      ),
+                          padding: const EdgeInsets.symmetric(horizontal: 64),
+                          child: _controller.onboardingList[index].category.text
+                              .size(18)
+                              .align(TextAlign.center)
+                              .make()),
                     ],
                   ),
                 );
@@ -52,7 +65,7 @@ class OnboardingView extends StatelessWidget {
                                 shape: BoxShape.circle,
                                 color:
                                     _controller.selectedPageIndex.value == index
-                                        ? Colors.red
+                                        ? kPrimaryColor
                                         : Colors.grey),
                           );
                         })),
@@ -62,13 +75,18 @@ class OnboardingView extends StatelessWidget {
               bottom: 20,
               right: 20,
               child: FloatingActionButton(
+                backgroundColor: kPrimaryColor,
                 onPressed: () {
                   _controller.forwardAction();
                 },
                 elevation: 0,
 
                 child: Obx(
-                  () => Text(_controller.isLastPage ? 'Start' : 'Next'),
+                  () => (_controller.isLastPage ? 'Start' : 'Next')
+                      .text
+                      .bold
+                      .color(kWhiteColor)
+                      .make(),
                 ),
                 // child: GetBuilder<OnboardingController>(
                 //   id: 'ID1', // here

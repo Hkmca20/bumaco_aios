@@ -1,11 +1,14 @@
 import 'dart:ui';
+
 import 'package:bumaco_aios/app_core/models/models.dart';
 import 'package:bumaco_aios/app_utils/utils.dart';
 import 'package:bumaco_aios/ui/controller/controllers.dart';
 import 'package:bumaco_aios/ui/login/widgets/auth_widget.dart';
-import 'package:bumaco_aios/ui/views/home/banners/cbanner_home.dart';
+import 'package:bumaco_aios/ui/views/home/banners/cbanner_gate.dart';
+import 'package:bumaco_aios/ui/views/home/banners/cbanner_one.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:velocity_x/velocity_x.dart';
 
 class LandingView extends StatelessWidget {
   final List locale = [
@@ -122,44 +125,105 @@ class LandingView extends StatelessWidget {
             top: 70,
             child: Column(
               children: [
-                Text(
-                  'app_title'.tr,
-                  style: TextStyle(
-                    fontSize: 40,
-                    fontWeight: FontWeight.bold,
-                    color: kWhiteColor,
-                  ),
-                ),
-                Text(
-                  'Your Beauty. Our Passion',
-                  style: TextStyle(
-                    fontSize: 11,
-                    color: kWhiteColor,
-                  ),
+                HStack(
+                  [
+                    Container(
+                      margin: EdgeInsets.symmetric(horizontal: 2, vertical: 2),
+                      width: 60, height: 60,
+                      child: Image.asset(
+                        logo100Path,
+                        color: kWhiteColor,
+                      ).p4(),
+                      // logo100Path.circularAssetImage().p8(),
+                    ),
+                    VStack([
+                      Text(
+                        'app_title'.tr,
+                        style: TextStyle(
+                          fontSize: 40,
+                          fontWeight: FontWeight.bold,
+                          color: kWhiteColor,
+                        ),
+                      ),
+                      Text(
+                        'Your Beauty. Our Passion',
+                        style: TextStyle(
+                          fontSize: 11,
+                          color: kWhiteColor,
+                        ),
+                      )
+                    ]),
+                  ],
                 ),
               ],
             ),
           ),
           Positioned(
-              left: 0,
-              right: 0,
-              top: 150,
-              child: CBannerHomeWidget(
-                bannerHeight: _screenSize.height / 3,
-                fitImage: BoxFit.fill,
-                bannerList: [
-                  BannerModel(
-                      image:
-                          'https://i.ibb.co/YtRkZBH/Whats-App-Image-2021-10-23-at-10-17-32-PM.jpg'),
-                  BannerModel(
-                      image:
-                          'https://i.ibb.co/JyXz8nT/Whats-App-Image-2021-10-23-at-10-16-53-PM.jpg'),
-                  BannerModel(
-                      image:
-                          'https://i.ibb.co/xYh55kS/Whats-App-Image-2021-10-23-at-10-16-18-PM.jpg'),
-                ],
-                // bannerController.bannerPositionList[12].bannerlist,
-              )),
+            left: 0,
+            right: 0,
+            top: 150,
+            child: CBannerGateWidget(
+              bannerHeight: _screenSize.height / 3 + 50,
+              fitImage: BoxFit.cover,
+              bannerList: [
+                BannerModel(
+                    bannertext: 'Beauty Gate',
+                    image:
+                        'https://i.ibb.co/YtRkZBH/Whats-App-Image-2021-10-23-at-10-17-32-PM.jpg'),
+                BannerModel(
+                    bannertext: 'Beauty Gate',
+                    image:
+                        'https://i.ibb.co/YtRkZBH/Whats-App-Image-2021-10-23-at-10-17-32-PM.jpg'),
+                BannerModel(
+                    bannertext: 'Fashion Gate',
+                    image:
+                        'https://i.ibb.co/JyXz8nT/Whats-App-Image-2021-10-23-at-10-16-53-PM.jpg'),
+                BannerModel(
+                    bannertext: 'Antiques Gate',
+                    image:
+                        'https://i.ibb.co/xYh55kS/Whats-App-Image-2021-10-23-at-10-16-18-PM.jpg'),
+              ],
+              gateList: [
+                BannerModel(
+                    bannertext: 'Beauty Gate',
+                    image:
+                        'https://i.ibb.co/YtRkZBH/Whats-App-Image-2021-10-23-at-10-17-32-PM.jpg'),
+                BannerModel(
+                    bannertext: 'Fashion Gate',
+                    image:
+                        'https://i.ibb.co/JyXz8nT/Whats-App-Image-2021-10-23-at-10-16-53-PM.jpg'),
+                BannerModel(
+                    bannertext: 'Antiques Gate',
+                    image:
+                        'https://i.ibb.co/xYh55kS/Whats-App-Image-2021-10-23-at-10-16-18-PM.jpg'),
+                BannerModel(
+                    bannertext: 'Modern Arts Gate',
+                    image:
+                        'https://i.ibb.co/YtRkZBH/Whats-App-Image-2021-10-23-at-10-17-32-PM.jpg'),
+                BannerModel(
+                    bannertext: 'Altaras & Sports Gate',
+                    image:
+                        'https://i.ibb.co/JyXz8nT/Whats-App-Image-2021-10-23-at-10-16-53-PM.jpg'),
+                BannerModel(
+                    bannertext: 'Stars & Fans Gate',
+                    image:
+                        'https://i.ibb.co/xYh55kS/Whats-App-Image-2021-10-23-at-10-16-18-PM.jpg'),
+                BannerModel(
+                    bannertext: 'Pets Gate',
+                    image:
+                        'https://i.ibb.co/YtRkZBH/Whats-App-Image-2021-10-23-at-10-17-32-PM.jpg'),
+                BannerModel(
+                    bannertext: 'Bikes & Moto Gate',
+                    image:
+                        'https://i.ibb.co/JyXz8nT/Whats-App-Image-2021-10-23-at-10-16-53-PM.jpg'),
+                BannerModel(
+                    bannertext: 'Rent & Shared Gate',
+                    image:
+                        'https://i.ibb.co/xYh55kS/Whats-App-Image-2021-10-23-at-10-16-18-PM.jpg'),
+              ],
+              // bannerController.bannerPositionList[12].bannerlist,
+            ),
+          ),
           Positioned(
             width: MediaQuery.of(context).size.width,
             bottom: 0,
@@ -176,7 +240,7 @@ class LandingView extends StatelessWidget {
                       Obx(
                         () => bannerController.isLoading.isTrue
                             ? LoadingWidget()
-                            : CBannerHomeWidget(
+                            : CBannerOneWidget(
                                 bannerHeight: _screenSize.width / 5,
                                 fitImage: BoxFit.fill,
                                 autoscroll: true,
@@ -238,10 +302,10 @@ class LandingView extends StatelessWidget {
 
   loginButton(context) {
     return Container(
-      margin: EdgeInsets.symmetric(horizontal: 10, vertical: 2),
+      margin: EdgeInsets.symmetric(horizontal: 10, vertical: 6),
       width: MediaQuery.of(context).size.width - 40,
       child: ElevatedButton(
-        child: Text('signin_with_email_or_mobile'.tr),
+        child: 'signin_with_email_or_mobile'.tr.text.make().p4(),
         onPressed: () {
           Get.toNamed(loginRoute);
         },
@@ -253,10 +317,12 @@ class LandingView extends StatelessWidget {
     return Container(
       margin: EdgeInsets.symmetric(horizontal: 10, vertical: 2),
       decoration: BoxDecoration(
-          border: Border.all(
-        color: kGreyLightColor,
-        width: 0.5,
-      )),
+        borderRadius: BorderRadius.all(Radius.circular(2)),
+        border: Border.all(
+          color: kGreyLightColor,
+          width: 0.5,
+        ),
+      ),
       child: CustomButtonSocial(
         text: 'signin_with_google'.tr,
         onPress: () {
@@ -270,6 +336,13 @@ class LandingView extends StatelessWidget {
   facebookButton(context) {
     return Container(
       margin: EdgeInsets.symmetric(horizontal: 10, vertical: 2),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.all(Radius.circular(2)),
+        border: Border.all(
+          color: kGreyLightColor,
+          width: 0.5,
+        ),
+      ),
       child: CustomButtonSocial(
         text: 'signin_with_facebook'.tr,
         onPress: () {

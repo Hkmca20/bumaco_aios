@@ -29,6 +29,7 @@ class _CProductDetailViewState extends State<CProductDetailView> {
   final bController = BucketController.to;
   final productController = ProductController.to;
   late final ProductModel productItem;
+  final commonGreyColor = Colors.grey[600]!.withOpacity(0.1);
 
   @override
   void initState() {
@@ -255,7 +256,7 @@ class _CProductDetailViewState extends State<CProductDetailView> {
           ]),
         ),
         VxDivider(
-          color: Colors.grey[200],
+          color: commonGreyColor,
           width: 10,
         ),
         //Return Policy
@@ -297,7 +298,7 @@ class _CProductDetailViewState extends State<CProductDetailView> {
           ]),
         ),
         VxDivider(
-          color: Colors.grey[200],
+          color: commonGreyColor,
           width: 10,
         ),
 
@@ -307,7 +308,7 @@ class _CProductDetailViewState extends State<CProductDetailView> {
           child: 'Description'.text.bold.size(16).make(),
         ),
         VxDivider(
-          color: Colors.grey[200],
+          color: commonGreyColor,
           width: 3,
         ),
         Padding(
@@ -336,7 +337,7 @@ class _CProductDetailViewState extends State<CProductDetailView> {
         ),
 
         VxDivider(
-          color: Colors.grey[200],
+          color: commonGreyColor,
           width: 10,
         ),
 
@@ -397,7 +398,7 @@ class _CProductDetailViewState extends State<CProductDetailView> {
           ], alignment: MainAxisAlignment.center),
         ),
         VxDivider(
-          color: Colors.grey[200],
+          color: commonGreyColor,
           width: 10,
         ),
         VxDivider(),
@@ -437,7 +438,7 @@ class _CProductDetailViewState extends State<CProductDetailView> {
             .make()
             .p16(),
         VxDivider(
-          color: Colors.grey[200],
+          color: commonGreyColor,
           width: 10,
         ),
       ]),

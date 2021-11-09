@@ -10,6 +10,7 @@ class HomeController extends GetxController {
   var showFAB = true.obs;
   @override
   void onInit() {
+    setSelectedGate();
     addScrollListener();
     super.onInit();
   }
@@ -39,27 +40,26 @@ class HomeController extends GetxController {
     });
   }
 
-  RxString selectedCountry = 'BEAUTY GATE'.obs;
-  final List locale = [
-    {'name': 'BEAUTY GATE'.toUpperCase(), 'locale': 'ID1'},
-    {'name': 'FASHION GATE'.toUpperCase(), 'locale': 'ID2'},
-    {'name': 'Antiques gate'.toUpperCase(), 'locale': 'ID1'},
-    {'name': 'Modern Arts gate'.toUpperCase(), 'locale': 'ID1'},
-    {'name': 'Altaras & Sport gate'.toUpperCase(), 'locale': 'ID1'},
-    {'name': 'Stars & Fans gate'.toUpperCase(), 'locale': 'ID1'},
-    {'name': 'Pets gate'.toUpperCase(), 'locale': 'ID1'},
-    {'name': 'Bikes & Moto gate'.toUpperCase(), 'locale': 'ID1'},
-    {'name': 'Rent & Shared gate'.toUpperCase(), 'locale': 'ID1'},
+  RxString selectedGate = 'BEAUTY GATE'.obs;
+  final List gateList = [
+    {'name': 'Beauty Gate'.toUpperCase(), 'id': 'ID1'},
+    {'name': 'Fashion Gate'.toUpperCase(), 'id': 'ID2'},
+    {'name': 'Antiques gate'.toUpperCase(), 'id': 'ID1'},
+    {'name': 'Modern Arts gate'.toUpperCase(), 'id': 'ID1'},
+    {'name': 'Altaras & Sport gate'.toUpperCase(), 'id': 'ID1'},
+    {'name': 'Stars & Fans gate'.toUpperCase(), 'id': 'ID1'},
+    {'name': 'Pets gate'.toUpperCase(), 'id': 'ID1'},
+    {'name': 'Bikes & Moto gate'.toUpperCase(), 'id': 'ID1'},
+    {'name': 'Rent & Shared gate'.toUpperCase(), 'id': 'ID1'},
   ];
   final box = GetStorage(BOX_APP);
   updateSelectedGate(gate) {
     box.write(BOX_GATE_SELECTED, gate);
   }
 
-  getSelectedGate() {
-    return (box.read(BOX_GATE_SELECTED) != null &&
-            box.read(BOX_GATE_SELECTED) != '')
-        ? box.read(BOX_GATE_SELECTED)
+  setSelectedGate() {
+    selectedGate.value = getStorageStringValue(BOX_GATE_SELECTED) != ''
+        ? getStorageStringValue(BOX_GATE_SELECTED)
         : 'BEAUTY GATE';
   }
 
@@ -77,15 +77,15 @@ class HomeController extends GetxController {
                         child: GestureDetector(
                             onTap: () {
                               Get.back();
-                              print(locale[index]['name'] + ' selected----');
-                              selectedCountry.value = locale[index]['name'];
-                              updateSelectedGate(selectedCountry.value);
+                              print(gateList[index]['name'] + ' selected----');
+                              selectedGate.value = gateList[index]['name'];
+                              updateSelectedGate(gateList[index]['name']);
                             },
-                            child: Text(locale[index]['name']))),
+                            child: Text(gateList[index]['name']))),
                     separatorBuilder: (context, index) => Divider(
                           color: Colors.blue,
                         ),
-                    itemCount: locale.length),
+                    itemCount: gateList.length),
               ),
             ));
   }

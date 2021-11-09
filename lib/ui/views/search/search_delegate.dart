@@ -12,7 +12,7 @@ List<CountryModel> countryModelList = <CountryModel>[
   CountryModel(name: 'Germany', code: 'DE'),
   CountryModel(name: 'India', code: 'IN'),
   CountryModel(name: 'Singapore', code: 'SG'),
-  CountryModel(name: 'United States of America', code: 'US')
+  CountryModel(name: 'United States of America', code: 'US'),
 ];
 
 class CustomDelegate<T> extends SearchDelegate<CountryModel> {

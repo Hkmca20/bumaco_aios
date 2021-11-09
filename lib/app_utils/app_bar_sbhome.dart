@@ -1,9 +1,11 @@
 import 'package:bumaco_aios/app_utils/app_const.dart';
 import 'package:bumaco_aios/app_utils/utils.dart';
+import 'package:bumaco_aios/ui/controller/socket_controller.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:velocity_x/velocity_x.dart';
 
-class AppbarHome extends StatelessWidget with PreferredSizeWidget {
+class AppbarSBHome extends StatelessWidget with PreferredSizeWidget {
   final String title;
   final String subtitle;
   final List<IconButton>? actionList;
@@ -11,8 +13,9 @@ class AppbarHome extends StatelessWidget with PreferredSizeWidget {
   final Color iconColor;
   final bool autoLeading;
   final bool centerTitle;
+  final socketController = Get.find<SocketController>();
 
-  AppbarHome(
+  AppbarSBHome(
       {Key? key,
       required this.title,
       this.subtitle = '',
@@ -49,10 +52,18 @@ class AppbarHome extends StatelessWidget with PreferredSizeWidget {
                     .size(24)
                     .fontWeight(FontWeight.w700)
                     .make(),
-                subtitle.length == 0
-                    ? SizedBox()
-                    : title.text.size(10).fontWeight(FontWeight.w100).make()
+                Obx(
+                  () => socketController.connectionStatus.value.length == 0
+                      ? SizedBox()
+                      : socketController.connectionStatus.value.text
+                          .size(10)
+                          .warmGray400
+                          .fontWeight(FontWeight.w100)
+                          .make(),
+                )
               ],
+              alignment: MainAxisAlignment.end,
+              crossAlignment: CrossAxisAlignment.start,
             ),
             // ),
           ),

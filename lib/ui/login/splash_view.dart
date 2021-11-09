@@ -68,25 +68,23 @@ class SplashState extends State<SplashView>
   // }
 
   route() {
-    print('----islOgged in  ${GetStorage().read(BOX_APP_OPEN_COUNT)}');
-    print('----BOX_IS_LOGGEDIN  ${GetStorage().read(BOX_IS_LOGGEDIN)}');
+    print('----BOX_IS_LOGGEDIN  ${_splashController.isLoggedIn}');
+    print('-------opencountapp===>${_splashController.appOpenCount}');
 
-    if (_splashController.isLoggedIn) {
-      // Get.offAndToNamed(shoppingRoute);
-      // Get.offAndToNamed(staggerdImgRoute);
-      // Get.offAndToNamed(allProductRoute);
-      Get.offAndToNamed(dashboardRoute);
-      // Get.offAndToNamed(newsRoute);
-    } else {
-      // if (_splashController.appOpenCount > 2) {
-      // Get.offAndToNamed(ratingRoute);
-      // Get.offAndToNamed(shrinkRoute);
-      Get.offAndToNamed(landingRoute);
-      // Get.offAndToNamed(googleSigninDemoRoute);
-      // } else {
-      //   Get.offAndToNamed(onboardRoute);
-      // }
-    }
+    _splashController.isLoggedIn
+        ? Get.offAndToNamed(dashboardRoute)
+        : _splashController.appOpenCount > _splashController.maxOpenCount
+            ? Get.offAndToNamed(landingRoute)
+            : Get.offAndToNamed(onboardRoute);
+
+    // Get.offAndToNamed(shoppingRoute);
+    // Get.offAndToNamed(staggerdImgRoute);
+    // Get.offAndToNamed(allProductRoute);
+    // Get.offAndToNamed(newsRoute);
+
+    // Get.offAndToNamed(ratingRoute);
+    // Get.offAndToNamed(shrinkRoute);
+    // Get.offAndToNamed(googleSigninDemoRoute);
   }
 
   initScreen(BuildContext context) {

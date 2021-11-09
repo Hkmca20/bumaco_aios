@@ -10,14 +10,10 @@ class OTPController extends GetxController {
   var initialValue = 30;
   var resendText = ''.obs;
   var canResendOTP = false.obs;
+  var isLoading = false.obs;
   final otpCTR = TextEditingController();
-  // var otpText = '';
   final box = GetStorage(BOX_APP);
   late Timer _timerOTP;
-
-  // updateOtp(otp) {
-  //   otpText = otp;
-  // }
 
   @override
   void onInit() {
@@ -42,11 +38,23 @@ class OTPController extends GetxController {
 
   @override
   void onClose() {
+    print('--------onClosed');
     otpCTR.clear();
+    otpCTR.dispose();
     if (_timerOTP.isActive) {
       _timerOTP.cancel();
     }
     super.onClose();
+  }
+@override
+  void onReady() {
+    print('--------onReady');
+    super.onReady();
+  }
+  @override
+  void disposeId(Object id) {
+    print('--------onDisposed------');
+    super.disposeId(id);
   }
 
   submitOTP() async {
@@ -54,8 +62,9 @@ class OTPController extends GetxController {
       bumacoSnackbar('error'.tr, 'Invalid OTP');
       return;
     }
+    isLoading.toggle();
     showLoadingDialog();
-    await Future.delayed(Duration(microseconds: 3000));
+    await Future.delayed(Duration(milliseconds: 1500));
     try {
       Get.back();
       if (otpCTR.text == '12345') {
@@ -63,6 +72,7 @@ class OTPController extends GetxController {
           'login'.tr,
           'Successfull!',
         );
+        await Future.delayed(Duration(milliseconds: 500));
         box.write(BOX_IS_LOGGEDIN, true);
         Get.offAllNamed(dashboardRoute);
       } else {
@@ -71,6 +81,7 @@ class OTPController extends GetxController {
           'Incorrect otp, please try again!',
         );
       }
+      isLoading.toggle();
     } catch (e) {
       debugPrint(e.toString());
       Get.back();

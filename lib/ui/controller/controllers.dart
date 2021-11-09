@@ -19,3 +19,4 @@ export 'address_controller.dart';
 export 'banner_controller.dart';
 export 'profile_controller.dart';
 export 'filter_controller.dart';
+export 'socket_controller.dart';

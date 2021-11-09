@@ -21,9 +21,9 @@ class CustomButtonSocial extends StatelessWidget {
         alignment: Alignment.center,
         elevation: 0.0,
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(4),
+          borderRadius: BorderRadius.circular(2),
         ),
-        padding: EdgeInsets.symmetric(vertical: 10),
+        padding: EdgeInsets.symmetric(vertical: 14),
       ),
       onPressed: onPress,
       child: Row(

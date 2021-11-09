@@ -2,7 +2,9 @@ import 'package:bumaco_aios/app_core/models/banner_list_model.dart';
 import 'package:bumaco_aios/app_core/models/models.dart';
 import 'package:bumaco_aios/app_core/repository/banner_repo.dart';
 import 'package:bumaco_aios/app_utils/utils.dart';
+import 'package:flutter/src/widgets/framework.dart';
 import 'package:get/get.dart';
+import 'package:velocity_x/velocity_x.dart';
 
 class BannerController extends GetxController {
   static BannerController get to => Get.find(tag: BANNER_CONTROLLER);
@@ -11,7 +13,8 @@ class BannerController extends GetxController {
   BannerController() {
     addItemToListPosition();
     _bannerRepo = Get.find<BannerRepoImpl>();
-    fetchBanners();
+    // final close = VxToast.showLoading(ctx, msg: 'Loading..');
+    fetchBanners().then((value) => print('Banner completed------>'));
   }
 
   RxList<BannerListModel> bannerPositionList = <BannerListModel>[].obs;
@@ -91,5 +94,10 @@ class BannerController extends GetxController {
         .add(BannerListModel(bannerposition: 'position16', bannerlist: []));
     bannerPositionList
         .add(BannerListModel(bannerposition: 'position17', bannerlist: []));
+  }
+
+  var ctx;
+  void setContext(BuildContext context) {
+    ctx = context;
   }
 }

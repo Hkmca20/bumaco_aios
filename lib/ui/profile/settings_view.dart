@@ -6,6 +6,8 @@ import 'package:bumaco_aios/ui/profile/column_demo.dart';
 import 'package:bumaco_aios/ui/views/address/addresss_view.dart';
 import 'package:bumaco_aios/ui/views/dashboard/tabbar_view.dart';
 import 'package:bumaco_aios/ui/views/home/c_product_view.dart';
+import 'package:bumaco_aios/ui/views/media/video_player_view.dart';
+import 'package:bumaco_aios/ui/views/socket/socket_view.dart';
 import 'package:bumaco_aios/ui/views/views.dart';
 import 'package:bumaco_aios/ui/widgets/widgets.dart';
 import 'package:cached_network_image/cached_network_image.dart';
@@ -206,13 +208,24 @@ class SettingView extends StatelessWidget {
           Divider(height: 1),
           SimpleBuilder(
             builder: (_) => ListTile(
+              leading: Icon(Icons.chat),
+              trailing: Icon(Icons.arrow_forward_ios_rounded),
+              title: 'Chat With Us'.text.make(),
+              // onTap: () => {Get.to(() => SocketView())},
+              onTap: () => {Get.to(() => VideoPlayerScreen())},
+            ),
+          ),
+          Divider(height: 1),
+          SimpleBuilder(
+            builder: (_) => ListTile(
               leading: Icon(Icons.logout_rounded),
               trailing: Icon(Icons.arrow_forward_ios_rounded),
               title: 'logout'.tr.text.make(),
               onTap: () => {
                 getStorage.write(BOX_IS_LOGGEDIN, false),
                 Get.offAllNamed(landingRoute),
-                SigninController.to.handleSignOut(context)
+                box.erase(),
+                SigninController.to.handleSignOut(context),
               },
             ),
           ),

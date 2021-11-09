@@ -19,7 +19,7 @@ class OnboardController extends GetxController {
   List<BannerModel> onboardingList = [];
 
   final box = GetStorage(BOX_APP);
-  int get appOpenCount => box.read(BOX_APP_OPEN_COUNT) ?? 0;
+  int get appOpenCount => getStorageIntValue(BOX_APP_OPEN_COUNT);
 
   OnboardController() {
     _addItemToList();
@@ -36,16 +36,18 @@ class OnboardController extends GetxController {
   _addItemToList() {
     onboardingList.add(BannerModel(
         image: 'assets/images/order.png',
-        bannertext: 'Order your food',
-        category: 'Now you can order food anytime right from your mobile'));
+        bannertext: 'How to select or find a product',
+        category:
+            'This is contains of 9 gates, You may select a gate from category list and enter you will find a sub category gate then search any product you required. Now you can order anytime right from your mobile'));
     onboardingList.add(BannerModel(
         image: 'assets/images/cook.png',
-        bannertext: 'Cooking safe food',
+        bannertext: 'Add to cart/ prepare/ checkout and payment',
         category:
-            'We are maintain safety and we keep clean while making food'));
+            'Go to product page either by search them or from a gate then click on add to cart option, got to cart page from home page or other page top right cornor clicking on bag then proceed to payment for order products'));
     onboardingList.add(BannerModel(
         image: 'assets/images/deliver.png',
-        bannertext: 'Quick delivery',
-        category: 'Order your favorite meals will be immediately deliver'));
+        bannertext: 'Faster delivery',
+        category:
+            'After successful order you can track your order by order id you have and get your delivery information by given helpline number by third party delivery provider'));
   }
 }

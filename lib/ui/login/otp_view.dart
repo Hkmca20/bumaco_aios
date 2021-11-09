@@ -16,21 +16,22 @@ class OTPView extends StatelessWidget {
     // bumacoSnackbar('Login', Get.arguments.toString());
 
     var submitButton = ElevatedButton(
-      onPressed: () => {
-        _otpController.submitOTP(),
-      },
-      child: Text('submit'.tr),
-      // child: Ink(
-      //   decoration: BoxDecoration(
-      //     gradient: LinearGradient(colors: [Colors.teal, Colors.cyan]),
-      //   ),
-      //   child: Container(
-      //     padding: const EdgeInsets.all(10),
-      //     constraints: const BoxConstraints(minWidth: 88.0),
-      //     child: const Text('Submit', textAlign: TextAlign.center),
-      //   ),
-      // ),
-    );
+            onPressed: () => {
+                  _otpController.submitOTP(),
+                },
+            child: 'submit'.tr.text.xl.make().centered()
+            // child: Ink(
+            //   decoration: BoxDecoration(
+            //     gradient: LinearGradient(colors: [Colors.teal, Colors.cyan]),
+            //   ),
+            //   child: Container(
+            //     padding: const EdgeInsets.all(10),
+            //     constraints: const BoxConstraints(minWidth: 88.0),
+            //     child: const Text('Submit', textAlign: TextAlign.center),
+            //   ),
+            // ),
+            )
+        .marginSymmetric(horizontal: 30);
 
     var otpInputText = Container(
       margin: EdgeInsets.only(top: 40.0, left: 30.0, right: 30.0),
@@ -110,7 +111,11 @@ class OTPView extends StatelessWidget {
             AppLogoWidget(),
             otpInputText,
             SizedBox(height: 32),
-            submitButton,
+            Obx(
+              () => Visibility(
+                  visible: _otpController.isLoading.isFalse,
+                  child: submitButton),
+            ),
             SizedBox(height: 32),
             resendOtpLabel,
             SizedBox(height: 32),

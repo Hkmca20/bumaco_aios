@@ -1,5 +1,6 @@
 import 'package:bumaco_aios/app_utils/utils.dart';
 import 'package:bumaco_aios/ui/controller/controllers.dart';
+import 'package:bumaco_aios/ui/login/terms_condition.dart';
 import 'package:bumaco_aios/ui/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -35,7 +36,8 @@ class _LoginViewState extends State<LoginView>
     return Scaffold(
       // backgroundColor: kScafoldDarkBGColor,
       resizeToAvoidBottomInset: false,
-      appBar: AppbarHome(title: 'app_title'.tr + ' ' + 'login'.tr),
+      appBar: AppbarHome(
+          title: 'app_title'.tr + ' ' + 'login'.tr + '/' + 'register'.tr),
       body: Stack(
           alignment: Alignment.topLeft,
           textDirection: TextDirection.rtl,
@@ -85,8 +87,25 @@ class _LoginViewState extends State<LoginView>
                   AppLogoWidget(),
                   chooseLaunguageButton(),
                   mobileEditText(context),
-                  loginButton(context),
+                  Expanded(
+                    child: Stack(
+                      children: [
+                        Positioned(
+                          bottom: 10,
+                          left: 10,
+                          right: 10,
+                          child: loginButton(context),
+                        ),
+                      ],
+                    ),
+                  ),
                   // loadingIndicator(loginBloc),
+                  GestureDetector(
+                      onTap: () {
+                        Get.to(() => TermsAndCondition());
+                      },
+                      child:
+                          'By continuing, I agree to 9Gate\'s T&C'.text.make()),
                 ],
               ),
             ),
@@ -120,7 +139,7 @@ class _LoginViewState extends State<LoginView>
       child: TextFormField(
         style: TextStyle(
           fontSize: 22,
-          fontWeight: FontWeight.w800,
+          fontWeight: FontWeight.w500,
           letterSpacing: 2,
         ),
         controller: _loginController.mobileCTR,
@@ -141,15 +160,11 @@ class _LoginViewState extends State<LoginView>
   }
 
   loginButton(context) {
-    return Container(
-      margin: EdgeInsets.only(top: 40),
-      child: ElevatedButton(
-        child: Text('submit'.tr),
-        onPressed: () {
-          _loginController.submitSignIn();
-        },
-      ),
+    return ElevatedButton(
+      child: 'proceed'.tr.text.xl.make(),
+      onPressed: () {
+        _loginController.submitSignIn();
+      },
     );
   }
-  
 }

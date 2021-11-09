@@ -1,5 +1,5 @@
 import 'package:json_annotation/json_annotation.dart';
-
+import 'package:get/get.dart';
 part 'banner_model.g.dart';
 
 @JsonSerializable()
@@ -53,6 +53,8 @@ class BannerModel {
 
   @JsonKey(name: 'status')
   String? status;
+  
+  RxBool selected = false.obs;
 
   factory BannerModel.fromJson(Map<String, dynamic> json) =>
       _$BannerModelFromJson(json);

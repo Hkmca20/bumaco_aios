@@ -27,7 +27,7 @@ class BucketView extends StatelessWidget {
         actionList: [
           IconButton(
             icon: Icon(Icons.delete),
-            tooltip: 'Delete Cart Items',
+            tooltip: 'Delete All Cart Items',
             onPressed: () {
               bController.removeAllBucket();
             },
@@ -178,11 +178,18 @@ class BucketView extends StatelessWidget {
                                       .size(20)
                                       .make()
                                       .p12()),
-                              '\$${bController.grandTotal}'
+                              // '\$${bController.grandTotal.value}'
+                              //     .text
+                              //     .size(24)
+                              //     .make()
+                              //     .p12(),
+                              bController.grandTotal.value
+                                  .numCurrencyWithLocale(locale: 'en_UK')
+                                  // .numCurrencyWithLocale(locale: 'ar_AE')
                                   .text
-                                  .size(24)
-                                  .make()
-                                  .p12(),
+                                  .xl
+                                  .bold
+                                  .make(),
                             ],
                           ),
                           MaterialButton(

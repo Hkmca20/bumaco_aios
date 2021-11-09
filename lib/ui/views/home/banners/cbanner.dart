@@ -6,8 +6,8 @@ import 'package:bumaco_aios/ui/controller/controllers.dart';
 import 'package:bumaco_aios/ui/widgets/app_logo_widget.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:velocity_x/velocity_x.dart';
-import 'package:transparent_image/transparent_image.dart';
 
 class CBannerWidget extends StatefulWidget {
   CBannerWidget({
@@ -123,8 +123,7 @@ class _CBannerWidgetState extends State<CBannerWidget>
                   _initTimer();
                 },
                 onTap: () {
-                  bumacoSnackbar(
-                      'Alert', 'Banner clicked id = ${index % length} ');
+                  bumacoSnackbar('alert'.tr, 'selected: ${index % length} ');
                 },
                 child: Container(
                   child: ClipRRect(

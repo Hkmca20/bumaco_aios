@@ -43,6 +43,7 @@ class SigninController extends GetxController {
   void onClose() {
     super.onClose();
     mobileCTR.clear();
+    mobileCTR.dispose();
   }
 
   final box = GetStorage(BOX_APP);
@@ -136,7 +137,7 @@ class SigninController extends GetxController {
     showModalBottomSheet(
         clipBehavior: Clip.antiAliasWithSaveLayer,
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.vertical(top: Radius.circular(15)),
+          borderRadius: BorderRadius.vertical(top: Radius.circular(10)),
           // BorderRadius.circular(15.0),
         ),
         context: context,
@@ -175,7 +176,7 @@ class SigninController extends GetxController {
         borderRadius: BorderRadius.circular(2),
         boxShadow: [
           BoxShadow(
-              blurRadius: 10, color: kPrimaryLightColor, offset: Offset(1, 3))
+              blurRadius: 5, color: kPrimaryLightColor, offset: Offset(1, 3))
         ],
       ),
       child: ElevatedButton(

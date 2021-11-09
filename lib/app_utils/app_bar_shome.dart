@@ -17,7 +17,7 @@ class AppbarSHome extends StatelessWidget with PreferredSizeWidget {
   final Color iconColor;
   final bool autoLeading;
   final bool centerTitle;
-  var homeController = HomeController.to;
+  final homeController = HomeController.to;
 
   AppbarSHome(
       {Key? key,
@@ -75,7 +75,7 @@ class AppbarSHome extends StatelessWidget with PreferredSizeWidget {
                     [
                       Obx(
                         () =>
-                            homeController.selectedCountry.value.text.uppercase
+                            homeController.selectedGate.value.text.uppercase
                                 .color(kGreyLightColor)
                                 .size(11)
                                 .fontWeight(FontWeight.w400)

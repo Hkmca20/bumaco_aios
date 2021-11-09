@@ -32,6 +32,7 @@ class BumacoLocale extends Translations {
           'register': 'Register',
           'mobile_no': 'Mobile Number',
           'submit': 'Submit',
+          'proceed': 'Proceed',
           // --Home/Shopping/Dashboard--
           'home': 'Home',
           'category': 'Category',
@@ -158,6 +159,7 @@ class BumacoLocale extends Translations {
           'register': 'تسجيل',
           'mobile_no': 'رقم الهاتف المحمول',
           'submit': 'يقدم',
+          'proceed': 'تقدم',
           // --Home/Shopping/Dashboard--
           'home': 'الصفحة الرئيسية',
           'category': 'فئة',

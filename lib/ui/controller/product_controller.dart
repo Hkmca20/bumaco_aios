@@ -115,6 +115,7 @@ class ProductController extends GetxController with StateMixin, ScrollMixin {
     }
     productRepository = Get.put(ProductRepositoryImpl());
     // addScrollListener();
+    getFavouriteList();
     fetchAllProducts();
     _addItemToList();
     // _timer = Timer.periodic(Duration(seconds: 3), timerCallback);

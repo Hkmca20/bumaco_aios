@@ -55,6 +55,7 @@ class HomeBaView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    bannerController.setContext(context);
     final _screenSize = MediaQuery.of(context).size;
     // Widget createDrawerHeader() {
     //   return DrawerHeader(
@@ -142,13 +143,12 @@ class HomeBaView extends StatelessWidget {
                   HStack([
                     ImageIcon(AssetImage(logo100Path)).p4(),
                     Obx(
-                      () => homeController.selectedCountry.value.text
+                      () => homeController.selectedGate.value.text
                           .size(24)
                           .make()
                           .p4(),
                     ),
                   ]),
-                  // homeController.getSelectedGate().text.size(20).bold.make(),
                   Obx(
                     () => cController.isLoading.isTrue
                         ? LoadingWidget()
@@ -251,6 +251,7 @@ class HomeBaView extends StatelessWidget {
                             },
                           ),
                   ),
+                  HeightBox(50),
                 ],
               ),
             ),
@@ -701,7 +702,8 @@ class HomeBaView extends StatelessWidget {
                           }),
                         ),
                       ),
-                      Divider(),
+                      VxDivider(),
+                      ''.text.bold.color(kPrimaryColor).make().p12(),
                       SizedBox(height: 100), //--------------------------
                     ]),
                   ),

@@ -36,7 +36,6 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // var lang = Localizations.localeOf(context).languageCode;
-    // Detect the OS 
     print(Platform.operatingSystem);
     print(Platform.operatingSystemVersion);
     print(Platform.version);
@@ -46,7 +45,9 @@ class MyApp extends StatelessWidget {
     //   String version = packageInfo.version;
     //   String buildNumber = packageInfo.buildNumber;
     // });
-  
+    print(Get.deviceLocale); // deviceCurrentLocale
+    print(Get.locale); // appCurrentLocale
+
     return GetMaterialApp(
       enableLog: true,
       defaultTransition: Transition.native,
@@ -58,7 +59,7 @@ class MyApp extends StatelessWidget {
       theme: setTheme(context),
       darkTheme: setDarkTheme(context),
       translations: BumacoLocale(),
-      locale: ukLocale, //default locale from get device locale
+      locale: Get.deviceLocale, //default locale from get device locale
       fallbackLocale: ukLocale, //fallback if locale not present in device
       initialRoute: initialRoute,
       // onGenerateRoute: (RouteSettings settings) {

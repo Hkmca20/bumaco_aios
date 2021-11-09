@@ -32,6 +32,10 @@ class FilterView extends StatelessWidget {
       'Concern',
       'Gender',
       'Formulation',
+      'Gender',
+      'Formulation',
+      'Gender',
+      'Formulation',
       'Preference'
     ];
     final rightList = {
@@ -74,7 +78,7 @@ class FilterView extends StatelessWidget {
       9: ['Organic', 'Natural', 'Harbal'],
     };
     fController.chageNewList(rightList[0]);
-    // var newList = rightList[0];
+    // final _screenSize = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppbarHome(
         title: 'Filter By',
@@ -97,151 +101,156 @@ class FilterView extends StatelessWidget {
         ],
       ),
       body: Stack(children: [
-        Flex(
-          direction: Axis.horizontal,
-          children: [
-            Expanded(
-              flex: 5,
-              child: ListView.builder(
-                  itemCount: leftList.length,
-                  itemBuilder: (context, index) {
-                    final item = leftList[index];
-                    return Obx(() {
-                      final isSelected =
-                          fController.selectedFilterIndex.value == index;
-                      return InkWell(
-                        onTap: () {
-                          fController.selectedFilterIndex.value = index;
-
-                          fController.chageNewList(rightList[index]);
-
-                          fController.filterCount.value = 0;
-                          fController.secondListChecked.value = false;
-                        },
-                        child: VStack(
-                          [
-                            HStack(
-                              [
-                                isSelected
-                                    ? Container(
-                                        color: kPrimaryColor,
-                                        height: 60,
-                                        width: 3,
-                                      )
-                                    : SizedBox(
-                                        width: 3,
-                                        height: 60,
-                                      ),
-                                isSelected
-                                    ? item.text.bold
-                                        .color(kPrimaryColor)
-                                        .size(16)
-                                        .make()
-                                        .p8()
-                                        .expand()
-                                    : item.text.bold
-                                        .size(16)
-                                        .make()
-                                        .p8()
-                                        .expand(),
-                                Visibility(
-                                  visible:
-                                      (fController.filterCount.value != 0 &&
-                                              isSelected)
-                                          ? true
-                                          : false,
-                                  child: Icon(
-                                    Icons.account_circle,
-                                    color: kTransparentColor,
-                                  )
-                                      .badge(
-                                          count: fController.filterCount.value,
-                                          color: kPrimaryColor)
-                                      .p12(),
-                                ),
-
-                                Icon(Icons.arrow_forward_ios,
-                                        color:
-                                            isSelected ? kPrimaryColor : null,
-                                        size: 12)
-                                    .p8(),
-                                // tileColor: isSelected
-                                //     ? kPrimaryLightColor.withOpacity(0.5)
-                                //     : null,
-                                // ListTile(
-                                //   title: isSelected
-                                //       ? item.text
-                                //           .fontWeight(FontWeight.w900)
-                                //           .color(kPrimaryColor)
-                                //           .size(16)
-                                //           .make()
-                                //       : item.text.bold.size(16).make(),
-                                //   tileColor: isSelected
-                                //       ? kPrimaryLightColor.withOpacity(0.5)
-                                //       : null,
-                                //   onTap: () {
-                                //     fController.selectedFilterIndex.value = index;
-
-                                //     fController.chageNewList(rightList[index]);
-                                //   },
-                                //   trailing: Icon(Icons.arrow_forward_ios),
-                                // ),
-                              ],
-                              alignment: MainAxisAlignment.spaceEvenly,
-                              crossAlignment: CrossAxisAlignment.center,
-                            ),
-                            VxDivider(indent: 10, endIndent: 30),
-                          ],
-                        ),
-                      );
-                    });
-
-                    // GestureDetector(
-                    //   onTap: () {},
-                    //   child: BoxSelectionButton(
-                    //     isSelected: projectType[index].isSelected,
-                    //     option: projectType[index].options,
-                    //     title: projectType[index].title,
-                    //   ),
-                    // );
-                  }),
-            ),
-            Expanded(
-              flex: 6,
-              child: Obx(
-                () => ListView.builder(
-                    itemCount: fController.newList.length,
+        Container(
+          margin: EdgeInsets.only(bottom: 80),
+          child: Flex(
+            direction: Axis.horizontal,
+            children: [
+              Expanded(
+                flex: 5,
+                child: ListView.builder(
+                    itemCount: leftList.length,
                     itemBuilder: (context, index) {
-                      final item = fController.newList[index].toString();
-                      return InkWell(
-                        onTap: () {
-                          // fController.secondListChecked.toggle();
-                        },
-                        child: HStack([
-                          Expanded(child: item.text.size(16).make().p12()),
-                          Obx(
-                            () => Checkbox(
-                              value: fController.secondListChecked.isTrue,
-                              activeColor: kPrimaryColor,
-                              onChanged: (value) {
-                                // fController.selectedCheckboxValue =
-                                //     value.toString();
-                                fController.secondListChecked.toggle();
-                                if (fController.secondListChecked.isTrue) {
-                                  fController.filterCount.value =
-                                      fController.newList.length;
-                                } else {
-                                  fController.filterCount.value = 0;
-                                }
-                              },
-                            ),
-                          )
-                        ]),
-                      );
+                      final item = leftList[index];
+                      return Obx(() {
+                        final isSelected =
+                            fController.selectedFilterIndex.value == index;
+                        return InkWell(
+                          onTap: () {
+                            fController.selectedFilterIndex.value = index;
+
+                            fController.chageNewList(rightList[index]);
+
+                            fController.filterCount.value = 0;
+                            fController.secondListChecked.value = false;
+                          },
+                          child: VStack(
+                            [
+                              HStack(
+                                [
+                                  isSelected
+                                      ? Container(
+                                          color: kPrimaryColor,
+                                          height: 60,
+                                          width: 3,
+                                        )
+                                      : SizedBox(
+                                          width: 3,
+                                          height: 60,
+                                        ),
+                                  isSelected
+                                      ? item.text.bold
+                                          .color(kPrimaryColor)
+                                          .size(16)
+                                          .make()
+                                          .p8()
+                                          .expand()
+                                      : item.text.bold
+                                          .size(16)
+                                          .make()
+                                          .p8()
+                                          .expand(),
+                                  Visibility(
+                                    visible:
+                                        (fController.filterCount.value != 0 &&
+                                                isSelected)
+                                            ? true
+                                            : false,
+                                    child: Icon(
+                                      Icons.account_circle,
+                                      color: kTransparentColor,
+                                    )
+                                        .badge(
+                                            size: 12,
+                                            count:
+                                                fController.filterCount.value,
+                                            color: kPrimaryColor)
+                                        .p12(),
+                                  ),
+
+                                  Icon(Icons.arrow_forward_ios,
+                                          color:
+                                              isSelected ? kPrimaryColor : null,
+                                          size: 12)
+                                      .p8(),
+                                  // tileColor: isSelected
+                                  //     ? kPrimaryLightColor.withOpacity(0.5)
+                                  //     : null,
+                                  // ListTile(
+                                  //   title: isSelected
+                                  //       ? item.text
+                                  //           .fontWeight(FontWeight.w900)
+                                  //           .color(kPrimaryColor)
+                                  //           .size(16)
+                                  //           .make()
+                                  //       : item.text.bold.size(16).make(),
+                                  //   tileColor: isSelected
+                                  //       ? kPrimaryLightColor.withOpacity(0.5)
+                                  //       : null,
+                                  //   onTap: () {
+                                  //     fController.selectedFilterIndex.value = index;
+
+                                  //     fController.chageNewList(rightList[index]);
+                                  //   },
+                                  //   trailing: Icon(Icons.arrow_forward_ios),
+                                  // ),
+                                ],
+                                alignment: MainAxisAlignment.spaceEvenly,
+                                crossAlignment: CrossAxisAlignment.center,
+                              ),
+                              VxDivider(indent: 10, endIndent: 30),
+                            ],
+                          ),
+                        );
+                      });
+
+                      // GestureDetector(
+                      //   onTap: () {},
+                      //   child: BoxSelectionButton(
+                      //     isSelected: projectType[index].isSelected,
+                      //     option: projectType[index].options,
+                      //     title: projectType[index].title,
+                      //   ),
+                      // );
                     }),
               ),
-            )
-          ],
+              Expanded(
+                flex: 6,
+                child: Obx(
+                  () => ListView.builder(
+                      itemCount: fController.newList.length,
+                      itemBuilder: (context, index) {
+                        final item = fController.newList[index].toString();
+                        return InkWell(
+                          onTap: () {
+                            // fController.secondListChecked.toggle();
+                          },
+                          child: HStack([
+                            Expanded(child: item.text.size(16).make().p12()),
+                            Obx(
+                              () => Checkbox(
+                                value: fController.secondListChecked.isTrue,
+                                activeColor: kPrimaryColor,
+                                onChanged: (value) {
+                                  // fController.selectedCheckboxValue =
+                                  //     value.toString();
+                                  fController.secondListChecked.toggle();
+                                  if (fController.secondListChecked.isTrue) {
+                                    fController.filterCount.value =
+                                        fController.newList.length;
+                                  } else {
+                                    fController.filterCount.value = 0;
+                                  }
+                                },
+                              ),
+                            )
+                          ]),
+                        );
+                      }),
+                ),
+              )
+            ],
+          ),
         ),
         Positioned(
           bottom: 0,
