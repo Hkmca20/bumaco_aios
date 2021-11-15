@@ -102,7 +102,6 @@ class _CBannerGateWidgetState extends State<CBannerGateWidget>
           child: PageView.builder(
             itemCount: widget.bannerList!.length,
             onPageChanged: (pageIndex) {
-              print('_pageIndex----------$pageIndex');
               _pageIndex = pageIndex;
               setState(() {});
             },
@@ -137,18 +136,18 @@ class _CBannerGateWidgetState extends State<CBannerGateWidget>
                                     BorderRadius.all(Radius.circular(8)),
                                 child: Stack(
                                   children: [
-                                    CachedNetworkImage(
-                                      imageUrl: gateItem.image.contains('https')
-                                          ? gateItem.image
-                                          : ApiConstants.baseImageUrl +
-                                              gateItem.image,
-                                      fit: widget.fitImage,
-                                      placeholder: (context, url) =>
-                                          AppLogoWidget(),
-                                      errorWidget: (context, url, error) =>
-                                          Icon(Icons.error),
-                                    ).marginSymmetric(
-                                        vertical: 10, horizontal: 15),
+                                    // CachedNetworkImage(
+                                    //   imageUrl: gateItem.image.contains('https')
+                                    //       ? gateItem.image
+                                    //       : ApiConstants.baseImageUrl +
+                                    //           gateItem.image,
+                                    //   fit: widget.fitImage,
+                                    //   placeholder: (context, url) =>
+                                    //       AppLogoWidget(),
+                                    //   errorWidget: (context, url, error) =>
+                                    //       Icon(Icons.error),
+                                    // ).marginSymmetric(
+                                    // vertical: 10, horizontal: 15),
                                     Obx(
                                       () => Container(
                                         margin: EdgeInsets.symmetric(

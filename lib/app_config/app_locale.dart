@@ -55,6 +55,9 @@ class BumacoLocale extends Translations {
           // --History/Orders--
           // --Countries--
           'choose_country': 'Choose Country',
+          'language': 'Language',
+          'english': 'English',
+          'arabic': 'Arabic',
           'egypt': 'EGYPT',
           'ksa': 'KSA',
           'quatar': 'QUATAR',
@@ -109,6 +112,7 @@ class BumacoLocale extends Translations {
           'blog': 'Blog',
           'offer': 'Offer',
           'faq': 'FAQ',
+          'help': 'Help',
           'logout': 'Logout',
           'version': 'version',
           'loggedin_via': 'Logged in via',
@@ -190,6 +194,9 @@ class BumacoLocale extends Translations {
           // --History/Orders--
           // --Countries--
           'choose_country': 'اختر الدولة',
+          'language': 'لغة',
+          'english': 'إنجليزي',
+          'arabic': 'عربي',
           'egypt': 'مصر',
           'ksa': 'المملكة العربية السعودية',
           'quatar': 'دولة قطر',
@@ -241,6 +248,7 @@ class BumacoLocale extends Translations {
           'blog': 'ب',
           'offer': 'يعرض',
           'faq': 'التعليمات',
+          'help': 'يساعد',
           'logout': 'تسجيل خروج',
           'version': 'إصدار',
           'loggedin_via': 'تم تسجيل الدخول عبر',

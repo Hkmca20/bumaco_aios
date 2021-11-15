@@ -1,5 +1,6 @@
 import 'package:bumaco_aios/app_core/models/models.dart';
 import 'package:bumaco_aios/app_utils/app_const.dart';
+import 'package:bumaco_aios/ui/login/landing_view.dart';
 import 'package:bumaco_aios/ui/login/signin_view.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/state_manager.dart';
@@ -26,7 +27,7 @@ class OnboardController extends GetxController {
   }
   forwardAction() {
     if (isLastPage) {
-      Get.to(() => LoginView());
+      Get.toNamed(landingRoute);
       box.write(BOX_APP_OPEN_COUNT, appOpenCount + 1);
     } else {
       pageController.nextPage(duration: 300.milliseconds, curve: Curves.ease);

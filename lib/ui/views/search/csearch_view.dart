@@ -1,7 +1,9 @@
 import 'dart:math';
 
+import 'package:bumaco_aios/app_core/models/models.dart';
 import 'package:bumaco_aios/app_utils/utils.dart';
-import 'package:bumaco_aios/ui/views/search/search_delegate.dart';
+import 'package:bumaco_aios/ui/controller/controllers.dart';
+import 'package:bumaco_aios/ui/views/search/search_data.dart';
 import 'package:bumaco_aios/ui/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -14,60 +16,78 @@ class RecentSearchInfo {
   RecentSearchInfo(this.title, this.backgroundColor);
 }
 
-class CSearchView extends StatelessWidget {
+class CSearchView extends StatefulWidget {
   CSearchView({Key? key}) : super(key: key);
 
+  @override
+  State<CSearchView> createState() => _CSearchViewState();
+}
+
+class _CSearchViewState extends State<CSearchView> {
   final OutlineInputBorder oBorder = OutlineInputBorder(
     borderRadius: BorderRadius.circular(5),
     borderSide: BorderSide(color: kGreyLightColor),
     gapPadding: 8,
   );
-  final List<RecentSearchInfo> recentSearcheTerms = [
-    RecentSearchInfo('Makeup, USA',
+
+  final List<RecentSearchInfo> popularBrandList = [
+    RecentSearchInfo(
+        'Wow', Colors.primaries[Random().nextInt(Colors.primaries.length)]),
+    RecentSearchInfo('L\'Oreal',
         Colors.primaries[Random().nextInt(Colors.primaries.length)]),
-    RecentSearchInfo('Face, India',
+    RecentSearchInfo(
+        'Lakme', Colors.primaries[Random().nextInt(Colors.primaries.length)]),
+    RecentSearchInfo(
+        'Nykaa', Colors.primaries[Random().nextInt(Colors.primaries.length)]),
+  ];
+
+  final List<RecentSearchInfo> popularCategoryList = [
+    RecentSearchInfo(
+        'Face', Colors.primaries[Random().nextInt(Colors.primaries.length)]),
+    RecentSearchInfo(
+        'Eyes', Colors.primaries[Random().nextInt(Colors.primaries.length)]),
+    RecentSearchInfo(
+        'Hair', Colors.primaries[Random().nextInt(Colors.primaries.length)]),
+    RecentSearchInfo(
+        'Lips', Colors.primaries[Random().nextInt(Colors.primaries.length)]),
+    RecentSearchInfo('Body Art',
         Colors.primaries[Random().nextInt(Colors.primaries.length)]),
-    RecentSearchInfo('Hair, UAE',
-        Colors.primaries[Random().nextInt(Colors.primaries.length)]),
-    RecentSearchInfo('Lipstick, UK',
+    RecentSearchInfo('Makeup Kits',
         Colors.primaries[Random().nextInt(Colors.primaries.length)]),
   ];
+
+  final searchController = SearchController.to;
+  final selectedGate = getStorageStringValue(BOX_GATE_SELECTED);
+
+  openSearchView(context) async {
+    final result = await showSearch(context: context, delegate: SearchData());
+    print('------------SearchResult----------->' + result.toString());
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppbarHome(
-        title: 'Search Anything',
-        actionList: [
-          IconButton(
-            icon: Icon(Icons.search),
-            tooltip: 'search'.tr,
-            onPressed: () async {
-              final result =
-                  await showSearch(context: context, delegate: SearchData());
-              print('------------SearchView2>' + result.toString());
-            },
-          ),
-          IconButton(
-            icon: Icon(Icons.search_off_outlined),
-            tooltip: 'share'.tr,
-            onPressed: () async {
-              final CountryModel? result = await showSearch<CountryModel>(
-                context: context,
-                delegate: CustomDelegate(),
-              );
-              print('------------1>' + result!.name);
-            },
-          ),
-        ],
-      ),
+      appBar: AppbarHome(title: 'Search Anything', actionList: [
+        IconButton(
+          icon: Icon(Icons.search),
+          tooltip: 'search'.tr,
+          onPressed: () async {
+            openSearchView(context);
+          },
+        ),
+      ]),
       body: SafeArea(
         child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               searchTextField(context),
-              SizedBox(height: 4),
-              SectionTile(title: 'Recent Searches'),
-              recentSearchItems(context),
+              SizedBox(height: 8),
+              SectionTile(title: 'Popular Categories'.toUpperCase()),
+              recentSearchItems(context, popularCategoryList),
+              Divider(),
+              SizedBox(height: 12),
+              SectionTile(title: 'Popular Brands'.toUpperCase()),
+              recentSearchItems(context, popularBrandList),
               Divider(),
             ]),
       ),
@@ -80,11 +100,7 @@ class CSearchView extends StatelessWidget {
       padding: EdgeInsets.all(12),
       child: GestureDetector(
         onTap: () async {
-          final CountryModel? result = await showSearch<CountryModel>(
-            context: context,
-            delegate: CustomDelegate(),
-          );
-          print('------------textField onClick--------1>' + result!.name);
+          openSearchView(context);
         },
         child: TextField(
           enabled: false,
@@ -99,7 +115,7 @@ class CSearchView extends StatelessWidget {
               Icons.search,
               color: kGreyLightColor,
             ),
-            hintText: 'Search on ' + 'app_name'.tr,
+            hintText: 'Search on ' + selectedGate,
             hintStyle: Theme.of(context)
                 .textTheme
                 .headline6!
@@ -115,109 +131,32 @@ class CSearchView extends StatelessWidget {
     );
   }
 
-  recentSearchItems(context) {
+  recentSearchItems(context, itemList) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 24.0),
       child: Wrap(
-        spacing: 3.0, // gap between adjacent chips
-        runSpacing: 3.0, // gap between lines
-        children: List.generate(recentSearcheTerms.length, (index) {
-          return Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 4.0),
-            child: Chip(
-              label: Text(recentSearcheTerms[index].title),
-              padding: EdgeInsets.all(4),
-              backgroundColor: recentSearcheTerms[index].backgroundColor,
+        spacing: 3.0,
+        runSpacing: 3.0,
+        children: List.generate(itemList.length, (index) {
+          final item = itemList[index];
+          return InkWell(
+            onTap: () {
+              Get.back();
+              Get.toNamed(productRoute, arguments: {
+                'arg_category_item': CategoryModel(category: item.title)
+              });
+            },
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 4.0),
+              child: Chip(
+                label: Text(item.title),
+                padding: EdgeInsets.all(4),
+                backgroundColor: item.backgroundColor,
+              ),
             ),
           );
         }),
       ),
     );
-  }
-}
-
-final cityList = ['aaxxaaaa', 'bbbbyybbbbbbb', 'cccczzcccc'];
-final recentCItyList = ['ddddddddddd', 'eeeeeeee', 'ffffffffff', 'ggggggggg'];
-
-class SearchData<T> extends SearchDelegate<String> {
-  // @override
-  // String get searchFieldLabel => 'My hint text';
-  SearchData({
-    String hintText = "Search here...",
-  }) : super(
-          searchFieldLabel: hintText,
-          keyboardType: TextInputType.text,
-          textInputAction: TextInputAction.search,
-          searchFieldStyle: TextStyle(
-            color: kPrimaryColor,
-          ),
-        );
-  @override
-  List<Widget> buildActions(BuildContext context) {
-    return [
-      IconButton(
-          onPressed: () {
-            query = '';
-          },
-          icon: Icon(Icons.clear))
-    ];
-  }
-
-  @override
-  Widget buildLeading(BuildContext context) {
-    return IconButton(
-      icon: AnimatedIcon(
-        icon: AnimatedIcons.menu_arrow,
-        progress: transitionAnimation,
-      ),
-      onPressed: () {
-        close(context, query);
-      },
-    );
-  }
-
-  @override
-  Widget buildResults(BuildContext context) {
-    return Container(
-      height: 100,
-      width: 100,
-      child: Card(
-        color: kPrimaryColor,
-        child: query.text.make(),
-      ),
-    );
-  }
-
-  @override
-  Widget buildSuggestions(BuildContext context) {
-    final suggestionList = query.isEmpty
-        ? recentCItyList
-        : cityList
-            .where((element) =>
-                (element.contains(query) || element.startsWith(query)))
-            .toList();
-
-    return ListView.builder(
-        itemCount: suggestionList.length,
-        itemBuilder: (context, index) {
-          return ListTile(
-            onTap: () {
-              showResults(context);
-            },
-            leading: Icon(Icons.search),
-            // title: RichText(
-            //   text: TextSpan(
-            //       text: suggestionList[index].substring(0, query.length),
-            //       style: TextStyle(fontWeight: FontWeight.bold),
-            //       children: [
-            //         TextSpan(
-            //             text: suggestionList[index].substring(query.length),
-            //             style: TextStyle(fontWeight: FontWeight.normal))
-            //       ]),
-            // ),
-            title: suggestionList[index].text.make(),
-            trailing: Icon(Icons.location_city),
-          );
-        });
   }
 }

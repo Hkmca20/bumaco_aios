@@ -1,15 +1,9 @@
-import 'dart:async';
-
 import 'package:bumaco_aios/app_core/models/models.dart';
 import 'package:bumaco_aios/app_utils/app_const.dart';
 import 'package:bumaco_aios/app_utils/utils.dart';
 import 'package:bumaco_aios/ui/widgets/app_logo_widget.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:get_storage/get_storage.dart';
-import 'package:velocity_x/velocity_x.dart';
-import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
-import 'package:get/get.dart';
 
 class CBannerOneWidget extends StatefulWidget {
   CBannerOneWidget({
@@ -78,22 +72,8 @@ class _CBannerOneWidgetState extends State<CBannerOneWidget>
     super.deactivate();
   }
 
-  int _selectedIndex = 0;
   @override
   Widget build(BuildContext context) {
-    setGridSelected(_selectedIndex) {
-      int run = 0;
-      widget.gateList!.forEach((element) {
-        if (run == _selectedIndex) {
-          GetStorage(BOX_APP).write(BOX_GATE_SELECTED, element.bannertext);
-          element.selected(true);
-        } else {
-          element.selected(false);
-        }
-        run++;
-      });
-    }
-
     return Stack(
       alignment: Alignment.bottomCenter,
       children: [

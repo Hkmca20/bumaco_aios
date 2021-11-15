@@ -1,157 +1,283 @@
 import 'dart:ui';
 
 import 'package:bumaco_aios/app_utils/app_const.dart';
+import 'package:bumaco_aios/app_utils/asset_path.dart';
+import 'package:bumaco_aios/ui/controller/controllers.dart';
+import 'package:bumaco_aios/ui/profile/radio_option.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:transparent_image/transparent_image.dart';
+import 'package:velocity_x/velocity_x.dart';
 
 class SignupView extends StatelessWidget {
+  final signupController = Get.find<SignupController>();
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Stack(
-        children: [
-          Container(
-            height: MediaQuery.of(context).size.height,
+    return WillPopScope(
+      onWillPop: () async => false,
+      child: Scaffold(
+          body: SafeArea(
+        child: SingleChildScrollView(
+          child: initScreen(context),
+        ),
+      )),
+    );
+  }
+
+  Widget initScreen(context) {
+    ValueChanged<String?> _valueChangedHandler() {
+      return (value) => signupController.genderGroupValue.value = value!;
+    }
+
+    return Column(
+      children: [
+        InkWell(
+          onTap: () async {
+            // FilePickerResult result = await FilePicker.platform.pickFiles(
+            //   allowMultiple: true,
+            //   allowedExtensions: ['jpg', 'pdf'],
+            //   type: FileType.custom,
+            // );
+            // if (result != null) {}
+          },
+          child: Container(
             decoration: BoxDecoration(
-                image: DecorationImage(
-                    fit: BoxFit.cover,
-                    image: NetworkImage(
-                      "https://images.unsplash.com/photo-1592348344902-161228c40310?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=334&q=80",
-                    ))),
-            // color: Colors.blue,
-          ),
-          Positioned(
-            bottom: 0,
-            left: 0,
-            right: 0,
-            child: ClipRect(
-              child: BackdropFilter(
-                filter: ImageFilter.blur(sigmaX: 2.0, sigmaY: 2.0),
-                child: Container(
-                  // the size where the blurring starts
-                  height: MediaQuery.of(context).size.height * 0.4,
-                  color: Colors.transparent,
+                image:
+                    DecorationImage(image: AssetImage(bg2), fit: BoxFit.cover)),
+            child: Container(
+              width: double.infinity,
+              height: 150,
+              child: Container(
+                alignment: Alignment(0.0, 4.5),
+                child: CircleAvatar(
+                  backgroundColor: kWhiteColor.withOpacity(0.5),
+                  backgroundImage: FadeInImage.memoryNetwork(
+                          placeholder: kTransparentImage,
+                          image: signupController.profilePhoto)
+                      .image,
+                  // NetworkImage(profileController.profilePhoto),
+                  radius: 60,
                 ),
               ),
             ),
           ),
-          Positioned(
-            top: 150,
-            child: Text(
-              "Bumaco,\nOnline Shop to \nyour doorstep",
-              style: TextStyle(
-                fontSize: 50,
-                fontWeight: FontWeight.bold,
-                color: Colors.white,
+        ),
+        SizedBox(height: 60),
+        Obx(
+          () => signupController.nameUpdated.value.text.uppercase
+              .size(25)
+              .color(Colors.blueGrey)
+              .letterSpacing(2)
+              .fontWeight(FontWeight.w400)
+              .make(),
+        ),
+        SizedBox(height: 10),
+        (signupController.emailCTR.text == ''
+                ? signupController.mobileCTR.text
+                : signupController.emailCTR.text)
+            .text
+            .size(18)
+            .fontWeight(FontWeight.w400)
+            .make(),
+        SizedBox(height: 10),
+        VxDivider(),
+        SizedBox(height: 20),
+        //-----------------textfields------------------
+        //Gender
+        Padding(
+          padding: EdgeInsets.symmetric(horizontal: 30),
+          child: HStack([
+            Expanded(
+              flex: 3,
+              child: Obx(
+                () => MyRadioOption<String>(
+                  value: '1',
+                  groupValue: signupController.genderGroupValue.value,
+                  onChanged: _valueChangedHandler(),
+                  icon: Icons.female_outlined,
+                  text: 'Miss',
+                ),
               ),
             ),
-          ),
-          Positioned(
-            bottom: 0,
-            child: Padding(
-              padding: EdgeInsets.all(10),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  // mobileEditText(context),
-                  loginButton(context),
-                  loginButton(context),
-                  // loadingIndicator(loginBloc),
-                ],
+            // Mr Radio
+            Expanded(
+              flex: 3,
+              child: Obx(
+                () => MyRadioOption<String>(
+                  value: '2',
+                  groupValue: signupController.genderGroupValue.value,
+                  onChanged: _valueChangedHandler(),
+                  icon: Icons.male_outlined,
+                  text: 'Mr',
+                ),
               ),
             ),
-          ),
-        ],
-      ),
-    );
-  }
+            Expanded(flex: 4, child: SizedBox())
+          ]),
+        ),
 
-  var logo = Hero(
-    tag: 'hero',
-    child: Padding(
-      padding: const EdgeInsets.fromLTRB(16.0, 16.0, 16.0, 0.0),
-      child: Center(
-        child: Container(
-          width: 100.0,
-          height: 100.0,
-          decoration: BoxDecoration(
-            image: DecorationImage(
-              fit: BoxFit.fill,
-              image: AssetImage('assets/images/app_logo.png'),
+        // NameEdit text
+        Container(
+          margin: EdgeInsets.only(top: 30.0, left: 30.0, right: 30.0),
+          child: TextField(
+            controller: signupController.nameCTR,
+            onChanged: (value) {
+              signupController.nameUpdated(value);
+            },
+            decoration: InputDecoration(
+              labelText: "Full Name", // Set text upper animation
+              suffixIcon: Icon(
+                Icons.person_outline,
+                color: kPrimaryColor,
+              ),
             ),
-            borderRadius: BorderRadius.all(Radius.circular(50.0)),
+            minLines: 1,
+            autofocus: false,
+            keyboardType: TextInputType.text,
+            autocorrect: true,
+            textCapitalization: TextCapitalization.characters,
           ),
         ),
-      ),
-    ),
-  );
 
-  var loginText = Container(
-    margin: EdgeInsets.only(top: 20, left: 40),
-    child: Text(
-      'Bumaco Login',
-      style: TextStyle(fontSize: 24),
-    ),
-  );
-
-  mobileEditText(context) {
-    return Container(
-      margin: EdgeInsets.only(top: 40.0, left: 30.0, right: 30.0),
-      child:  TextFormField(
-              decoration: InputDecoration(
-                labelText: 'Mobile Number',
-                border: OutlineInputBorder(),
-                suffixIcon: Icon(Icons.phone_android),
+        // Phone Number Edit text
+        Container(
+          margin: EdgeInsets.only(top: 30.0, left: 30.0, right: 30.0),
+          child: TextFormField(
+            controller: signupController.mobileCTR,
+            enabled: false,
+            decoration: InputDecoration(
+              labelText: "Phone Number", // Set text upper animation
+              labelStyle: TextStyle(color: kGreyLightColor),
+              border: OutlineInputBorder(),
+              disabledBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(5),
+                borderSide: BorderSide(color: kPrimaryColor),
+                gapPadding: 8,
               ),
-              maxLines: 1,
-              minLines: 1,
-              keyboardType: TextInputType.number,
-              autofocus: false,
-            )
-    );
-  }
-
-  passwordEditText(context, loginBloc) {
-    return Container(
-      margin: EdgeInsets.only(top: 40, left: 30, right: 30),
-      child: StreamBuilder(
-          stream: loginBloc.loginPassword,
-          builder: (context, snap) {
-            return TextFormField(
-              onChanged: (value) => loginBloc.changePasswordMobile(value),
-              decoration: InputDecoration(
-                errorText: snap.error?.toString(),
-                labelText: 'Password',
-                border: OutlineInputBorder(),
-                suffixIcon: Icon(Icons.password),
+              suffixIcon: Icon(
+                Icons.phone_android_rounded,
+                color: kGreyLightColor,
               ),
-              maxLines: 1,
-              minLines: 1,
-              keyboardType: TextInputType.text,
-              obscureText: true,
-            );
-          }),
-    );
-  }
-
-  loginButton(context) {
-    return Center(
-        child: Container(
-      margin: EdgeInsets.only(top: 40, left: 30, right: 30),
-      child: DecoratedBox(
-        decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(5),
-            gradient: LinearGradient(
-                // colors: [Colors.red, Colors.blue],
-                colors: [gradientColorBlue1, gradientColorBlue2],
-                begin: Alignment.centerLeft,
-                end: Alignment.centerRight)),
-        child: ElevatedButton(
-          child: Text('Log in'),
-          onPressed: () {},
+            ),
+            minLines: 1,
+            autofocus: false,
+            keyboardType: TextInputType.number,
+            // inputFormatters: [
+            //   FilteringTextInputFormatter.digitsOnly,
+            // ],
+            // onSaved: (value) {
+            // This optional block of code can be used to run
+            // code when the user saves the form.
+            // },
+            // validator: (value) {
+            //   return value!.contains('@') ? 'Do not use the @ char.' : null;
+            // },
+            // validator: (value) {
+            //   return num.tryParse(value!) == null ? 'Enter Amount' : value;
+            // },
+            // onEditingComplete: () {}, // do not hide keyboard
+            // textInputAction: TextInputAction.send,
+          ),
         ),
-      ),
-    ));
+
+        // Email Id Edit text
+        Container(
+          margin: EdgeInsets.only(top: 30.0, left: 30.0, right: 30.0),
+          child: TextFormField(
+            controller: signupController.emailCTR,
+            decoration: InputDecoration(
+              labelText: "Email Id", // Set text upper animation
+              border: OutlineInputBorder(),
+              suffixIcon: Icon(
+                Icons.email_outlined,
+                color: kPrimaryColor,
+              ),
+            ),
+            minLines: 1,
+            autofocus: false,
+            keyboardType: TextInputType.emailAddress,
+          ),
+        ),
+
+        // Date Of Birth Edit text
+        Container(
+          margin: EdgeInsets.only(top: 30.0, left: 30.0, right: 30.0),
+          child: TextFormField(
+            controller: signupController.dobCTR,
+            decoration: InputDecoration(
+              labelText: "DOB (Optional)", // Set text upper animation
+              border: OutlineInputBorder(),
+              suffixIcon: Icon(
+                Icons.calendar_today_outlined,
+                color: kPrimaryColor,
+              ),
+            ),
+            minLines: 1,
+            autofocus: false,
+            keyboardType: TextInputType.number,
+          ),
+        ),
+
+//Button Section--------------------
+        HStack([
+          // Submit Button
+          Expanded(
+              flex: 5,
+              child: Container(
+                  decoration: BoxDecoration(
+                      gradient: LinearGradient(
+                          colors: [
+                            kPrimaryColorDark, kPrimaryColor
+                            //  Color(0xff374ABE), Color(0xff64B6FF)
+                          ],
+                          begin: Alignment.centerLeft,
+                          end: Alignment.centerRight),
+                      borderRadius: BorderRadius.all(Radius.circular(5.0))),
+                  margin:
+                      EdgeInsets.symmetric(vertical: 50.0, horizontal: 10.0),
+                  child: MaterialButton(
+                    onPressed: () {
+                      signupController.submitLaterButton(context);
+                    },
+                    child: 'Update Later'
+                        .text
+                        .uppercase
+                        .white
+                        .size(18)
+                        .align(TextAlign.center)
+                        .make(),
+                  ))),
+          // Submit Button
+          Expanded(
+              flex: 5,
+              child: Container(
+                  decoration: BoxDecoration(
+                      gradient: LinearGradient(
+                          colors: [
+                            kPrimaryColorDark, kPrimaryColor
+                            //  Color(0xff374ABE), Color(0xff64B6FF)
+                          ],
+                          begin: Alignment.centerLeft,
+                          end: Alignment.centerRight),
+                      borderRadius: BorderRadius.all(Radius.circular(5.0))),
+                  margin:
+                      EdgeInsets.symmetric(vertical: 50.0, horizontal: 10.0),
+                  child: MaterialButton(
+                    onPressed: () {
+                      signupController.submitButton(context);
+                    },
+                    child: 'Continue'
+                        .text
+                        .uppercase
+                        .white
+                        .size(18)
+                        .align(TextAlign.center)
+                        .make(),
+                  ))),
+        ])
+      ],
+    );
   }
 }

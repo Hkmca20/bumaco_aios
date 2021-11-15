@@ -23,7 +23,6 @@ class SigninController extends GetxController {
 
   @override
   void onInit() {
-    print('onInit==========>');
     mobileCTR = TextEditingController();
     _googleSignIn.onCurrentUserChanged.listen((GoogleSignInAccount? account) {
       _currentUser = account;

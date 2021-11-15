@@ -18,5 +18,8 @@ export 'search_controller.dart';
 export 'address_controller.dart';
 export 'banner_controller.dart';
 export 'profile_controller.dart';
+export 'signup_controller.dart';
 export 'filter_controller.dart';
 export 'socket_controller.dart';
+export 'video_controller.dart';
+export 'checkout_controller.dart';

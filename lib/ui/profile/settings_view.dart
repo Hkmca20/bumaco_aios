@@ -2,10 +2,12 @@ import 'package:bumaco_aios/app_utils/utils.dart';
 import 'package:bumaco_aios/ui/controller/controllers.dart';
 import 'package:bumaco_aios/ui/controller/signin_controller.dart';
 import 'package:bumaco_aios/ui/gallery/gallery_view.dart';
+import 'package:bumaco_aios/ui/login/terms_condition.dart';
 import 'package:bumaco_aios/ui/profile/column_demo.dart';
 import 'package:bumaco_aios/ui/views/address/addresss_view.dart';
 import 'package:bumaco_aios/ui/views/dashboard/tabbar_view.dart';
 import 'package:bumaco_aios/ui/views/home/c_product_view.dart';
+import 'package:bumaco_aios/ui/views/media/chewie_player.dart';
 import 'package:bumaco_aios/ui/views/media/video_player_view.dart';
 import 'package:bumaco_aios/ui/views/socket/socket_view.dart';
 import 'package:bumaco_aios/ui/views/views.dart';
@@ -193,10 +195,29 @@ class SettingView extends StatelessWidget {
               subtitle: Obx(
                 () => Text('[${_loaleController.selectedCountry}]'),
               ),
-              onTap: () => {_loaleController.buildDialog(context)},
+              onTap: () => {_loaleController.openLocaleSheet(context)},
             ),
           ),
           Divider(height: 1),
+          // SimpleBuilder(
+          //   builder: (_) => ListTile(
+          //     leading: Icon(Icons.play_arrow_rounded),
+          //     trailing: Icon(Icons.arrow_forward_ios_rounded),
+          //     title: 'Videos'.text.make(),
+          //     // onTap: () => {Get.to(() => VideoPlayerView())},
+          //     onTap: () => {Get.to(() => ChewiePlayerView())},
+          //   ),
+          // ),
+          // Divider(height: 1),
+          // SimpleBuilder(
+          //   builder: (_) => ListTile(
+          //     leading: Icon(Icons.chat),
+          //     trailing: Icon(Icons.arrow_forward_ios_rounded),
+          //     title: 'Chat With Us'.text.make(),
+          //     onTap: () => {Get.to(() => SocketView())},
+          //   ),
+          // ),
+          // Divider(height: 1),
           SimpleBuilder(
             builder: (_) => ListTile(
               leading: Icon(Icons.info_outline_rounded),
@@ -208,11 +229,19 @@ class SettingView extends StatelessWidget {
           Divider(height: 1),
           SimpleBuilder(
             builder: (_) => ListTile(
-              leading: Icon(Icons.chat),
+              leading: Icon(Icons.help_outline),
               trailing: Icon(Icons.arrow_forward_ios_rounded),
-              title: 'Chat With Us'.text.make(),
-              // onTap: () => {Get.to(() => SocketView())},
-              onTap: () => {Get.to(() => VideoPlayerScreen())},
+              title: 'help'.tr.text.make(),
+              onTap: () => {Get.toNamed(expansionRoute)},
+            ),
+          ),
+          Divider(height: 1),
+          SimpleBuilder(
+            builder: (_) => ListTile(
+              leading: Icon(Icons.policy),
+              trailing: Icon(Icons.arrow_forward_ios_rounded),
+              title: 'Terms and Condition'.text.make(),
+              onTap: () => {Get.to(() => TermsAndCondition())},
             ),
           ),
           Divider(height: 1),

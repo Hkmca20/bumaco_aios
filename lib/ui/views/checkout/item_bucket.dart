@@ -1,13 +1,12 @@
 import 'dart:ui';
+
 import 'package:bumaco_aios/app_core/db/entity/entities.dart';
 import 'package:bumaco_aios/app_utils/app_const.dart';
 import 'package:bumaco_aios/ui/controller/controllers.dart';
 import 'package:bumaco_aios/ui/widgets/app_logo_widget.dart';
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:get/get.dart';
-import 'package:transparent_image/transparent_image.dart';
-import 'package:velocity_x/velocity_x.dart';
 import 'package:flutter/material.dart';
+import 'package:velocity_x/velocity_x.dart';
 
 class ItemBucket extends StatelessWidget {
   const ItemBucket({Key? key, required this.item, required this.bController})
@@ -55,7 +54,6 @@ class ItemBucket extends StatelessWidget {
                       .make()
                       .px2(),
                   item.brand.text.capitalize.make().px2(),
-                  // VxDivider(),
                   SizedBox(height: 1),
                   ('${item.shortDescription} : ${item.description}')
                       .text
@@ -92,7 +90,6 @@ class ItemBucket extends StatelessWidget {
                   ),
                   item.quantity.text
                       .fontWeight(FontWeight.bold)
-                      // .color(kPrimaryColor)
                       .size(22)
                       .capitalize
                       .make()

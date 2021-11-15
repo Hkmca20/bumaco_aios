@@ -385,7 +385,7 @@ class HomeBaView extends StatelessWidget {
                       ),
                       Divider(),
 
-                      SectionTile(title: 'IN THE SPOTLIGHT'),
+                      SectionTile(title: 'SHOP BY BRAND'),
                       Wrap(
                         spacing: 3,
                         runSpacing: 3,
@@ -432,7 +432,7 @@ class HomeBaView extends StatelessWidget {
                         }),
                       ),
                       Divider(),
-                      SectionTile(title: 'TRENDING STORES & GUIDE'),
+                      SectionTile(title: 'TRENDING STORIES'),
                       Container(
                         height: 200,
                         child: ListView.builder(

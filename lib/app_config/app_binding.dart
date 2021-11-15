@@ -1,6 +1,7 @@
 import 'package:bumaco_aios/app_core/repository/banner_repo.dart';
 import 'package:bumaco_aios/app_core/repository/news_repo_impl.dart';
 import 'package:bumaco_aios/app_utils/app_const.dart';
+import 'package:bumaco_aios/ui/controller/checkout_controller.dart';
 import 'package:bumaco_aios/ui/controller/controllers.dart';
 import 'package:bumaco_aios/ui/news/news_controller.dart';
 import 'package:get/get.dart';
@@ -41,9 +42,15 @@ class AppBinding implements Bindings {
     Get.lazyPut(() => SubCategoryController(),
         fenix: true, tag: S_CATEGORY_CONTROLLER);
     Get.lazyPut(() => ProfileController(), fenix: true);
+    Get.lazyPut(() => SignupController(), fenix: true);
     Get.lazyPut(() => SearchController(), fenix: true);
     Get.lazyPut(() => FilterController(), fenix: true);
-    Get.lazyPut(() => SocketController(), fenix: true);
+    Get.lazyPut(() => SocketController(), 
+        fenix: true, tag: SOCKET_CONTROLLER);
+    Get.lazyPut(() => VideoController(), 
+        fenix: true, tag: VIDEO_CONTROLLER);
+    Get.lazyPut(() => CheckoutController(),
+        fenix: true, tag: CHECKOUT_CONTROLLER);
 
     Get.lazyPut(() => BannerRepoImpl(), fenix: true);
   }

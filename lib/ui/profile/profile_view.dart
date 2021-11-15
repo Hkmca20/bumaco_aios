@@ -3,15 +3,12 @@ import 'dart:ui';
 import 'package:bumaco_aios/app_utils/app_const.dart';
 import 'package:bumaco_aios/app_utils/asset_path.dart';
 import 'package:bumaco_aios/ui/controller/profile_controller.dart';
-import 'package:bumaco_aios/ui/widgets/widgets.dart';
-import 'package:cached_network_image/cached_network_image.dart';
+import 'package:bumaco_aios/ui/profile/radio_option.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:transparent_image/transparent_image.dart';
 import 'package:velocity_x/velocity_x.dart';
-
-import 'radio_option.dart';
 
 class ProfileUI2 extends StatelessWidget {
   final profileController = Get.find<ProfileController>();
@@ -65,18 +62,18 @@ class ProfileUI2 extends StatelessWidget {
           ),
         ),
         SizedBox(height: 60),
-        (profileController.nameCTR.text == ''
-                ? 'Guest User'
-                : profileController.nameCTR.text)
-            .text
-            .size(25)
-            .color(Colors.blueGrey)
-            .letterSpacing(2)
-            .fontWeight(FontWeight.w400)
-            .make(),
-        SizedBox(
-          height: 10,
+        // (profileController.nameCTR.text == ''
+        //         ? 'Guest User'
+        //         : profileController.nameCTR.text)
+        Obx(
+          () => profileController.nameUpdated.value.text.uppercase
+              .size(25)
+              .color(Colors.blueGrey)
+              .letterSpacing(2)
+              .fontWeight(FontWeight.w400)
+              .make(),
         ),
+        SizedBox(height: 10),
         (profileController.emailCTR.text == ''
                 ? profileController.mobileCTR.text
                 : profileController.emailCTR.text)
@@ -173,7 +170,7 @@ class ProfileUI2 extends StatelessWidget {
             ),
             minLines: 1,
             autofocus: false,
-            keyboardType: TextInputType.number,
+            keyboardType: TextInputType.emailAddress,
           ),
         ),
 

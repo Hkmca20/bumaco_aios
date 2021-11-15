@@ -2,10 +2,13 @@ import 'package:bumaco_aios/app_core/db/database/app_database.dart';
 import 'package:bumaco_aios/app_core/db/entity/entities.dart';
 import 'package:bumaco_aios/app_core/models/models.dart';
 import 'package:bumaco_aios/app_utils/utils.dart';
+import 'package:bumaco_aios/ui/views/home/book_order_view.dart';
 import 'package:get/get.dart';
+import 'package:razorpay_flutter/razorpay_flutter.dart';
 
 class BucketController extends GetxController {
   static BucketController get to => Get.find(tag: BUCKET_CONTROLLER);
+  late String currency;
   var isLoading = true.obs;
   var bucketList = <BucketEntity>[].obs;
   var totalAmount = 0.0.obs;
@@ -14,11 +17,77 @@ class BucketController extends GetxController {
   var discountAmt = 0.0.obs;
   var shippingAmt = 0.0.obs;
   var grandTotal = 0.0.obs;
+  late final Razorpay _razorpay;
 
   @override
   void onInit() {
-    getAllBucketFromLocal();
     super.onInit();
+    currency = getStorageStringValue(BOX_CURRENCY);
+    if (currency == '') currency = 'GBP';
+    getAllBucketFromLocal();
+    _razorpay = Razorpay();
+    _razorpay.on(Razorpay.EVENT_PAYMENT_SUCCESS, _handlePaymentSuccess);
+    _razorpay.on(Razorpay.EVENT_PAYMENT_ERROR, _handlePaymentError);
+    _razorpay.on(Razorpay.EVENT_EXTERNAL_WALLET, _handleExternalWallet);
+  }
+
+  initiatePayment(payableAmount) {
+    var options = {
+      'key': 'rzp_test_K91R0TzxmZMA2R', //process.env.RAZORPAY_KEY,//
+      'amount': 100, //in the smallest currency sub-unit.
+      'currency': 'INR',
+      'name': 'Hariom Gupta',
+      // 'order_id': 'order_EMBFqjDHEEn80l', // Generate order_id using Orders API
+      'description': 'Fine T-Shirt',
+      'timeout': 60, // seconds
+      'retry': {'enabled': true, 'max_count': 1},
+      'send_sms_hash': true,
+      'prefill': {
+        'contact': '8470874534',
+        'email': 'hariom.brandhype@gmail.com'
+      },
+      'external': {
+        'wallets': ['paytm']
+      },
+    };
+
+    try {
+      _razorpay.open(options);
+    } catch (e) {
+      print('Error: $e');
+    }
+  }
+
+  void _handlePaymentSuccess(PaymentSuccessResponse response) async {
+    final tempAmount = grandTotal.value;
+    print('payment success');
+    bumacoSnackbar('alert'.tr, 'SUCCESS: ${response.paymentId}');
+    removeAllBucket(true);
+    showLoadingDialog();
+    await Future.delayed(2.seconds);
+    Get.back();
+    Get.to(() => BookOrderView(), arguments: {
+      ARG_PAYABLE_AMT: tempAmount,
+      ARG_PAYMENT_ID: response.paymentId,
+    });
+  }
+
+  void _handlePaymentError(PaymentFailureResponse response) {
+    // Do something when payment fails
+    print('ERROR: ${response.code} - ${response.message}');
+    bumacoSnackbar('alert'.tr, 'PAYMENT FAILED: ${response.code}');
+  }
+
+  void _handleExternalWallet(ExternalWalletResponse response) {
+    // Do something when an external wallet was selected
+    print('payment external wallet');
+    bumacoSnackbar('alert'.tr, 'EXTERNAL_WALLET: ${response.walletName}');
+  }
+
+  @override
+  void onClose() {
+    _razorpay.clear();
+    super.onClose();
   }
 
   updateBucketList(buckets) {
@@ -121,11 +190,13 @@ class BucketController extends GetxController {
     }
   }
 
-  removeAllBucket() async {
+  removeAllBucket(paid) async {
     final db = await $FloorAppDatabase.databaseBuilder(DB_NAME).build();
     final bucketDao = db.bucketDao;
     bucketDao.deleteAllBucket();
-    bumacoSnackbar('alert'.tr, 'All data ' + 'removed_from'.tr + ' ' + 'cart'.tr);
-      getAllBucketFromLocal();
+    if (!paid)
+      bumacoSnackbar(
+          'alert'.tr, 'All data ' + 'removed_from'.tr + ' ' + 'cart'.tr);
+    getAllBucketFromLocal();
   }
 }

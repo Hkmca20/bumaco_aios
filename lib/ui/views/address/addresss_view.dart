@@ -2,7 +2,6 @@ import 'package:bumaco_aios/app_core/db/entity/entities.dart';
 import 'package:bumaco_aios/app_utils/app_bar_home.dart';
 import 'package:bumaco_aios/app_utils/utils.dart';
 import 'package:bumaco_aios/ui/controller/controllers.dart';
-import 'package:bumaco_aios/ui/views/checkout/item_bucket.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:velocity_x/velocity_x.dart';
@@ -19,7 +18,6 @@ class AddressView extends StatelessWidget {
     final _addressController = AddressController.to;
 
     if (Get.arguments != null) {
-      print('check argument not null here--------------');
       _addressController.setisFromBucketPage(Get.arguments['get_is_bucket']);
     }
     return Scaffold(

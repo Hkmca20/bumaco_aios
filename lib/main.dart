@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:bumaco_aios/app_core/db/database/app_database.dart';
 import 'package:bumaco_aios/network/dio_client.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -22,8 +21,9 @@ Future<void> main() async {
   FirebaseMessaging.onBackgroundMessage(_messageHandler);
 
   await GetStorage.init(BOX_APP);
-  Get.lazyPut(() => SettingsController(),
-      fenix: true, tag: SETTINGS_CONTROLLER);
+  // Get.lazyPut(() => SettingsController(),
+  //     fenix: true, tag: SETTINGS_CONTROLLER);
+  Get.lazyPut(() => LocaleController(), fenix: true, tag: LOCALE_CONTROLLER);
 
   await Get.putAsync<DioClient>(() => DioClientImpl().init());
   await Get.putAsync<AppDatabase>(() => AppDatabase.init());
@@ -32,21 +32,22 @@ Future<void> main() async {
 }
 
 class MyApp extends StatelessWidget {
-  // final _settingsController = SettingsController.to;
+  // final settingsController = SettingsController.to;
+  final lController = LocaleController.to;
   @override
   Widget build(BuildContext context) {
     // var lang = Localizations.localeOf(context).languageCode;
-    print(Platform.operatingSystem);
-    print(Platform.operatingSystemVersion);
-    print(Platform.version);
+    // print(Platform.operatingSystem);
+    // print(Platform.operatingSystemVersion);
+    // print(Platform.version);
     // PackageInfo.fromPlatform().then((PackageInfo packageInfo) {
     //   String appName = packageInfo.appName;
     //   String packageName = packageInfo.packageName;
     //   String version = packageInfo.version;
     //   String buildNumber = packageInfo.buildNumber;
     // });
-    print(Get.deviceLocale); // deviceCurrentLocale
-    print(Get.locale); // appCurrentLocale
+    // print(Get.deviceLocale); // deviceCurrentLocale
+    // print(Get.locale); // appCurrentLocale
 
     return GetMaterialApp(
       enableLog: true,
@@ -59,8 +60,8 @@ class MyApp extends StatelessWidget {
       theme: setTheme(context),
       darkTheme: setDarkTheme(context),
       translations: BumacoLocale(),
-      locale: Get.deviceLocale, //default locale from get device locale
-      fallbackLocale: ukLocale, //fallback if locale not present in device
+      locale: lController.setLocale(),
+      fallbackLocale: ukLocale,
       initialRoute: initialRoute,
       // onGenerateRoute: (RouteSettings settings) {
       //   if (settings.name.contains('onboard')) {

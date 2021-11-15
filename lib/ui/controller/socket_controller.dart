@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:socket_io_client/socket_io_client.dart' as IO;
 
 class SocketController extends GetxController {
+  static SocketController get to => Get.find(tag: SOCKET_CONTROLLER);
   final scrollController = ScrollController();
   final msgInputController = TextEditingController();
   var connectedUser = ''.obs;
@@ -15,7 +16,8 @@ class SocketController extends GetxController {
   void onInit() {
     super.onInit();
     socket = IO.io(
-        'http://192.168.225.77:4000',
+        'http://192.168.82.123:4000',
+        // 'http://192.168.225.77:4000',
         // 'http://localhost:4000',
         IO.OptionBuilder()
             .setTransports(['websocket'])

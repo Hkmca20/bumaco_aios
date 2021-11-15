@@ -65,7 +65,7 @@ class ProductView extends StatelessWidget {
                 Get.to(() => FavouriteView());
                 // Get.toNamed(wishlistRoute);
               },
-            ), //IconBnButton
+            ),
             IconButton(
               icon: Obx(() => bController.bucketList.length == 0
                   ? Icon(Icons.shopping_bag_outlined)
@@ -270,6 +270,7 @@ class ProductView extends StatelessWidget {
                             staggeredTiles: List.generate(
                                 productController.allProductList.length,
                                 (index) {
+                              // return StaggeredTile.count(1, 2.3);
                               return StaggeredTile.fit(1);
                             }),
                             children: List.generate(

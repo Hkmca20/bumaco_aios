@@ -1,6 +1,7 @@
 import 'package:bumaco_aios/app_utils/utils.dart';
 import 'package:bumaco_aios/ui/bindings/bindings.dart';
 import 'package:bumaco_aios/ui/bindings/category_binding.dart';
+import 'package:bumaco_aios/ui/bindings/initial_binding.dart';
 import 'package:bumaco_aios/ui/login/temp_view.dart';
 import 'package:bumaco_aios/ui/news/news_headline.dart';
 import 'package:bumaco_aios/ui/news/news_detail.dart';
@@ -19,7 +20,7 @@ List<GetPage<dynamic>> get setRoute => [
         page: () => SplashView(),
         transition: Transition.fade,
         transitionDuration: kTransitionDuration,
-        bindings: [],
+        bindings: [InitialBinding()],
       ),
       GetPage(
           name: onboardRoute,
@@ -125,7 +126,7 @@ List<GetPage<dynamic>> get setRoute => [
           name: expansionRoute,
           transition: Transition.fade,
           transitionDuration: kTransitionDuration,
-          page: () => ExpansionView()),
+          page: () => FAQView()),
       GetPage(
           name: googleSigninDemoRoute,
           transition: Transition.fade,

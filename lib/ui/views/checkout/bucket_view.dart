@@ -4,7 +4,6 @@ import 'package:bumaco_aios/app_utils/utils.dart';
 import 'package:bumaco_aios/ui/controller/controllers.dart';
 import 'package:bumaco_aios/ui/views/address/addresss_view.dart';
 import 'package:bumaco_aios/ui/views/checkout/item_bucket.dart';
-import 'package:bumaco_aios/ui/views/home/book_order_view.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:velocity_x/velocity_x.dart';
@@ -19,7 +18,6 @@ class BucketView extends StatelessWidget {
   Widget build(BuildContext context) {
     final _aController = AddressController.to;
     final bController = BucketController.to;
-    // final bucketController = Get.find<BucketController>();
 
     return Scaffold(
       appBar: AppbarHome(
@@ -29,7 +27,7 @@ class BucketView extends StatelessWidget {
             icon: Icon(Icons.delete),
             tooltip: 'Delete All Cart Items',
             onPressed: () {
-              bController.removeAllBucket();
+              bController.removeAllBucket(false);
             },
           ),
           IconButton(
@@ -117,7 +115,7 @@ class BucketView extends StatelessWidget {
                                       .size(14)
                                       .make()
                                       .p12()),
-                              '\$${bController.totalAmount}'
+                              '${bController.currency}${bController.totalAmount}'
                                   .text
                                   .size(14)
                                   .make()
@@ -132,7 +130,7 @@ class BucketView extends StatelessWidget {
                                       .size(14)
                                       .make()
                                       .p12()),
-                              '\$${bController.taxAmount}'
+                              '${bController.currency}${bController.taxAmount}'
                                   .text
                                   .size(14)
                                   .make()
@@ -147,7 +145,7 @@ class BucketView extends StatelessWidget {
                                       .size(14)
                                       .make()
                                       .p12()),
-                              '\$${bController.discountAmt}'
+                              '${bController.currency}${bController.discountAmt}'
                                   .text
                                   .size(14)
                                   .make()
@@ -162,7 +160,7 @@ class BucketView extends StatelessWidget {
                                       .size(14)
                                       .make()
                                       .p12()),
-                              '\$${bController.shippingAmt}'
+                              '${bController.currency}${bController.shippingAmt}'
                                   .text
                                   .size(14)
                                   .make()
@@ -183,8 +181,8 @@ class BucketView extends StatelessWidget {
                               //     .size(24)
                               //     .make()
                               //     .p12(),
-                              bController.grandTotal.value
-                                  .numCurrencyWithLocale(locale: 'en_UK')
+                              '${bController.currency}${bController.grandTotal.value}'
+                                  // .numCurrencyWithLocale(locale: 'en_UK')
                                   // .numCurrencyWithLocale(locale: 'ar_AE')
                                   .text
                                   .xl
@@ -198,9 +196,8 @@ class BucketView extends StatelessWidget {
                               _aController.addressList.length == 0
                                   ? Get.to(() => AddAddressView(),
                                       arguments: {'get_is_bucket': true})
-                                  : Get.to(() => BookOrderView(), arguments: {
-                                      ARG_PAYABLE_AMT: bController.grandTotal
-                                    });
+                                  : bController
+                                      .initiatePayment(bController.grandTotal);
                             },
                             // color: Color(0xff374ABE),
                             color: kPrimaryColor,

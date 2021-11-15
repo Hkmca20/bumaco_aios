@@ -6,6 +6,7 @@ import 'package:get/get.dart';
 
 abstract class ProductRepository {
   Future<List<ProductModel>?> getProduct(categoryId);
+  Future<List<ProductModel>?> searchProduct(searchStr);
   Future<List<ProductModel>?> getProductAll();
   Future<List<ProductMakeupModel>?> getProductMakeup();
 }
@@ -36,6 +37,21 @@ class ProductRepositoryImpl extends ProductRepository {
     final response;
     try {
       response = await _client.getRequest(ApiConstants.productApi + categoryId);
+      final productList =
+          (response.data as List).map((x) => ProductModel.fromJson(x)).toList();
+      return productList;
+    } on Exception catch (error) {
+      print(error);
+      return null;
+    }
+  }
+
+  @override
+  Future<List<ProductModel>?> searchProduct(searchStr) async {
+    final response;
+    try {
+      response =
+          await _client.getRequest(ApiConstants.searchFilterApi + searchStr);
       final productList =
           (response.data as List).map((x) => ProductModel.fromJson(x)).toList();
       return productList;

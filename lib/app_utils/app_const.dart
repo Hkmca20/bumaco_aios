@@ -41,6 +41,7 @@ const String kOtp4digit = "Please Enter correct otp";
 
 //ALL ARGUMENTS
 const String ARG_PAYABLE_AMT = 'arg_payable_amt';
+const String ARG_PAYMENT_ID = 'arg_payment_id';
 
 // Patterns
 final RegExp numericRegExp = RegExp(r'\d');
@@ -127,17 +128,20 @@ const HOME_CONTROLLER = '_home_controller';
 const SEARCH_CONTROLLER = '_search_controller';
 const PRODUCT_CONTROLLER = '_product_controller';
 const BUCKET_CONTROLLER = '_bucket_controller';
+const CHECKOUT_CONTROLLER = '_checkout_controller';
 const ADDRESS_CONTROLLER = '_address_controller';
 const BANNER_CONTROLLER = '_banner_controller';
 const CATEGORY_CONTROLLER = '_category_controller';
 const C_CATEGORY_CONTROLLER = '_s_category_controller';
 const S_CATEGORY_CONTROLLER = '_s_category_controller';
+const SOCKET_CONTROLLER = 'socket_controller';
+const VIDEO_CONTROLLER = 'video_controller';
 
 // Locales
 const hiLocale = Locale('hi', 'IN');
 const ukLocale = Locale('en', 'US');
 const arLocale = Locale('ar', 'AE');
-const localeList = <Locale>[ukLocale, arLocale];
+// const localeList = <Locale>[ukLocale, arLocale];
 
 // Fonts
 const FONT_IBM_PLEX_SANS_ARABIC = 'IBMPlexSansArabic';
@@ -168,6 +172,8 @@ const BOX_APP_OPEN_COUNT = 'app_open_count'; //int
 // GetUtils.isEmail('abc@gmail.com') ? validate() :errorMessage();
 
 const BOX_COUNTRY = 'country'; //string
+const BOX_CURRENCY = 'currency'; //string
+const BOX_CURRENCY_SYMBOL = 'currency_symbol'; //string
 const BOX_NAME = 'name'; //string
 const BOX_MOBILE = 'mobile'; //string
 const BOX_EMAIL = 'email'; //string
@@ -179,7 +185,7 @@ const BOX_IS_LOGGEDIN = 'is_loggedin'; //bool
 const BOX_IS_DARK = 'is_dark'; //bool
 const BOX_IS_NOTIFICATION = 'is_notification'; //bool
 const BOX_GATE_SELECTED = 'gate_selected'; //bool
-const BOX_BADGE_ACCOUNT = 'badge_account'; //bool
+const BOX_BADGE_ACCOUNT1 = 'badge_account'; //bool
 
 getStorageStringValue(key) {
   final box = GetStorage(BOX_APP);
@@ -221,6 +227,8 @@ class ApiConstants {
   static const bannerSliderApi = 'bannerapi/homeslider/';
   static const bannerApi = 'bannerapi/position';
   static const allProductApi = 'productapi/product';
+  static const searchFilterApi = 'productapi/product';
+
   static const allUserApi = 'userapi/user';
   // static const productApi =
   //     'https://makeup-api.herokuapp.com/api/v1/products.json';

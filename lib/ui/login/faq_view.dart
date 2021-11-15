@@ -2,14 +2,14 @@ import 'package:bumaco_aios/app_utils/app_bar_home.dart';
 import 'package:flutter/material.dart';
 import 'package:velocity_x/velocity_x.dart';
 
-class ExpansionView extends StatefulWidget {
-  const ExpansionView({Key? key}) : super(key: key);
+class FAQView extends StatefulWidget {
+  const FAQView({Key? key}) : super(key: key);
 
   @override
-  _ExpansionViewState createState() => _ExpansionViewState();
+  _FAQViewState createState() => _FAQViewState();
 }
 
-class _ExpansionViewState extends State<ExpansionView> {
+class _FAQViewState extends State<FAQView> {
   bool _customTileExpanded = false;
   @override
   Widget build(BuildContext context) {

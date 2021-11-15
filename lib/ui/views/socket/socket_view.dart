@@ -13,7 +13,7 @@ class SocketView extends StatefulWidget {
 }
 
 class _SocketViewState extends State<SocketView> {
-  final socketController = Get.find<SocketController>();
+  final socketController = SocketController.to;
 
   @override
   Widget build(BuildContext context) {
@@ -64,7 +64,7 @@ class _SocketViewState extends State<SocketView> {
                       itemCount: socketController.messageList.length,
                       itemBuilder: (context, index) {
                         final item = socketController.messageList[index];
-                        return MessageItem(
+                        return MessageItemWidget(
                           item: item,
                           sentByMe: item.sentByMe == socketController.socket.id,
                         );
@@ -77,8 +77,8 @@ class _SocketViewState extends State<SocketView> {
   }
 }
 
-class MessageItem extends StatelessWidget {
-  const MessageItem({required this.sentByMe, Key? key, required this.item})
+class MessageItemWidget extends StatelessWidget {
+  const MessageItemWidget({required this.sentByMe, Key? key, required this.item})
       : super(key: key);
   final bool sentByMe;
   final SocketMessageModel item;

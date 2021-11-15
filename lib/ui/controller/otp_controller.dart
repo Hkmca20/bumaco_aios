@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:bumaco_aios/app_utils/app_const.dart';
 import 'package:bumaco_aios/app_utils/app_loading.dart';
+import 'package:bumaco_aios/ui/login/signup_view.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
@@ -46,11 +47,13 @@ class OTPController extends GetxController {
     }
     super.onClose();
   }
-@override
+
+  @override
   void onReady() {
     print('--------onReady');
     super.onReady();
   }
+
   @override
   void disposeId(Object id) {
     print('--------onDisposed------');
@@ -74,7 +77,12 @@ class OTPController extends GetxController {
         );
         await Future.delayed(Duration(milliseconds: 500));
         box.write(BOX_IS_LOGGEDIN, true);
-        Get.offAllNamed(dashboardRoute);
+        if (true) {
+          //todo goto register condition
+          Get.offAll(() => SignupView());
+          // } else {//todo goto already profile created condition
+          //   Get.offAllNamed(dashboardRoute);
+        }
       } else {
         bumacoSnackbar(
           'login'.tr,

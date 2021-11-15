@@ -118,7 +118,7 @@ class _LoginViewState extends State<LoginView>
       margin: EdgeInsets.only(top: 30.0, left: 10.0, right: 10.0),
       child: GestureDetector(
         onTap: () {
-          _loaleController.buildDialog(context);
+          _loaleController.openLocaleSheet(context);
         },
         child: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
           Text('choose_country'.tr + ' : ',

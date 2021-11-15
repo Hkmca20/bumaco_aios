@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:bumaco_aios/app_core/db/database/app_database.dart';
 import 'package:bumaco_aios/app_core/db/entity/favorite_entity.dart';
 import 'package:bumaco_aios/app_core/models/models.dart';
-import 'package:bumaco_aios/app_core/repository/product_repo.dart';
+import 'package:bumaco_aios/app_core/repository/repository.dart';
 import 'package:bumaco_aios/app_utils/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -15,6 +15,7 @@ class ProductController extends GetxController with StateMixin, ScrollMixin {
   var isToLoadMore = true;
   var columnCount = 2.obs;
   var favouriteList = <ProductModel>[].obs;
+  var searchProductList = <ProductModel>[].obs;
   var productList = <ProductModel>[].obs;
   var allProductList = <ProductModel>[].obs;
   late ProductRepository productRepository;
@@ -105,7 +106,7 @@ class ProductController extends GetxController with StateMixin, ScrollMixin {
   searchSortFilterProducts(str) {
     print('----------search+Sort+Filter--->Text=>' + str);
     sortFilterText.value = str;
-    fetchAllProducts();
+    fetchProductsBySearch(str);
   }
 
   @override
@@ -148,19 +149,28 @@ class ProductController extends GetxController with StateMixin, ScrollMixin {
     columnCount.value = count;
   }
 
+  fetchProductsBySearch(searchStr) async {
+    try {
+      isLoading(true);
+      searchStr = '';
+      var result = await productRepository.searchProduct(searchStr);
+      if (result != null) {
+        searchProductList(result);
+      }
+    } catch (e) {
+      print(e);
+    } finally {
+      isLoading(false);
+    }
+  }
+
   fetchProductsById(categoryId) async {
     try {
       isLoading(true);
       var products = await productRepository.getProduct(categoryId);
       if (products != null) {
+        checkIsFavorites(products);
         productList.value = products;
-        productList.forEach((e1) {
-          products.forEach((e2) {
-            if (e1.id == e2.id) {
-              e1.isFavorite.value = true;
-            }
-          });
-        });
         isToLoadMore = true;
       } else {
         isToLoadMore = false;
@@ -177,34 +187,34 @@ class ProductController extends GetxController with StateMixin, ScrollMixin {
       isLoading(true);
       var products = await productRepository.getProductAll();
       if (products != null) {
-        // allProductList.value = products;
+        checkIsFavorites(products);
+        // allProductList(products);
         allProductList.addAll(products);
+        // if (products.length > 0) {
+        //   ProductModel m = products[0];
+        //   m.id = '200';
+        //   allProductList.add(m);
 
-        if (products.length > 0) {
-          ProductModel m = products[0];
-          m.id = '200';
-          allProductList.add(m);
+        //   ProductModel m2 = products[0];
+        //   m2.id = '201';
+        //   allProductList.add(m2);
 
-          ProductModel m2 = products[0];
-          m2.id = '201';
-          allProductList.add(m2);
+        //   ProductModel m3 = products[0];
+        //   m3.id = '202';
+        //   allProductList.add(m3);
 
-          ProductModel m3 = products[0];
-          m3.id = '202';
-          allProductList.add(m3);
+        //   ProductModel m4 = products[0];
+        //   m4.id = '204';
+        //   allProductList.add(m4);
 
-          ProductModel m4 = products[0];
-          m4.id = '204';
-          allProductList.add(m4);
+        //   ProductModel m5 = products[0];
+        //   m5.id = '205';
+        //   allProductList.add(m5);
 
-          ProductModel m5 = products[0];
-          m5.id = '205';
-          allProductList.add(m5);
-
-          ProductModel m6 = products[0];
-          m6.id = '206';
-          allProductList.add(m6);
-        }
+        //   ProductModel m6 = products[0];
+        //   m6.id = '206';
+        //   allProductList.add(m6);
+        // }
         isToLoadMore = true;
       } else {
         isToLoadMore = false;
@@ -278,6 +288,7 @@ class ProductController extends GetxController with StateMixin, ScrollMixin {
     final favDao = db.favouriteDao;
     await favDao.deleteFavourireById(item.id);
     getFavouriteList();
+    checkRemoveFavorites(item);
     bumacoSnackbar('alert'.tr,
         '${item.product} ' + 'removed_from'.tr + ' ' + 'wishlist'.tr);
   }
@@ -294,5 +305,28 @@ class ProductController extends GetxController with StateMixin, ScrollMixin {
   @override
   Future<void> onTopScroll() async {
     print("onTopScroll: Called");
+  }
+
+  void checkIsFavorites(List<ProductModel> products) {
+    products.forEach((e1) {
+      favouriteList.forEach((e2) {
+        if (e1.id == e2.id) {
+          e1.isFavorite(true);
+        }
+      });
+    });
+  }
+
+  void checkRemoveFavorites(item) {
+    productList.forEach((e) {
+      if (item.id == e.id) {
+        e.isFavorite(false);
+      }
+    });
+    allProductList.forEach((e) {
+      if (item.id == e.id) {
+        e.isFavorite(false);
+      }
+    });
   }
 }

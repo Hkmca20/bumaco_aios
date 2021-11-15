@@ -14,6 +14,7 @@ class CategoryView extends StatelessWidget {
 
   // final categoryController = Get.find<CategoryController>();
   // final bController = Get.find<BucketController>();
+  final pController = ProductController.to;
   final bController = BucketController.to;
   final categoryController = CategoryController.to;
   final bannerController = BannerController.to;
@@ -29,42 +30,26 @@ class CategoryView extends StatelessWidget {
             icon: Icon(Icons.search_outlined),
             tooltip: 'Share',
             onPressed: () {},
-          ), //IconButton
+          ),
           IconButton(
-            icon: Icon(Icons.favorite_border_outlined),
-            tooltip: 'Wishlist',
+            icon: Obx(() => pController.favouriteList.length == 0
+                ? Icon(Icons.favorite_border_outlined)
+                : Icon(Icons.favorite_border_outlined).p4().badge(
+                    count: pController.favouriteList.length,
+                    color: kPrimaryColor,
+                    size: 12)),
+            tooltip: 'wishlist'.tr,
             onPressed: () {
               Get.to(() => FavouriteView());
             },
-          ), //IconB
+          ),
           IconButton(
-            icon: bController.bucketList.length == 0
+            icon: Obx(() => bController.bucketList.length == 0
                 ? Icon(Icons.shopping_bag_outlined)
-                : Stack(children: [
-                    Positioned(
-                      top: 5.0,
-                      right: 5.0,
-                      child: Icon(Icons.shopping_bag_outlined),
-                    ),
-                    Positioned(
-                      top: -1.0,
-                      right: -1.0,
-                      child: Icon(
-                        Icons.brightness_1_rounded,
-                        size: 17.0,
-                        color: kPrimaryColor,
-                      ),
-                    ),
-                    Positioned(
-                      top: 1.0,
-                      right: 4.0,
-                      child: Obx(() => bController.bucketList.length.text
-                          .size(11)
-                          .white
-                          .make()
-                          .centered()),
-                    ),
-                  ]),
+                : Icon(Icons.shopping_bag_outlined).p4().badge(
+                    count: bController.bucketList.length,
+                    color: kPrimaryColor,
+                    size: 12)),
             tooltip: 'view_cart_item'.tr,
             onPressed: () {
               Get.to(() => BucketView());
@@ -113,10 +98,10 @@ class CategoryView extends StatelessWidget {
                     Divider(),
                     Align(
                         alignment: Alignment.topLeft,
-                        child: 'CATEGORIES'.text.make().p12()),
+                        child: 'CATEGORIES'.text.bold.size(16).make().p12()),
                     ListView.separated(
                       separatorBuilder: (context, index) =>
-                          Divider(indent: 55, endIndent: 20),
+                          Divider(indent: 25, endIndent: 20),
                       shrinkWrap: true,
                       physics: ClampingScrollPhysics(),
                       scrollDirection: Axis.vertical,
@@ -132,40 +117,40 @@ class CategoryView extends StatelessWidget {
                           child: Row(
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
-                              Container(
-                                margin: EdgeInsets.all(5),
-                                height: 40.0,
-                                width: 40.0,
-                                decoration: BoxDecoration(
-                                  color: Colors.grey,
-                                  boxShadow: [
-                                    BoxShadow(
-                                        color: Colors.black.withAlpha(70),
-                                        offset: const Offset(2.0, 2.0),
-                                        blurRadius: 2.0)
-                                  ],
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(2.0)),
-                                  image: DecorationImage(
-                                    image: Image.network(
-                                            '${ApiConstants.baseImageUrl}${item.image}')
-                                        .image,
-                                    fit: BoxFit.cover,
-                                  ),
-                                ),
-                              ),
-                              SizedBox(width: 8.0),
+                              // Container(
+                              //   margin: EdgeInsets.all(5),
+                              //   height: 40.0,
+                              //   width: 40.0,
+                              //   decoration: BoxDecoration(
+                              //     color: Colors.grey,
+                              //     boxShadow: [
+                              //       BoxShadow(
+                              //           color: Colors.black.withAlpha(70),
+                              //           offset: const Offset(2.0, 2.0),
+                              //           blurRadius: 2.0)
+                              //     ],
+                              //     borderRadius:
+                              //         BorderRadius.all(Radius.circular(2.0)),
+                              //     image: DecorationImage(
+                              //       image: Image.network(
+                              //               '${ApiConstants.baseImageUrl}${item.image}')
+                              //           .image,
+                              //       fit: BoxFit.cover,
+                              //     ),
+                              //   ),
+                              // ),
+                              SizedBox(width: 2.0),
                               Expanded(
-                                child: item.category.text.size(20).make(),
+                                child: item.category.text.size(18).make(),
                               ),
                               Container(
                                 child: Icon(
                                   Icons.arrow_forward_ios_rounded,
                                   color: Colors.grey,
                                 ),
-                              )
+                              ),
                             ],
-                          ),
+                          ).paddingSymmetric(horizontal: 20, vertical: 6),
                         );
                       },
                     ),
