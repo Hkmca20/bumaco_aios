@@ -181,6 +181,7 @@ class SigninController extends GetxController {
       child: ElevatedButton(
         child: 'signin_with_email_or_mobile'.tr.text.make().p4(),
         onPressed: () {
+          Get.back();
           Get.toNamed(loginRoute);
         },
       ),
@@ -200,6 +201,7 @@ class SigninController extends GetxController {
       child: CustomButtonSocial(
         text: 'signin_with_google'.tr,
         onPress: () {
+          Get.back();
           googleSignInMethod(context);
         },
         imageName: iconGoogle,

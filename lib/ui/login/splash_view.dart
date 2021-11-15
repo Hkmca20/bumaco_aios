@@ -68,9 +68,7 @@ class SplashState extends State<SplashView>
   // }
 
   route() {
-    print('----BOX_IS_LOGGED_IN  ${_splashController.isLoggedIn}');
-
-    _splashController.isLoggedIn
+    _splashController.isLoggedIn || _splashController.tempLogin
         ? Get.offAndToNamed(dashboardRoute)
         : _splashController.appOpenCount > _splashController.maxOpenCount
             ? Get.offAndToNamed(landingRoute)

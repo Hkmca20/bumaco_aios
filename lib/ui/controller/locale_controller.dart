@@ -14,30 +14,34 @@ class LocaleController extends GetxController {
   }
 
   RxString selectedCountry = ''.obs;
+  RxString selectedLanguage = ''.obs;
   RxString selectedCurrency = ''.obs;
+  RxString selectedSymbol = ''.obs;
   final box = GetStorage(BOX_APP);
   @override
   void onInit() {
     super.onInit();
-    print(
-        '-----------currency contry-----1------${getStorageStringValue(BOX_COUNTRY)}');
     selectedCountry.value = getStorageStringValue(BOX_COUNTRY) == ''
         ? 'English (UK)'
         : getStorageStringValue(BOX_COUNTRY);
-    selectedCurrency.value = getStorageStringValue(BOX_CURRENCY) == ''
-        ? 'USD'
-        : getStorageStringValue(BOX_CURRENCY);
+    selectedCurrency.value = getStorageStringValue(BOX_CURRENCY);
+    if (selectedCurrency.value == '') {
+      updateCountryInfo(1);
+    }
     localeList.forEach((element) {
-      if (element['currency'] == selectedCurrency) {}
+      if (element['currency'] == selectedCurrency) {
+        selectedSymbol.value = element['currency_symbol'];
+        selectedLanguage.value = element['language'];
+      }
     });
   }
 
   final List localeList = [
     {
       'sno': '1',
-      'name': 'egypt'.tr,
+      'name': 'egypt',
       'locale': Locale('ar', 'AE'),
-      'language': 'arabic'.tr,
+      'language': 'arabic',
       'currency': 'EGP',
       'currency_symbol': '£',
       'selected': false,
@@ -46,79 +50,79 @@ class LocaleController extends GetxController {
       'sno': '2',
       'name': 'UK',
       'locale': Locale('en', 'UK'),
-      'language': 'english'.tr,
+      'language': 'english',
       'currency': 'GBP',
       'currency_symbol': '£',
       'selected': false,
     },
     {
       'sno': '3',
-      'name': 'ksa'.tr,
+      'name': 'ksa',
       'locale': Locale('ar', 'AE'),
-      'language': 'arabic'.tr,
+      'language': 'arabic',
       'currency': 'SAR',
       'currency_symbol': '﷼',
       'selected': false,
     },
     {
       'sno': '4',
-      'name': 'quatar'.tr,
+      'name': 'quatar',
       'locale': Locale('ar', 'AE'),
-      'language': 'arabic'.tr,
+      'language': 'arabic',
       'currency': 'QAR',
       'currency_symbol': '﷼',
       'selected': false,
     },
     {
       'sno': '5',
-      'name': 'uae'.tr,
+      'name': 'uae',
       'locale': Locale('ar', 'AE'),
-      'language': 'arabic'.tr,
+      'language': 'arabic',
       'currency': 'AED',
       'currency_symbol': 'د.إ',
       'selected': false,
     },
     {
       'sno': '6',
-      'name': 'bahrain'.tr,
+      'name': 'bahrain',
       'locale': Locale('ar', 'AE'),
-      'language': 'arabic'.tr,
+      'language': 'arabic',
       'currency': 'BHD',
       'currency_symbol': '.د.ب',
       'selected': false,
     },
     {
       'sno': '7',
-      'name': 'oman'.tr,
+      'name': 'oman',
       'locale': Locale('ar', 'AE'),
-      'language': 'arabic'.tr,
+      'language': 'arabic',
       'currency': 'OMR',
       'currency_symbol': '﷼',
       'selected': false,
     },
     {
       'sno': '8',
-      'name': 'kuwait'.tr,
+      'name': 'kuwait',
       'locale': Locale('ar', 'AE'),
-      'language': 'arabic'.tr,
+      'language': 'arabic',
       'currency': 'KWD',
       'currency_symbol': 'د.ك',
       'selected': false,
     },
     {
       'sno': '9',
-      'name': 'germany'.tr,
+      'name': 'GERMANY',
       'locale': Locale('en', 'UK'),
-      'language': 'english'.tr,
+      'language': 'english',
       'currency': 'EUR',
       'currency_symbol': '€',
       'selected': false,
     },
     {
       'sno': '10',
-      'name': 'france'.tr,
+      'name': 'FRANCE',
       'locale': Locale('en', 'UK'),
-      'language': 'english'.tr,
+      'language': 'english',
       'currency': 'EUR',
       'currency_symbol': '€',
       'selected': false,
@@ -130,10 +134,11 @@ class LocaleController extends GetxController {
 
     selectedCurrency.value = localeList[index]['currency'];
     selectedCountry.value = localeList[index]['name'];
+    selectedLanguage.value = localeList[index]['language'];
+    selectedSymbol.value = localeList[index]['currency_symbol'];
     box.write(BOX_COUNTRY, localeList[index]['name']);
     box.write(BOX_CURRENCY, localeList[index]['currency']);
     box.write(BOX_CURRENCY_SYMBOL, localeList[index]['currency_symbol']);
-    print(getStorageStringValue(BOX_CURRENCY) + '-');
   }
 
   void openLocaleSheet(context) {
@@ -188,6 +193,7 @@ class LocaleController extends GetxController {
                     return InkWell(
                         child: HStack([
                           '${localeList[index]['name']}'
+                              .tr
                               .text
                               .red500
                               .size(18)

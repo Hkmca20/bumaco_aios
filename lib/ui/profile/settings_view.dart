@@ -20,13 +20,14 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class SettingView extends StatelessWidget {
-  const SettingView({Key? key}) : super(key: key);
+  SettingView({Key? key}) : super(key: key);
 
+  final _settingsController = SettingsController.to;
+  final _loginController = SigninController.to;
+  final _loaleController = LocaleController.to;
+  final box = GetStorage(BOX_APP);
   @override
   Widget build(BuildContext context) {
-    final _settingsController = SettingsController.to;
-    final _loaleController = LocaleController.to;
-    final box = GetStorage(BOX_APP);
     final googleProfileName = box.read(BOX_NAME) ?? 'hey\nGuest';
     final googleEmail = box.read(BOX_EMAIL) ?? 'guest user';
     final googleProfilePic = box.read(BOX_PROFILE_PHOTO) ??
@@ -77,7 +78,9 @@ class SettingView extends StatelessWidget {
                   child: ClipRRect(
                     child: InkWell(
                       onTap: () {
-                        Get.to(() => ProfileUI2());
+                        getStorageBoolValue(BOX_IS_LOGGEDIN)
+                            ? Get.toNamed(profileRoute)
+                            : _loginController.loginPopupBottomSheet(context);
                       },
                       child: CachedNetworkImage(
                         imageUrl: googleProfilePic.toString().contains('https')
@@ -119,38 +122,46 @@ class SettingView extends StatelessWidget {
           Divider(height: 1),
           SimpleBuilder(
             builder: (_) => ListTile(
-              leading: Icon(Icons.account_box_rounded),
-              trailing: Icon(Icons.arrow_forward_ios_rounded),
+              leading: Icon(Icons.account_box_rounded, color: kGreyLightColor),
+              trailing:
+                  Icon(Icons.arrow_forward_ios_rounded, color: kGreyLightColor),
               title: 'profile'.tr.text.make(),
               onTap: () => {
-                if (!getStorageBoolValue(BOX_IS_LOGGEDIN))
-                  Get.toNamed(profileRoute)
-                else
-                  SigninController.to.loginPopupBottomSheet(context),
+                getStorageBoolValue(BOX_IS_LOGGEDIN)
+                    ? Get.toNamed(profileRoute)
+                    : _loginController.loginPopupBottomSheet(context),
               },
             ),
           ),
           Divider(height: 1),
           SimpleBuilder(
             builder: (_) => ListTile(
-              leading: Icon(Icons.outbox_rounded),
-              trailing: Icon(Icons.arrow_forward_ios_rounded),
+              leading: Icon(Icons.outbox_rounded, color: kGreyLightColor),
+              trailing:
+                  Icon(Icons.arrow_forward_ios_rounded, color: kGreyLightColor),
               title: 'order'.tr.text.make(),
               // subtitle:
               //     'Check your order status (track, return, cancel)'.text.make(),
               onTap: () => {
-                // Get.to(() => TabbarView()),
-                // Get.to(() => GalleryPage()),
+                getStorageBoolValue(BOX_IS_LOGGEDIN)
+                    ? showLoadingDialog()
+                    : _loginController.loginPopupBottomSheet(context),
               },
             ),
           ),
           Divider(height: 1),
           SimpleBuilder(
             builder: (_) => ListTile(
-              leading: Icon(Icons.location_city_rounded),
-              trailing: Icon(Icons.arrow_forward_ios_rounded),
+              leading:
+                  Icon(Icons.location_city_rounded, color: kGreyLightColor),
+              trailing:
+                  Icon(Icons.arrow_forward_ios_rounded, color: kGreyLightColor),
               title: 'shipping_address'.tr.text.make(),
               onTap: () => {
+                getStorageBoolValue(BOX_IS_LOGGEDIN)
+                    ? Get.to(() => AddressView(),
+                        arguments: {'get_is_bucket': false})
+                    : _loginController.loginPopupBottomSheet(context),
                 // Get.toNamed(wishlistRoute)
                 // Get.toNamed(offerRoute)
                 // Get.toNamed(shoppingRoute)
@@ -159,8 +170,6 @@ class SettingView extends StatelessWidget {
                 // Get.toNamed(newsRoute)
                 // Get.toNamed(ratingRoute)
                 // Get.toNamed(shrinkRoute)
-                Get.to(() => AddressView(),
-                    arguments: {'get_is_bucket': false}),
                 // Navigator.push(
                 //   context,
                 //   MaterialPageRoute(builder: (context) => SearchView()),
@@ -171,8 +180,10 @@ class SettingView extends StatelessWidget {
           Divider(height: 1),
           SimpleBuilder(
             builder: (_) => ListTile(
-              leading: Icon(Icons.bluetooth_searching_rounded),
-              trailing: Icon(Icons.arrow_forward_ios_rounded),
+              leading: Icon(Icons.bluetooth_searching_rounded,
+                  color: kGreyLightColor),
+              trailing:
+                  Icon(Icons.arrow_forward_ios_rounded, color: kGreyLightColor),
               title: 'blog'.tr.text.make(),
               onTap: () => {Get.toNamed(newsRoute)},
             ),
@@ -180,8 +191,9 @@ class SettingView extends StatelessWidget {
           Divider(height: 1),
           SimpleBuilder(
             builder: (_) => ListTile(
-              leading: Icon(Icons.local_offer_rounded),
-              trailing: Icon(Icons.arrow_forward_ios_rounded),
+              leading: Icon(Icons.local_offer_rounded, color: kGreyLightColor),
+              trailing:
+                  Icon(Icons.arrow_forward_ios_rounded, color: kGreyLightColor),
               title: 'offer'.tr.text.make(),
               onTap: () => {Get.toNamed(offerRoute)},
             ),
@@ -189,39 +201,54 @@ class SettingView extends StatelessWidget {
           Divider(height: 1),
           SimpleBuilder(
             builder: (_) => ListTile(
-              leading: Icon(Icons.notification_important_rounded),
-              trailing: Icon(Icons.arrow_forward_ios_rounded),
+              leading: Icon(Icons.notification_important_rounded,
+                  color: kGreyLightColor),
+              trailing:
+                  Icon(Icons.arrow_forward_ios_rounded, color: kGreyLightColor),
               title: 'Country and Language (البلد واللغة)'.tr.text.make(),
               subtitle: Obx(
-                () => Text('[${_loaleController.selectedCountry}]'),
+                () => ('' +
+                        _loaleController.selectedCountry.value.tr +
+                        ' - ' +
+                        _loaleController.selectedCurrency.value.tr +
+                        ' ( ' +
+                        _loaleController.selectedSymbol.value.tr +
+                        ' )' +
+                        ' - ' +
+                        _loaleController.selectedLanguage.value.tr)
+                    .text
+                    .make(),
               ),
               onTap: () => {_loaleController.openLocaleSheet(context)},
             ),
           ),
           Divider(height: 1),
-          // SimpleBuilder(
-          //   builder: (_) => ListTile(
-          //     leading: Icon(Icons.play_arrow_rounded),
-          //     trailing: Icon(Icons.arrow_forward_ios_rounded),
-          //     title: 'Videos'.text.make(),
-          //     // onTap: () => {Get.to(() => VideoPlayerView())},
-          //     onTap: () => {Get.to(() => ChewiePlayerView())},
-          //   ),
-          // ),
-          // Divider(height: 1),
-          // SimpleBuilder(
-          //   builder: (_) => ListTile(
-          //     leading: Icon(Icons.chat),
-          //     trailing: Icon(Icons.arrow_forward_ios_rounded),
-          //     title: 'Chat With Us'.text.make(),
-          //     onTap: () => {Get.to(() => SocketView())},
-          //   ),
-          // ),
-          // Divider(height: 1),
           SimpleBuilder(
             builder: (_) => ListTile(
-              leading: Icon(Icons.info_outline_rounded),
-              trailing: Icon(Icons.arrow_forward_ios_rounded),
+              leading: Icon(Icons.play_arrow_rounded, color: kGreyLightColor),
+              trailing:
+                  Icon(Icons.arrow_forward_ios_rounded, color: kGreyLightColor),
+              title: 'Videos'.text.make(),
+              // onTap: () => {Get.to(() => VideoPlayerView())},
+              onTap: () => {Get.to(() => ChewiePlayerView())},
+            ),
+          ),
+          Divider(height: 1),
+          SimpleBuilder(
+            builder: (_) => ListTile(
+              leading: Icon(Icons.chat, color: kGreyLightColor),
+              trailing:
+                  Icon(Icons.arrow_forward_ios_rounded, color: kGreyLightColor),
+              title: 'Chat With Us'.text.make(),
+              onTap: () => {Get.to(() => SocketView())},
+            ),
+          ),
+          Divider(height: 1),
+          SimpleBuilder(
+            builder: (_) => ListTile(
+              leading: Icon(Icons.info_outline_rounded, color: kGreyLightColor),
+              trailing:
+                  Icon(Icons.arrow_forward_ios_rounded, color: kGreyLightColor),
               title: 'faq'.tr.text.make(),
               onTap: () => {Get.toNamed(expansionRoute)},
             ),
@@ -229,8 +256,9 @@ class SettingView extends StatelessWidget {
           Divider(height: 1),
           SimpleBuilder(
             builder: (_) => ListTile(
-              leading: Icon(Icons.help_outline),
-              trailing: Icon(Icons.arrow_forward_ios_rounded),
+              leading: Icon(Icons.help_outline, color: kGreyLightColor),
+              trailing:
+                  Icon(Icons.arrow_forward_ios_rounded, color: kGreyLightColor),
               title: 'help'.tr.text.make(),
               onTap: () => {Get.toNamed(expansionRoute)},
             ),
@@ -238,23 +266,26 @@ class SettingView extends StatelessWidget {
           Divider(height: 1),
           SimpleBuilder(
             builder: (_) => ListTile(
-              leading: Icon(Icons.policy),
-              trailing: Icon(Icons.arrow_forward_ios_rounded),
+              leading: Icon(Icons.policy, color: kGreyLightColor),
+              trailing:
+                  Icon(Icons.arrow_forward_ios_rounded, color: kGreyLightColor),
               title: 'Terms and Condition'.text.make(),
               onTap: () => {Get.to(() => TermsAndCondition())},
             ),
           ),
           Divider(height: 1),
+          // !getStorageBoolValue(BOX_IS_LOGGEDIN)
+          //     ? SizedBox() :
           SimpleBuilder(
             builder: (_) => ListTile(
-              leading: Icon(Icons.logout_rounded),
-              trailing: Icon(Icons.arrow_forward_ios_rounded),
+              leading: Icon(Icons.logout_rounded, color: kGreyLightColor),
+              trailing:
+                  Icon(Icons.arrow_forward_ios_rounded, color: kGreyLightColor),
               title: 'logout'.tr.text.make(),
               onTap: () => {
-                getStorage.write(BOX_IS_LOGGEDIN, false),
                 Get.offAllNamed(landingRoute),
                 box.erase(),
-                SigninController.to.handleSignOut(context),
+                _loginController.handleSignOut(context),
               },
             ),
           ),

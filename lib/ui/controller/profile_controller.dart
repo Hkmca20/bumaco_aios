@@ -5,6 +5,7 @@ import 'package:get_storage/get_storage.dart';
 import 'package:velocity_x/velocity_x.dart';
 
 class ProfileController extends GetxController {
+  static ProfileController get to => Get.find(tag: PROFILE_CONTROLLER);
   late TextEditingController nameCTR, emailCTR, mobileCTR, dobCTR;
   late String profilePhoto;
   final box = GetStorage(BOX_APP);

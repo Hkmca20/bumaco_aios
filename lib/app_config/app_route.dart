@@ -46,7 +46,7 @@ List<GetPage<dynamic>> get setRoute => [
           name: profileRoute,
           transition: Transition.fade,
           transitionDuration: kTransitionDuration,
-          page: () => ProfileUI2()),
+          page: () => ProfileView()),
       GetPage(
           name: otpRoute,
           transition: Transition.fade,

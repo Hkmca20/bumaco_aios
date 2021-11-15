@@ -136,6 +136,7 @@ const C_CATEGORY_CONTROLLER = '_s_category_controller';
 const S_CATEGORY_CONTROLLER = '_s_category_controller';
 const SOCKET_CONTROLLER = 'socket_controller';
 const VIDEO_CONTROLLER = 'video_controller';
+const PROFILE_CONTROLLER = 'profile_controller';
 
 // Locales
 const hiLocale = Locale('hi', 'IN');
@@ -182,6 +183,7 @@ const BOX_DOB = 'dob'; //string
 const BOX_PROFILE_PHOTO = 'photo'; //string
 const BOX_GOOGLE_ID = 'google_id'; //string
 const BOX_IS_LOGGEDIN = 'is_loggedin'; //bool
+const BOX_TEMP_LOGGEDIN = 'temp_loggedin'; //bool
 const BOX_IS_DARK = 'is_dark'; //bool
 const BOX_IS_NOTIFICATION = 'is_notification'; //bool
 const BOX_GATE_SELECTED = 'gate_selected'; //bool

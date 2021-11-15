@@ -10,8 +10,8 @@ import 'package:get/get.dart';
 import 'package:transparent_image/transparent_image.dart';
 import 'package:velocity_x/velocity_x.dart';
 
-class ProfileUI2 extends StatelessWidget {
-  final profileController = Get.find<ProfileController>();
+class ProfileView extends StatelessWidget {
+  final profileController = ProfileController.to;
 
   @override
   Widget build(BuildContext context) {

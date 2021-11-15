@@ -71,7 +71,7 @@ class Authentication {
     User? user = FirebaseAuth.instance.currentUser;
 
     if (user != null) {
-      Get.to(() => ProfileUI2());
+      Get.to(() => ProfileView());
     }
     return firebaseApp;
   }

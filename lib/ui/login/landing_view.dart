@@ -364,7 +364,7 @@ class LandingView extends StatelessWidget {
         ),
       ),
       onTap: () => {
-        getStorage.write(BOX_IS_LOGGEDIN, true),
+        getStorage.write(BOX_TEMP_LOGGEDIN, true),
         Get.offAllNamed(dashboardRoute),
       },
     );
