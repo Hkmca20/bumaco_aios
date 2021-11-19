@@ -1,13 +1,16 @@
 import 'package:bumaco_aios/app_utils/utils.dart';
+import 'package:bumaco_aios/ui/controller/controllers.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:velocity_x/velocity_x.dart';
 
 class HomeController extends GetxController {
   static HomeController get to => Get.find(tag: HOME_CONTROLLER);
-  late ScrollController scrollController = ScrollController();
-  var offset = 0.0;
-  var showFAB = true.obs;
+  final bannerController = BannerController.to;
+  late final ScrollController scrollController;
+  // var offset = 0.0;
+  var showFAB = false.obs;
   @override
   void onInit() {
     setSelectedGate();
@@ -17,30 +20,28 @@ class HomeController extends GetxController {
 
   @override
   void onClose() {
-    // _timer.cancel();
     scrollController.removeListener(() {
       print('home scrollControl removed');
     });
+    scrollController.dispose();
     super.onClose();
   }
 
   addScrollListener() {
+    scrollController = ScrollController();
     scrollController.addListener(() {
-      offset = scrollController.offset;
+      // offset = scrollController.offset;
       if (scrollController.position.pixels ==
           scrollController.position.minScrollExtent) {
-        showFAB.value = true;
-        print(showFAB.value);
+        showFAB(false);
       } else {
-        if (showFAB.isTrue) {
-          showFAB.value = false;
-          print(showFAB.value);
-        }
+        showFAB(true);
       }
+      print('----->${showFAB.value}');
     });
   }
 
-  RxString selectedGate = 'BEAUTY GATE'.obs;
+  RxString selectedGate = ''.obs;
   final List gateList = [
     {'name': 'Beauty Gate'.toUpperCase(), 'id': 'ID1'},
     {'name': 'Fashion Gate'.toUpperCase(), 'id': 'ID2'},
@@ -53,40 +54,111 @@ class HomeController extends GetxController {
     {'name': 'Rent & Shared gate'.toUpperCase(), 'id': 'ID1'},
   ];
   final box = GetStorage(BOX_APP);
-  updateSelectedGate(gate) {
-    box.write(BOX_GATE_SELECTED, gate);
+  updateSelectedGate(index) {
+    selectedGate.value = gateList[index]['name'];
+    box.write(BOX_GATE_SELECTED, gateList[index]['name']);
+    bannerController.fetchBanners();
   }
 
   setSelectedGate() {
-    selectedGate.value = getStorageStringValue(BOX_GATE_SELECTED) != ''
-        ? getStorageStringValue(BOX_GATE_SELECTED)
-        : 'BEAUTY GATE';
+    selectedGate.value = getStorageStringValue(BOX_GATE_SELECTED);
+    if (selectedGate.value == '') {
+      updateSelectedGate(0);
+    }
   }
 
-  buildDialog(BuildContext context) {
-    showDialog(
+  // gateDialog(BuildContext context) {
+  //   showDialog(
+  //       context: context,
+  //       builder: (builder) => AlertDialog(
+  //             title: Text('SELECT A GATE'),
+  //             content: Container(
+  //               width: double.maxFinite,
+  //               child: ListView.separated(
+  //                   shrinkWrap: true,
+  //                   itemBuilder: (context, index) => Padding(
+  //                       padding: EdgeInsets.all(8),
+  //                       child: GestureDetector(
+  //                           onTap: () {
+  //                             Get.back();
+  //                             updateSelectedGate(index);
+  //                           },
+  //                           child: Text(gateList[index]['name']))),
+  //                   separatorBuilder: (context, index) => Divider(
+  //                         color: Colors.blue,
+  //                       ),
+  //                   itemCount: gateList.length),
+  //             ),
+  //           ));
+  // }
+
+  gateBottomsheet(BuildContext context) {
+    showModalBottomSheet(
         context: context,
-        builder: (builder) => AlertDialog(
-              title: Text('SELECT A GATE'),
-              content: Container(
-                width: double.maxFinite,
-                child: ListView.separated(
-                    shrinkWrap: true,
-                    itemBuilder: (context, index) => Padding(
-                        padding: EdgeInsets.all(8),
-                        child: GestureDetector(
-                            onTap: () {
-                              Get.back();
-                              print(gateList[index]['name'] + ' selected----');
-                              selectedGate.value = gateList[index]['name'];
-                              updateSelectedGate(gateList[index]['name']);
-                            },
-                            child: Text(gateList[index]['name']))),
-                    separatorBuilder: (context, index) => Divider(
-                          color: Colors.blue,
+        clipBehavior: Clip.antiAliasWithSaveLayer,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.vertical(top: Radius.circular(10)),
+          // BorderRadius.circular(15.0),
+        ),
+        builder: (context) {
+          return VStack([
+            VxDivider(
+              color: kGreyLightColor,
+              width: 3,
+              indent: 150,
+              endIndent: 150,
+            ).p8(),
+            'enter_a_gate'.tr.text.size(24).make().p8(),
+            VxDivider(),
+            Container(
+              padding: EdgeInsets.all(2),
+              height: 400,
+              alignment: Alignment.center,
+              child: ListView.separated(
+                  shrinkWrap: true,
+                  itemCount: gateList.length,
+                  separatorBuilder: (context, int) {
+                    return Divider(
+                      indent: 10,
+                      endIndent: 20,
+                      height: 1,
+                    );
+                  },
+                  itemBuilder: (context, index) {
+                    return InkWell(
+                      child: HStack([
+                        '${index + 1}.  ${gateList[index]['name']}'
+                            .tr
+                            .text
+                            .color(selectedGate.value == gateList[index]['name']
+                                ? kPrimaryColor
+                                : kDarkGreyColor)
+                            .size(18)
+                            .fontWeight(FontWeight.w300)
+                            .make()
+                            .p16()
+                            .expand(),
+                        // '${gateList[index]['name']}'
+                        //     .text
+                        //     .align(TextAlign.end)
+                        //     .size(16)
+                        //     .fontWeight(FontWeight.w300)
+                        //     .make()
+                        //     .p16()
+                        //     .expand(),
+                        Icon(
+                          Icons.arrow_forward_ios_rounded,
+                          color: kGreyLightColor,
                         ),
-                    itemCount: gateList.length),
-              ),
-            ));
+                      ]),
+                      onTap: () {
+                        Get.back();
+                        updateSelectedGate(index);
+                      },
+                    );
+                  }),
+            ),
+          ]);
+        });
   }
 }

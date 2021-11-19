@@ -51,7 +51,7 @@ class AppbarSHome extends StatelessWidget with PreferredSizeWidget {
                 // child:
                 InkWell(
                   onTap: () {
-                    homeController.buildDialog(context);
+                    homeController.gateBottomsheet(context);
                   },
                   child: Image(
                     image: Image.asset(logo100Path).image,
@@ -69,18 +69,17 @@ class AppbarSHome extends StatelessWidget with PreferredSizeWidget {
                 SizedBox(width: 4),
                 InkWell(
                   onTap: () {
-                    homeController.buildDialog(context);
+                    homeController.gateBottomsheet(context);
                   },
                   child: VStack(
                     [
                       Obx(
-                        () =>
-                            homeController.selectedGate.value.text.uppercase
-                                .color(kGreyLightColor)
-                                .size(11)
-                                .fontWeight(FontWeight.w400)
-                                // .fontFamily('samantha')
-                                .make(),
+                        () => homeController.selectedGate.value.text.uppercase
+                            .color(kGreyLightColor)
+                            .size(11)
+                            .fontWeight(FontWeight.w400)
+                            // .fontFamily('samantha')
+                            .make(),
                       ),
                       Icon(Icons.keyboard_arrow_down_rounded),
                     ],

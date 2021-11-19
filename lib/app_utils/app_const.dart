@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:velocity_x/velocity_x.dart';
 
+final commonGreyColor = Colors.grey[600]!.withOpacity(0.1);
 const kPrimaryColor = Colors.pink; //Color(0xFFFF7643);
 const kPrimaryColorDark = Colors.redAccent;
 const kAccentColor = Colors.tealAccent;
@@ -127,8 +128,10 @@ const DASHBOARD_CONTROLLER = '_dashboard_controller';
 const HOME_CONTROLLER = '_home_controller';
 const SEARCH_CONTROLLER = '_search_controller';
 const PRODUCT_CONTROLLER = '_product_controller';
+const PRODUCT_DETAIL_CONTROLLER = '_product_detail';
 const BUCKET_CONTROLLER = '_bucket_controller';
 const CHECKOUT_CONTROLLER = '_checkout_controller';
+const ORDER_CONTROLLER = '_order_controller';
 const ADDRESS_CONTROLLER = '_address_controller';
 const BANNER_CONTROLLER = '_banner_controller';
 const CATEGORY_CONTROLLER = '_category_controller';
@@ -137,6 +140,7 @@ const S_CATEGORY_CONTROLLER = '_s_category_controller';
 const SOCKET_CONTROLLER = 'socket_controller';
 const VIDEO_CONTROLLER = 'video_controller';
 const PROFILE_CONTROLLER = 'profile_controller';
+const RATING_CONTROLLER = 'rating_controller';
 
 // Locales
 const hiLocale = Locale('hi', 'IN');
@@ -301,12 +305,17 @@ bumacoDefaultDialog(msg) => Get.defaultDialog(
       title: 'alert'.tr,
       content: Text(msg),
     );
-bumacoBottomsheet(msg) => Get.bottomSheet(Container(
-      height: 250,
-      color: kWhiteColor,
+bumacoBottomsheet(title, message, height) => Get.bottomSheet(Container(
+      height: height,
+      color: kBlackColor.withOpacity(0.3),
       child: Column(children: [
-        ListTile(title: Text(msg)),
-        ListTile(title: Text(msg)),
+        SizedBox(height: 20),
+        ListTile(title: Text(title)),
+        ListTile(title: Text(message)),
+        MaterialButton(
+          onPressed: () => Get.back(),
+          child: 'OK'.text.xl.make().p12(),
+        )
       ]),
     ));
 bumacoDialog(context, title, message, action) => showDialog<bool>(
@@ -317,9 +326,12 @@ bumacoDialog(context, title, message, action) => showDialog<bool>(
           actions: action ??
               [
                 MaterialButton(
-                  child: Text('yes'.tr),
-                  onPressed: () => Navigator.pop(c, true),
-                ),
+                    child: Text('yes'.tr),
+                    onPressed: () => {
+                          Navigator.pop(c, true),
+                          bumacoSnackbar(
+                              'alert'.tr, 'Your request is submitted.')
+                        }),
                 MaterialButton(
                   child: Text('no'.tr),
                   onPressed: () => Navigator.pop(c, false),

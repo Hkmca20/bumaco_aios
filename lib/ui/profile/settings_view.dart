@@ -9,6 +9,7 @@ import 'package:bumaco_aios/ui/views/dashboard/tabbar_view.dart';
 import 'package:bumaco_aios/ui/views/home/c_product_view.dart';
 import 'package:bumaco_aios/ui/views/media/chewie_player.dart';
 import 'package:bumaco_aios/ui/views/media/video_player_view.dart';
+import 'package:bumaco_aios/ui/views/orders/order_history_view.dart';
 import 'package:bumaco_aios/ui/views/socket/socket_view.dart';
 import 'package:bumaco_aios/ui/views/views.dart';
 import 'package:bumaco_aios/ui/widgets/widgets.dart';
@@ -30,8 +31,8 @@ class SettingView extends StatelessWidget {
   Widget build(BuildContext context) {
     final googleProfileName = box.read(BOX_NAME) ?? 'hey\nGuest';
     final googleEmail = box.read(BOX_EMAIL) ?? 'guest user';
-    final googleProfilePic = box.read(BOX_PROFILE_PHOTO) ??
-        'https://cdn.shopify.com/s/files/1/1338/0845/collections/lippie-pencil_grande.jpg?v=1512588769';
+    final String googleProfilePic = getStorageStringValue(BOX_PROFILE_PHOTO);
+    //  'https://cdn.shopify.com/s/files/1/1338/0845/collections/lippie-pencil_grande.jpg?v=1512588769';
 
     return Scaffold(
       body: ListView(
@@ -75,25 +76,25 @@ class SettingView extends StatelessWidget {
                   width: 100,
                   height: 100,
                   margin: EdgeInsets.all(10),
-                  child: ClipRRect(
-                    child: InkWell(
-                      onTap: () {
-                        getStorageBoolValue(BOX_IS_LOGGEDIN)
-                            ? Get.toNamed(profileRoute)
-                            : _loginController.loginPopupBottomSheet(context);
-                      },
-                      child: CachedNetworkImage(
-                        imageUrl: googleProfilePic.toString().contains('https')
-                            ? googleProfilePic
-                            : ApiConstants.baseImageUrl + googleProfilePic,
-                        placeholder: (context, url) => AppLogoWidget(),
-                        errorWidget: (context, url, error) => Icon(Icons.error),
-                        fit: BoxFit.cover,
-                      ),
-                    ),
+                  child: InkWell(
+                    onTap: () {
+                      getStorageBoolValue(BOX_IS_LOGGEDIN)
+                          ? Get.toNamed(profileRoute)
+                          : _loginController.loginPopupBottomSheet(context);
+                    },
+                    child: googleProfilePic.length > 0
+                        ? CachedNetworkImage(
+                            imageUrl: googleProfilePic.contains('https')
+                                ? googleProfilePic
+                                : ApiConstants.baseImageUrl + googleProfilePic,
+                            placeholder: (context, url) => AppLogoWidget(),
+                            errorWidget: (context, url, error) =>
+                                Icon(Icons.error),
+                            fit: BoxFit.cover,
+                          )
+                        : Icon(Icons.account_box_rounded),
                   ),
                   decoration: BoxDecoration(
-                    color: kPrimaryColor,
                     borderRadius: BorderRadius.all(Radius.circular(1)),
                   ),
                 ),
@@ -144,7 +145,7 @@ class SettingView extends StatelessWidget {
               //     'Check your order status (track, return, cancel)'.text.make(),
               onTap: () => {
                 getStorageBoolValue(BOX_IS_LOGGEDIN)
-                    ? showLoadingDialog()
+                    ? Get.to(() => OrderHistoryView())
                     : _loginController.loginPopupBottomSheet(context),
               },
             ),

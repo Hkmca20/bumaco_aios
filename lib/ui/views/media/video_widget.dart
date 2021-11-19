@@ -4,12 +4,14 @@ import 'package:velocity_x/velocity_x.dart';
 import 'package:video_player/video_player.dart';
 
 class VideoWidget extends StatefulWidget {
-  final VideoPlayerController videoPlayerController;
+  // final VideoPlayerController videoPlayerController;
+  final String videoUrl;
   final bool looping;
   final bool autoplay;
 
   const VideoWidget({
-    required this.videoPlayerController,
+    // required this.videoPlayerController,
+    required this.videoUrl,
     this.looping = true,
     this.autoplay = true,
     Key? key,
@@ -21,12 +23,15 @@ class VideoWidget extends StatefulWidget {
 
 class _VideoWidgetState extends State<VideoWidget> {
   late ChewieController _chewieController;
+  late VideoPlayerController _videoPlayerController;
 
   @override
   void initState() {
     super.initState();
+    _videoPlayerController = VideoPlayerController.network(widget.videoUrl);
     _chewieController = ChewieController(
-      videoPlayerController: widget.videoPlayerController,
+      // videoPlayerController: widget.videoPlayerController,
+      videoPlayerController: _videoPlayerController,
       aspectRatio: 5 / 8,
       // aspectRatio: widget.videoPlayerController.value.aspectRatio,
       autoInitialize: true,
@@ -61,12 +66,15 @@ class _VideoWidgetState extends State<VideoWidget> {
         );
       },
     );
+    print('onInit()--------------->' + widget.videoUrl);
   }
 
   @override
   void dispose() {
     super.dispose();
+    _videoPlayerController.dispose();
     _chewieController.dispose();
+    print('onDispose()--------------->' + widget.videoUrl);
   }
 
   @override

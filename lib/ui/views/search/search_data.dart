@@ -1,6 +1,7 @@
 import 'package:bumaco_aios/app_utils/utils.dart';
 import 'package:bumaco_aios/ui/controller/controllers.dart';
 import 'package:bumaco_aios/ui/widgets/csearch_card.dart';
+import 'package:get/get.dart';
 import 'package:velocity_x/velocity_x.dart';
 import 'package:flutter/material.dart';
 
@@ -62,21 +63,26 @@ class SearchData<T> extends SearchDelegate<String> {
     } else {
       pController.searchSortFilterProducts(query);
     }
-    final suggestionList =
-        // query.isEmpty ? recentCItyList :
-        pController.searchProductList;
+    // final suggestionList =
+    // query.isEmpty ? recentCItyList :
+    // pController.searchProductList;
 
-    return ListView.builder(
-        itemCount: suggestionList.length,
-        itemBuilder: (context, index) {
-          final item = suggestionList[index];
-          return CSearchTile(
-            prod: item,
-            bController: bController,
-            pController: pController,
-            index: index,
-            offset: pController.offset.value,
-          );
-        });
+    return Obx(
+      () => ListView.separated(
+          separatorBuilder: (context, index) {
+            return Divider(indent: 40, endIndent: 80);
+          },
+          itemCount: pController.searchProductList.length,
+          itemBuilder: (context, index) {
+            final item = pController.searchProductList[index];
+            return CSearchTile(
+              prod: item,
+              bController: bController,
+              pController: pController,
+              index: index,
+              offset: pController.offset.value,
+            );
+          }),
+    );
   }
 }

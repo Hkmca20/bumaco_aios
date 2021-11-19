@@ -2,13 +2,12 @@ import 'package:bumaco_aios/app_core/db/database/app_database.dart';
 import 'package:bumaco_aios/app_core/db/entity/entities.dart';
 import 'package:bumaco_aios/app_core/models/models.dart';
 import 'package:bumaco_aios/app_utils/utils.dart';
-import 'package:bumaco_aios/ui/views/home/book_order_view.dart';
+import 'package:bumaco_aios/ui/views/orders/order_book_view.dart';
 import 'package:get/get.dart';
 import 'package:razorpay_flutter/razorpay_flutter.dart';
 
 class BucketController extends GetxController {
   static BucketController get to => Get.find(tag: BUCKET_CONTROLLER);
-  late String currency;
   var isLoading = true.obs;
   var bucketList = <BucketEntity>[].obs;
   var totalAmount = 0.0.obs;
@@ -22,8 +21,6 @@ class BucketController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    currency = getStorageStringValue(BOX_CURRENCY);
-    if (currency == '') currency = 'GBP';
     getAllBucketFromLocal();
     _razorpay = Razorpay();
     _razorpay.on(Razorpay.EVENT_PAYMENT_SUCCESS, _handlePaymentSuccess);
@@ -34,8 +31,8 @@ class BucketController extends GetxController {
   initiatePayment(payableAmount) {
     var options = {
       'key': 'rzp_test_K91R0TzxmZMA2R', //process.env.RAZORPAY_KEY,//
-      'amount': 100, //in the smallest currency sub-unit.
-      'currency': 'INR',
+      'amount': 1250, //in the smallest currency sub-unit.
+      'currency': 'USD',
       'name': 'Hariom Gupta',
       // 'order_id': 'order_EMBFqjDHEEn80l', // Generate order_id using Orders API
       'description': 'Fine T-Shirt',
@@ -66,7 +63,7 @@ class BucketController extends GetxController {
     showLoadingDialog();
     await Future.delayed(2.seconds);
     Get.back();
-    Get.to(() => BookOrderView(), arguments: {
+    Get.to(() => OrderBookView(), arguments: {
       ARG_PAYABLE_AMT: tempAmount,
       ARG_PAYMENT_ID: response.paymentId,
     });
@@ -118,6 +115,10 @@ class BucketController extends GetxController {
   }
 
   insertBucket(ProductModel element) async {
+    if (element.id == '') {
+      bumacoSnackbar('alert'.tr, 'Internal Server Error!');
+      return;
+    }
     final db = await $FloorAppDatabase.databaseBuilder(DB_NAME).build();
     final bucketDao = db.bucketDao;
     final BucketEntity? checkItem = await bucketDao.findBucketById(element.id);

@@ -1,7 +1,6 @@
 import 'package:bumaco_aios/app_core/models/models.dart';
 import 'package:bumaco_aios/app_utils/app_bar_home.dart';
 import 'package:bumaco_aios/app_utils/app_const.dart';
-import 'package:bumaco_aios/app_utils/asset_path.dart';
 import 'package:bumaco_aios/ui/widgets/widgets.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
@@ -76,7 +75,7 @@ class _GalleryPageState extends State<GalleryPage> {
                 ),
               ),
               Container(
-                height: 80,
+                height: 100,
                 child: ListView.builder(
                     scrollDirection: Axis.horizontal,
                     itemCount: images.length,
@@ -92,9 +91,13 @@ class _GalleryPageState extends State<GalleryPage> {
                         child: Container(
                           margin: const EdgeInsets.all(8),
                           padding: const EdgeInsets.all(2),
-                          color: _currentIndex == index
-                              ? Colors.red
-                              : kGreyLightColor,
+                          decoration: BoxDecoration(
+                            border: Border.all(
+                                width: 2,
+                                color: _currentIndex == index
+                                    ? Colors.red
+                                    : kGreyLightColor),
+                          ),
                           child: CachedNetworkImage(
                             imageUrl: ApiConstants.baseImageUrl + images[index],
                             placeholder: (context, url) => AppLogoWidget(),

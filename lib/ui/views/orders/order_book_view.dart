@@ -2,12 +2,13 @@ import 'dart:ui';
 
 import 'package:bumaco_aios/app_utils/utils.dart';
 import 'package:bumaco_aios/ui/controller/checkout_controller.dart';
+import 'package:bumaco_aios/ui/views/orders/order_track_view.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:velocity_x/velocity_x.dart';
 
-class BookOrderView extends StatelessWidget {
-  BookOrderView({Key? key}) : super(key: key);
+class OrderBookView extends StatelessWidget {
+  OrderBookView({Key? key}) : super(key: key);
   final checkoutController = CheckoutController.to;
   final payableAmount = Get.arguments[ARG_PAYABLE_AMT];
   final paymentId = Get.arguments[ARG_PAYMENT_ID];
@@ -62,7 +63,8 @@ class BookOrderView extends StatelessWidget {
                   [
                     ElevatedButton(
                       onPressed: () {
-                        Get.offNamedUntil(dashboardRoute, (route) => false);
+                        // Get.offNamedUntil(dashboardRoute, (route) => false);
+                        Get.to(() => OrderTrackView());
                       },
                       child: "TRACK ORDER"
                           .text

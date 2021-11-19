@@ -2,8 +2,7 @@ import 'dart:ui';
 
 import 'package:bumaco_aios/app_core/models/models.dart';
 import 'package:bumaco_aios/app_utils/utils.dart';
-import 'package:bumaco_aios/ui/controller/bucket_controller.dart';
-import 'package:bumaco_aios/ui/controller/product_controller.dart';
+import 'package:bumaco_aios/ui/controller/controllers.dart';
 import 'package:bumaco_aios/ui/shopping/cproduct_detail_view.dart';
 import 'package:bumaco_aios/ui/widgets/widgets.dart';
 import 'package:cached_network_image/cached_network_image.dart';
@@ -14,17 +13,16 @@ import 'package:velocity_x/velocity_x.dart';
 import 'star_rating.dart';
 
 class CProductTile extends StatelessWidget {
-  const CProductTile({
+  CProductTile({
     Key? key,
     required this.prod,
     this.index = 0,
     this.offset = 0.0,
-    required this.bController,
-    required this.pController,
   }) : super(key: key);
 
-  final ProductController pController;
-  final BucketController bController;
+  final lController = LocaleController.to;
+  final pController = ProductController.to;
+  final bController = BucketController.to;
   final ProductModel prod;
   final double offset;
   final int index;
@@ -162,7 +160,9 @@ class CProductTile extends StatelessWidget {
                 Text.rich(
                   TextSpan(children: [
                     TextSpan(
-                      text: prod.mrp == '' ? '' : '\$${prod.mrp}',
+                      text: prod.mrp == ''
+                          ? ''
+                          : '${lController.selectedCurrency}${prod.mrp}',
                       style: TextStyle(
                         fontSize: 12,
                         color: kGreyLightColor,
@@ -170,7 +170,7 @@ class CProductTile extends StatelessWidget {
                       ),
                     ),
                     TextSpan(
-                      text: '  \$${prod.mrp}',
+                      text: '  ${lController.selectedCurrency}${prod.mrp}',
                       style: TextStyle(
                         fontSize: 14,
                       ),

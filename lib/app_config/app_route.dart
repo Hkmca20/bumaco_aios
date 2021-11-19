@@ -101,7 +101,7 @@ List<GetPage<dynamic>> get setRoute => [
           name: ratingRoute,
           transition: Transition.fade,
           transitionDuration: kTransitionDuration,
-          page: () => RatingView(title: 'Rating')),
+          page: () => RatingView()),
       GetPage(
           name: shrinkRoute,
           transition: Transition.fade,

@@ -95,11 +95,7 @@ class FavouriteView extends StatelessWidget {
                         itemBuilder: (context, index) {
                           ProductModel item =
                               productController.favouriteList[index];
-                          return CProductTile(
-                            prod: item,
-                            pController: productController,
-                            bController: bucketController,
-                          );
+                          return CProductTile(prod: item);
                         }),
               ),
             ),

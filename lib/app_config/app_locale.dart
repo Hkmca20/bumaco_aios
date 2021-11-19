@@ -38,6 +38,7 @@ class BumacoLocale extends Translations {
           'category': 'Category',
           'product': 'Product',
           'account': 'Account',
+          'enter_a_gate': 'ENTER A GATE',
           // --Cart/Checkout/Payment--
           'address': 'Address',
           'total': 'Total',
@@ -169,6 +170,7 @@ class BumacoLocale extends Translations {
           'category': 'فئة',
           'product': 'المنتج',
           'account': 'حساب',
+          'enter_a_gate': 'أدخل بوابة',
           // --Cart/Checkout/Payment--
           'address': 'عنوان',
           'total': 'المجموع',

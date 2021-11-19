@@ -2,7 +2,7 @@ import 'package:flare_flutter/flare.dart';
 import 'package:flare_flutter/flare_controller.dart';
 
 class SmileyController extends FlareController {
- late ActorAnimation _blink;
+  late ActorAnimation _blink;
   double _timer = 0;
   @override
   void initialize(FlutterActorArtboard artboard) {
@@ -12,7 +12,7 @@ class SmileyController extends FlareController {
   @override
   bool advance(FlutterActorArtboard artboard, double elapsed) {
     _timer += elapsed;
-    _blink.apply(_timer % _blink.duration, artboard, 0.5);
+    _blink.apply(_timer % _blink.duration, artboard, 0.8);
     return true;
   }
 

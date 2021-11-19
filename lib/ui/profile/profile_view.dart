@@ -179,6 +179,8 @@ class ProfileView extends StatelessWidget {
           margin: EdgeInsets.only(top: 30.0, left: 30.0, right: 30.0),
           child: TextFormField(
             controller: profileController.dobCTR,
+            enableInteractiveSelection: false,
+            readOnly: true,
             decoration: InputDecoration(
               labelText: "DOB", // Set text upper animation
               border: OutlineInputBorder(),
@@ -188,9 +190,12 @@ class ProfileView extends StatelessWidget {
               ),
             ),
             minLines: 1,
+            focusNode: FocusNode(),
             autofocus: false,
             keyboardType: TextInputType.number,
-          ),
+          ).onTap(() {
+            profileController.openDatePicker(context);
+          }),
         ),
 
 //Button Section--------------------

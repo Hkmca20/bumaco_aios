@@ -9,6 +9,7 @@ import 'package:bumaco_aios/ui/controller/controllers.dart';
 import 'package:bumaco_aios/ui/views/checkout/bucket_view.dart';
 import 'package:bumaco_aios/ui/views/filters/filter_view.dart';
 import 'package:bumaco_aios/ui/views/home/banners/cbanner.dart';
+import 'package:bumaco_aios/ui/views/home/empty_widget.dart';
 import 'package:bumaco_aios/ui/views/search/search_view.dart';
 import 'package:bumaco_aios/ui/widgets/cproduct_card.dart';
 import 'package:flutter/material.dart';
@@ -195,7 +196,7 @@ class ProductView extends StatelessWidget {
                                 () => fController.selectedSortText.value.text
                                     .size(12)
                                     .make()
-                                    .p2(),
+                                    .paddingSymmetric(vertical: 2),
                               ),
                             ]).p12(),
                           ],
@@ -259,70 +260,72 @@ class ProductView extends StatelessWidget {
                   child: Obx(
                     () => productController.isLoading.isTrue
                         ? LoadingWidget()
-                        : StaggeredGridView.count(
-                            padding: EdgeInsets.all(4),
-                            // controller: productController.scroll,
-                            crossAxisCount: productController.columnCount.value,
-                            crossAxisSpacing: 4,
-                            mainAxisSpacing: 4,
-                            shrinkWrap: true,
-                            physics: NeverScrollableScrollPhysics(),
-                            staggeredTiles: List.generate(
-                                productController.allProductList.length,
-                                (index) {
-                              // return StaggeredTile.count(1, 2.3);
-                              return StaggeredTile.fit(1);
-                            }),
-                            children: List.generate(
-                                productController.allProductList.length,
-                                (index) {
-                              final item =
-                                  productController.allProductList[index];
-                              return CProductTile(
-                                prod: item,
-                                bController: bController,
-                                pController: productController,
-                                index: index,
-                                offset: productController.offset.value,
-                              );
-                            }),
-                            //-----------------------hari practice 5-----gridviewcount-------
-                            // children: [
-                            //   'https://via.placeholder.com/150',
-                            //   'https://via.placeholder.com/150',
-                            //   'https://via.placeholder.com/150',
-                            //   'https://via.placeholder.com/150',
-                            //   'https://via.placeholder.com/150',
-                            //   'https://via.placeholder.com/150',
-                            // ].map((String url) {
-                            //   return Row(
-                            //     mainAxisSize: MainAxisSize.min,
-                            //     children: [
-                            //       Flexible(
-                            //         child: GridView.count(
-                            //             crossAxisCount: 4,
-                            //             childAspectRatio: 1.0,
-                            //             padding: const EdgeInsets.all(4.0),
-                            //             mainAxisSpacing: 4.0,
-                            //             crossAxisSpacing: 4.0,
-                            //             children: [
-                            //               'https://via.placeholder.com/150',
-                            //               'https://via.placeholder.com/150',
-                            //               'https://via.placeholder.com/150',
-                            //               'https://via.placeholder.com/150',
-                            //               'https://via.placeholder.com/150',
-                            //               'https://via.placeholder.com/150',
-                            //             ].map((String url) {
-                            //               return GridTile(
-                            //                 child: Image.network(url,
-                            //                     fit: BoxFit.cover),
-                            //               );
-                            //             }).toList()),
-                            //       ),
-                            //     ],
-                            //   );
-                            // }).toList(),
-                            //-----------------------hari practice 4-----gridviewcount-------
+                        : productController.allProductList.length == 0
+                            ? EmptyContentWidget(
+                                message: 'No products found in this category')
+                            : StaggeredGridView.count(
+                                padding: EdgeInsets.all(4),
+                                // controller: productController.scroll,
+                                crossAxisCount:
+                                    productController.columnCount.value,
+                                crossAxisSpacing: 4,
+                                mainAxisSpacing: 4,
+                                shrinkWrap: true,
+                                physics: NeverScrollableScrollPhysics(),
+                                staggeredTiles: List.generate(
+                                    productController.allProductList.length,
+                                    (index) {
+                                  // return StaggeredTile.count(1, 2.3);
+                                  return StaggeredTile.fit(1);
+                                }),
+                                children: List.generate(
+                                    productController.allProductList.length,
+                                    (index) {
+                                  final item =
+                                      productController.allProductList[index];
+                                  return CProductTile(
+                                    prod: item,
+                                    index: index,
+                                    offset: productController.offset.value,
+                                  );
+                                }),
+                                //-----------------------hari practice 5-----gridviewcount-------
+                                // children: [
+                                //   'https://via.placeholder.com/150',
+                                //   'https://via.placeholder.com/150',
+                                //   'https://via.placeholder.com/150',
+                                //   'https://via.placeholder.com/150',
+                                //   'https://via.placeholder.com/150',
+                                //   'https://via.placeholder.com/150',
+                                // ].map((String url) {
+                                //   return Row(
+                                //     mainAxisSize: MainAxisSize.min,
+                                //     children: [
+                                //       Flexible(
+                                //         child: GridView.count(
+                                //             crossAxisCount: 4,
+                                //             childAspectRatio: 1.0,
+                                //             padding: const EdgeInsets.all(4.0),
+                                //             mainAxisSpacing: 4.0,
+                                //             crossAxisSpacing: 4.0,
+                                //             children: [
+                                //               'https://via.placeholder.com/150',
+                                //               'https://via.placeholder.com/150',
+                                //               'https://via.placeholder.com/150',
+                                //               'https://via.placeholder.com/150',
+                                //               'https://via.placeholder.com/150',
+                                //               'https://via.placeholder.com/150',
+                                //             ].map((String url) {
+                                //               return GridTile(
+                                //                 child: Image.network(url,
+                                //                     fit: BoxFit.cover),
+                                //               );
+                                //             }).toList()),
+                                //       ),
+                                //     ],
+                                //   );
+                                // }).toList(),
+                                //-----------------------hari practice 4-----gridviewcount-------
 //                            children: [
 //                               'https://via.placeholder.com/150',
 //                               'https://via.placeholder.com/150',
@@ -335,58 +338,58 @@ class ProductView extends StatelessWidget {
 //                                   child: new Image.network(url,
 //                                       fit: BoxFit.cover));
 //                             }).toList(),
-                            //-----------------------hari practice 3-----gridviewcount-------
-                            //children: [
-                            //   'https://via.placeholder.com/150',
-                            //   'https://via.placeholder.com/150',
-                            //   'https://via.placeholder.com/150',
-                            //   'https://via.placeholder.com/150',
-                            //   'https://via.placeholder.com/150',
-                            //   'https://via.placeholder.com/150',
-                            // ].map((String url) {
-                            //   return Row(
-                            //     mainAxisSize: MainAxisSize.min,
-                            //     children: [
-                            //       Flexible(
-                            //         child: new GridView.count(
-                            //             crossAxisCount: 4,
-                            //             childAspectRatio: 1.0,
-                            //             padding: const EdgeInsets.all(4.0),
-                            //             mainAxisSpacing: 4.0,
-                            //             crossAxisSpacing: 4.0,
-                            //             children: <String>[
-                            //               'https://via.placeholder.com/150',
-                            //               'https://via.placeholder.com/150',
-                            //               'https://via.placeholder.com/150',
-                            //               'https://via.placeholder.com/150',
-                            //               'https://via.placeholder.com/150',
-                            //               'https://via.placeholder.com/150',
-                            //             ].map((String url) {
-                            //               return GridTile(
-                            //                   child: Image.network(url,
-                            //                       fit: BoxFit.cover));
-                            //             }).toList()),
-                            //       ),
-                            //     ],
-                            //   );
-                            // }).toList(),
-                            //-----------------------hari practice 1-----staggeredgridviewbuilder-------
-                            // itemCount: productController.allProductList.length,
-                            // staggeredTileBuilder: (int index) {
-                            //   return StaggeredTile.fit(1);
-                            // },
-                            // itemBuilder: (context, index) {
-                            //   ProductModel item =
-                            //       productController.allProductList[index];
-                            //   return CProductTile(
-                            //     bController: bController,
-                            //     pController: productController,
-                            //     prod: item,
-                            //     index: index,
-                            //     offset: productController.offset.value,
-                            //   );
-                            // },
-                          ),
+                                //-----------------------hari practice 3-----gridviewcount-------
+                                //children: [
+                                //   'https://via.placeholder.com/150',
+                                //   'https://via.placeholder.com/150',
+                                //   'https://via.placeholder.com/150',
+                                //   'https://via.placeholder.com/150',
+                                //   'https://via.placeholder.com/150',
+                                //   'https://via.placeholder.com/150',
+                                // ].map((String url) {
+                                //   return Row(
+                                //     mainAxisSize: MainAxisSize.min,
+                                //     children: [
+                                //       Flexible(
+                                //         child: new GridView.count(
+                                //             crossAxisCount: 4,
+                                //             childAspectRatio: 1.0,
+                                //             padding: const EdgeInsets.all(4.0),
+                                //             mainAxisSpacing: 4.0,
+                                //             crossAxisSpacing: 4.0,
+                                //             children: <String>[
+                                //               'https://via.placeholder.com/150',
+                                //               'https://via.placeholder.com/150',
+                                //               'https://via.placeholder.com/150',
+                                //               'https://via.placeholder.com/150',
+                                //               'https://via.placeholder.com/150',
+                                //               'https://via.placeholder.com/150',
+                                //             ].map((String url) {
+                                //               return GridTile(
+                                //                   child: Image.network(url,
+                                //                       fit: BoxFit.cover));
+                                //             }).toList()),
+                                //       ),
+                                //     ],
+                                //   );
+                                // }).toList(),
+                                //-----------------------hari practice 1-----staggeredgridviewbuilder-------
+                                // itemCount: productController.allProductList.length,
+                                // staggeredTileBuilder: (int index) {
+                                //   return StaggeredTile.fit(1);
+                                // },
+                                // itemBuilder: (context, index) {
+                                //   ProductModel item =
+                                //       productController.allProductList[index];
+                                //   return CProductTile(
+                                //     bController: bController,
+                                //     pController: productController,
+                                //     prod: item,
+                                //     index: index,
+                                //     offset: productController.offset.value,
+                                //   );
+                                // },
+                              ),
                   ),
                 )
               ],
@@ -417,26 +420,26 @@ class ProductView extends StatelessWidget {
               indent: 150,
               endIndent: 150,
             ).p8(),
-            'Sort By'.text.bold.size(24).make().p8(),
+            'Sort By'.text.bold.size(24).make().p12(),
             Container(
-              padding: EdgeInsets.all(8),
               height: 280,
               alignment: Alignment.center,
               child: ListView.separated(
                   itemCount: _items.length,
                   separatorBuilder: (context, int) {
-                    return Divider();
+                    return VxDivider(indent: 20, endIndent: 20);
                   },
                   itemBuilder: (context, index) {
-                    return GestureDetector(
+                    final item = _items[index];
+                    return InkWell(
                         child: HStack([
                           Expanded(
-                              child: _items[index]
-                                  .text
-                                  .size(16)
-                                  .fontWeight(FontWeight.w300)
-                                  .make()
-                                  .p4()),
+                            child: item.text
+                                .size(16)
+                                .fontWeight(FontWeight.w300)
+                                .make()
+                                .paddingSymmetric(horizontal: 20, vertical: 18),
+                          ),
                           Obx(
                             () => Radio(
                                 activeColor: kPrimaryColor,

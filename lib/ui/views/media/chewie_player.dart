@@ -19,7 +19,8 @@ class ChewiePlayerView extends StatelessWidget {
         scrollDirection: Axis.vertical,
         children: List.generate(videoController.videoList.length, (index) {
           final item = videoController.videoList[index];
-          return VideoWidget(videoPlayerController: item.videoPlayerController);
+          // return VideoWidget(videoPlayerController: item.videoPlayerController);
+          return VideoWidget(videoUrl: item.videoUrl);
         }),
       ),
     );

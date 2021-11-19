@@ -6,6 +6,8 @@ import 'package:google_fonts/google_fonts.dart';
 ThemeData setDarkTheme(context) {
   // final ThemeData theme = Theme.of(context);
   final base = ThemeData.dark();
+  Color hariTextColor = kWhiteColor;
+
   return base.copyWith(
     primaryColorDark: kPrimaryColorDark,
     brightness: Brightness.dark,

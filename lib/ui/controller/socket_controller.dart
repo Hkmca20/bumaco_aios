@@ -16,7 +16,7 @@ class SocketController extends GetxController {
   void onInit() {
     super.onInit();
     socket = IO.io(
-        'http://192.168.82.123:4000',
+        'http://192.168.168.123:4000',
         // 'http://192.168.225.77:4000',
         // 'http://localhost:4000',
         IO.OptionBuilder()

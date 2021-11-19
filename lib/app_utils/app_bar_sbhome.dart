@@ -1,6 +1,6 @@
 import 'package:bumaco_aios/app_utils/app_const.dart';
 import 'package:bumaco_aios/app_utils/utils.dart';
-import 'package:bumaco_aios/ui/controller/socket_controller.dart';
+import 'package:bumaco_aios/ui/controller/controllers.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:velocity_x/velocity_x.dart';
@@ -13,7 +13,7 @@ class AppbarSBHome extends StatelessWidget with PreferredSizeWidget {
   final Color iconColor;
   final bool autoLeading;
   final bool centerTitle;
-  final socketController = Get.find<SocketController>();
+  final socketController = SocketController.to;
 
   AppbarSBHome(
       {Key? key,

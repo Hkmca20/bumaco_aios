@@ -15,6 +15,7 @@ final String bg1 = _getImagePath("bg_1.jpg");
 final String bg2 = _getImagePath("bg_2.jpg");
 final String bg3 = _getImagePath("bg_3.jpg");
 final String bg4 = _getImagePath("bg4.jpg");
+final String happyEmoji = _getRivePath('happiness_emoji.flr');
 
 final String riveAssetRoot = 'assets/rive/';
 final String basketballRive = _getRivePath('basketball.riv');
@@ -24,6 +25,7 @@ final String vehiclesRive = _getRivePath('vehicles.riv');
 String _getImagePath(String fileName) {
   return imageAssetsRoot + fileName;
 }
+
 String _getRivePath(String fileName) {
   return riveAssetRoot + fileName;
 }

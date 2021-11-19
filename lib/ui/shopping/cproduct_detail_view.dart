@@ -8,8 +8,11 @@ import 'package:bumaco_aios/ui/gallery/gallery_view.dart';
 import 'package:bumaco_aios/ui/views/checkout/bucket_view.dart';
 import 'package:bumaco_aios/ui/views/dashboard/tabbar_view.dart';
 import 'package:bumaco_aios/ui/views/home/favourite_view.dart';
+import 'package:bumaco_aios/ui/views/home/item_address.dart';
 import 'package:bumaco_aios/ui/views/views.dart';
+import 'package:bumaco_aios/ui/widgets/cproduct_card.dart';
 import 'package:bumaco_aios/ui/widgets/star_rating.dart';
+import 'package:bumaco_aios/ui/widgets/widgets.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
@@ -17,39 +20,19 @@ import 'package:get/get.dart';
 import 'package:share/share.dart';
 import 'package:velocity_x/velocity_x.dart';
 
-class CProductDetailView extends StatefulWidget {
+class CProductDetailView extends StatelessWidget {
   CProductDetailView({Key? key}) : super(key: key);
-
-  @override
-  State<CProductDetailView> createState() => _CProductDetailViewState();
-}
-
-class _CProductDetailViewState extends State<CProductDetailView> {
-  // final bController = Get.find<BucketController>();
+  final lController = LocaleController.to;
   final bController = BucketController.to;
-  final productController = ProductController.to;
-  late final ProductModel productItem;
-  final commonGreyColor = Colors.grey[600]!.withOpacity(0.1);
+  final pController = ProductController.to;
+  final pdController = ProductDetailController.to;
 
-  @override
-  void initState() {
-    if (Get.arguments != null) {
-      productItem = Get.arguments['arg_product_item'];
-    } else {
-      bumacoSnackbar('alert'.tr, 'Details not found!');
-      Get.back();
-    }
-    super.initState();
-  }
-
-  List<String> _options = ['50ml', '80ml', '130ml', '200ml'];
-  int _choiceIndex = 0;
   @override
   Widget build(BuildContext context) {
     final _screenSize = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppbarHome(
-        title: productItem.product,
+        title: pdController.productItem.product,
         actionList: [
           IconButton(
             icon: Icon(Icons.search_rounded),
@@ -59,10 +42,10 @@ class _CProductDetailViewState extends State<CProductDetailView> {
             },
           ),
           IconButton(
-            icon: Obx(() => productController.favouriteList.length == 0
+            icon: Obx(() => pController.favouriteList.length == 0
                 ? Icon(Icons.favorite_border_outlined)
                 : Icon(Icons.favorite_border_outlined).p4().badge(
-                    count: productController.favouriteList.length,
+                    count: pController.favouriteList.length,
                     color: kPrimaryColor,
                     size: 12)),
             tooltip: 'wishlist'.tr,
@@ -91,13 +74,14 @@ class _CProductDetailViewState extends State<CProductDetailView> {
         InkWell(
           onTap: () {
             Get.to(() => GalleryPage(),
-                arguments: {'arg_product_item': productItem});
+                arguments: {'arg_product_item': pdController.productItem});
           },
           child: Container(
             child: ClipRRect(
               borderRadius: BorderRadius.all(Radius.circular(0)),
               child: CachedNetworkImage(
-                imageUrl: ApiConstants.baseImageUrl + productItem.fimage,
+                imageUrl:
+                    ApiConstants.baseImageUrl + pdController.productItem.fimage,
                 filterQuality: FilterQuality.high,
                 placeholderFadeInDuration: 1.seconds,
                 fit: BoxFit.fill,
@@ -129,7 +113,7 @@ class _CProductDetailViewState extends State<CProductDetailView> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Expanded(
-                child: productItem.product.text
+                child: pdController.productItem.product.text
                     .fontWeight(FontWeight.w400)
                     .capitalize
                     .size(20)
@@ -137,17 +121,17 @@ class _CProductDetailViewState extends State<CProductDetailView> {
               ),
               InkWell(
                   onTap: () async {
-                    final imageUrl =
-                        ApiConstants.baseImageUrl + productItem.fimage;
+                    final imageUrl = ApiConstants.baseImageUrl +
+                        pdController.productItem.fimage;
                     showLoadingDialog();
                     var file =
                         await DefaultCacheManager().getSingleFile(imageUrl);
                     hideLoading();
-                    final shareText = productItem.product +
+                    final shareText = pdController.productItem.product +
                         ' (' +
-                        productItem.brand +
+                        pdController.productItem.brand +
                         ')\n' +
-                        productItem.shortDescription;
+                        pdController.productItem.shortDescription;
                     Share.shareFiles([file.path], text: shareText);
                     // Share.share(shareText);
                   },
@@ -184,7 +168,9 @@ class _CProductDetailViewState extends State<CProductDetailView> {
                   ),
                 ),
                 TextSpan(
-                  text: productItem.mrp == '' ? '' : '\$${productItem.mrp}',
+                  text: pdController.productItem.mrp == ''
+                      ? ''
+                      : '${lController.selectedCurrency}${pdController.productItem.mrp}',
                   style: TextStyle(
                     fontSize: 16,
                     color: kGreyLightColor,
@@ -192,7 +178,8 @@ class _CProductDetailViewState extends State<CProductDetailView> {
                   ),
                 ),
                 TextSpan(
-                  text: '  \$${productItem.mrp}',
+                  text:
+                      '  ${lController.selectedCurrency}${pdController.productItem.mrp}',
                   style: TextStyle(
                     fontSize: 18,
                   ),
@@ -222,29 +209,32 @@ class _CProductDetailViewState extends State<CProductDetailView> {
           padding: EdgeInsets.symmetric(horizontal: 20, vertical: 4),
           child: HStack([
             'Selected Size - '.text.coolGray400.make(),
-            _options[_choiceIndex].text.bold.make(),
+            Obx(() => pdController
+                .options[pdController.choiceIndex.value].text.bold
+                .make()),
           ]),
         ),
         Padding(
           padding: EdgeInsets.symmetric(horizontal: 16, vertical: 4),
-          child: Wrap(
-              children: List.generate(
-                  _options.length,
-                  (index) => Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 4),
-                        child: ChoiceChip(
-                          label: Text(_options[index]),
-                          selected: _choiceIndex == index,
-                          selectedColor: Colors.red,
-                          onSelected: (bool selected) {
-                            setState(() {
-                              _choiceIndex = selected ? index : 0;
-                            });
-                          },
-                          backgroundColor: Colors.green,
-                          labelStyle: TextStyle(color: Colors.white),
-                        ),
-                      ))),
+          child: Obx(
+            () => Wrap(
+                children: List.generate(
+                    pdController.options.length,
+                    (index) => Padding(
+                          padding: EdgeInsets.symmetric(horizontal: 4),
+                          child: ChoiceChip(
+                            label: Text(pdController.options[index]),
+                            selected: pdController.choiceIndex.value == index,
+                            selectedColor: Colors.green,
+                            onSelected: (bool selected) {
+                              pdController.choiceIndex.value =
+                                  selected ? index : 0;
+                            },
+                            backgroundColor: kGreyLightColor,
+                            labelStyle: TextStyle(color: Colors.white),
+                          ),
+                        ))),
+          ),
         ),
         SizedBox(height: 10),
         VxDivider(),
@@ -313,7 +303,7 @@ class _CProductDetailViewState extends State<CProductDetailView> {
         ),
         Padding(
           padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-          child: productItem.shortDescription.text
+          child: pdController.productItem.shortDescription.text
               .fontWeight(FontWeight.w200)
               .size(16)
               .make(),
@@ -324,8 +314,9 @@ class _CProductDetailViewState extends State<CProductDetailView> {
           child: HStack([
             InkWell(
                 onTap: () {
-                  Get.to(() => TabbarView(),
-                      arguments: {'arg_product_item': productItem});
+                  Get.to(() => TabbarView(), arguments: {
+                    'arg_product_item': pdController.productItem
+                  });
                 },
                 child: 'READ MORE'.text.bold.size(16).make()),
             SizedBox(
@@ -364,7 +355,9 @@ class _CProductDetailViewState extends State<CProductDetailView> {
                         alignment: Alignment.centerRight,
                         child: InkWell(
                           onTap: () {
-                            Get.toNamed(ratingRoute);
+                            Get.toNamed(ratingRoute, arguments: {
+                              'arg_product_item': pdController.productItem
+                            });
                           },
                           child: Container(
                               decoration: BoxDecoration(
@@ -404,43 +397,162 @@ class _CProductDetailViewState extends State<CProductDetailView> {
         VxDivider(),
 
         //DELIVERY SECTION
-        Padding(
-          padding: EdgeInsets.all(12),
-          child: 'Delivery options'.text.bold.make(),
-        ),
+        'Delivery options'.text.bold.make().paddingAll(12),
         VxDivider(),
-        Padding(
-          padding: EdgeInsets.all(15),
-          child: Container(
-              decoration: BoxDecoration(
-                  border: Border.all(color: kGreyLightColor, width: 1)),
-              child: HStack([
-                Expanded(
-                    child: TextFormField(
-                  keyboardType: TextInputType.number,
-                  decoration: InputDecoration(
-                      hintStyle: TextStyle(color: kGreyLightColor),
-                      border: InputBorder.none,
-                      enabledBorder: InputBorder.none,
-                      focusedBorder: InputBorder.none,
-                      focusedErrorBorder: InputBorder.none,
-                      hintText: 'Enter Pincode',
-                      contentPadding: EdgeInsets.only(
-                          left: 15, bottom: 11, top: 11, right: 15),
-                      focusColor: kGreyLightColor),
-                )),
-                'CHECK'.text.gray500.make().p8(),
-                SizedBox(width: 15),
-              ])),
+        Container(
+          decoration: BoxDecoration(
+              border: Border.all(color: kGreyLightColor, width: 1)),
+          child: HStack([
+            Expanded(
+                child: TextFormField(
+              controller: pdController.pincodeCTR,
+              onChanged: (value) => {
+                pdController.pincode(value),
+                pdController.avalablePincode(false)
+              },
+              decoration: InputDecoration(
+                  hintStyle: TextStyle(color: kGreyLightColor),
+                  border: InputBorder.none,
+                  enabledBorder: InputBorder.none,
+                  focusedBorder: InputBorder.none,
+                  focusedErrorBorder: InputBorder.none,
+                  hintText: 'Enter Pincode',
+                  contentPadding:
+                      EdgeInsets.only(left: 15, bottom: 11, top: 11, right: 15),
+                  focusColor: kGreyLightColor),
+              keyboardType: TextInputType.number,
+            )),
+            MaterialButton(
+              onPressed: () {
+                pdController.checkPincodeAvailability(context);
+              },
+              child: Obx(
+                () => pdController.pincode.value.length > 2
+                    ? 'CHECK'.text.bold.color(kPrimaryColor).make().p8()
+                    : 'CHECK'.text.bold.gray500.make().p8(),
+              ),
+            ),
+            SizedBox(width: 5),
+          ]),
+        ).paddingOnly(top: 15, left: 15, right: 15),
+        Obx(
+          () => Visibility(
+            visible: pdController.avalablePincode.isTrue,
+            child: ListTile(
+                leading: Icon(Icons.check, color: Vx.green700),
+                title:
+                    'This product is available to your location and COD is acceptable'
+                        .text
+                        .xs
+                        .green700
+                        .make()),
+          ),
         ),
         'Check availability of COD option, estimated delivery date for online purchase, and availability in nearby retail store'
             .text
+            .xs
             .make()
             .p16(),
-        VxDivider(
-          color: commonGreyColor,
-          width: 10,
+        VxDivider(color: commonGreyColor, width: 10),
+
+        SectionTile(title: 'RELATED PRODUCTS').p12(),
+        Container(
+          height: 280,
+          child: ListView.separated(
+              separatorBuilder: (context, inxex) {
+                return VxDivider(width: 1, type: VxDividerType.vertical);
+              },
+              physics: ClampingScrollPhysics(),
+              scrollDirection: Axis.horizontal,
+              itemCount: pController.allProductList.length,
+              itemBuilder: (context, index) {
+                final ProductModel item = pController.allProductList[index];
+
+                return VStack(
+                  [
+                    Container(
+                      width: 80,
+                      height: 80,
+                      padding: EdgeInsets.all(5),
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.all(Radius.circular(1)),
+                        child: CachedNetworkImage(
+                          imageUrl: ApiConstants.baseImageUrl + item.fimage,
+                          placeholder: (context, url) => AppLogoWidget(),
+                          errorWidget: (context, url, error) =>
+                              Icon(Icons.error),
+                        ),
+                      ),
+                      decoration: BoxDecoration(
+                        color: kTransparentColor,
+                        border: Border.all(color: kGreyLightColor),
+                        borderRadius: BorderRadius.all(Radius.circular(1)),
+                      ),
+                    ),
+                    item.product.text.ellipsis.xs.semiBold.center
+                        .maxLines(2)
+                        .make()
+                        .p4()
+                        .box
+                        .height(30)
+                        .width(_screenSize.width / 3 + 20)
+                        .make()
+                        .p2(),
+                    '15ml'.text.xs.make().p2(),
+                    HStack([
+                      // Icon(Icons.star, size: 12),
+
+                      StarRating(
+                        iconsize: 12,
+                        rating: 4.5,
+                        onRatingChanged: (rating) => rating = rating,
+                      ),
+                      ' (117)'.text.xs.make()
+                    ]),
+                    '20% Off'.text.bold.color(kPrimaryColor).make().p2(),
+                    HStack([
+                      Text.rich(
+                        TextSpan(children: [
+                          TextSpan(
+                            text: item.mrp == ''
+                                ? ''
+                                : '${lController.selectedCurrency}${item.mrp}',
+                            style: TextStyle(
+                              fontSize: 12,
+                              color: kGreyLightColor,
+                              decoration: TextDecoration.lineThrough,
+                            ),
+                          ),
+                          TextSpan(
+                            text:
+                                '  ${lController.selectedCurrency}${item.mrp}',
+                            style: TextStyle(
+                              fontSize: 14,
+                            ),
+                          ),
+                        ]),
+                      ),
+                    ]).p4(),
+                    HStack(
+                      [
+                        IconButton(
+                          icon: Icon(Icons.favorite_border_rounded),
+                          onPressed: () {},
+                        ).p2(),
+                        MaterialButton(
+                          color: kPrimaryColor,
+                          onPressed: () {},
+                          child: 'add_to_cart'.tr.text.white.lg.semiBold.make(),
+                        ).centered(),
+                      ],
+                      crossAlignment: CrossAxisAlignment.center,
+                    )
+                  ],
+                  crossAlignment: CrossAxisAlignment.center,
+                ).paddingSymmetric(horizontal: 10, vertical: 5);
+              }),
         ),
+        VxDivider(color: commonGreyColor, width: 10),
       ]),
       bottomNavigationBar: BottomAppBar(
         child: Container(
@@ -461,9 +573,17 @@ class _CProductDetailViewState extends State<CProductDetailView> {
                 child: ElevatedButton.icon(
                   icon: Icon(Icons.shopping_basket_rounded),
                   onPressed: () {
-                    bController.insertBucket(productItem);
+                    bController.insertBucket(pdController.productItem);
                   },
-                  label: 'Add to cart'.text.bold.size(20).make().p2(),
+                  label: 'add_to_cart'
+                      .tr
+                      .text
+                      .bold
+                      .uppercase
+                      .white
+                      .size(20)
+                      .make()
+                      .p2(),
                 ),
               ),
               SizedBox(width: 10),

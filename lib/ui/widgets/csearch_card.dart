@@ -1,5 +1,3 @@
-import 'dart:ui';
-
 import 'package:bumaco_aios/app_core/models/models.dart';
 import 'package:bumaco_aios/app_utils/utils.dart';
 import 'package:bumaco_aios/ui/controller/bucket_controller.dart';
@@ -34,37 +32,36 @@ class CSearchTile extends StatelessWidget {
     // final percent = 1 - (diff / (itemSize));
     // final value = percent.clamp(0.0, 1.0);
 
-    return Card(
-      elevation: 2,
-      child: Padding(
-        padding: const EdgeInsets.all(0.0),
-        child: InkWell(
-          onTap: () {
-            Get.back();
-            Get.back();
-            Get.to(() => CProductDetailView(),
-                arguments: {'arg_product_item': prod});
-          },
-          child: ListTile(
+    return InkWell(
+      onTap: () {
+        Get.back();
+        Get.back();
+        Get.to(() => CProductDetailView(),
+            arguments: {'arg_product_item': prod});
+      },
+      child: ListTile(
               leading: Icon(
                 Icons.search,
                 color: kGreyLightColor,
               ),
-              trailing: ClipRRect(
-                borderRadius: BorderRadius.all(Radius.circular(1)),
+              trailing: Container(
+                padding: EdgeInsets.all(2),
+                decoration: BoxDecoration(
+                  border: Border.all(width: 1, color: kGreyLightColor),
+                  borderRadius: BorderRadius.circular(1.0),
+                ),
                 child: CachedNetworkImage(
                   imageUrl: ApiConstants.baseImageUrl + prod.fimage,
                   placeholder: (context, url) => AppLogoWidget(),
                   errorWidget: (context, url, error) => Icon(Icons.error),
                 ),
               ),
-              title: prod.product.text.capitalize.ellipsis.bold
+              title: prod.product.text.capitalize.ellipsis
                   .maxLines(2)
-                  .size(12)
+                  .size(14)
                   .make()
-                  .p2()),
-        ),
-      ),
+                  .p2())
+          .marginAll(6),
     );
   }
 }

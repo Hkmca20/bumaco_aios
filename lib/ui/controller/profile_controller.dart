@@ -10,6 +10,7 @@ class ProfileController extends GetxController {
   late String profilePhoto;
   final box = GetStorage(BOX_APP);
   var genderGroupValue = ''.obs;
+  DateTime? _currDatetime = DateTime.now();
 
   var nameUpdated = ''.obs;
 
@@ -41,6 +42,23 @@ class ProfileController extends GetxController {
     mobileCTR.dispose();
     dobCTR.dispose();
     super.onClose();
+  }
+
+  openDatePicker(context) {
+    showDatePicker(
+      context: context,
+      helpText: 'Select Date of Birth',
+      initialDate: _currDatetime ?? DateTime.now(),
+      firstDate: DateTime(1970),
+      lastDate: DateTime(2025),
+    ).then((value) {
+      if (value == null) {
+        bumacoToast(context, 'Cancelled');
+        return;
+      }
+      _currDatetime = value;
+      dobCTR.text = _currDatetime.toString();
+    });
   }
 
   submitButton(context) async {

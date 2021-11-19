@@ -62,16 +62,19 @@ class VideoController extends GetxController {
   void createVideoList() {
     videoList.add(
       VideoItem(
-        videoPlayerController: VideoPlayerController.asset(
-          'assets/videos/sample_mp4_small.mp4',
-        ),
+        videoUrl:
+            // videoPlayerController: VideoPlayerController.asset(
+            'assets/videos/sample_mp4_small.mp4',
+        // ),
         autoplay: true,
         looping: true,
       ),
     );
     videoList.add(VideoItem(
-      videoPlayerController: VideoPlayerController.network(
-          'https://assets.mixkit.co/videos/preview/mixkit-a-girl-blowing-a-bubble-gum-at-an-amusement-park-1226-large.mp4'),
+      videoUrl:
+          // videoPlayerController: VideoPlayerController.network(
+          'https://assets.mixkit.co/videos/preview/mixkit-a-girl-blowing-a-bubble-gum-at-an-amusement-park-1226-large.mp4',
+      // ),
       looping: false,
       autoplay: true,
     ));
@@ -96,7 +99,9 @@ class VideoController extends GetxController {
           element.sources.forEach((element) {
             print(element);
             videoList.add(VideoItem(
-                videoPlayerController: VideoPlayerController.network(element)));
+              videoUrl: element,
+              // videoPlayerController: VideoPlayerController.network(element)
+            ));
           });
         });
       });
@@ -107,12 +112,14 @@ class VideoController extends GetxController {
 }
 
 class VideoItem {
-  final videoPlayerController;
+  // final videoPlayerController;
+  final videoUrl;
   final autoplay;
   final looping;
 
   const VideoItem({
-    required this.videoPlayerController,
+    // required this.videoPlayerController,
+    required this.videoUrl,
     this.looping,
     this.autoplay,
   });

@@ -11,7 +11,7 @@ class StarRating extends StatelessWidget {
 
   StarRating({
     this.starCount = 5,
-    this.rating = .0,
+    this.rating = 0.0,
     required this.onRatingChanged,
     this.color = Colors.blueGrey,
     this.iconsize = 14,
@@ -23,20 +23,22 @@ class StarRating extends StatelessWidget {
       icon = new Icon(
         Icons.star_border,
         size: iconsize,
-        color: Theme.of(context).buttonColor,
+        // color: color,
       );
     } else if (index > rating - 1 && index < rating) {
       icon = new Icon(
         Icons.star_half,
         size: iconsize,
+        // color: color,
       );
     } else {
       icon = new Icon(
         Icons.star,
         size: iconsize,
+        // color: color,
       );
     }
-    return new InkResponse(
+    return InkResponse(
       onTap:
           onRatingChanged == null ? null : () => onRatingChanged(index + 1.0),
       child: icon,
@@ -45,8 +47,10 @@ class StarRating extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return new Row(
+    return Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
         children:
-            new List.generate(starCount, (index) => buildStar(context, index)));
+            List.generate(starCount, (index) => buildStar(context, index)));
   }
 }

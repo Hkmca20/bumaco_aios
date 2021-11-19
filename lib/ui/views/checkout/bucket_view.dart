@@ -2,6 +2,7 @@ import 'package:bumaco_aios/app_core/db/entity/entities.dart';
 import 'package:bumaco_aios/app_utils/app_bar_home.dart';
 import 'package:bumaco_aios/app_utils/utils.dart';
 import 'package:bumaco_aios/ui/controller/controllers.dart';
+import 'package:bumaco_aios/ui/controller/signin_controller.dart';
 import 'package:bumaco_aios/ui/views/address/addresss_view.dart';
 import 'package:bumaco_aios/ui/views/checkout/item_bucket.dart';
 import 'package:flutter/material.dart';
@@ -18,6 +19,7 @@ class BucketView extends StatelessWidget {
   Widget build(BuildContext context) {
     final _aController = AddressController.to;
     final bController = BucketController.to;
+    final lController = LocaleController.to;
 
     return Scaffold(
       appBar: AppbarHome(
@@ -93,10 +95,7 @@ class BucketView extends StatelessWidget {
                         padding: EdgeInsets.all(4),
                         itemBuilder: (context, index) {
                           BucketEntity item = bController.bucketList[index];
-                          return ItemBucket(
-                            item: item,
-                            bController: bController,
-                          );
+                          return ItemBucket(item: item);
                         },
                       ),
                     ),
@@ -115,7 +114,7 @@ class BucketView extends StatelessWidget {
                                       .size(14)
                                       .make()
                                       .p12()),
-                              '${bController.currency}${bController.totalAmount}'
+                              '${lController.selectedCurrency}${bController.totalAmount}'
                                   .text
                                   .size(14)
                                   .make()
@@ -130,7 +129,7 @@ class BucketView extends StatelessWidget {
                                       .size(14)
                                       .make()
                                       .p12()),
-                              '${bController.currency}${bController.taxAmount}'
+                              '${lController.selectedCurrency}${bController.taxAmount}'
                                   .text
                                   .size(14)
                                   .make()
@@ -145,7 +144,7 @@ class BucketView extends StatelessWidget {
                                       .size(14)
                                       .make()
                                       .p12()),
-                              '${bController.currency}${bController.discountAmt}'
+                              '${lController.selectedCurrency}${bController.discountAmt}'
                                   .text
                                   .size(14)
                                   .make()
@@ -160,7 +159,7 @@ class BucketView extends StatelessWidget {
                                       .size(14)
                                       .make()
                                       .p12()),
-                              '${bController.currency}${bController.shippingAmt}'
+                              '${lController.selectedCurrency}${bController.shippingAmt}'
                                   .text
                                   .size(14)
                                   .make()
@@ -181,7 +180,7 @@ class BucketView extends StatelessWidget {
                               //     .size(24)
                               //     .make()
                               //     .p12(),
-                              '${bController.currency}${bController.grandTotal.value}'
+                              '${lController.selectedCurrency}${bController.grandTotal.value}'
                                   // .numCurrencyWithLocale(locale: 'en_UK')
                                   // .numCurrencyWithLocale(locale: 'ar_AE')
                                   .text
@@ -193,11 +192,14 @@ class BucketView extends StatelessWidget {
                           MaterialButton(
                             height: 50.0,
                             onPressed: () {
-                              _aController.addressList.length == 0
-                                  ? Get.to(() => AddAddressView(),
-                                      arguments: {'get_is_bucket': true})
-                                  : bController
-                                      .initiatePayment(bController.grandTotal);
+                              !getStorageBoolValue(BOX_IS_LOGGEDIN)
+                                  ? SigninController.to
+                                      .loginPopupBottomSheet(context)
+                                  : _aController.addressList.length == 0
+                                      ? Get.to(() => AddAddressView(),
+                                          arguments: {'get_is_bucket': true})
+                                      : bController.initiatePayment(
+                                          bController.grandTotal);
                             },
                             // color: Color(0xff374ABE),
                             color: kPrimaryColor,

@@ -2,6 +2,7 @@ import 'package:bumaco_aios/app_core/db/entity/entities.dart';
 import 'package:bumaco_aios/app_utils/app_bar_home.dart';
 import 'package:bumaco_aios/app_utils/utils.dart';
 import 'package:bumaco_aios/ui/controller/controllers.dart';
+import 'package:bumaco_aios/ui/controller/signin_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:velocity_x/velocity_x.dart';
@@ -28,7 +29,9 @@ class AddressView extends StatelessWidget {
             icon: Icon(Icons.add_location_alt_outlined),
             tooltip: 'Add an address',
             onPressed: () {
-              Get.to(() => AddAddressView());
+              getStorageBoolValue(BOX_IS_LOGGEDIN)
+                  ? Get.to(() => AddAddressView())
+                  : SigninController.to.loginPopupBottomSheet(context);
             },
           ),
         ],
@@ -50,7 +53,10 @@ class AddressView extends StatelessWidget {
                             MaterialButton(
                                 color: kPrimaryColor,
                                 onPressed: () {
-                                  Get.to(() => AddAddressView());
+                                  getStorageBoolValue(BOX_IS_LOGGEDIN)
+                                      ? Get.to(() => AddAddressView())
+                                      : SigninController.to
+                                          .loginPopupBottomSheet(context);
                                 },
                                 child: 'Add New Address'.text.white.make())
                           ])

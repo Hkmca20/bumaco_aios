@@ -8,6 +8,7 @@ ThemeData setTheme(context) {
   // final ThemeData theme = Theme.of(context);
   // final _settingsController = SettingsController.to;
   final base = ThemeData.light();
+  Color hariTextColor = kDarkGreyColor;
   return base.copyWith(
     // fontFamily: lang == 'ar' ? 'FrutigerLTArabic' : 'ProximaNova',
     // textTheme: Theme.of(context).textTheme.apply(

@@ -27,13 +27,13 @@ class LocaleController extends GetxController {
     selectedCurrency.value = getStorageStringValue(BOX_CURRENCY);
     if (selectedCurrency.value == '') {
       updateCountryInfo(1);
-    }
-    localeList.forEach((element) {
-      if (element['currency'] == selectedCurrency) {
-        selectedSymbol.value = element['currency_symbol'];
-        selectedLanguage.value = element['language'];
-      }
-    });
+    } else
+      localeList.forEach((element) {
+        if (element['currency'] == selectedCurrency.value) {
+          selectedSymbol.value = element['currency_symbol'];
+          selectedLanguage.value = element['language'];
+        }
+      });
   }
 
   final List localeList = [

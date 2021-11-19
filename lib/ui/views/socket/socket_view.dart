@@ -78,7 +78,8 @@ class _SocketViewState extends State<SocketView> {
 }
 
 class MessageItemWidget extends StatelessWidget {
-  const MessageItemWidget({required this.sentByMe, Key? key, required this.item})
+  const MessageItemWidget(
+      {required this.sentByMe, Key? key, required this.item})
       : super(key: key);
   final bool sentByMe;
   final SocketMessageModel item;

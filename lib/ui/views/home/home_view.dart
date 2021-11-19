@@ -40,9 +40,7 @@ class HomeView extends StatelessWidget {
               onPressed: () {
                 showBottomSheet(
                     context: context,
-                    builder: (context) => Container(
-                          color: Colors.red,
-                        ));
+                    builder: (context) => Container(color: Colors.red));
               },
               icon: Icon(
                 Icons.add_shopping_cart,

@@ -4,7 +4,7 @@ import 'package:velocity_x/velocity_x.dart';
 class EmptyContentWidget extends StatelessWidget {
   const EmptyContentWidget({
     Key? key,
-    this.icon = Icons.not_accessible_rounded,
+    this.icon = Icons.not_accessible_outlined,
     this.message = 'Empty Content',
   }) : super(key: key);
   final IconData icon;
@@ -18,7 +18,7 @@ class EmptyContentWidget extends StatelessWidget {
             icon,
             size: 150,
           ),
-          message.text.size(30).make().centered(),
+          message.text.size(30).align(TextAlign.center).make().centered().p12(),
         ],
         alignment: MainAxisAlignment.center,
         crossAlignment: CrossAxisAlignment.center,

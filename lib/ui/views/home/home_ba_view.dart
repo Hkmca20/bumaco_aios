@@ -9,7 +9,6 @@ import 'package:bumaco_aios/ui/controller/controllers.dart';
 import 'package:bumaco_aios/ui/views/home/banners/cbanner_home.dart';
 import 'package:bumaco_aios/ui/views/home/item_widget_11.dart';
 import 'package:bumaco_aios/ui/views/search/csearch_view.dart';
-import 'package:bumaco_aios/ui/views/search/search_view.dart';
 import 'package:bumaco_aios/ui/widgets/cproduct_card.dart';
 import 'package:bumaco_aios/ui/widgets/widgets.dart';
 import 'package:flutter/material.dart';
@@ -47,7 +46,6 @@ class HomeBaView extends StatelessWidget {
 
   final bannerController = BannerController.to;
   final homeController = HomeController.to;
-  // final bController = Get.find<BucketController>();
   final bController = BucketController.to;
   final pController = ProductController.to;
   final cController = CategoryController.to;
@@ -103,6 +101,19 @@ class HomeBaView extends StatelessWidget {
         //     ),
         //   ),
         // ),
+        floatingActionButton: Obx(() => Visibility(
+              visible: homeController.showFAB.isTrue,
+              child: FloatingActionButton(
+                backgroundColor: Vx.amber500.withOpacity(0.8),
+                onPressed: () {
+                  homeController.scrollController.animToTop();
+                },
+                child: Icon(
+                  Icons.arrow_upward_outlined,
+                  color: kWhiteColor,
+                ),
+              ),
+            )),
         appBar: AppbarSHome(
           title: 'app_title'.tr,
           actionList: [
@@ -134,6 +145,7 @@ class HomeBaView extends StatelessWidget {
         ),
         drawer: Drawer(
           child: SingleChildScrollView(
+            controller: homeController.scrollController,
             child: ConstrainedBox(
               constraints: BoxConstraints(),
               child: Column(
@@ -269,7 +281,7 @@ class HomeBaView extends StatelessWidget {
                   LoadingWidget()
                 ])
               : SingleChildScrollView(
-                  // controller: homeController.scrollController,
+                  controller: homeController.scrollController,
                   child: ConstrainedBox(
                     constraints: BoxConstraints(),
                     child: Column(children: [
@@ -280,7 +292,6 @@ class HomeBaView extends StatelessWidget {
                           onTap: () {
                             Get.to(() => CSearchView());
                           },
-                          // child: Container(color: kPrimaryColor,),
                           child: TextFormField(
                             scrollPhysics: NeverScrollableScrollPhysics(),
                             enabled: false,
@@ -288,7 +299,7 @@ class HomeBaView extends StatelessWidget {
                                 fillColor: Colors.black.withOpacity(0.1),
                                 filled: true,
                                 prefixIcon: Icon(Icons.search),
-                                hintText: 'Search on 9Gates',
+                                hintText: 'Search on ' + 'app_title'.tr,
                                 hintStyle: Theme.of(context)
                                     .textTheme
                                     .headline6!
@@ -695,16 +706,40 @@ class HomeBaView extends StatelessWidget {
                           children: List.generate(
                               pController.allProductList.length, (index) {
                             final item = pController.allProductList[index];
-                            return CProductTile(
-                                prod: item,
-                                bController: bController,
-                                pController: pController);
+                            return CProductTile(prod: item);
                           }),
                         ),
                       ),
-                      VxDivider(),
-                      ''.text.bold.color(kPrimaryColor).make().p12(),
-                      SizedBox(height: 100), //--------------------------
+                      Divider(),
+                      HeightBox(10),
+                      'Please be careful of fraudulent calls and SMSes!\n9Gates will never call you with offers pertaining to free gifts\nor prizes or ask for payment through any links.'
+                          .text
+                          .semiBold
+                          .heightLoose
+                          .xs
+                          .align(TextAlign.center)
+                          .color(kPrimaryColor)
+                          .makeCentered()
+                          .p12()
+                          .box
+                          .pink100
+                          .shadow2xl
+                          .border(color: kPrimaryColor)
+                          .make()
+                          .p16(),
+                      'All rights reserved. Copyright bumaco @2021'
+                          .marquee()
+                          .h(20),
+                      HeightBox(10),
+                      VxDash(
+                        length: _screenSize.width - 80,
+                        dashBorderRadius: 10,
+                        dashColor: kGreyLightColor,
+                        dashLength: 15,
+                        dashThickness: 1,
+                        dashGap: 10,
+                      ).paddingAll(5),
+                      HeightBox(10) //--------------------------
                     ]),
                   ),
                 ),
