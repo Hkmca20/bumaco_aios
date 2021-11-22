@@ -15,6 +15,10 @@ final String bg1 = _getImagePath("bg_1.jpg");
 final String bg2 = _getImagePath("bg_2.jpg");
 final String bg3 = _getImagePath("bg_3.jpg");
 final String bg4 = _getImagePath("bg4.jpg");
+final String img_splash = _getImagePath("img_splash.jpg");
+final String onboard_1 = _getImagePath("onboard_1.jpeg");
+final String onboard_2 = _getImagePath("onboard_2.jpeg");
+final String onboard_3 = _getImagePath("onboard_3.jpeg");
 final String happyEmoji = _getRivePath('happiness_emoji.flr');
 
 final String riveAssetRoot = 'assets/rive/';

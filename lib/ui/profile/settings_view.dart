@@ -224,17 +224,17 @@ class SettingView extends StatelessWidget {
             ),
           ),
           Divider(height: 1),
-          SimpleBuilder(
-            builder: (_) => ListTile(
-              leading: Icon(Icons.play_arrow_rounded, color: kGreyLightColor),
-              trailing:
-                  Icon(Icons.arrow_forward_ios_rounded, color: kGreyLightColor),
-              title: 'Videos'.text.make(),
-              // onTap: () => {Get.to(() => VideoPlayerView())},
-              onTap: () => {Get.to(() => ChewiePlayerView())},
-            ),
-          ),
-          Divider(height: 1),
+          // SimpleBuilder(
+          //   builder: (_) => ListTile(
+          //     leading: Icon(Icons.play_arrow_rounded, color: kGreyLightColor),
+          //     trailing:
+          //         Icon(Icons.arrow_forward_ios_rounded, color: kGreyLightColor),
+          //     title: 'Videos'.text.make(),
+          //     // onTap: () => {Get.to(() => VideoPlayerView())},
+          //     onTap: () => {Get.to(() => ChewiePlayerView())},
+          //   ),
+          // ),
+          // Divider(height: 1),
           SimpleBuilder(
             builder: (_) => ListTile(
               leading: Icon(Icons.chat, color: kGreyLightColor),
@@ -284,7 +284,7 @@ class SettingView extends StatelessWidget {
                   Icon(Icons.arrow_forward_ios_rounded, color: kGreyLightColor),
               title: 'logout'.tr.text.make(),
               onTap: () => {
-                Get.offAllNamed(landingRoute),
+                Get.offAllNamed(gateRoute),
                 box.erase(),
                 _loginController.handleSignOut(context),
               },

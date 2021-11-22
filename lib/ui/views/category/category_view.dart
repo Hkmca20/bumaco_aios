@@ -12,8 +12,6 @@ import 'package:velocity_x/velocity_x.dart';
 class CategoryView extends StatelessWidget {
   CategoryView({Key? key}) : super(key: key);
 
-  // final categoryController = Get.find<CategoryController>();
-  // final bController = Get.find<BucketController>();
   final pController = ProductController.to;
   final bController = BucketController.to;
   final categoryController = CategoryController.to;

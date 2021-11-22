@@ -1,5 +1,6 @@
 import 'package:bumaco_aios/app_core/models/banner_list_model.dart';
 import 'package:bumaco_aios/app_core/models/models.dart';
+import 'package:bumaco_aios/app_core/models/models.dart';
 import 'package:bumaco_aios/app_core/repository/banner_repo.dart';
 import 'package:bumaco_aios/app_utils/utils.dart';
 import 'package:flutter/src/widgets/framework.dart';
@@ -100,4 +101,61 @@ class BannerController extends GetxController {
   void setContext(BuildContext context) {
     ctx = context;
   }
+
+  final landingBannerList = <BannerModel>[
+        BannerModel(
+            bannertext: 'Beauty Gate',
+            image:
+                'https://i.ibb.co/YtRkZBH/Whats-App-Image-2021-10-23-at-10-17-32-PM.jpg'),
+        BannerModel(
+            bannertext: 'Beauty Gate',
+            image:
+                'https://i.ibb.co/YtRkZBH/Whats-App-Image-2021-10-23-at-10-17-32-PM.jpg'),
+        BannerModel(
+            bannertext: 'Fashion Gate',
+            image:
+                'https://i.ibb.co/JyXz8nT/Whats-App-Image-2021-10-23-at-10-16-53-PM.jpg'),
+        BannerModel(
+            bannertext: 'Antiques Gate',
+            image:
+                'https://i.ibb.co/xYh55kS/Whats-App-Image-2021-10-23-at-10-16-18-PM.jpg'),
+      ],
+      landingGateList = [
+        BannerModel(
+            bannertext: 'Beauty Gate',
+            image:
+                'https://i.ibb.co/YtRkZBH/Whats-App-Image-2021-10-23-at-10-17-32-PM.jpg'),
+        BannerModel(
+            bannertext: 'Fashion Gate',
+            image:
+                'https://i.ibb.co/JyXz8nT/Whats-App-Image-2021-10-23-at-10-16-53-PM.jpg'),
+        BannerModel(
+            bannertext: 'Antiques Gate',
+            image:
+                'https://i.ibb.co/xYh55kS/Whats-App-Image-2021-10-23-at-10-16-18-PM.jpg'),
+        BannerModel(
+            bannertext: 'Modern Arts Gate',
+            image:
+                'https://i.ibb.co/YtRkZBH/Whats-App-Image-2021-10-23-at-10-17-32-PM.jpg'),
+        BannerModel(
+            bannertext: 'Altaras & Sports Gate',
+            image:
+                'https://i.ibb.co/JyXz8nT/Whats-App-Image-2021-10-23-at-10-16-53-PM.jpg'),
+        BannerModel(
+            bannertext: 'Stars & Fans Gate',
+            image:
+                'https://i.ibb.co/xYh55kS/Whats-App-Image-2021-10-23-at-10-16-18-PM.jpg'),
+        BannerModel(
+            bannertext: 'Pets Gate',
+            image:
+                'https://i.ibb.co/YtRkZBH/Whats-App-Image-2021-10-23-at-10-17-32-PM.jpg'),
+        BannerModel(
+            bannertext: 'Bikes & Moto Gate',
+            image:
+                'https://i.ibb.co/JyXz8nT/Whats-App-Image-2021-10-23-at-10-16-53-PM.jpg'),
+        BannerModel(
+            bannertext: 'Rent & Shared Gate',
+            image:
+                'https://i.ibb.co/xYh55kS/Whats-App-Image-2021-10-23-at-10-16-18-PM.jpg'),
+      ];
 }

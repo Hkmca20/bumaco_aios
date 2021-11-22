@@ -1,4 +1,6 @@
 // Colors
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
@@ -27,6 +29,10 @@ const kScafoldDarkBGColor = Colors.teal;
 const kAppbarBGColor = Color(0x55979797);
 
 // String
+// const _charsAll =
+//     'AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz1234567890';
+// const _charsUpper = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+const _charsLower = 'abcdefghijklmnopqrstuvwxyz';
 const appNameEN = '9Gates';
 const appNameAE = '9 بوابات';
 const appTitleEN = '9Gates';
@@ -87,6 +93,7 @@ const initialRoute = '/';
 const onboardRoute = '/onboard';
 const loginRoute = '/login';
 const authRoute = '/auth';
+const gateRoute = '/gate';
 const landingRoute = '/landing';
 const otpRoute = '/otp';
 const profileRoute = '/profile';
@@ -345,3 +352,10 @@ bumacoToast(context, msg) => VxToast.show(
       bgColor: kWhiteColor,
       textColor: kBlackColor,
     );
+
+getRandomString(int length) {
+  final _rnd = Random();
+  String.fromCharCodes(Iterable.generate(length, (_) {
+    return _charsLower.codeUnitAt(_rnd.nextInt(_charsLower.length));
+  }));
+}

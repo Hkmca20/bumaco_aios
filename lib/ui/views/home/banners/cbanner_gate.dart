@@ -107,7 +107,7 @@ class _CBannerGateWidgetState extends State<CBannerGateWidget>
             },
             itemBuilder: (context, _index) {
               final bannerItem = widget.bannerList![_index];
-              return _index == 0
+              return _index == 0 && widget.gateList != null
                   ? Container(
                       decoration: BoxDecoration(
                         color: Colors.transparent,

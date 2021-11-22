@@ -1,3 +1,4 @@
+import 'dart:math';
 import 'dart:ui';
 
 import 'package:bumaco_aios/app_core/models/models.dart';
@@ -15,6 +16,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:transparent_image/transparent_image.dart';
 import 'package:velocity_x/velocity_x.dart';
 
 import '../checkout/bucket_view.dart';
@@ -312,66 +314,66 @@ class HomeBaView extends StatelessWidget {
                         ),
                       ),
                       Divider(),
-                      // Container(
-                      //   height: 110,
-                      //   child: ListView.builder(
-                      //     physics: ClampingScrollPhysics(),
-                      //     scrollDirection: Axis.horizontal,
-                      //     itemCount: cController.categoryList.length,
-                      //     itemBuilder: (context, index) {
-                      //       final CategoryModel item =
-                      //           cController.categoryList[index];
-                      //       return Card(
-                      //         color: Colors.primaries[
-                      //                 Random().nextInt(Colors.primaries.length)]
-                      //             .withOpacity(0.3)
-                      //         // [Random().nextInt(9) * 100]
-                      //         ,
-                      //         child: InkWell(
-                      //           child: Column(
-                      //             children: [
-                      //               Flexible(
-                      //                 child: Container(
-                      //                   height: 100,
-                      //                   width: _screenSize.width / 4,
-                      //                   child: ClipRRect(
-                      //                     borderRadius: BorderRadius.all(
-                      //                         Radius.circular(4)),
-                      //                     child: FadeInImage.memoryNetwork(
-                      //                       placeholder: kTransparentImage,
-                      //                       image: ApiConstants.baseImageUrl +
-                      //                           item.image,
-                      //                       fit: BoxFit.cover,
-                      //                     ),
-                      //                   ),
-                      //                   decoration: BoxDecoration(
-                      //                     color: Colors.transparent,
-                      //                     borderRadius: BorderRadius.all(
-                      //                         Radius.circular(4)),
-                      //                   ),
-                      //                 ),
-                      //               ),
-                      //               item.category.text.capitalize
-                      //                   .size(16)
-                      //                   .make()
-                      //                   .p2(),
-                      //             ],
-                      //           ),
-                      //           onTap: () {
-                      //             Get.toNamed(productRoute, arguments: {
-                      //               'arg_category_item':
-                      //                   CategoryModel(category: item.category)
-                      //             });
-                      //             // Get.toNamed(cProductRoute, arguments: {
-                      //             //   'arg_category_item': CategoryModel(category: item.category)
-                      //             // });
-                      //           },
-                      //         ),
-                      //       );
-                      //     },
-                      //   ),
-                      // ),
-                      // Divider(),
+                      Container(
+                        height: 110,
+                        child: ListView.builder(
+                          physics: ClampingScrollPhysics(),
+                          scrollDirection: Axis.horizontal,
+                          itemCount: cController.categoryList.length,
+                          itemBuilder: (context, index) {
+                            final CategoryModel item =
+                                cController.categoryList[index];
+                            return Card(
+                              color: Colors.primaries[
+                                      Random().nextInt(Colors.primaries.length)]
+                                  .withOpacity(0.3)
+                              // [Random().nextInt(9) * 100]
+                              ,
+                              child: InkWell(
+                                child: Column(
+                                  children: [
+                                    Flexible(
+                                      child: Container(
+                                        height: 100,
+                                        width: _screenSize.width / 4,
+                                        child: ClipRRect(
+                                          borderRadius: BorderRadius.all(
+                                              Radius.circular(4)),
+                                          child: FadeInImage.memoryNetwork(
+                                            placeholder: kTransparentImage,
+                                            image: ApiConstants.baseImageUrl +
+                                                item.image,
+                                            fit: BoxFit.cover,
+                                          ),
+                                        ),
+                                        decoration: BoxDecoration(
+                                          color: Colors.transparent,
+                                          borderRadius: BorderRadius.all(
+                                              Radius.circular(4)),
+                                        ),
+                                      ),
+                                    ),
+                                    item.category.text.capitalize
+                                        .size(16)
+                                        .make()
+                                        .p2(),
+                                  ],
+                                ),
+                                onTap: () {
+                                  Get.toNamed(productRoute, arguments: {
+                                    'arg_category_item':
+                                        CategoryModel(category: item.category)
+                                  });
+                                  // Get.toNamed(cProductRoute, arguments: {
+                                  //   'arg_category_item': CategoryModel(category: item.category)
+                                  // });
+                                },
+                              ),
+                            );
+                          },
+                        ),
+                      ),
+                      Divider(),
                       CBannerHomeWidget(
                         bannerHeight: 110.0,
                         fitImage: BoxFit.fill,
@@ -379,23 +381,22 @@ class HomeBaView extends StatelessWidget {
                         bannerList:
                             bannerController.bannerPositionList[0].bannerlist!,
                       ),
+                      // Divider(),
+                      // Wrap(
+                      //   spacing: 3,
+                      //   runSpacing: 3,
+                      //   children: List.generate(
+                      //       bannerController.bannerPositionList[1].bannerlist!
+                      //           .length, (index) {
+                      //     final BannerModel item = bannerController
+                      //         .bannerPositionList[1].bannerlist![index];
+                      //     return ItemWidget11(
+                      //         padding: EdgeInsets.only(left: 0.0),
+                      //         screenWidth: _screenSize.width - 20,
+                      //         item: item);
+                      //   }),
+                      // ),
                       Divider(),
-                      Wrap(
-                        spacing: 3,
-                        runSpacing: 3,
-                        children: List.generate(
-                            bannerController.bannerPositionList[1].bannerlist!
-                                .length, (index) {
-                          final BannerModel item = bannerController
-                              .bannerPositionList[1].bannerlist![index];
-                          return ItemWidget11(
-                              padding: EdgeInsets.only(left: 0.0),
-                              screenWidth: _screenSize.width - 20,
-                              item: item);
-                        }),
-                      ),
-                      Divider(),
-
                       SectionTile(title: 'SHOP BY BRAND'),
                       Wrap(
                         spacing: 3,
@@ -711,7 +712,6 @@ class HomeBaView extends StatelessWidget {
                         ),
                       ),
                       Divider(),
-                      HeightBox(10),
                       'Please be careful of fraudulent calls and SMSes!\n9Gates will never call you with offers pertaining to free gifts\nor prizes or ask for payment through any links.'
                           .text
                           .semiBold
@@ -727,7 +727,7 @@ class HomeBaView extends StatelessWidget {
                           .border(color: kPrimaryColor)
                           .make()
                           .p16(),
-                      'All rights reserved. Copyright bumaco @2021'
+                      'All rights reserved. Copyright \u00a9bumaco @2021'
                           .marquee()
                           .h(20),
                       HeightBox(10),

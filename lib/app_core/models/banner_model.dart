@@ -1,3 +1,6 @@
+import 'dart:ui';
+
+import 'package:bumaco_aios/app_utils/app_const.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:get/get.dart';
 part 'banner_model.g.dart';
@@ -13,11 +16,12 @@ class BannerModel {
     this.bannerposition = '',
     this.bannerlink = '',
     this.bannertext = '',
-    this.image='',
+    this.image = '',
     this.bannerimage = '',
     this.createdate,
     this.modifydate,
     this.status,
+    this.color = kPrimaryColor,
   });
 
   @JsonKey(name: 'id')
@@ -53,7 +57,9 @@ class BannerModel {
 
   @JsonKey(name: 'status')
   String? status;
-  
+
+  Color color;
+
   RxBool selected = false.obs;
 
   factory BannerModel.fromJson(Map<String, dynamic> json) =>

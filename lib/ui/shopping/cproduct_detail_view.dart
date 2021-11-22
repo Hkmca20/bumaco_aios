@@ -5,6 +5,7 @@ import 'package:bumaco_aios/app_utils/utils.dart';
 import 'package:bumaco_aios/ui/controller/bucket_controller.dart';
 import 'package:bumaco_aios/ui/controller/controllers.dart';
 import 'package:bumaco_aios/ui/gallery/gallery_view.dart';
+import 'package:bumaco_aios/ui/shopping/recommend_product_item.dart';
 import 'package:bumaco_aios/ui/views/checkout/bucket_view.dart';
 import 'package:bumaco_aios/ui/views/dashboard/tabbar_view.dart';
 import 'package:bumaco_aios/ui/views/home/favourite_view.dart';
@@ -51,7 +52,6 @@ class CProductDetailView extends StatelessWidget {
             tooltip: 'wishlist'.tr,
             onPressed: () {
               Get.to(() => FavouriteView());
-              // Get.toNamed(wishlistRoute);
             },
           ), //IconBnButton
           IconButton(
@@ -194,7 +194,7 @@ class CProductDetailView extends StatelessWidget {
         ),
         Padding(
           padding: EdgeInsets.only(left: 20),
-          child: 'Include of all taxes'.text.gray400.make(),
+          child: 'Inclusive of all taxes'.text.gray400.make(),
         ),
         Padding(
           padding: EdgeInsets.symmetric(horizontal: 10, vertical: 20),
@@ -205,12 +205,17 @@ class CProductDetailView extends StatelessWidget {
             totalWidth: _screenSize.width - 30,
           ),
         ),
+        // Size, Weight(ml, gm etc), Shades(Shades, Colors etc.)
+
         Padding(
           padding: EdgeInsets.symmetric(horizontal: 20, vertical: 4),
           child: HStack([
             'Selected Size - '.text.coolGray400.make(),
             Obx(() => pdController
-                .options[pdController.choiceIndex.value].text.bold
+                .sizeChoiceList[pdController.sizeChoiceIndex.value]
+                .bannertext
+                .text
+                .bold
                 .make()),
           ]),
         ),
@@ -218,31 +223,83 @@ class CProductDetailView extends StatelessWidget {
           padding: EdgeInsets.symmetric(horizontal: 16, vertical: 4),
           child: Obx(
             () => Wrap(
-                children: List.generate(
-                    pdController.options.length,
-                    (index) => Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 4),
-                          child: ChoiceChip(
-                            label: Text(pdController.options[index]),
-                            selected: pdController.choiceIndex.value == index,
-                            selectedColor: Colors.green,
-                            onSelected: (bool selected) {
-                              pdController.choiceIndex.value =
-                                  selected ? index : 0;
-                            },
-                            backgroundColor: kGreyLightColor,
-                            labelStyle: TextStyle(color: Colors.white),
-                          ),
-                        ))),
+              children:
+                  List.generate(pdController.sizeChoiceList.length, (index) {
+                final item = pdController.sizeChoiceList[index];
+                return ChoiceChip(
+                  padding:
+                      const EdgeInsets.symmetric(vertical: 5, horizontal: 4),
+                  shape:
+                      StadiumBorder(side: BorderSide(color: kGreyLightColor)),
+                  label: Text(item.bannertext),
+                  selected: pdController.sizeChoiceIndex.value == index,
+                  selectedColor: Colors.green,
+                  onSelected: (bool selected) {
+                    pdController.sizeChoiceIndex.value = selected ? index : 0;
+                  },
+                  backgroundColor: kGreyLightColor,
+                  labelStyle: TextStyle(color: Colors.white),
+                ).marginSymmetric(horizontal: 2);
+              }),
+            ),
           ),
         ),
+
+        Padding(
+          padding: EdgeInsets.symmetric(horizontal: 20, vertical: 4),
+          child: HStack([
+            'Selected Shade - '.text.coolGray400.make(),
+            // Obx(() =>
+            // pdController
+            //     .shadeChoiceList[pdController.shadeChoiceIndex.value]
+            //     .bannertext
+            // ' construct..'
+            String.fromCharCode(149).text.bold.make()
+            // ),
+          ]),
+        ),
+        Padding(
+          padding: EdgeInsets.symmetric(horizontal: 16, vertical: 4),
+          child: Obx(
+            () => Wrap(
+              children:
+                  List.generate(pdController.shadeChoiceList.length, (index) {
+                final item = pdController.shadeChoiceList[index];
+                return ChoiceChip(
+                  padding:
+                      const EdgeInsets.symmetric(vertical: 5, horizontal: 4),
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(2))),
+                  label: (pdController.shadeChoiceIndex.value == index
+                          ? '\u2713'
+                          : ' ')
+                      .text
+                      .center
+                      .make()
+                      .box
+                      .make()
+                      .wh4(context),
+                  selected: pdController.shadeChoiceIndex.value == index,
+                  selectedColor: Colors.green,
+                  selectedShadowColor: kGreyLightColor,
+                  onSelected: (bool selected) {
+                    pdController.shadeChoiceIndex.value = selected ? index : 0;
+                  },
+                  backgroundColor: item.color,
+                  labelStyle: TextStyle(color: Colors.white),
+                ).box.make();
+              }),
+            ),
+          ),
+        ),
+        //ends Size(ml, gm etc), Shades(Shades, Colors etc.)
         SizedBox(height: 10),
         VxDivider(),
         Padding(
           padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
           child: HStack([
             'SOLD BY: '.text.gray400.make(),
-            'Nykaa E Retails Pvt ltd.'.text.make()
+            'Bumaco E Retails Pvt ltd.'.text.make()
           ]),
         ),
         VxDivider(
@@ -454,10 +511,15 @@ class CProductDetailView extends StatelessWidget {
             .make()
             .p16(),
         VxDivider(color: commonGreyColor, width: 10),
-
-        SectionTile(title: 'RELATED PRODUCTS').p12(),
+        //Recommendation SECTION
+        'More from ${pdController.productItem.brand}'
+            .text
+            .bold
+            .make()
+            .paddingAll(12),
+        VxDivider(),
         Container(
-          height: 280,
+          height: 270,
           child: ListView.separated(
               separatorBuilder: (context, inxex) {
                 return VxDivider(width: 1, type: VxDividerType.vertical);
@@ -467,91 +529,28 @@ class CProductDetailView extends StatelessWidget {
               itemCount: pController.allProductList.length,
               itemBuilder: (context, index) {
                 final ProductModel item = pController.allProductList[index];
-
-                return VStack(
-                  [
-                    Container(
-                      width: 80,
-                      height: 80,
-                      padding: EdgeInsets.all(5),
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.all(Radius.circular(1)),
-                        child: CachedNetworkImage(
-                          imageUrl: ApiConstants.baseImageUrl + item.fimage,
-                          placeholder: (context, url) => AppLogoWidget(),
-                          errorWidget: (context, url, error) =>
-                              Icon(Icons.error),
-                        ),
-                      ),
-                      decoration: BoxDecoration(
-                        color: kTransparentColor,
-                        border: Border.all(color: kGreyLightColor),
-                        borderRadius: BorderRadius.all(Radius.circular(1)),
-                      ),
-                    ),
-                    item.product.text.ellipsis.xs.semiBold.center
-                        .maxLines(2)
-                        .make()
-                        .p4()
-                        .box
-                        .height(30)
-                        .width(_screenSize.width / 3 + 20)
-                        .make()
-                        .p2(),
-                    '15ml'.text.xs.make().p2(),
-                    HStack([
-                      // Icon(Icons.star, size: 12),
-
-                      StarRating(
-                        iconsize: 12,
-                        rating: 4.5,
-                        onRatingChanged: (rating) => rating = rating,
-                      ),
-                      ' (117)'.text.xs.make()
-                    ]),
-                    '20% Off'.text.bold.color(kPrimaryColor).make().p2(),
-                    HStack([
-                      Text.rich(
-                        TextSpan(children: [
-                          TextSpan(
-                            text: item.mrp == ''
-                                ? ''
-                                : '${lController.selectedCurrency}${item.mrp}',
-                            style: TextStyle(
-                              fontSize: 12,
-                              color: kGreyLightColor,
-                              decoration: TextDecoration.lineThrough,
-                            ),
-                          ),
-                          TextSpan(
-                            text:
-                                '  ${lController.selectedCurrency}${item.mrp}',
-                            style: TextStyle(
-                              fontSize: 14,
-                            ),
-                          ),
-                        ]),
-                      ),
-                    ]).p4(),
-                    HStack(
-                      [
-                        IconButton(
-                          icon: Icon(Icons.favorite_border_rounded),
-                          onPressed: () {},
-                        ).p2(),
-                        MaterialButton(
-                          color: kPrimaryColor,
-                          onPressed: () {},
-                          child: 'add_to_cart'.tr.text.white.lg.semiBold.make(),
-                        ).centered(),
-                      ],
-                      crossAlignment: CrossAxisAlignment.center,
-                    )
-                  ],
-                  crossAlignment: CrossAxisAlignment.center,
-                ).paddingSymmetric(horizontal: 10, vertical: 5);
+                return CRecommendProductItem(
+                        item: item,
+                        screenSize: _screenSize,
+                        lController: lController)
+                    .paddingSymmetric(horizontal: 10, vertical: 4);
               }),
         ),
+
+        VxDivider(),
+        Padding(
+          padding: EdgeInsets.all(15),
+          child: HStack([
+            'VIEW ALL PRODUCTS'.text.bold.make(),
+            SizedBox(
+              width: 5,
+            ),
+            Icon(Icons.arrow_forward_ios_rounded,
+                color: kPrimaryColor, size: 15)
+          ], alignment: MainAxisAlignment.center),
+        ),
+        VxDivider(color: commonGreyColor, width: 10),
+        VxDivider(),
         VxDivider(color: commonGreyColor, width: 10),
       ]),
       bottomNavigationBar: BottomAppBar(

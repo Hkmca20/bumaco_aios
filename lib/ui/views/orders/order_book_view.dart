@@ -36,7 +36,7 @@ class OrderBookView extends StatelessWidget {
                     .bold
                     .make()
                     .p4(),
-                'ORDER ID: A1CINBA398044'
+                'ORDER ID: O1CINBA398044'
                     .text
                     .size(20)
                     .fontWeight(FontWeight.w700)

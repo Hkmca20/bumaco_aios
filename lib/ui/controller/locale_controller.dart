@@ -195,7 +195,8 @@ class LocaleController extends GetxController {
                           '${localeList[index]['name']}'
                               .tr
                               .text
-                              .red500
+                              .bold
+                              .color(kPrimaryColor)
                               .size(18)
                               .fontWeight(FontWeight.w300)
                               .make()

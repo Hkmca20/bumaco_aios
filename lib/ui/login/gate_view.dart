@@ -8,9 +8,10 @@ import 'package:bumaco_aios/ui/views/home/banners/cbanner_gate.dart';
 import 'package:bumaco_aios/ui/views/home/banners/cbanner_one.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:velocity_x/velocity_x.dart';
 
-class LandingView extends StatelessWidget {
+class GateView extends StatelessWidget {
   final List locale = [
     {'name': 'ENGLISH', 'locale': Locale('en', 'US')},
     {'name': 'HINDI', 'locale': Locale('hi', 'IN')},
@@ -101,25 +102,25 @@ class LandingView extends StatelessWidget {
             decoration: BoxDecoration(
                 image: DecorationImage(
               fit: BoxFit.cover,
-              image: AssetImage(bg4),
+              image: AssetImage(img_splash),
             )),
             // color: Colors.blue,
           ),
-          Positioned(
-            bottom: 0,
-            left: 0,
-            right: 0,
-            child: ClipRect(
-              child: BackdropFilter(
-                filter: ImageFilter.blur(sigmaX: 2.0, sigmaY: 2.0),
-                child: Container(
-                  // the size where the blurring starts
-                  height: _screenSize.height * 0.4,
-                  color: Colors.transparent,
-                ),
-              ),
-            ),
-          ),
+          // Positioned(
+          //   bottom: 0,
+          //   left: 0,
+          //   right: 0,
+          //   child: ClipRect(
+          //     child: BackdropFilter(
+          //       filter: ImageFilter.blur(sigmaX: 2.0, sigmaY: 2.0),
+          //       child: Container(
+          //         // the size where the blurring starts
+          //         height: _screenSize.height * 0.4,
+          //         color: Colors.transparent,
+          //       ),
+          //     ),
+          //   ),
+          // ),
           Positioned(
             width: _screenSize.width,
             top: 70,
@@ -162,47 +163,52 @@ class LandingView extends StatelessWidget {
             left: 0,
             right: 0,
             top: 150,
-            child: CBannerGateWidget(
-              bannerHeight: _screenSize.height / 3 + 50,
-              fitImage: BoxFit.cover,
-              bannerList: bannerController.landingBannerList,
-              // bannerController.bannerPositionList[12].bannerlist,
-            ),
-          ),
-          Positioned(
-            width: MediaQuery.of(context).size.width,
-            bottom: 0,
-            child: SingleChildScrollView(
-              child: Card(
-                margin: EdgeInsets.only(top: 5, bottom: 5),
-                shadowColor: Colors.white10.withOpacity(0.1),
-                elevation: 5,
-                color: Colors.black12.withOpacity(0.1),
-                child: Padding(
-                  padding: const EdgeInsets.all(10.0),
-                  child: Column(
-                    children: [
-                      Obx(
-                        () => bannerController.isLoading.isTrue
-                            ? LoadingWidget()
-                            : CBannerOneWidget(
-                                bannerHeight: _screenSize.width / 5,
-                                fitImage: BoxFit.fill,
-                                autoscroll: true,
-                                bannerList: bannerController
-                                    .bannerPositionList[8].bannerlist,
-                              ),
-                      ),
-                      SizedBox(height: 30),
-                      loginText,
-                      loginButton(context),
-                      googleButton(context),
-                      // facebookButton(context),
-                      skipLabel(context),
-                    ],
-                  ),
-                ),
+            height: _screenSize.height - 150,
+            child: GridView.builder(
+              padding: EdgeInsets.all(30),
+              shrinkWrap: true,
+              itemCount: bannerController.landingGateList.length,
+              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 2,
+                crossAxisSpacing: 25.0,
+                mainAxisSpacing: 25.0,
               ),
+              itemBuilder: (context, index) {
+                final item = bannerController.landingGateList[index];
+                return InkWell(
+                  onTap: () {
+                    GetStorage(BOX_APP)
+                        .write(BOX_GATE_SELECTED, item.bannertext);
+                    Get.toNamed(landingRoute);
+                  },
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: kWhiteColor.withOpacity(0.5),
+                      shape: BoxShape.circle,
+                      border: Border.all(
+                          width: 1.5,
+                          style: BorderStyle.solid,
+                          color: kWhiteColor),
+                    ),
+                    child: Container(
+                      margin: EdgeInsets.all(3),
+                      padding: EdgeInsets.all(5),
+                      decoration: BoxDecoration(
+                        color: kWhiteColor.withOpacity(0.2),
+                        shape: BoxShape.circle,
+                        border: Border.all(
+                            width: 5,
+                            style: BorderStyle.solid,
+                            color: kWhiteColor),
+                      ),
+                      child: item.bannertext.text.bold.lg
+                          .color(kBlackColor)
+                          .center
+                          .makeCentered(),
+                    ),
+                  ),
+                );
+              },
             ),
           ),
         ],
@@ -238,80 +244,5 @@ class LandingView extends StatelessWidget {
     //     ),
     //   ),
     // );
-  }
-
-  var loginText = Text(
-    'login'.tr + ' ' + 'or'.tr + ' ' + 'register'.tr,
-    style: TextStyle(fontSize: 20, color: kWhiteColor),
-  );
-
-  loginButton(context) {
-    return Container(
-      margin: EdgeInsets.symmetric(horizontal: 10, vertical: 6),
-      width: MediaQuery.of(context).size.width - 40,
-      child: ElevatedButton(
-        child: 'signin_with_email_or_mobile'.tr.text.make().p4(),
-        onPressed: () {
-          Get.toNamed(loginRoute);
-        },
-      ),
-    );
-  }
-
-  googleButton(context) {
-    return Container(
-      margin: EdgeInsets.symmetric(horizontal: 10, vertical: 2),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.all(Radius.circular(2)),
-        border: Border.all(
-          color: kGreyLightColor,
-          width: 0.5,
-        ),
-      ),
-      child: CustomButtonSocial(
-        text: 'signin_with_google'.tr,
-        onPress: () {
-          signinController.googleSignInMethod(context);
-        },
-        imageName: iconGoogle,
-      ),
-    );
-  }
-
-  facebookButton(context) {
-    return Container(
-      margin: EdgeInsets.symmetric(horizontal: 10, vertical: 2),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.all(Radius.circular(2)),
-        border: Border.all(
-          color: kGreyLightColor,
-          width: 0.5,
-        ),
-      ),
-      child: CustomButtonSocial(
-        text: 'signin_with_facebook'.tr,
-        onPress: () {
-          bumacoSnackbar('alert'.tr, 'Working');
-          signinController.facebookSignInMethod();
-        },
-        imageName: iconFacebook,
-      ),
-    );
-  }
-
-  skipLabel(context) {
-    return InkWell(
-      child: Container(
-        padding: EdgeInsets.symmetric(horizontal: 20, vertical: 2),
-        child: Text(
-          'skip_and_continue'.tr,
-          style: TextStyle(color: kWhiteColor, fontSize: 22),
-        ),
-      ),
-      onTap: () => {
-        getStorage.write(BOX_TEMP_LOGGEDIN, true),
-        Get.offAllNamed(dashboardRoute),
-      },
-    );
   }
 }

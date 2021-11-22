@@ -33,6 +33,11 @@ List<GetPage<dynamic>> get setRoute => [
           transitionDuration: kTransitionDuration,
           page: () => LandingView()),
       GetPage(
+          name: gateRoute,
+          transition: Transition.fade,
+          transitionDuration: kTransitionDuration,
+          page: () => GateView()),
+      GetPage(
           name: loginRoute,
           transition: Transition.fade,
           transitionDuration: kTransitionDuration,

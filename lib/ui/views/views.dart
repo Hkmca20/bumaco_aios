@@ -1,5 +1,6 @@
 export '../login/splash_view.dart';
 export '../login/landing_view.dart';
+export '../login/gate_view.dart';
 export '../login/signin_view.dart';
 export '../login/auth_view.dart';
 export '../login/otp_view.dart';
