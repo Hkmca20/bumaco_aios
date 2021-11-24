@@ -165,13 +165,13 @@ class GateView extends StatelessWidget {
             top: 150,
             height: _screenSize.height - 150,
             child: GridView.builder(
-              padding: EdgeInsets.all(30),
+              padding: EdgeInsets.all(50),
               shrinkWrap: true,
               itemCount: bannerController.landingGateList.length,
               gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 2,
-                crossAxisSpacing: 25.0,
-                mainAxisSpacing: 25.0,
+                crossAxisSpacing: 28.0,
+                mainAxisSpacing: 28.0,
               ),
               itemBuilder: (context, index) {
                 final item = bannerController.landingGateList[index];
@@ -204,7 +204,8 @@ class GateView extends StatelessWidget {
                       child: item.bannertext.text.bold.lg
                           .color(kBlackColor)
                           .center
-                          .makeCentered(),
+                          .makeCentered()
+                          .p4(),
                     ),
                   ),
                 );

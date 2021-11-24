@@ -16,7 +16,8 @@ class SocketController extends GetxController {
   void onInit() {
     super.onInit();
     socket = IO.io(
-        'http://192.168.168.123:4000',
+        'https://bumaco.herokuapp.com/',
+        // 'http://192.168.122.123:4000',
         // 'http://192.168.225.77:4000',
         // 'http://localhost:4000',
         IO.OptionBuilder()
@@ -26,29 +27,29 @@ class SocketController extends GetxController {
             .build());
     socket.onDisconnect((data) => {
           print('socket disconnected!'),
-          connectionStatus.value = 'offline',
+          connectionStatus('offline'),
         });
     socket.onConnectError((data) => {
           print('socket onConnectionError!=${socket.id}'),
-          connectionStatus.value = '[offline]',
+          connectionStatus('[offline]'),
         });
     socket.onConnect((data) => {
           print('socket Connected--->${socket.id}'),
-          connectionStatus.value = 'online',
+          connectionStatus('online'),
         });
     socket.onReconnect((data) => {
           print('socket Reconnecting..'),
-          connectionStatus.value = 'reconnecting..',
+          connectionStatus('reconnecting..'),
         });
     socket.onConnecting((data) => {
           print('socket Connecting..'),
-          connectionStatus.value = 'connecting..',
+          connectionStatus('connecting..'),
         });
     socket.connect();
     socket.on(
         'message-received',
         (data) => {
-              print('-------message-received------->$data'),
+              print('==>message-received------->$data'),
               if (SocketMessageModel.fromJson(data).sentByMe != socket.id)
                 {messageList.add(SocketMessageModel.fromJson(data))},
               scrollToBottom(),
@@ -56,9 +57,10 @@ class SocketController extends GetxController {
     socket.on(
         'connected-user',
         (data) => {
-              print('-------connected-user-count------->$data'),
-              connectedUser.value = data,
+              print('==>connected-user-count------->$data'),
+              connectedUser(data),
             });
+    // socket.on('time-interval', (data) => {print('==>server-time-->$data')});
   }
 
   @override

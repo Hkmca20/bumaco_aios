@@ -48,16 +48,29 @@ class ProfileView extends StatelessWidget {
               height: 150,
               child: Container(
                 alignment: Alignment(0.0, 4.5),
-                child: CircleAvatar(
-                  backgroundColor: kWhiteColor.withOpacity(0.5),
-                  backgroundImage: FadeInImage.memoryNetwork(
-                          placeholder: kTransparentImage,
-                          image: profileController.profilePhoto)
-                      .image,
-                  // NetworkImage(profileController.profilePhoto),
-                  radius: 60,
+                child: Stack(
+                  children: [
+                    CircleAvatar(
+                      backgroundColor: kWhiteColor.withOpacity(0.5),
+                      backgroundImage: FadeInImage.memoryNetwork(
+                              placeholder: kTransparentImage,
+                              image: profileController.profilePhoto)
+                          .image,
+                      // NetworkImage(profileController.profilePhoto),
+                      radius: 60,
+                    ),
+                    // Positioned(
+                    //   bottom: 2,
+                    //   right: 2,
+                    //   child: Icon(Icons.camera_alt).onTap(() {
+                    //     profileController.showCameraPicker(context)
+                    //   }),
+                    // ),
+                  ],
                 ),
-              ),
+              ).onTap(() {
+                profileController.showCameraPicker(context);
+              }),
             ),
           ),
         ),

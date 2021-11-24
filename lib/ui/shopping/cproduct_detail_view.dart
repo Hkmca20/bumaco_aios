@@ -4,12 +4,16 @@ import 'package:bumaco_aios/app_core/models/models.dart';
 import 'package:bumaco_aios/app_utils/utils.dart';
 import 'package:bumaco_aios/ui/controller/bucket_controller.dart';
 import 'package:bumaco_aios/ui/controller/controllers.dart';
+import 'package:bumaco_aios/ui/gallery/gallery_re_view.dart';
 import 'package:bumaco_aios/ui/gallery/gallery_view.dart';
 import 'package:bumaco_aios/ui/shopping/recommend_product_item.dart';
+import 'package:bumaco_aios/ui/shopping/review_item.dart';
 import 'package:bumaco_aios/ui/views/checkout/bucket_view.dart';
 import 'package:bumaco_aios/ui/views/dashboard/tabbar_view.dart';
+import 'package:bumaco_aios/ui/views/home/cproduct_more_view.dart';
 import 'package:bumaco_aios/ui/views/home/favourite_view.dart';
 import 'package:bumaco_aios/ui/views/home/item_address.dart';
+import 'package:bumaco_aios/ui/views/home/review_list_view.dart';
 import 'package:bumaco_aios/ui/views/views.dart';
 import 'package:bumaco_aios/ui/widgets/cproduct_card.dart';
 import 'package:bumaco_aios/ui/widgets/star_rating.dart';
@@ -73,7 +77,7 @@ class CProductDetailView extends StatelessWidget {
         // CBannerWidget(productController: productController),
         InkWell(
           onTap: () {
-            Get.to(() => GalleryPage(),
+            Get.to(() => GalleryView(),
                 arguments: {'arg_product_item': pdController.productItem});
           },
           child: Container(
@@ -150,7 +154,7 @@ class CProductDetailView extends StatelessWidget {
               onRatingChanged: (rating) => rating = rating,
             ),
             ' 4.6/5'.text.bold.letterSpacing(2).make().p2(),
-            ' (17 Ratings)'.text.make(),
+            ' (17 Ratings)'.text.color(kGreyLightColor).make(),
           ]),
         ),
 
@@ -188,7 +192,7 @@ class CProductDetailView extends StatelessWidget {
             ),
             Container(
                 height: 20, child: VerticalDivider(color: kDarkGreyColor)),
-            '20% Off'.text.size(16).bold.color(kPrimaryColor).make(),
+            '20% Off'.text.size(18).bold.color(kPrimaryColor).make(),
             Expanded(child: SizedBox(width: 5))
           ]),
         ),
@@ -231,7 +235,7 @@ class CProductDetailView extends StatelessWidget {
                       const EdgeInsets.symmetric(vertical: 5, horizontal: 4),
                   shape:
                       StadiumBorder(side: BorderSide(color: kGreyLightColor)),
-                  label: Text(item.bannertext),
+                  label: item.bannertext.text.make(),
                   selected: pdController.sizeChoiceIndex.value == index,
                   selectedColor: Colors.green,
                   onSelected: (bool selected) {
@@ -274,13 +278,15 @@ class CProductDetailView extends StatelessWidget {
                           ? '\u2713'
                           : ' ')
                       .text
+                      .bold
+                      .xl
                       .center
                       .make()
                       .box
                       .make()
                       .wh4(context),
                   selected: pdController.shadeChoiceIndex.value == index,
-                  selectedColor: Colors.green,
+                  selectedColor: item.color,
                   selectedShadowColor: kGreyLightColor,
                   onSelected: (bool selected) {
                     pdController.shadeChoiceIndex.value = selected ? index : 0;
@@ -400,13 +406,13 @@ class CProductDetailView extends StatelessWidget {
           child: HStack([
             Expanded(
               child: HStack([
-                '4.6'.text.bold.size(30).make().p2(),
-                '/5'.text.gray300.size(32).make().p2(),
+                '4.6'.text.bold.xl4.make().p2(),
+                '/5'.text.gray300.xl4.make().p2(),
                 SizedBox(width: 2),
                 VStack([
-                  'Overall Rating'.text.fontWeight(FontWeight.w200).make().p2(),
-                  '27 Ratings'.text.size(12).color(kGreyLightColor).make().p2(),
-                ]),
+                  'Overall Rating'.text.fontWeight(FontWeight.w200).make(),
+                  '27 Ratings'.text.size(12).color(kGreyLightColor).make(),
+                ]).p4(),
                 Expanded(
                     child: Align(
                         alignment: Alignment.centerRight,
@@ -434,18 +440,45 @@ class CProductDetailView extends StatelessWidget {
             ),
           ]),
         ),
+        Container(
+          height: 100,
+          child: ListView.builder(
+              padding: EdgeInsets.symmetric(horizontal: 5),
+              physics: ClampingScrollPhysics(),
+              scrollDirection: Axis.horizontal,
+              itemCount: pController.allProductList.length,
+              itemBuilder: (context, index) {
+                final ProductModel item = pController.allProductList[index];
+                return CachedNetworkImage(
+                        imageUrl: ApiConstants.baseImageUrl + item.fimage)
+                    .paddingSymmetric(horizontal: 5, vertical: 4)
+                    .onTap(() {
+                  Get.to(() => GalleryReView(),
+                      arguments: {'arg_selected_index': index});
+                });
+              }),
+        ),
         'MOST USEFUL REVIEW'.text.bold.make().p16(),
+        //-----ReviewItemWidget--
+        ReviewItem(),
+        //------end review item--
         VxDivider(),
-        Padding(
-          padding: EdgeInsets.all(15),
-          child: HStack([
-            'READ ALL REVIEWS'.text.bold.make(),
-            SizedBox(
-              width: 5,
-            ),
-            Icon(Icons.arrow_forward_ios_rounded,
-                color: kPrimaryColor, size: 15)
-          ], alignment: MainAxisAlignment.center),
+        InkWell(
+          onTap: () {
+            Get.to(() => ReviewListView(),
+                arguments: {'arg_product_item': pdController.productItem});
+          },
+          child: Padding(
+            padding: EdgeInsets.all(15),
+            child: HStack([
+              'READ ALL REVIEWS'.text.bold.make(),
+              SizedBox(
+                width: 5,
+              ),
+              Icon(Icons.arrow_forward_ios_rounded,
+                  color: kPrimaryColor, size: 15)
+            ], alignment: MainAxisAlignment.center),
+          ),
         ),
         VxDivider(
           color: commonGreyColor,
@@ -517,13 +550,12 @@ class CProductDetailView extends StatelessWidget {
             .bold
             .make()
             .paddingAll(12),
-        VxDivider(),
         Container(
           height: 270,
-          child: ListView.separated(
-              separatorBuilder: (context, inxex) {
-                return VxDivider(width: 1, type: VxDividerType.vertical);
-              },
+          child: ListView.builder(
+              // separatorBuilder: (context, inxex) {
+              //   return VxDivider(width: 1, type: VxDividerType.vertical);
+              // },
               physics: ClampingScrollPhysics(),
               scrollDirection: Axis.horizontal,
               itemCount: pController.allProductList.length,
@@ -533,25 +565,70 @@ class CProductDetailView extends StatelessWidget {
                         item: item,
                         screenSize: _screenSize,
                         lController: lController)
-                    .paddingSymmetric(horizontal: 10, vertical: 4);
+                    .paddingSymmetric(horizontal: 5, vertical: 4);
               }),
         ),
 
         VxDivider(),
-        Padding(
-          padding: EdgeInsets.all(15),
-          child: HStack([
-            'VIEW ALL PRODUCTS'.text.bold.make(),
-            SizedBox(
-              width: 5,
-            ),
-            Icon(Icons.arrow_forward_ios_rounded,
-                color: kPrimaryColor, size: 15)
-          ], alignment: MainAxisAlignment.center),
+        InkWell(
+          onTap: () {
+            Get.to(() => CProductMoreView());
+          },
+          child: Padding(
+            padding: EdgeInsets.all(15),
+            child: HStack([
+              'VIEW ALL PRODUCTS'.text.bold.make(),
+              SizedBox(
+                width: 5,
+              ),
+              Icon(Icons.arrow_forward_ios_rounded,
+                  color: kPrimaryColor, size: 15)
+            ], alignment: MainAxisAlignment.center),
+          ),
         ),
         VxDivider(color: commonGreyColor, width: 10),
         VxDivider(),
+        //Recommendation SECTION
+        'Customer Also Viewed'.text.bold.make().paddingAll(12),
+        Container(
+          height: 270,
+          child: ListView.builder(
+              // separatorBuilder: (context, inxex) {
+              //   return VxDivider(width: 1, type: VxDividerType.vertical);
+              // },
+              physics: ClampingScrollPhysics(),
+              scrollDirection: Axis.horizontal,
+              itemCount: pController.allProductList.length,
+              itemBuilder: (context, index) {
+                final ProductModel item = pController.allProductList[index];
+                return CRecommendProductItem(
+                        item: item,
+                        screenSize: _screenSize,
+                        lController: lController)
+                    .paddingSymmetric(horizontal: 5, vertical: 4);
+              }),
+        ),
+
+        VxDivider(),
+        InkWell(
+          onTap: () {
+            Get.to(() => CProductMoreView());
+          },
+          child: Padding(
+            padding: EdgeInsets.all(15),
+            child: HStack([
+              'VIEW ALL PRODUCTS'.text.bold.make(),
+              SizedBox(
+                width: 5,
+              ),
+              Icon(Icons.arrow_forward_ios_rounded,
+                  color: kPrimaryColor, size: 15)
+            ], alignment: MainAxisAlignment.center),
+          ),
+        ),
         VxDivider(color: commonGreyColor, width: 10),
+        VxDivider(),
+        //---------------section---------------------
       ]),
       bottomNavigationBar: BottomAppBar(
         child: Container(
@@ -560,11 +637,20 @@ class CProductDetailView extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               SizedBox(width: 15),
-              IconButton(
-                onPressed: () {},
-                icon: Icon(
-                  Icons.favorite_border_outlined,
-                  color: kPrimaryColor,
+              Obx(
+                () => IconButton(
+                  icon: pdController.productItem.isFavorite.isTrue
+                      ? Icon(
+                          Icons.favorite_rounded,
+                          color: kPrimaryColor,
+                        )
+                      : Icon(Icons.favorite_border),
+                  onPressed: () {
+                    pdController.productItem.isFavorite.isTrue
+                        ? pController.removeFavourite(pdController.productItem)
+                        : pController.insertFavourite(pdController.productItem);
+                    pdController.productItem.isFavorite.toggle();
+                  },
                 ),
               ),
               SizedBox(width: 20),

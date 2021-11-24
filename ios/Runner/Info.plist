@@ -54,6 +54,13 @@
 	  <true/>
 	</dict>
 
+	<!-- Camera, Gallery Permission -->
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Allow access to photo library</string>
+
+	<key>NSCameraUsageDescription</key>
+	<string>Allow access to camera to capture photos</string>
+
 	<!-- Google Sign-in Section -->
 	<key>CFBundleURLTypes</key>
 	<array>

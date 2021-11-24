@@ -175,18 +175,15 @@ class _CBannerHomeWidgetState extends State<CBannerHomeWidget>
                   bottom: 5,
                   child: Row(
                     children: widget.bannerList!.map((s) {
-                      return Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 3.0),
-                        child: ClipOval(
-                          child: Container(
-                            width: 8,
-                            height: 8,
-                            color: s == widget.bannerList![_curIndex % length]
-                                ? kPrimaryColor
-                                : Colors.grey,
-                          ),
+                      return ClipOval(
+                        child: Container(
+                          width: 8,
+                          height: 8,
+                          color: s == widget.bannerList![_curIndex % length]
+                              ? kPrimaryColor
+                              : Colors.grey,
                         ),
-                      );
+                      ).paddingSymmetric(horizontal: 3.0);
                     }).toList(),
                   ),
                 )

@@ -109,6 +109,11 @@ class ProductController extends GetxController with StateMixin, ScrollMixin {
     fetchProductsBySearch(str);
   }
 
+  openProductDetail(ProductModel productItem) {
+    Get.toNamed(productDetailRoute,
+        arguments: {'arg_product_item': productItem});
+  }
+
   @override
   void onInit() {
     if (Get.arguments != null) {

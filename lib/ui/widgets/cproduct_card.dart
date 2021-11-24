@@ -40,8 +40,7 @@ class CProductTile extends StatelessWidget {
         padding: const EdgeInsets.all(0.0),
         child: InkWell(
           onTap: () {
-            Get.to(() => CProductDetailView(),
-                arguments: {'arg_product_item': prod});
+            pController.openProductDetail(prod);
           },
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,

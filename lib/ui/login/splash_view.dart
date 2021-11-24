@@ -36,7 +36,7 @@ class SplashState extends State<SplashView>
     //     .animate(_animController);
     // _animSize =
     Tween<double>(begin: 100.0, end: 150.0).animate(_animController);
-    _animOpacity = Tween<double>(begin: 0.0, end: 1.0).animate(_animController);
+    _animOpacity = Tween<double>(begin: 0.1, end: 1.0).animate(_animController);
 
     // Rebuilding the screen when animation goes ahead
     _animController.addListener(() {
@@ -116,18 +116,12 @@ class SplashState extends State<SplashView>
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             appLogo,
-            'Your Beauty, Our Passion'.text.xs.make(),
+            'Your Beauty, Our Passion'.text.white.xs.make(),
             Padding(padding: EdgeInsets.only(top: 20.0)),
             Center(
               child: Opacity(
                 opacity: _animOpacity.value,
-                child: Text(
-                  'wecome_message'.tr,
-                  style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 24.0,
-                      color: Colors.white),
-                ),
+                child: 'wecome_message'.tr.text.bold.white.size(24).make(),
               ),
             ),
             Padding(padding: EdgeInsets.only(top: 20.0)),

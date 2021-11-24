@@ -7,6 +7,7 @@ import 'package:bumaco_aios/ui/news/news_headline.dart';
 import 'package:bumaco_aios/ui/news/news_detail.dart';
 import 'package:bumaco_aios/ui/rating/rating_view.dart';
 import 'package:bumaco_aios/ui/shopping/all_product_view.dart';
+import 'package:bumaco_aios/ui/shopping/cproduct_detail_view.dart';
 import 'package:bumaco_aios/ui/shopping/staggered_img_view.dart';
 import 'package:bumaco_aios/ui/views/home/c_product_view.dart';
 import 'package:bumaco_aios/ui/views/home/product_view.dart';
@@ -91,7 +92,7 @@ List<GetPage<dynamic>> get setRoute => [
           name: productDetailRoute,
           transition: Transition.fade,
           transitionDuration: kTransitionDuration,
-          page: () => ProductDetailView()),
+          page: () => CProductDetailView()),
       GetPage(
           name: wishlistRoute,
           transition: Transition.fade,

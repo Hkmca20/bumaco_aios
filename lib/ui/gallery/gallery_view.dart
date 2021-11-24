@@ -7,9 +7,9 @@ import 'package:flutter/material.dart';
 import 'package:velocity_x/velocity_x.dart';
 import 'package:get/get.dart';
 
-class GalleryPage extends StatefulWidget {
+class GalleryView extends StatefulWidget {
   @override
-  _GalleryPageState createState() => _GalleryPageState();
+  _GalleryViewState createState() => _GalleryViewState();
 }
 
 List<String> images = [
@@ -31,7 +31,7 @@ List<String> images = [
 //   img_mask6,
 // ];
 
-class _GalleryPageState extends State<GalleryPage> {
+class _GalleryViewState extends State<GalleryView> {
   String _currentImage = images[0];
   int _currentIndex = 0;
   late ProductModel productItem;
