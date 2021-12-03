@@ -123,7 +123,8 @@ class _CBannerWidgetState extends State<CBannerWidget>
                   _initTimer();
                 },
                 onTap: () {
-                  bumacoSnackbar('alert'.tr, 'selected: ${index % length} ');
+                  // bumacoSnackbar('alert'.tr, 'selected: ${index % length} ');
+                  print('selected: ${index % length} ');
                 },
                 child: Container(
                   child: ClipRRect(

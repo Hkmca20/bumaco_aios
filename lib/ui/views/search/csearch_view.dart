@@ -25,7 +25,7 @@ class CSearchView extends StatefulWidget {
 
 class _CSearchViewState extends State<CSearchView> {
   final OutlineInputBorder oBorder = OutlineInputBorder(
-    borderRadius: BorderRadius.circular(5),
+    borderRadius: BorderRadius.circular(2),
     borderSide: BorderSide(color: kGreyLightColor),
     gapPadding: 8,
   );
@@ -121,10 +121,10 @@ class _CSearchViewState extends State<CSearchView> {
                 .headline6!
                 .copyWith(color: kGreyLightColor),
             border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(12),
+              borderRadius: BorderRadius.circular(4),
               borderSide: BorderSide(color: kGreyLightColor, width: 1.0),
             ),
-            contentPadding: EdgeInsets.all(5),
+            contentPadding: EdgeInsets.all(2),
           ),
         ),
       ),

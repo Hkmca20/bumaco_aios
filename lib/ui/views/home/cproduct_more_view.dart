@@ -3,7 +3,7 @@ import 'package:bumaco_aios/app_utils/app_bar_home.dart';
 import 'package:bumaco_aios/app_utils/utils.dart';
 import 'package:bumaco_aios/ui/controller/controllers.dart';
 import 'package:bumaco_aios/ui/views/checkout/bucket_view.dart';
-import 'package:bumaco_aios/ui/widgets/cproduct_card.dart';
+import 'package:bumaco_aios/ui/widgets/cproduct_item.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:get/get.dart';
@@ -80,7 +80,7 @@ class CProductMoreView extends StatelessWidget {
                         itemBuilder: (context, index) {
                           ProductModel item =
                               productController.allProductList[index];
-                          return CProductTile(prod: item);
+                          return CProductItem(prod: item);
                         }),
               ),
             ),

@@ -8,7 +8,7 @@ publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 # In iOS, build-name is used as CFBundleShortVersionString while build-number used as CFBundleVersion.
 # Read more about iOS versioning at
 # https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
-version: 1.0.6+6
+version: 1.1.0+10
 
 environment:
   sdk: ">=2.12.0 <3.0.0"
@@ -17,18 +17,17 @@ dependencies:
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
-  google_sign_in: ^5.1.1
+  google_sign_in: ^5.2.1
   firebase_core: ^1.6.0
-  firebase_analytics: ^8.3.2
-  firebase_messaging: ^10.0.6
-  flutter_local_notifications: ^8.2.0
+  firebase_crashlytics: ^2.3.0
+  firebase_analytics: ^8.3.4
+  firebase_messaging: ^11.1.0
+  flutter_local_notifications: ^9.1.4
   flutter_staggered_grid_view: ^0.4.0
   flutter_facebook_auth: ^3.5.2
   firebase_auth: ^3.1.1
   flutter_google_places: ^0.3.0
   location: ^4.3.0
-  geolocator: ^5.1.1
-  geocoder: ^0.2.1
   get: ^4.3.8
   dio: ^4.0.0
   floor: ^1.1.0
@@ -40,20 +39,21 @@ dependencies:
   velocity_x: ^3.3.0
   google_fonts: ^2.1.0
   flutter_sound: ^8.3.12
-  json_serializable: ^5.0.2
+  json_serializable: ^6.1.0
   transparent_image: ^2.0.0
   carousel_slider: ^4.0.0
-  flutter_bloc: ^7.2.0
+  flutter_bloc: ^8.0.0
   flare_flutter: ^3.0.2
   multi_select_flutter: ^4.0.0
   share: ^2.0.4
-  path_provider: ^2.0.6
+  path_provider: ^2.0.7
   flutter_cache_manager: ^3.1.2
   cached_network_image: ^3.1.0
   socket_io_client: ^1.0.1
   video_player: ^2.2.6
   razorpay_flutter: ^1.2.7
   chewie: ^1.1.0
+  webview_flutter: ^2.3.1
 
 dev_dependencies:
   flutter_test:

@@ -183,6 +183,7 @@ const BOX_APP_OPEN_COUNT = 'app_open_count'; //int
 // //Easy Validator:
 // GetUtils.isEmail('abc@gmail.com') ? validate() :errorMessage();
 
+const BOX_FCM_TOKEN = 'fcm_token'; //string
 const BOX_COUNTRY = 'country'; //string
 const BOX_CURRENCY = 'currency'; //string
 const BOX_CURRENCY_SYMBOL = 'currency_symbol'; //string
@@ -199,6 +200,12 @@ const BOX_IS_DARK = 'is_dark'; //bool
 const BOX_IS_NOTIFICATION = 'is_notification'; //bool
 const BOX_GATE_SELECTED = 'gate_selected'; //bool
 const BOX_BADGE_ACCOUNT1 = 'badge_account'; //bool
+
+putStorageValue(key, value) {
+  final box = GetStorage(BOX_APP);
+  final _result = box.write(key, value);
+  print(_result);
+}
 
 getStorageStringValue(key) {
   final box = GetStorage(BOX_APP);
@@ -226,7 +233,7 @@ getStorageDoubleValue(key) {
 
 //Database
 const DB_NAME = 'bumaco_database.db';
-const DB_VERSION = 1;
+const DB_VERSION = 2;
 
 class ApiConstants {
   static const apiKey = '60b65cc18763454eaf48d48406105496';
@@ -292,7 +299,7 @@ bumacoSnackbar(title, message) => Get.snackbar(
       margin: EdgeInsets.all(15),
       duration: Duration(seconds: 3),
       isDismissible: true,
-      dismissDirection: SnackDismissDirection.VERTICAL,
+      // dismissDirection: SnackDismissDirection.VERTICAL,
       forwardAnimationCurve: Curves.easeOutBack,
     );
 showSnackbar(title, message) => Get.showSnackbar(
@@ -354,8 +361,15 @@ bumacoToast(context, msg) => VxToast.show(
     );
 
 getRandomString(int length) {
+  //todo: not working
   final _rnd = Random();
   String.fromCharCodes(Iterable.generate(length, (_) {
     return _charsLower.codeUnitAt(_rnd.nextInt(_charsLower.length));
   }));
+}
+
+getRandomColor() {
+  return Colors.primaries[Random().nextInt(Colors.primaries.length)];
+  // .withOpacity(0.3);
+  // [Random().nextInt(9) * 100];
 }

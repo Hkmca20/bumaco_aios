@@ -12,9 +12,13 @@ class OnboardingView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final _screenSize = MediaQuery.of(context).size;
-    return Scaffold(
-      body: SafeArea(
-        child: Stack(
+    return SafeArea(
+      child: Scaffold(
+        backgroundColor: kWhiteColor,
+        body: Stack(
+          textDirection: TextDirection.rtl,
+          fit: StackFit.loose,
+          clipBehavior: Clip.hardEdge,
           children: [
             PageView.builder(
               controller: _controller.pageController,
@@ -27,39 +31,111 @@ class OnboardingView extends StatelessWidget {
                     _controller.forwardAction();
                   },
                   child: Container(
-                    decoration: BoxDecoration(
-                        image: DecorationImage(
-                            image: AssetImage(item.image), fit: BoxFit.cover)),
-                    // child: Column(
-                    //   mainAxisAlignment: MainAxisAlignment.start,
-                    //   children: [
-                    //     Container(
-                    //         margin: EdgeInsets.only(top: 50),
-                    //         width: _screenSize.width - 20,
-                    //         height: _screenSize.width - 40,
-                    //         child: Image.asset(
-                    //             item.image)),
-                    //     SizedBox(height: 28),
-                    //     item.bannertext.text
-                    //         .size(24)
-                    //         .fontWeight(FontWeight.w500)
-                    //         .align(TextAlign.center)
-                    //         .make()
-                    //         .p16()
-                    //         .centered(),
-                    //     SizedBox(height: 20),
-                    //     Padding(
-                    //         padding: const EdgeInsets.symmetric(horizontal: 64),
-                    //         child: item.category.text
-                    //             .size(18)
-                    //             .align(TextAlign.center)
-                    //             .make()),
-                    //   ],
-                    // ),
+                    // width: _screenSize.width,
+                    // height: _screenSize.height / 2,
+                    // decoration: BoxDecoration(
+                    //     image: DecorationImage(
+                    //         image: AssetImage(item.image), fit: BoxFit.contain)),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Container(
+                          width: _screenSize.width,
+                          height: _screenSize.height / 2 + 10,
+                          decoration: BoxDecoration(
+                              image: DecorationImage(
+                                  image: AssetImage(item.image),
+                                  fit: BoxFit.fill)),
+                          // child: Image.asset(item.image),
+                        ),
+                        SizedBox(height: 5),
+                        item.bannertext.text.xl4.bold.pink500
+                            .fontWeight(FontWeight.w900)
+                            .align(TextAlign.center)
+                            .make()
+                            .p16()
+                            .centered(),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 64),
+                          child: item.category.text
+                              .size(28)
+                              .pink500
+                              .letterSpacing(-1)
+                              .fontWeight(FontWeight.w500)
+                              .align(TextAlign.center)
+                              .make(),
+                        ),
+                      ],
+                    ),
                   ),
                 );
               },
             ),
+
+            Positioned(
+              left: 0,
+              bottom: 0,
+              right: 0,
+              child: VStack([
+                Container(
+                  width: double.maxFinite,
+                  child: Center(
+                    child: Wrap(
+                      children: List.generate(
+                          _controller.onboardingList.length,
+                          (index) => Obx(() {
+                                return Container(
+                                  width: _controller.selectedPageIndex.value ==
+                                          index
+                                      ? 18
+                                      : 8,
+                                  height: 8,
+                                  margin: EdgeInsets.all(3),
+                                  decoration: BoxDecoration(
+                                      borderRadius:
+                                          BorderRadius.all(Radius.circular(8)),
+                                      shape: BoxShape.rectangle,
+                                      color:
+                                          _controller.selectedPageIndex.value ==
+                                                  index
+                                              ? kPrimaryColor
+                                              : Colors.grey),
+                                );
+                              })),
+                    ),
+                  ),
+                ),
+                Container(
+                    width: double.maxFinite,
+                    decoration: BoxDecoration(
+                        gradient: LinearGradient(
+                            colors: [
+                              Colors.pink, Colors.pinkAccent
+                              //  Color(0xff374ABE), Color(0xff64B6FF)
+                            ],
+                            begin: Alignment.centerLeft,
+                            end: Alignment.centerRight),
+                        borderRadius: BorderRadius.all(Radius.circular(5.0))),
+                    margin:
+                        EdgeInsets.symmetric(vertical: 30.0, horizontal: 60.0),
+                    child: MaterialButton(
+                      onPressed: () {
+                        _controller.forwardAction();
+                        // profileController.submitButton(context);
+                      }, // Click Listener
+                      child: Obx(
+                        () => (_controller.isLastPage ? 'Get Started' : 'Next')
+                            .text
+                            .bold
+                            .xl
+                            .white
+                            .align(TextAlign.center)
+                            .make(),
+                      ),
+                    ))
+              ]),
+            ),
+
             // Positioned(
             //   bottom: 20,
             //   left: 20,

@@ -91,7 +91,7 @@ class _SearchViewState extends State<SearchView> {
           );
           print('------------textField onClick--------1>' + result!.name);
         },
-        child: TextField(
+        child: TextFormField(
           enabled: false,
           style: Theme.of(context).textTheme.headline6,
           // onChanged: onTextChange,
@@ -110,10 +110,10 @@ class _SearchViewState extends State<SearchView> {
                 .headline6!
                 .copyWith(color: kGreyLightColor),
             border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(12),
+              borderRadius: BorderRadius.circular(4),
               borderSide: BorderSide(color: kGreyLightColor, width: 1.0),
             ),
-            contentPadding: EdgeInsets.all(5),
+            contentPadding: EdgeInsets.all(2),
           ),
         ),
       ),

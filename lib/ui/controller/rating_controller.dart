@@ -29,9 +29,9 @@ class RatingController extends GetxController {
 
   @override
   void onClose() {
-    smileyController.dispose();
     titleCTR.dispose();
     descriptionCTR.dispose();
+    // smileyController.dispose();
     super.onClose();
   }
 

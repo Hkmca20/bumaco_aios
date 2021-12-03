@@ -50,7 +50,7 @@ class CRecommendProductItem extends StatelessWidget {
                 ),
                 decoration: BoxDecoration(
                   color: kTransparentColor,
-                  border: Border.all(color: kGreyLightColor),
+                  // border: Border.all(color: kGreyLightColor),
                   borderRadius: BorderRadius.all(Radius.circular(1)),
                 ),
               ),

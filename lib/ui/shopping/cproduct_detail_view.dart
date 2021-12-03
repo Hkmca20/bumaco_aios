@@ -15,7 +15,7 @@ import 'package:bumaco_aios/ui/views/home/favourite_view.dart';
 import 'package:bumaco_aios/ui/views/home/item_address.dart';
 import 'package:bumaco_aios/ui/views/home/review_list_view.dart';
 import 'package:bumaco_aios/ui/views/views.dart';
-import 'package:bumaco_aios/ui/widgets/cproduct_card.dart';
+import 'package:bumaco_aios/ui/widgets/cproduct_item.dart';
 import 'package:bumaco_aios/ui/widgets/star_rating.dart';
 import 'package:bumaco_aios/ui/widgets/widgets.dart';
 import 'package:cached_network_image/cached_network_image.dart';
@@ -253,13 +253,15 @@ class CProductDetailView extends StatelessWidget {
           padding: EdgeInsets.symmetric(horizontal: 20, vertical: 4),
           child: HStack([
             'Selected Shade - '.text.coolGray400.make(),
-            // Obx(() =>
-            // pdController
-            //     .shadeChoiceList[pdController.shadeChoiceIndex.value]
-            //     .bannertext
-            // ' construct..'
-            String.fromCharCode(149).text.bold.make()
-            // ),
+            Obx(() => pdController
+                    .shadeChoiceList[pdController.shadeChoiceIndex.value]
+                    .bannertext
+                    .text
+                    .bold
+                    .make()
+                // ' construct..'
+                // String.fromCharCode(149).text.bold.make()
+                ),
           ]),
         ),
         Padding(

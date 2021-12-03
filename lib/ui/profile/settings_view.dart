@@ -223,7 +223,7 @@ class SettingView extends StatelessWidget {
               onTap: () => {_loaleController.openLocaleSheet(context)},
             ),
           ),
-          Divider(height: 1),
+          // Divider(height: 1),
           // SimpleBuilder(
           //   builder: (_) => ListTile(
           //     leading: Icon(Icons.play_arrow_rounded, color: kGreyLightColor),
@@ -235,15 +235,15 @@ class SettingView extends StatelessWidget {
           //   ),
           // ),
           // Divider(height: 1),
-          SimpleBuilder(
-            builder: (_) => ListTile(
-              leading: Icon(Icons.chat, color: kGreyLightColor),
-              trailing:
-                  Icon(Icons.arrow_forward_ios_rounded, color: kGreyLightColor),
-              title: 'Chat With Us'.text.make(),
-              onTap: () => {Get.to(() => SocketView())},
-            ),
-          ),
+          // SimpleBuilder(
+          //   builder: (_) => ListTile(
+          //     leading: Icon(Icons.chat, color: kGreyLightColor),
+          //     trailing:
+          //         Icon(Icons.arrow_forward_ios_rounded, color: kGreyLightColor),
+          //     title: 'Chat With Us'.text.make(),
+          //     onTap: () => {Get.to(() => SocketView())},
+          //   ),
+          // ),
           Divider(height: 1),
           SimpleBuilder(
             builder: (_) => ListTile(
@@ -254,16 +254,16 @@ class SettingView extends StatelessWidget {
               onTap: () => {Get.toNamed(expansionRoute)},
             ),
           ),
-          Divider(height: 1),
-          SimpleBuilder(
-            builder: (_) => ListTile(
-              leading: Icon(Icons.help_outline, color: kGreyLightColor),
-              trailing:
-                  Icon(Icons.arrow_forward_ios_rounded, color: kGreyLightColor),
-              title: 'help'.tr.text.make(),
-              onTap: () => {Get.toNamed(expansionRoute)},
-            ),
-          ),
+          // Divider(height: 1),
+          // SimpleBuilder(
+          //   builder: (_) => ListTile(
+          //     leading: Icon(Icons.help_outline, color: kGreyLightColor),
+          //     trailing:
+          //         Icon(Icons.arrow_forward_ios_rounded, color: kGreyLightColor),
+          //     title: 'help'.tr.text.make(),
+          //     onTap: () => {Get.toNamed(expansionRoute)},
+          //   ),
+          // ),
           Divider(height: 1),
           SimpleBuilder(
             builder: (_) => ListTile(
@@ -284,7 +284,7 @@ class SettingView extends StatelessWidget {
                   Icon(Icons.arrow_forward_ios_rounded, color: kGreyLightColor),
               title: 'logout'.tr.text.make(),
               onTap: () => {
-                Get.offAllNamed(gateRoute),
+                Get.offAllNamed(onboardRoute),
                 box.erase(),
                 _loginController.handleSignOut(context),
               },

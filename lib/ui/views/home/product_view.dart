@@ -11,7 +11,7 @@ import 'package:bumaco_aios/ui/views/filters/filter_view.dart';
 import 'package:bumaco_aios/ui/views/home/banners/cbanner.dart';
 import 'package:bumaco_aios/ui/views/home/empty_widget.dart';
 import 'package:bumaco_aios/ui/views/search/search_view.dart';
-import 'package:bumaco_aios/ui/widgets/cproduct_card.dart';
+import 'package:bumaco_aios/ui/widgets/cproduct_item.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:get/get.dart';
@@ -283,7 +283,7 @@ class ProductView extends StatelessWidget {
                                     (index) {
                                   final item =
                                       productController.allProductList[index];
-                                  return CProductTile(
+                                  return CProductItem(
                                     prod: item,
                                     index: index,
                                     offset: productController.offset.value,

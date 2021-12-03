@@ -5,7 +5,7 @@ import 'package:bumaco_aios/ui/controller/controllers.dart';
 import 'package:bumaco_aios/ui/rating/rating_view.dart';
 import 'package:bumaco_aios/ui/shopping/review_item.dart';
 import 'package:bumaco_aios/ui/views/checkout/bucket_view.dart';
-import 'package:bumaco_aios/ui/widgets/cproduct_card.dart';
+import 'package:bumaco_aios/ui/widgets/cproduct_item.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:get/get.dart';

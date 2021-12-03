@@ -10,7 +10,7 @@ import 'package:bumaco_aios/ui/controller/controllers.dart';
 import 'package:bumaco_aios/ui/views/home/banners/cbanner_home.dart';
 import 'package:bumaco_aios/ui/views/home/item_widget_11.dart';
 import 'package:bumaco_aios/ui/views/search/csearch_view.dart';
-import 'package:bumaco_aios/ui/widgets/cproduct_card.dart';
+import 'package:bumaco_aios/ui/widgets/cproduct_item.dart';
 import 'package:bumaco_aios/ui/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
@@ -298,18 +298,20 @@ class HomeBaView extends StatelessWidget {
                             scrollPhysics: NeverScrollableScrollPhysics(),
                             enabled: false,
                             decoration: InputDecoration(
-                                fillColor: Colors.black.withOpacity(0.1),
-                                filled: true,
-                                prefixIcon: Icon(Icons.search),
-                                hintText: 'Search on ' + 'app_title'.tr,
-                                hintStyle: Theme.of(context)
-                                    .textTheme
-                                    .headline6!
-                                    .copyWith(color: kGreyLightColor),
-                                border: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(4),
-                                    borderSide: BorderSide.none),
-                                contentPadding: EdgeInsets.all(2)),
+                              fillColor: Colors.black.withOpacity(0.1),
+                              filled: true,
+                              prefixIcon: Icon(Icons.search),
+                              hintText: 'Search on ' + 'app_title'.tr,
+                              hintStyle: Theme.of(context)
+                                  .textTheme
+                                  .headline6!
+                                  .copyWith(color: kGreyLightColor),
+                              border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(4),
+                                borderSide: BorderSide.none,
+                              ),
+                              contentPadding: EdgeInsets.all(2),
+                            ),
                           ),
                         ),
                       ),
@@ -324,11 +326,7 @@ class HomeBaView extends StatelessWidget {
                             final CategoryModel item =
                                 cController.categoryList[index];
                             return Card(
-                              color: Colors.primaries[
-                                      Random().nextInt(Colors.primaries.length)]
-                                  .withOpacity(0.3)
-                              // [Random().nextInt(9) * 100]
-                              ,
+                              color: kPrimaryLightColor.withOpacity(1),
                               child: InkWell(
                                 child: Column(
                                   children: [
@@ -353,8 +351,10 @@ class HomeBaView extends StatelessWidget {
                                         ),
                                       ),
                                     ),
-                                    item.category.text.capitalize
-                                        .size(16)
+                                    item.category.text.semiBold.black.capitalize
+                                        .ellipsis
+                                        .maxLines(1)
+                                        .size(14)
                                         .make()
                                         .p2(),
                                   ],
@@ -707,7 +707,7 @@ class HomeBaView extends StatelessWidget {
                           children: List.generate(
                               pController.allProductList.length, (index) {
                             final item = pController.allProductList[index];
-                            return CProductTile(prod: item);
+                            return CProductItem(prod: item);
                           }),
                         ),
                       ),

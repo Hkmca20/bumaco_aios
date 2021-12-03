@@ -54,7 +54,7 @@ class ReviewItem extends StatelessWidget {
               .height(30)
               .p8
               .make(),
-          Icon(Icons.photo_album, size: 16).p2(),
+          Icon(Icons.photo, size: 16).p2(),
           '7 Photos'.text.make().p2()
         ]),
         20.heightBox,

@@ -1,6 +1,6 @@
 import 'package:bumaco_aios/app_utils/utils.dart';
 import 'package:bumaco_aios/ui/controller/controllers.dart';
-import 'package:bumaco_aios/ui/widgets/csearch_card.dart';
+import 'package:bumaco_aios/ui/widgets/csearch_item.dart';
 import 'package:get/get.dart';
 import 'package:velocity_x/velocity_x.dart';
 import 'package:flutter/material.dart';
@@ -75,7 +75,7 @@ class SearchData<T> extends SearchDelegate<String> {
           itemCount: pController.searchProductList.length,
           itemBuilder: (context, index) {
             final item = pController.searchProductList[index];
-            return CSearchTile(
+            return CSearchItem(
               prod: item,
               bController: bController,
               pController: pController,

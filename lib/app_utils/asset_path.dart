@@ -19,6 +19,13 @@ final String img_splash = _getImagePath("img_splash.jpg");
 final String onboard_1 = _getImagePath("onboard_1.png");
 final String onboard_2 = _getImagePath("onboard_2.png");
 final String onboard_3 = _getImagePath("onboard_3.png");
+final String onboard_4 = _getImagePath("onboard_4.png");
+final String onboard_5 = _getImagePath("onboard_5.png");
+final String onboard_1c = _getImagePath("onboard_1c.png");
+final String onboard_2c = _getImagePath("onboard_2c.png");
+final String onboard_3c = _getImagePath("onboard_3c.png");
+final String onboard_4c = _getImagePath("onboard_4c.png");
+final String onboard_5c = _getImagePath("onboard_5c.png");
 final String happyEmoji = _getRivePath('happiness_emoji.flr');
 
 final String riveAssetRoot = 'assets/rive/';

@@ -74,7 +74,9 @@ class AppbarSHome extends StatelessWidget with PreferredSizeWidget {
                   child: VStack(
                     [
                       Obx(
-                        () => homeController.selectedGate.value.text.uppercase
+                        () => homeController
+                            .selectedGate.value.text.ellipsis.uppercase
+                            .maxLines(1)
                             .color(kGreyLightColor)
                             .size(11)
                             .fontWeight(FontWeight.w400)

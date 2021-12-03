@@ -41,7 +41,7 @@ class ProductDetailController extends GetxController {
     for (int i = 0; i < 8; i++) {
       shadeChoiceList.add(BannerModel(
         id: '${i + 1}',
-        bannertext: '${getRandomString(10)}',
+        bannertext: 'shadegreeenbluemix$i', // '${getRandomString(10)}',
         category: '#aa112233',
         color: Colors.primaries[Random().nextInt(Colors.primaries.length)]
             .withOpacity(1.0),

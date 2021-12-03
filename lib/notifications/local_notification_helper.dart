@@ -4,7 +4,7 @@ NotificationDetails get _noSound {
   final androidChannelSpecifics = AndroidNotificationDetails(
     'silent channel id',
     'silent channel name',
-    'silent channel description',
+    // 'silent channel description',
     playSound: false,
   );
   final iOSChannelSpecifics = IOSNotificationDetails(presentSound: false);
@@ -25,7 +25,7 @@ NotificationDetails get _ongoing {
   final androidChannelSpecifics = AndroidNotificationDetails(
     'your channel id',
     'your channel name',
-    'your channel description',
+    // 'your channel description',
     importance: Importance.max,
     priority: Priority.high,
     ongoing: true,

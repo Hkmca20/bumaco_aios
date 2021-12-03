@@ -12,8 +12,8 @@ import 'package:velocity_x/velocity_x.dart';
 
 import 'star_rating.dart';
 
-class CProductTile extends StatelessWidget {
-  CProductTile({
+class CProductItem extends StatelessWidget {
+  CProductItem({
     Key? key,
     required this.prod,
     this.index = 0,
@@ -176,10 +176,11 @@ class CProductTile extends StatelessWidget {
                     ),
                   ]),
                 ),
-                Container(
-                    height: 15, child: VerticalDivider(color: kDarkGreyColor)),
-                '20% Off'.text.bold.color(kPrimaryColor).make()
-              ]).p12(),
+                // Container(
+                //     height: 15, child: VerticalDivider(color: kDarkGreyColor)),
+                // '20% Off'.text.bold.color(kPrimaryColor).make()
+              ]).p8(),
+              '20% Off'.text.bold.color(kPrimaryColor).make(),
               SizedBox(height: 4),
               // if (prod.rating != null)
               HStack([

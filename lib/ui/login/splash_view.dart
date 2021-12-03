@@ -74,7 +74,6 @@ class SplashState extends State<SplashView>
         ? Get.offAndToNamed(dashboardRoute)
         : _splashController.appOpenCount > _splashController.maxOpenCount
             ? Get.offAndToNamed(gateRoute)
-            // Get.offAndToNamed(landingRoute)
             : Get.offAndToNamed(onboardRoute);
 
     // Get.offAndToNamed(shoppingRoute);

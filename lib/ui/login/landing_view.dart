@@ -163,7 +163,7 @@ class LandingView extends StatelessWidget {
             right: 0,
             top: 150,
             child: CBannerGateWidget(
-              bannerHeight: _screenSize.height / 3 + 50,
+              bannerHeight: _screenSize.height / 3 - 10,
               fitImage: BoxFit.cover,
               bannerList: bannerController.landingBannerList,
               // bannerController.bannerPositionList[12].bannerlist,
@@ -176,10 +176,11 @@ class LandingView extends StatelessWidget {
               child: Card(
                 margin: EdgeInsets.only(top: 5, bottom: 5),
                 shadowColor: Colors.white10.withOpacity(0.1),
-                elevation: 5,
+                elevation: 4,
                 color: Colors.black12.withOpacity(0.1),
                 child: Padding(
-                  padding: const EdgeInsets.all(10.0),
+                  padding:
+                      const EdgeInsets.symmetric(vertical: 5, horizontal: 10.0),
                   child: Column(
                     children: [
                       Obx(
@@ -193,7 +194,7 @@ class LandingView extends StatelessWidget {
                                     .bannerPositionList[8].bannerlist,
                               ),
                       ),
-                      SizedBox(height: 30),
+                      SizedBox(height: 20),
                       loginText,
                       loginButton(context),
                       googleButton(context),
@@ -250,7 +251,7 @@ class LandingView extends StatelessWidget {
       margin: EdgeInsets.symmetric(horizontal: 10, vertical: 6),
       width: MediaQuery.of(context).size.width - 40,
       child: ElevatedButton(
-        child: 'signin_with_email_or_mobile'.tr.text.make().p4(),
+        child: 'signin_with_email_or_mobile'.tr.text.make().p2(),
         onPressed: () {
           Get.toNamed(loginRoute);
         },

@@ -3,6 +3,7 @@ import 'package:bumaco_aios/app_core/db/entity/entities.dart';
 import 'package:bumaco_aios/app_core/models/models.dart';
 import 'package:bumaco_aios/app_utils/utils.dart';
 import 'package:bumaco_aios/ui/views/orders/order_book_view.dart';
+import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:get/get.dart';
 import 'package:razorpay_flutter/razorpay_flutter.dart';
 
@@ -93,25 +94,31 @@ class BucketController extends GetxController {
   }
 
   getAllBucketFromLocal() async {
-    final db = await $FloorAppDatabase.databaseBuilder(DB_NAME).build();
-    final bucketDao = db.bucketDao;
-    final result = await bucketDao.findAllBucket();
-    updateBucketList(result);
-    totalAmount.value = 0.0;
-    taxAmount.value = 0.0;
-    shippingAmt.value = 0.0;
-    grandTotal.value = 0.0;
-    var tempMrp = 0.0;
-    result.forEach((element) {
-      if (element.mrp != '') {
-        tempMrp = double.parse(element.mrp);
-      }
-      element.totalPrice = element.quantity * tempMrp;
-      totalAmount.value += element.quantity * tempMrp;
-    });
-    taxAmount.value = (totalAmount * taxPercent) / 100;
-    if (totalAmount > 0 && totalAmount < 2000) shippingAmt.value = 350.0;
-    grandTotal.value = totalAmount.value + taxAmount.value + shippingAmt.value;
+    try {
+      final db = await $FloorAppDatabase.databaseBuilder(DB_NAME).build();
+      final bucketDao = db.bucketDao;
+      final result = await bucketDao.findAllBucket();
+      updateBucketList(result);
+      totalAmount.value = 0.0;
+      taxAmount.value = 0.0;
+      shippingAmt.value = 0.0;
+      grandTotal.value = 0.0;
+      var tempMrp = 0.0;
+      result.forEach((element) {
+        if (element.mrp != '') {
+          tempMrp = double.parse(element.mrp);
+        }
+        element.totalPrice = element.quantity * tempMrp;
+        totalAmount.value += element.quantity * tempMrp;
+      });
+      taxAmount.value = (totalAmount * taxPercent) / 100;
+      if (totalAmount > 0 && totalAmount < 2000) shippingAmt.value = 350.0;
+      grandTotal.value =
+          totalAmount.value + taxAmount.value + shippingAmt.value;
+    } on Exception catch (e) {
+      print(e);
+      bumacoSnackbar('alert'.tr, 'Happy: $e');
+    }
   }
 
   insertBucket(ProductModel element) async {
@@ -119,40 +126,52 @@ class BucketController extends GetxController {
       bumacoSnackbar('alert'.tr, 'Internal Server Error!');
       return;
     }
-    final db = await $FloorAppDatabase.databaseBuilder(DB_NAME).build();
-    final bucketDao = db.bucketDao;
-    final BucketEntity? checkItem = await bucketDao.findBucketById(element.id);
-    if (checkItem != null && checkItem.id == element.id) {
-      final q = checkItem.quantity + 1;
-      if (q > 5) {
-        bumacoSnackbar('alert'.tr, 'allowed_max_5_qua'.tr);
+    try {
+      FirebaseCrashlytics.instance.setCustomKey(
+          'CrashCustomKey', 'flutterfireHari-insertBucket(element)');
+
+      final db = await $FloorAppDatabase.databaseBuilder(DB_NAME).build();
+      final bucketDao = db.bucketDao;
+      final BucketEntity? checkItem =
+          await bucketDao.findBucketById(element.id);
+      if (checkItem != null && checkItem.id == element.id) {
+        final q = checkItem.quantity + 1;
+        if (q > 5) {
+          bumacoSnackbar('alert'.tr, 'allowed_max_5_qua'.tr);
+          return;
+        }
+        bucketDao.updateQuantityInBucket(q, checkItem.id);
+        getAllBucketFromLocal();
+        bumacoSnackbar(
+            'alert'.tr, '${element.product} ' + 'quantity_updated'.tr);
         return;
       }
-      bucketDao.updateQuantityInBucket(q, checkItem.id);
+      final entity = BucketEntity(
+          category: element.category,
+          childcategory: element.childcategory,
+          subcategory: element.subcategory,
+          id: element.id,
+          brand: element.brand,
+          createdate: element.createdate,
+          description: element.description,
+          shortDescription: element.shortDescription,
+          fimage: element.fimage,
+          hasvery: element.hasvery,
+          mrp: element.mrp,
+          product: element.product,
+          productUrl: element.productUrl,
+          isBucket: true,
+          quantity: 1);
+      await bucketDao.insertIntoBucket(entity);
       getAllBucketFromLocal();
-      bumacoSnackbar('alert'.tr, '${element.product} ' + 'quantity_updated'.tr);
-      return;
+      bumacoSnackbar(
+          'alert'.tr, '${entity.product} ' + 'added_to'.tr + ' ' + 'cart'.tr);
+    } on Exception catch (e, s) {
+      print(e);
+      bumacoSnackbar('alert'.tr, 'Happy: $e');
+      await FirebaseCrashlytics.instance.recordError(e, s,
+          reason: 'as an example of fatal error', fatal: true);
     }
-    final entity = BucketEntity(
-        category: element.category,
-        childcategory: element.childcategory,
-        subcategory: element.subcategory,
-        id: element.id,
-        brand: element.brand,
-        createdate: element.createdate,
-        description: element.description,
-        shortDescription: element.shortDescription,
-        fimage: element.fimage,
-        hasvery: element.hasvery,
-        mrp: element.mrp,
-        product: element.product,
-        productUrl: element.productUrl,
-        isBucket: true,
-        quantity: 1);
-    await bucketDao.insertIntoBucket(entity);
-    getAllBucketFromLocal();
-    bumacoSnackbar(
-        'alert'.tr, '${entity.product} ' + 'added_to'.tr + ' ' + 'cart'.tr);
   }
 
   increDecreQuantity(BucketEntity entity, bool increment) async {
@@ -192,12 +211,20 @@ class BucketController extends GetxController {
   }
 
   removeAllBucket(paid) async {
-    final db = await $FloorAppDatabase.databaseBuilder(DB_NAME).build();
-    final bucketDao = db.bucketDao;
-    bucketDao.deleteAllBucket();
+    try {
+      FirebaseCrashlytics.instance
+          .setCustomKey('CrashCustomKey', 'flutterfireHari-removeAllBucket()');
+      final db = await $FloorAppDatabase.databaseBuilder(DB_NAME).build();
+      final bucketDao = db.bucketDao;
+      bucketDao.deleteAllBucket();
+    } on Exception catch (e) {
+      print(e);
+      bumacoSnackbar('alert'.tr, 'Happy: $e');
+    }
     if (!paid)
       bumacoSnackbar(
           'alert'.tr, 'All data ' + 'removed_from'.tr + ' ' + 'cart'.tr);
     getAllBucketFromLocal();
+    // FirebaseCrashlytics.instance.crash();
   }
 }

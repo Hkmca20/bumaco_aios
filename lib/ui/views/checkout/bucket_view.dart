@@ -4,7 +4,7 @@ import 'package:bumaco_aios/app_utils/utils.dart';
 import 'package:bumaco_aios/ui/controller/controllers.dart';
 import 'package:bumaco_aios/ui/controller/signin_controller.dart';
 import 'package:bumaco_aios/ui/views/address/addresss_view.dart';
-import 'package:bumaco_aios/ui/views/checkout/item_bucket.dart';
+import 'package:bumaco_aios/ui/views/checkout/bucket_item.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:velocity_x/velocity_x.dart';
@@ -95,7 +95,7 @@ class BucketView extends StatelessWidget {
                         padding: EdgeInsets.all(4),
                         itemBuilder: (context, index) {
                           BucketEntity item = bController.bucketList[index];
-                          return ItemBucket(item: item);
+                          return BucketItem(item: item);
                         },
                       ),
                     ),

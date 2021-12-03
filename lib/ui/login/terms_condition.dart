@@ -1,6 +1,11 @@
+import 'dart:async';
+
 import 'package:bumaco_aios/app_utils/app_bar_home.dart';
+import 'package:bumaco_aios/ui/login/url_view.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:velocity_x/velocity_x.dart';
+import 'package:webview_flutter/webview_flutter.dart';
 
 class TermsAndCondition extends StatelessWidget {
   const TermsAndCondition({Key? key}) : super(key: key);
@@ -20,6 +25,12 @@ class TermsAndCondition extends StatelessWidget {
       'Your Terms and Conditions agreement will be uniquely yours. While some clauses are standard and commonly seen in pretty much every Terms and Conditions agreement, it\'s up to you to set the rules and guidelines that the user must agree to.'
       'You can think of your Terms and Conditions agreement as the legal agreement where you maintain your rights to exclude users from your app in the event that they abuse your app, where you maintain your legal rights against potential app abusers, and so on.'
       'Terms and Conditions agreements are also known as Terms of Service or Terms of Use agreements. These terms are interchangeable, practically speaking.';
+
+  void _handleURLButtonPress(BuildContext context, String url, String title) {
+    // Navigator.push(
+    //     context, MaterialPageRoute(builder: (context) => URLView(url, title)));
+    Get.to(() => URLView(url, title));
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -45,7 +56,10 @@ class TermsAndCondition extends StatelessWidget {
                   .p12(),
               tc.text.wordSpacing(4).letterSpacing(1).make().p16(),
             ],
-          ),
+          ).onDoubleTap(() {
+            _handleURLButtonPress(context, 'https://brandhype.co.in/bumaco/',
+                'Terms and Conditions');
+          }),
         ),
       ),
     );
