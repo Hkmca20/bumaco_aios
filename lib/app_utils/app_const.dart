@@ -1,11 +1,15 @@
-// Colors
 import 'dart:math';
 
+import 'package:bumaco_aios/app_config/app_environment.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:velocity_x/velocity_x.dart';
 
+// Flavours
+const bool kReleaseMode = true;
+
+// Colors
 final commonGreyColor = Colors.grey[600]!.withOpacity(0.1);
 const kPrimaryColor = Colors.pink; //Color(0xFFFF7643);
 const kPrimaryColorDark = Colors.redAccent;
@@ -50,7 +54,7 @@ const String kOtp4digit = "Please Enter correct otp";
 const String ARG_PAYABLE_AMT = 'arg_payable_amt';
 const String ARG_PAYMENT_ID = 'arg_payment_id';
 
-// Patterns
+// Pattxzerns
 final RegExp numericRegExp = RegExp(r'\d');
 final RegExp a2zRegExp = RegExp('[a-zA-Z]');
 final RegExp patternMobile = RegExp(r'(^(?:[+0]9)?[0-9]{10,12}$)');
@@ -95,6 +99,7 @@ const loginRoute = '/login';
 const authRoute = '/auth';
 const gateRoute = '/gate';
 const landingRoute = '/landing';
+const passRoute = '/pass';
 const otpRoute = '/otp';
 const profileRoute = '/profile';
 const shoppingRoute = '/shopping';
@@ -233,13 +238,12 @@ getStorageDoubleValue(key) {
 
 //Database
 const DB_NAME = 'bumaco_database.db';
-const DB_VERSION = 2;
+const DB_VERSION = 1;
 
 class ApiConstants {
   static const apiKey = '60b65cc18763454eaf48d48406105496';
-  static const baseUrl = 'https://brandhype.co.in/bumaco/';
-  static const baseImageUrl = baseUrl + 'uploads/';
-  static const baseUrlApi = baseUrl + 'api/';
+  static final baseImageUrl = AppEnvironment.baseUrl + 'uploads/';
+  static final baseUrlApi = AppEnvironment.baseUrl + 'api/';
   static const categoryApi = 'categoryapi/category';
   static const childCategoryApi = 'categoryapi/childcategory';
   static const subCategoryApi = 'categoryapi/subcategory';
@@ -248,6 +252,9 @@ class ApiConstants {
   static const bannerApi = 'bannerapi/position';
   static const allProductApi = 'productapi/product';
   static const searchFilterApi = 'productapi/product';
+  static const loginApi = 'auth/login';
+  static const userloginApi = 'auth/userlogin';
+  static const profileApi = 'auth/profile';
 
   static const allUserApi = 'userapi/user';
   // static const productApi =
@@ -262,7 +269,7 @@ class ApiConstants {
   static const dummyApi = '';
 
   static const userApi = 'userapi/user/';
-  static const userByIdApi = baseUrlApi + 'userapi/user?id=1';
+  static final userByIdApi = AppEnvironment.baseUrl + 'userapi/user?id=1';
 }
 
 mBanner({context, title, icon, actions}) =>

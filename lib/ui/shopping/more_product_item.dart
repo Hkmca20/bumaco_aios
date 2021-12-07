@@ -9,8 +9,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:velocity_x/velocity_x.dart';
 
-class CRecommendProductItem extends StatelessWidget {
-  CRecommendProductItem({
+class CMoreProductItem extends StatelessWidget {
+  CMoreProductItem({
     Key? key,
     required this.item,
     required Size screenSize,
@@ -36,10 +36,10 @@ class CRecommendProductItem extends StatelessWidget {
           },
           child: VStack(
             [
+              5.heightBox,
               Container(
                 width: 80,
                 height: 80,
-                padding: EdgeInsets.all(5),
                 child: ClipRRect(
                   borderRadius: BorderRadius.all(Radius.circular(1)),
                   child: CachedNetworkImage(
@@ -81,7 +81,7 @@ class CRecommendProductItem extends StatelessWidget {
                     TextSpan(
                       text: item.mrp == ''
                           ? ''
-                          : '${lController.selectedCurrency}${item.mrp}',
+                          : '${lController.selectedSymbol}${item.mrp}',
                       style: TextStyle(
                         fontSize: 12,
                         color: kGreyLightColor,
@@ -89,7 +89,7 @@ class CRecommendProductItem extends StatelessWidget {
                       ),
                     ),
                     TextSpan(
-                      text: '  ${lController.selectedCurrency}${item.mrp}',
+                      text: '  ${lController.selectedSymbol}${item.mrp}',
                       style: TextStyle(
                         fontSize: 14,
                       ),
@@ -115,15 +115,13 @@ class CRecommendProductItem extends StatelessWidget {
                       },
                     ).p2(),
                   ),
-                  MaterialButton(
-                    color: kPrimaryColor,
+                  ElevatedButton(
                     onPressed: () {
                       bController.insertBucket(item);
                     },
-                    child: 'add_to_cart'.tr.text.white.lg.make(),
-                  ).centered(),
+                    child: 'add_to_cart'.tr.text.make(),
+                  ),
                 ],
-                crossAlignment: CrossAxisAlignment.center,
               )
             ],
             crossAlignment: CrossAxisAlignment.center,

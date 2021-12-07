@@ -90,7 +90,7 @@ class BucketItem extends StatelessWidget {
               ),
               VStack(
                 [
-                  ('${lController.selectedCurrency}${item.mrp}x${item.quantity.toString()} = ${item.totalPrice}')
+                  ('${lController.selectedSymbol}${item.mrp}x${item.quantity.toString()} = ${item.totalPrice}')
                       .text
                       .size(16)
                       .make()

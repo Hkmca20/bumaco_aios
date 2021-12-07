@@ -115,7 +115,7 @@ class HomeView extends StatelessWidget {
                       scrollDirection: Axis.horizontal,
                       itemCount: categoryController.categoryList.length,
                       itemBuilder: (context, index) {
-                        final CategoryModel item =
+                        final CategoryData item =
                             categoryController.categoryList[index];
                         return Padding(
                           padding: EdgeInsets.all(5),
@@ -141,7 +141,7 @@ class HomeView extends StatelessWidget {
                       scrollDirection: Axis.horizontal,
                       itemCount: categoryController.categoryList.length,
                       itemBuilder: (context, index) {
-                        final CategoryModel item =
+                        final CategoryData item =
                             categoryController.categoryList[index];
                         EdgeInsets _padding = index == 0
                             ? const EdgeInsets.only(left: 20.0, right: 0.0)
@@ -159,22 +159,22 @@ class HomeView extends StatelessWidget {
                 Divider(),
                 SizedBox(height: 4), //--------------------------
                 SectionTile(title: 'new_category'.tr),
-                CarouselSlider(
-                  options: CarouselOptions(
-                      autoPlay: true,
-                      aspectRatio: 2.0,
-                      viewportFraction: 1.0,
-                      autoPlayAnimationDuration: Duration(milliseconds: 2000),
-                      autoPlayInterval: Duration(milliseconds: 5000),
-                      enlargeCenterPage: true,
-                      enlargeStrategy: CenterPageEnlargeStrategy.height,
-                      enableInfiniteScroll: true),
-                  items: categoryController.categoryList
-                      .map((element) => HeroCarouselCard1(
-                            category: element,
-                          ))
-                      .toList(),
-                ),
+                // CarouselSlider(
+                //   options: CarouselOptions(
+                //       autoPlay: true,
+                //       aspectRatio: 2.0,
+                //       viewportFraction: 1.0,
+                //       autoPlayAnimationDuration: Duration(milliseconds: 2000),
+                //       autoPlayInterval: Duration(milliseconds: 5000),
+                //       enlargeCenterPage: true,
+                //       enlargeStrategy: CenterPageEnlargeStrategy.height,
+                //       enableInfiniteScroll: true),
+                //   items: categoryController.categoryList
+                //       .map((element) => HeroCarouselCard1(
+                //             category: element,
+                //           ))
+                //       .toList(),
+                // ),
                 //Ends carousel here-------------------------
 
                 Divider(),
@@ -196,7 +196,7 @@ class HomeView extends StatelessWidget {
                       scrollDirection: Axis.horizontal,
                       itemCount: categoryController.categoryList.length,
                       itemBuilder: (context, index) {
-                        final CategoryModel item =
+                        final CategoryData item =
                             categoryController.categoryList[index];
                         EdgeInsets _padding = index == 0
                             ? const EdgeInsets.only(left: 20.0, right: 0.0)
@@ -219,7 +219,7 @@ class HomeView extends StatelessWidget {
                       scrollDirection: Axis.horizontal,
                       itemCount: categoryController.categoryList.length,
                       itemBuilder: (context, index) {
-                        final CategoryModel item =
+                        final CategoryData item =
                             categoryController.categoryList[index];
                         EdgeInsets _padding = index == 0
                             ? const EdgeInsets.only(left: 10.0, right: 0.0)
@@ -237,7 +237,7 @@ class HomeView extends StatelessWidget {
                 Wrap(
                   children: List.generate(
                       categoryController.categoryList.length, (index) {
-                    final CategoryModel item =
+                    final CategoryData item =
                         categoryController.categoryList[index];
                     return SampleAvatar(
                         item: item, padding: EdgeInsets.all(10.0));
@@ -249,7 +249,7 @@ class HomeView extends StatelessWidget {
                   runSpacing: 3,
                   children: List.generate(
                       categoryController.categoryList.length, (index) {
-                    final CategoryModel item =
+                    final CategoryData item =
                         categoryController.categoryList[index];
                     return ItemWidget1(
                         padding: EdgeInsets.only(left: 10.0),

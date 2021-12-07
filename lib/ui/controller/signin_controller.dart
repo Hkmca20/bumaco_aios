@@ -1,9 +1,14 @@
 import 'dart:async';
+import 'dart:convert';
 import 'dart:ui';
 
+import 'package:bumaco_aios/app_config/app_environment.dart';
+import 'package:bumaco_aios/app_core/models/login_model.dart';
+import 'package:bumaco_aios/app_core/repository/repository.dart';
 import 'package:bumaco_aios/app_utils/app_const.dart';
 import 'package:bumaco_aios/app_utils/app_loading.dart';
 import 'package:bumaco_aios/app_utils/utils.dart';
+import 'package:bumaco_aios/ui/login/login_json.dart';
 import 'package:bumaco_aios/ui/login/widgets/custom_button_social.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
@@ -21,8 +26,11 @@ class SigninController extends GetxController {
   GoogleSignIn _googleSignIn = GoogleSignIn();
   GoogleSignInAccount? _currentUser;
 
+  late LoginRepo _loginRepo;
+
   @override
   void onInit() {
+    _loginRepo = Get.find<LoginRepoImpl>();
     mobileCTR = TextEditingController();
     _googleSignIn.onCurrentUserChanged.listen((GoogleSignInAccount? account) {
       _currentUser = account;
@@ -52,16 +60,30 @@ class SigninController extends GetxController {
       return;
     }
     showLoadingDialog();
-    await Future.delayed(Duration(seconds: 3));
+
+    await Future.delayed(2.seconds);
+    final result = await _loginRepo.getLogin(mobileCTR.text);
+
+    // LoginModel.fromJson(jsonDecode(loginJSON.toString()));
+
     try {
       Get.back();
-      if (mobileCTR.text == '9999999999') {
+      if (result != null && result.status) {
+        bumacoSnackbar('login'.tr, result.message);
+        box.write(BOX_MOBILE, mobileCTR.text);
+        Get.toNamed(passRoute, arguments: {'arg_customer': result});
+      } else if (result != null && !result.status) {
+        bumacoSnackbar('login'.tr, result.message);
+        box.write(BOX_MOBILE, mobileCTR.text);
+        Get.toNamed(otpRoute, arguments: {'arg_customer': result});
+      } else if (mobileCTR.text == '9999999999') {
         // Get.toNamed(otpRoute, arguments: 'OTP has been sent to ${mobileCTR.text}');
-        bumacoSnackbar('Login', 'OTP sent successfully on ${mobileCTR.text}');
+        bumacoSnackbar(
+            'login'.tr, 'OTP sent successfully on ${mobileCTR.text}');
         box.write(BOX_MOBILE, mobileCTR.text);
         Get.toNamed(otpRoute);
       } else {
-        bumacoSnackbar('Login', 'Failed, please try again!');
+        bumacoSnackbar('login'.tr, 'Failed, please try again!');
       }
     } catch (e) {
       debugPrint(e.toString());

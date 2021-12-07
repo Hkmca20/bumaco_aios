@@ -15,7 +15,7 @@ class ItemWidget3 extends StatelessWidget {
 
   final EdgeInsets _padding;
   final double _screenWidth;
-  final CategoryModel item;
+  final CategoryData item;
 
   @override
   Widget build(BuildContext context) {

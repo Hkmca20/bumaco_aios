@@ -17,6 +17,13 @@ abstract class FavouriteDao {
 
   @Query('SELECT * FROM favouriteentity ORDER BY id DESC')
   Stream<List<FavouriteEntity>> fetchStreamFavourite();
+// Stream usage
+// StreamBuilder<List<Person>>(
+//   stream: dao.findAllPersonsAsStream(),
+//   builder: (BuildContext context, AsyncSnapshot<List<Person>> snapshot) {
+//     // do something with the values here
+//   },
+// );
 
   @insert
   Future<void> insertIntoFavourite(FavouriteEntity product);

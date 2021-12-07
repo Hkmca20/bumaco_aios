@@ -6,7 +6,7 @@ import 'package:bumaco_aios/ui/controller/bucket_controller.dart';
 import 'package:bumaco_aios/ui/controller/controllers.dart';
 import 'package:bumaco_aios/ui/gallery/gallery_re_view.dart';
 import 'package:bumaco_aios/ui/gallery/gallery_view.dart';
-import 'package:bumaco_aios/ui/shopping/recommend_product_item.dart';
+import 'package:bumaco_aios/ui/shopping/more_product_item.dart';
 import 'package:bumaco_aios/ui/shopping/review_item.dart';
 import 'package:bumaco_aios/ui/views/checkout/bucket_view.dart';
 import 'package:bumaco_aios/ui/views/dashboard/tabbar_view.dart';
@@ -174,7 +174,7 @@ class CProductDetailView extends StatelessWidget {
                 TextSpan(
                   text: pdController.productItem.mrp == ''
                       ? ''
-                      : '${lController.selectedCurrency}${pdController.productItem.mrp}',
+                      : '${lController.selectedSymbol}${pdController.productItem.mrp}',
                   style: TextStyle(
                     fontSize: 16,
                     color: kGreyLightColor,
@@ -183,7 +183,7 @@ class CProductDetailView extends StatelessWidget {
                 ),
                 TextSpan(
                   text:
-                      '  ${lController.selectedCurrency}${pdController.productItem.mrp}',
+                      '  ${lController.selectedSymbol}${pdController.productItem.mrp}',
                   style: TextStyle(
                     fontSize: 18,
                   ),
@@ -563,7 +563,7 @@ class CProductDetailView extends StatelessWidget {
               itemCount: pController.allProductList.length,
               itemBuilder: (context, index) {
                 final ProductModel item = pController.allProductList[index];
-                return CRecommendProductItem(
+                return CMoreProductItem(
                         item: item,
                         screenSize: _screenSize,
                         lController: lController)
@@ -603,7 +603,7 @@ class CProductDetailView extends StatelessWidget {
               itemCount: pController.allProductList.length,
               itemBuilder: (context, index) {
                 final ProductModel item = pController.allProductList[index];
-                return CRecommendProductItem(
+                return CMoreProductItem(
                         item: item,
                         screenSize: _screenSize,
                         lController: lController)

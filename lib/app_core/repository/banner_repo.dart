@@ -1,4 +1,8 @@
+import 'dart:convert';
+
+import 'package:bumaco_aios/app_core/models/banner_slider.dart';
 import 'package:bumaco_aios/app_core/models/models.dart';
+import 'package:bumaco_aios/app_core/repository/banner_json.dart';
 import 'package:bumaco_aios/app_utils/app_const.dart';
 import 'package:bumaco_aios/network/dio_client.dart';
 import 'package:bumaco_aios/network/dio_client_impl.dart';
@@ -7,7 +11,7 @@ import 'package:get/get.dart';
 abstract class BannerRepo {
   Future<List<BannerModel>?> getBannerHomeSlider();
   Future<List<BannerModel>?> getBannerPositions(position);
-  Future<List<BannerModel>?> getBannerPosition2(id);
+  Future<List<BannerModel>?> getBannerPositionAll();
 }
 
 class BannerRepoImpl extends BannerRepo {
@@ -48,14 +52,15 @@ class BannerRepoImpl extends BannerRepo {
   }
 
   @override
-  Future<List<BannerModel>?> getBannerPosition2(id) async {
-    final response;
+  Future<List<BannerModel>?> getBannerPositionAll() async {
+    Map<String, dynamic> response;
     try {
-      response = await _client
-          .getRequest('${ApiConstants.bannerApi}2');
-      final responseList =
-          (response.data as List).map((x) => BannerModel.fromJson(x)).toList();
-      return responseList;
+      // response = await _client.getRequest(ApiConstants.bannerApi + '2');
+      await Future.delayed(2.seconds);
+      response = jsonDecode(bannerJson.toString());
+      final BannerSlider categorymodel = BannerSlider.fromJson(response);
+      final List<BannerModel> allbannerList = categorymodel.homeslider;
+      return allbannerList;
     } on Exception catch (e) {
       print(e);
       return null;

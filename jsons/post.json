@@ -1,0 +1,25 @@
+{
+    "status": true,
+    "message": "Phone no alredy exit.",
+    "data": {
+        "id": "17",
+        "name": "sachin K.",
+        "fname": null,
+        "lname": null,
+        "email": "sachin.k@gmail.com",
+        "phone": "9999988888",
+        "address": "",
+        "street_no": "",
+        "company": "",
+        "image": "",
+        "state": "",
+        "city": "",
+        "pincode": "",
+        "des": "",
+        "password": "1234",
+        "otp": "12345",
+        "create_date": "2021-12-01 04:05:37",
+        "modifi_date": "2021-12-01 04:05:37",
+        "status": "1"
+    }
+}

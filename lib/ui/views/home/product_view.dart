@@ -264,12 +264,12 @@ class ProductView extends StatelessWidget {
                             ? EmptyContentWidget(
                                 message: 'No products found in this category')
                             : StaggeredGridView.count(
-                                padding: EdgeInsets.all(4),
+                                padding: EdgeInsets.all(2),
                                 // controller: productController.scroll,
                                 crossAxisCount:
                                     productController.columnCount.value,
-                                crossAxisSpacing: 4,
-                                mainAxisSpacing: 4,
+                                crossAxisSpacing: 2,
+                                mainAxisSpacing: 2,
                                 shrinkWrap: true,
                                 physics: NeverScrollableScrollPhysics(),
                                 staggeredTiles: List.generate(
@@ -410,6 +410,8 @@ class ProductView extends StatelessWidget {
   ];
 
   void showSortBottomSheet(context) {
+    final _screenSize = MediaQuery.of(context).size;
+
     showModalBottomSheet(
         context: context,
         builder: (context) {
@@ -420,9 +422,9 @@ class ProductView extends StatelessWidget {
               indent: 150,
               endIndent: 150,
             ).p8(),
-            'Sort By'.text.bold.size(24).make().p12(),
+            'Sort By'.text.bold.size(22).make().p12(),
             Container(
-              height: 280,
+              height: _screenSize.height / 3 + 40,
               alignment: Alignment.center,
               child: ListView.separated(
                   itemCount: _items.length,

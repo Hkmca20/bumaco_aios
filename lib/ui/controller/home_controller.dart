@@ -93,6 +93,7 @@ class HomeController extends GetxController {
   // }
 
   gateBottomsheet(BuildContext context) {
+    final _screenSize = MediaQuery.of(context).size;
     showModalBottomSheet(
         context: context,
         clipBehavior: Clip.antiAliasWithSaveLayer,
@@ -108,11 +109,11 @@ class HomeController extends GetxController {
               indent: 150,
               endIndent: 150,
             ).p8(),
-            'enter_a_gate'.tr.text.size(24).make().p8(),
+            'enter_a_gate'.tr.text.size(22).make().p8(),
             VxDivider(),
             Container(
               padding: EdgeInsets.all(2),
-              height: 400,
+              height: _screenSize.height / 3 + 40,
               alignment: Alignment.center,
               child: ListView.separated(
                   shrinkWrap: true,

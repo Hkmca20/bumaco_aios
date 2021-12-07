@@ -169,7 +169,7 @@ ElevatedButtonThemeData elevatedButtonTheme() {
         borderRadius: BorderRadius.circular(1),
         side: BorderSide(color: kPrimaryColor, width: 0),
       ),
-      padding: EdgeInsets.symmetric(horizontal: 20, vertical: 14),
+      padding: EdgeInsets.symmetric(horizontal: 16, vertical: 16),
       elevation: 0,
       onPrimary: Colors.white,
       primary: kPrimaryColor,

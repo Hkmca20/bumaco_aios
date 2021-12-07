@@ -143,7 +143,8 @@ class _CSearchViewState extends State<CSearchView> {
             onTap: () {
               Get.back();
               Get.toNamed(productRoute, arguments: {
-                'arg_category_item': CategoryModel(category: item.title)
+                'arg_category_item':
+                    CategoryData(id: item.id, category: item.title)
               });
             },
             child: Padding(

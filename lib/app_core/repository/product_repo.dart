@@ -1,4 +1,5 @@
 import 'package:bumaco_aios/app_core/models/models.dart';
+import 'package:bumaco_aios/app_core/models/product_makeup_model.dart';
 import 'package:bumaco_aios/app_utils/utils.dart';
 import 'package:bumaco_aios/network/dio_client.dart';
 import 'package:bumaco_aios/network/dio_client_impl.dart';

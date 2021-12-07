@@ -41,7 +41,7 @@ class SubCategoryView extends StatelessWidget {
                       onTap: () {
                         Get.toNamed(productRoute, arguments: {
                           'arg_category_item':
-                              CategoryModel(category: item.image!)
+                              CategoryData(id: item.id, category: item.image!)
                         });
                         // Get.toNamed(allProductsRoute, arguments: {
                         //   'arg_sub_category_item': item

@@ -1,4 +1,5 @@
 import 'package:bumaco_aios/app_core/models/models.dart';
+import 'package:bumaco_aios/app_core/models/product_makeup_model.dart';
 import 'package:bumaco_aios/app_utils/utils.dart';
 import 'package:bumaco_aios/ui/controller/category_controller.dart';
 import 'package:bumaco_aios/ui/profile/hero_card.dart';

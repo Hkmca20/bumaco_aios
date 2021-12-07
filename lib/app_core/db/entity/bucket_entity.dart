@@ -43,5 +43,5 @@ class BucketEntity {
     this.isFavourite = false,
     this.isBucket = false,
   });
-    double totalPrice = 0.0;
+  double totalPrice = 0.0;
 }

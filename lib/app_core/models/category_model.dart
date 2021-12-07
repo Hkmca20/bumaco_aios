@@ -1,47 +1,16 @@
 import 'package:json_annotation/json_annotation.dart';
-
+import 'category_data.dart';
 part 'category_model.g.dart';
 
 @JsonSerializable()
 class CategoryModel {
-  CategoryModel({
-    this.id = '',
-    this.hasvery,
-    this.category = '',
-    this.url,
-    this.image = '',
-    this.bannerimage = '',
-    this.createdate,
-    this.modifydate,
-    this.status,
+  const CategoryModel({
+    this.status = false,
+    this.data = const [],
   });
 
-  @JsonKey(name: 'id')
-  String id;
-
-  @JsonKey(name: 'has_very')
-  String? hasvery;
-
-  @JsonKey(name: 'category')
-  String category;
-
-  @JsonKey(name: 'url')
-  String? url;
-
-  @JsonKey(name: 'image')
-  String image;
-
-  @JsonKey(name: 'bannerimage')
-  String bannerimage;
-
-  @JsonKey(name: 'createdate')
-  String? createdate;
-
-  @JsonKey(name: 'modifydate')
-  String? modifydate;
-
-  @JsonKey(name: 'status')
-  String? status;
+  final bool status;
+  final List<CategoryData> data;
 
   factory CategoryModel.fromJson(Map<String, dynamic> json) =>
       _$CategoryModelFromJson(json);

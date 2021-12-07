@@ -1,5 +1,4 @@
-import 'package:bumaco_aios/app_core/repository/banner_repo.dart';
-import 'package:bumaco_aios/app_core/repository/news_repo_impl.dart';
+import 'package:bumaco_aios/app_core/repository/repository.dart';
 import 'package:bumaco_aios/app_utils/app_const.dart';
 import 'package:bumaco_aios/ui/controller/checkout_controller.dart';
 import 'package:bumaco_aios/ui/controller/controllers.dart';
@@ -56,5 +55,6 @@ class AppBinding implements Bindings {
     Get.lazyPut(() => RatingController(), fenix: true, tag: RATING_CONTROLLER);
 
     Get.lazyPut(() => BannerRepoImpl(), fenix: true);
+    Get.lazyPut(() => LoginRepoImpl(), fenix: true);
   }
 }

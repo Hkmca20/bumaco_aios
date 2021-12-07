@@ -24,6 +24,9 @@ class ChildCategoryModel {
   @JsonKey(name: 'description')
   String? description;
 
+  @JsonKey(ignore: true)
+  String id = '';
+
   factory ChildCategoryModel.fromJson(Map<String, dynamic> json) =>
       _$ChildCategoryModelFromJson(json);
   Map<String, dynamic> toJson() => _$ChildCategoryModelToJson(this);

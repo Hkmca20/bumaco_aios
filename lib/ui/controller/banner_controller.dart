@@ -38,23 +38,37 @@ class BannerController extends GetxController {
   Future<void> fetchBanners() async {
     var result;
     isLoading.toggle();
-    result = await _bannerRepo.getBannerHomeSlider();
+    // result = await _bannerRepo.getBannerHomeSlider();
+    result = await _bannerRepo.getBannerPositionAll();
     if (result != null) {
       sliderList.addAll(result);
-      bannerPositionList.insert(
-          0, BannerListModel(bannerposition: 'homeslider', bannerlist: result));
+      // bannerPositionList.insert(
+      //     0, BannerListModel(bannerposition: 'homeslider', bannerlist: result));
+
+      List<BannerModel> tempList = <BannerModel>[];
+      print('----------->');
+      for (int i = 1; i < 12; i++) {
+        print('----------clear->$i');
+        tempList.clear();
+        tempList.addAll(sliderList);
+        tempList.where((e) => e.bannerposition.toLowerCase() == 'position$i');
+        bannerPositionList.insert(
+            i,
+            BannerListModel(
+                bannerposition: 'position$i', bannerlist: tempList));
+      }
     } else {
       print('=======No HomeSliderList found========');
     }
-    for (int i = 1; i < 12; i++) {
-      result = await _bannerRepo.getBannerPositions(i);
-      if (result != null) {
-        bannerPositionList.insert(i,
-            BannerListModel(bannerposition: 'position$i', bannerlist: result));
-      } else {
-        print('=======Not found BannerList at pos:$i ========');
-      }
-    }
+    // for (int i = 1; i < 12; i++) {
+    //   result = await _bannerRepo.getBannerPositions(i);
+    //   if (result != null) {
+    //     bannerPositionList.insert(i,
+    //         BannerListModel(bannerposition: 'position$i', bannerlist: result));
+    //   } else {
+    //     print('=======Not found BannerList at pos:$i ========');
+    //   }
+    // }
     isLoading.toggle();
   }
 

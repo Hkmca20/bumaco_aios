@@ -14,7 +14,7 @@ class ItemWidget2 extends StatelessWidget {
         super(key: key);
 
   final EdgeInsets _padding;
-  final CategoryModel item;
+  final CategoryData item;
   final double _screenWidth;
 
   @override
@@ -38,7 +38,8 @@ class ItemWidget2 extends StatelessWidget {
                   blurRadius: 15.0)
             ],
             image: DecorationImage(
-              image: Image.network('${ApiConstants.baseImageUrl}${item.image}').image,
+              image: Image.network('${ApiConstants.baseImageUrl}${item.image}')
+                  .image,
               // image: Image.network('${item.image}').image,
               fit: BoxFit.fill,
             ),

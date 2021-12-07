@@ -17,12 +17,12 @@ class CProductView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final productController = ProductController.to;
-    late final CategoryModel categoryItem;
+    late final CategoryData categoryItem;
     if (Get.arguments != null) {
       categoryItem = Get.arguments['arg_category_item'];
       productController.setCategoryId(categoryItem.id);
     } else
-      categoryItem = CategoryModel(category: 'Products');
+      categoryItem = CategoryData(id: '0', category: 'Products');
     return Scaffold(
       appBar: AppbarHome(title: categoryItem.category),
       body: SingleChildScrollView(
@@ -121,7 +121,7 @@ class CProductView extends StatelessWidget {
                   padding: EdgeInsets.only(top: 6, left: 8, right: 8),
                   child: Image(
                     image: NetworkImage(
-                        ApiConstants.baseImageUrl + categoryItem.bannerimage),
+                        ApiConstants.baseImageUrl + categoryItem.bannerimage!),
                     fit: BoxFit.cover,
                   ),
                 ),

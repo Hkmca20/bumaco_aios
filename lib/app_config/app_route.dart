@@ -54,6 +54,11 @@ List<GetPage<dynamic>> get setRoute => [
           transitionDuration: kTransitionDuration,
           page: () => ProfileView()),
       GetPage(
+          name: passRoute,
+          transition: Transition.fade,
+          transitionDuration: kTransitionDuration,
+          page: () => PasswordView()),
+      GetPage(
           name: otpRoute,
           transition: Transition.fade,
           transitionDuration: kTransitionDuration,

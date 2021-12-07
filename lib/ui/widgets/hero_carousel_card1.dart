@@ -1,5 +1,6 @@
 import 'package:bumaco_aios/app_core/models/category_model.dart';
 import 'package:bumaco_aios/app_core/models/models.dart';
+import 'package:bumaco_aios/app_core/models/product_makeup_model.dart';
 import 'package:bumaco_aios/app_utils/app_const.dart';
 import 'package:bumaco_aios/app_utils/utils.dart';
 import 'package:flutter/material.dart';
@@ -7,7 +8,7 @@ import 'package:get/get.dart';
 import 'package:transparent_image/transparent_image.dart';
 
 class HeroCarouselCard1 extends StatelessWidget {
-  final CategoryModel? category;
+  final CategoryData? category;
   final ProductMakeupModel? product;
   const HeroCarouselCard1({Key? key, this.category, this.product})
       : super(key: key);

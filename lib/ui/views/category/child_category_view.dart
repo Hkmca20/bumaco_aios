@@ -16,7 +16,7 @@ class ChildCategoryView extends StatelessWidget {
     // final childCategoryController = Get.find<ChildCategoryController>();
     final childCategoryController = ChildCategoryController.to;
     final categoryId;
-    late final CategoryModel categoryItem;
+    late final CategoryData categoryItem;
     if (Get.arguments != null) {
       categoryItem = Get.arguments['arg_category_item'];
       categoryId = categoryItem.id;

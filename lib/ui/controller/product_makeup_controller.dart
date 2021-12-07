@@ -1,4 +1,4 @@
-import 'package:bumaco_aios/app_core/models/models.dart';
+import 'package:bumaco_aios/app_core/models/product_makeup_model.dart';
 import 'package:bumaco_aios/app_core/repository/product_repo.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';

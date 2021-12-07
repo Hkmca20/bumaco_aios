@@ -4,6 +4,7 @@ export '../login/gate_view.dart';
 export '../login/signin_view.dart';
 export '../login/auth_view.dart';
 export '../login/otp_view.dart';
+export '../login/pass_view.dart';
 export '../login/faq_view.dart';
 export '../onboard/onboard_view.dart';
 

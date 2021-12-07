@@ -142,6 +142,7 @@ class LocaleController extends GetxController {
   }
 
   void openLocaleSheet(context) {
+    final _screenSize = MediaQuery.of(context).size;
     showModalBottomSheet(
         context: context,
         clipBehavior: Clip.antiAliasWithSaveLayer,
@@ -157,7 +158,7 @@ class LocaleController extends GetxController {
               indent: 150,
               endIndent: 150,
             ).p8(),
-            'choose_country'.tr.text.bold.size(24).make().p8(),
+            'choose_country'.tr.text.bold.size(22).make().p8(),
             VxDivider(),
             // HStack([
             //   'S.No.  Country Name'
@@ -177,7 +178,7 @@ class LocaleController extends GetxController {
             // ]),
             Container(
               padding: EdgeInsets.all(8),
-              height: 400,
+              height: _screenSize.height / 3 + 40,
               alignment: Alignment.center,
               child: ListView.separated(
                   shrinkWrap: true,
@@ -210,6 +211,13 @@ class LocaleController extends GetxController {
                               .make()
                               .p16()
                               .expand(),
+                          '${localeList[index]['currency_symbol']}'
+                              .text
+                              .align(TextAlign.end)
+                              .size(16)
+                              .fontWeight(FontWeight.w300)
+                              .make()
+                              .p16(),
                           Icon(
                             Icons.arrow_forward_ios_rounded,
                             color: kGreyLightColor,

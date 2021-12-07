@@ -114,7 +114,7 @@ class BucketView extends StatelessWidget {
                                       .size(14)
                                       .make()
                                       .p12()),
-                              '${lController.selectedCurrency}${bController.totalAmount}'
+                              '${lController.selectedSymbol}${bController.totalAmount}'
                                   .text
                                   .size(14)
                                   .make()
@@ -129,7 +129,7 @@ class BucketView extends StatelessWidget {
                                       .size(14)
                                       .make()
                                       .p12()),
-                              '${lController.selectedCurrency}${bController.taxAmount}'
+                              '${lController.selectedSymbol}${bController.taxAmount}'
                                   .text
                                   .size(14)
                                   .make()
@@ -144,7 +144,7 @@ class BucketView extends StatelessWidget {
                                       .size(14)
                                       .make()
                                       .p12()),
-                              '${lController.selectedCurrency}${bController.discountAmt}'
+                              '${lController.selectedSymbol}${bController.discountAmt}'
                                   .text
                                   .size(14)
                                   .make()
@@ -159,7 +159,7 @@ class BucketView extends StatelessWidget {
                                       .size(14)
                                       .make()
                                       .p12()),
-                              '${lController.selectedCurrency}${bController.shippingAmt}'
+                              '${lController.selectedSymbol}${bController.shippingAmt}'
                                   .text
                                   .size(14)
                                   .make()
@@ -180,7 +180,7 @@ class BucketView extends StatelessWidget {
                               //     .size(24)
                               //     .make()
                               //     .p12(),
-                              '${lController.selectedCurrency}${bController.grandTotal.value}'
+                              '${lController.selectedSymbol}${bController.grandTotal.value}'
                                   // .numCurrencyWithLocale(locale: 'en_UK')
                                   // .numCurrencyWithLocale(locale: 'ar_AE')
                                   .text

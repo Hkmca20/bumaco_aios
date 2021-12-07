@@ -23,6 +23,7 @@ class BumacoLocale extends Translations {
           'signin_with_facebook': 'Continue with Facebook',
           // --Login/OTP--
           'loading_please_wait': 'Loading, Please wait',
+          'password': 'Password',
           'otp': 'OTP',
           'seconds': 'Seconds',
           'please_wait_for': 'Please wait for',
@@ -155,6 +156,7 @@ class BumacoLocale extends Translations {
           'signin_with_facebook': 'تسجيل الدخول باستخدام الفيسبوك',
           // --Login/OTP--
           'loading_please_wait': 'جاري التحميل انتظر من فضلك',
+          'password': 'كلمه السر',
           'otp': 'دبوس مرة واحدة',
           'seconds': 'ثواني',
           'please_wait_for': 'من فضلك انتظر',

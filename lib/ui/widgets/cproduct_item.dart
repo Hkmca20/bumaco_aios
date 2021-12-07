@@ -161,7 +161,7 @@ class CProductItem extends StatelessWidget {
                     TextSpan(
                       text: prod.mrp == ''
                           ? ''
-                          : '${lController.selectedCurrency}${prod.mrp}',
+                          : '${lController.selectedSymbol}${prod.mrp}',
                       style: TextStyle(
                         fontSize: 12,
                         color: kGreyLightColor,
@@ -169,7 +169,7 @@ class CProductItem extends StatelessWidget {
                       ),
                     ),
                     TextSpan(
-                      text: '  ${lController.selectedCurrency}${prod.mrp}',
+                      text: '  ${lController.selectedSymbol}${prod.mrp}',
                       style: TextStyle(
                         fontSize: 14,
                       ),
@@ -218,7 +218,7 @@ class CProductItem extends StatelessWidget {
               //     ],
               //   ),
               // ),
-              SizedBox(height: 30),
+              SizedBox(height: 20),
               VxDivider(),
               HStack([
                 Obx(

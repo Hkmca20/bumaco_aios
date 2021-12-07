@@ -14,6 +14,7 @@ class OnboardingView extends StatelessWidget {
     final _screenSize = MediaQuery.of(context).size;
     return SafeArea(
       child: Scaffold(
+        resizeToAvoidBottomInset: false,
         backgroundColor: kWhiteColor,
         body: Stack(
           textDirection: TextDirection.rtl,

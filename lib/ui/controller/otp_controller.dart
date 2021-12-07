@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:bumaco_aios/app_core/models/models.dart';
 import 'package:bumaco_aios/app_utils/app_const.dart';
 import 'package:bumaco_aios/app_utils/app_loading.dart';
 import 'package:bumaco_aios/ui/login/signup_view.dart';
@@ -14,10 +15,13 @@ class OTPController extends GetxController {
   var isLoading = false.obs;
   final otpCTR = TextEditingController();
   final box = GetStorage(BOX_APP);
-  late Timer _timerOTP;
+  late final Timer _timerOTP;
+  late final LoginData? argUser;
 
   @override
   void onInit() {
+    argUser = Get.arguments['arg_customer'];
+
     _timerOTP = Timer.periodic(
         Duration(seconds: 1),
         (t) => {

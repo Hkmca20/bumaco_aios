@@ -50,7 +50,8 @@ class ProductModel {
   final String description;
 
   // var quantity=0.obs;
-  RxBool isFavorite=false.obs;
+  @JsonKey(ignore: true)
+  var isFavorite = false.obs;
 
   factory ProductModel.fromJson(Map<String, dynamic> json) =>
       _$ProductModelFromJson(json);

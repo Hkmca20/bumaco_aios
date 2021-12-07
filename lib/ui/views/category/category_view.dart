@@ -105,7 +105,7 @@ class CategoryView extends StatelessWidget {
                       scrollDirection: Axis.vertical,
                       itemCount: categoryController.categoryList.length,
                       itemBuilder: (context, index) {
-                        final CategoryModel item =
+                        final CategoryData item =
                             categoryController.categoryList[index];
                         return InkWell(
                           onTap: () {

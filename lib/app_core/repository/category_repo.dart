@@ -5,7 +5,7 @@ import 'package:bumaco_aios/network/dio_client_impl.dart';
 import 'package:get/get.dart';
 
 abstract class CategoryRepo {
-  Future<List<CategoryModel>?> getCategory();
+  Future<List<CategoryData>?> getCategory();
   Future<List<ChildCategoryModel>?> getChildCategory(categoryId);
   Future<List<SubCategoryModel>?> getSubCategory(childCategoryId);
 }
@@ -18,15 +18,15 @@ class CategoryRepoImpl extends CategoryRepo {
   }
 
   @override
-  Future<List<CategoryModel>?> getCategory() async {
+  Future<List<CategoryData>?> getCategory() async {
     final response;
     try {
       response = await _client.getRequest(ApiConstants.categoryApi);
-      // if there is a key before array, use this : return (response.data['data'] as List).map((child)=> Children.fromJson(child)).toList();
+      CategoryModel categorymodel = CategoryModel.fromJson(response.data);
+      final List<CategoryData> categoryList = categorymodel.data;
 
-      final categoryList = (response.data as List)
-          .map((x) => CategoryModel.fromJson(x))
-          .toList();
+      // if there is a key before array, use this : return (response.data['data'] as List).map((child)=> Children.fromJson(child)).toList();
+      // categorymodel.data.map((x) => Categorymodel.fromJson(x)).toList();
       return categoryList;
     } on Exception catch (error, stacktrace) {
       print(error);
@@ -55,7 +55,8 @@ class CategoryRepoImpl extends CategoryRepo {
   Future<List<SubCategoryModel>?> getSubCategory(childCategoryId) async {
     final response;
     try {
-      response = await _client.getRequest('${ApiConstants.subCategoryApi}?id=$childCategoryId');
+      response = await _client
+          .getRequest('${ApiConstants.subCategoryApi}?id=$childCategoryId');
       final responseList = (response.data as List)
           .map((x) => SubCategoryModel.fromJson(x))
           .toList();

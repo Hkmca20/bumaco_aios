@@ -1,11 +1,13 @@
 import 'dart:async';
 
+import 'package:bumaco_aios/app_config/app_environment.dart';
 import 'package:bumaco_aios/app_core/db/database/app_database.dart';
 import 'package:bumaco_aios/network/dio_client.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'app_config/config.dart';
@@ -20,6 +22,7 @@ Future<void> _messageHandler(RemoteMessage message) async {
 final firebaseConfig = const FirebaseOptions(
   // apiKey: 'AIzaSyAbFSdOllMd0mw3JICK9AIqM3RH9K-39-0',
   apiKey: 'AIzaSyBjA5X_1RfRWdjP88Ri3hmLfIp1qyo9F_Y',
+  // ApiConstants.apiKey,
   appId: '1:758677051271:android:d2436d6b3591fa1b41e522',
   messagingSenderId: '758677051271',
   authDomain: 'bumaco-2021.firebaseapp.com',
@@ -39,6 +42,7 @@ Future<void> main() async {
     FirebaseMessaging.onBackgroundMessage(_messageHandler);
     String? token = await FirebaseMessaging.instance.getToken();
     putStorageValue(BOX_FCM_TOKEN, token);
+    await dotenv.load(fileName: AppEnvironment.fileName);
 
     // Get.lazyPut(() => SettingsController(),
     //     fenix: true, tag: SETTINGS_CONTROLLER);

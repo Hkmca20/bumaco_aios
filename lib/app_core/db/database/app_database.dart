@@ -19,8 +19,26 @@ abstract class AppDatabase extends FloorDatabase {
   NotificationDao get notificationDao;
 
   static Future<AppDatabase> init() async {
-    AppDatabase instance =
-        await $FloorAppDatabase.databaseBuilder(DB_NAME).build();
-    return instance;
+    final database = await $FloorAppDatabase
+        .databaseBuilder(DB_NAME)
+        // .addMigrations([migration1to2])
+        // .addCallback(callback)
+        .build();
+    return database;
   }
+  // In-Memory Database
+  // final database = await $FloorAppDatabase.inMemoryDatabaseBuilder().build();
 }
+// create migration
+// final migration1to2 = Migration(1, 2, (database) {
+//   database.execute('ALTER TABLE person ADD COLUMN nickname TEXT');
+// });
+
+// Callback
+// final callback = Callback(
+//   onCreate: (database, version) {/* database has been created */},
+//   onOpen: (database) {/* database has been opened */},
+//   onUpgrade: (database, startVersion, endVersion) {
+//     /* database has been upgraded */
+//   },
+// );

@@ -29,7 +29,7 @@ dependencies:
   flutter_google_places: ^0.3.0
   location: ^4.3.0
   get: ^4.3.8
-  dio: ^4.0.0
+  dio: ^4.0.4
   floor: ^1.1.0
   uuid: ^3.0.4
   http: ^0.13.3
@@ -39,7 +39,6 @@ dependencies:
   velocity_x: ^3.3.0
   google_fonts: ^2.1.0
   flutter_sound: ^8.3.12
-  json_serializable: ^6.1.0
   transparent_image: ^2.0.0
   carousel_slider: ^4.0.0
   flutter_bloc: ^8.0.0
@@ -54,12 +53,15 @@ dependencies:
   razorpay_flutter: ^1.2.7
   chewie: ^1.1.0
   webview_flutter: ^2.3.1
+  json_annotation: ^4.4.0
+  flutter_dotenv: ^5.0.2
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
   floor_generator: ^1.1.0
   build_runner: ^2.0.0
+  json_serializable: ^6.1.1
 
 # The following section is specific to Flutter.
 flutter:
@@ -71,6 +73,8 @@ flutter:
 
   # To add assets to your application, add an assets section, like this:
   assets:
+    - .env.dev
+    - .env.pro
     - assets/images/
     - assets/icons/
     - assets/rive/

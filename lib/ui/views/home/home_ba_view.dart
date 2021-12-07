@@ -174,7 +174,7 @@ class HomeBaView extends StatelessWidget {
                             scrollDirection: Axis.vertical,
                             itemCount: cController.categoryList.length,
                             itemBuilder: (context, index) {
-                              final CategoryModel item =
+                              final CategoryData item =
                                   cController.categoryList[index];
                               return ExpansionTile(
                                 title: Row(
@@ -236,7 +236,9 @@ class HomeBaView extends StatelessWidget {
                                         onTap: () {
                                           Get.back();
                                           Get.toNamed(productRoute, arguments: {
-                                            'arg_category_item': CategoryModel(
+                                            'arg_category_item': CategoryData(
+                                                id: cController
+                                                    .dummyChildList[index].id,
                                                 category: cController
                                                     .dummyChildList[index]
                                                     .category)
@@ -323,7 +325,7 @@ class HomeBaView extends StatelessWidget {
                           scrollDirection: Axis.horizontal,
                           itemCount: cController.categoryList.length,
                           itemBuilder: (context, index) {
-                            final CategoryModel item =
+                            final CategoryData item =
                                 cController.categoryList[index];
                             return Card(
                               color: kPrimaryLightColor.withOpacity(1),
@@ -361,8 +363,8 @@ class HomeBaView extends StatelessWidget {
                                 ),
                                 onTap: () {
                                   Get.toNamed(productRoute, arguments: {
-                                    'arg_category_item':
-                                        CategoryModel(category: item.category)
+                                    'arg_category_item': CategoryData(
+                                        id: item.id, category: item.category)
                                   });
                                   // Get.toNamed(cProductRoute, arguments: {
                                   //   'arg_category_item': CategoryModel(category: item.category)

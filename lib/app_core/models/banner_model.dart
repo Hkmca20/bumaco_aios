@@ -58,9 +58,11 @@ class BannerModel {
   @JsonKey(name: 'status')
   String? status;
 
+  @JsonKey(ignore: true)
   Color color;
 
-  RxBool selected = false.obs;
+  @JsonKey(ignore: true)
+  var selected = false.obs;
 
   factory BannerModel.fromJson(Map<String, dynamic> json) =>
       _$BannerModelFromJson(json);

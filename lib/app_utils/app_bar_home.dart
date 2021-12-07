@@ -1,5 +1,6 @@
 import 'package:bumaco_aios/app_utils/app_const.dart';
 import 'package:bumaco_aios/app_utils/utils.dart';
+import 'package:bumaco_aios/ui/views/dashboard/tabbar_view.dart';
 import 'package:flutter/material.dart';
 import 'package:velocity_x/velocity_x.dart';
 
@@ -63,6 +64,33 @@ class AppbarHome extends StatelessWidget with PreferredSizeWidget {
       // actionsIconTheme: IconTheme.of(context).copyWith(color: iconColor),
       // iconTheme: IconTheme.of(context).copyWith(color: iconColor),
       actions: actionList ?? [],
+      // bottom: TabBar(
+      //   indicatorColor: kWhiteColor,
+      //   indicatorWeight: 5,
+      //   tabs: [
+      //     Tab(icon: Icon(Icons.home), text: 'Home'),
+      //     Tab(icon: Icon(Icons.star), text: 'Feed'),
+      //     Tab(icon: Icon(Icons.face), text: 'Profile'),
+      //     Tab(icon: Icon(Icons.settings), text: 'Settings')
+      //   ],
+      // ),
+      // body: TabbarView(children: [
+      //   Text('Home Page'),
+      //   Text('Feed Page'),
+      //   Text('Account Page'),
+      //   Text('Settings Page'),
+      // ]),
+      // flexibleSpace: Container(
+      //   decoration: BoxDecoration(
+      //     gradient: LinearGradient(
+      //       colors: [Colors.purple, Colors.red],
+      //       begin: Alignment.bottomRight,
+      //       end: Alignment.topLeft,
+      //     ),
+      //   ),
+      // ),
+      elevation: 2,
+      titleSpacing: 4,
     );
   }
 

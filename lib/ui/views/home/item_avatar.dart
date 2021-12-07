@@ -12,7 +12,7 @@ class SampleAvatar extends StatelessWidget {
         super(key: key);
 
   final EdgeInsets _padding;
-  final CategoryModel item;
+  final CategoryData item;
 
   @override
   Widget build(BuildContext context) {

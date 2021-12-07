@@ -5,8 +5,8 @@ class DioLogging extends Interceptor {
   void onRequest(RequestOptions options, RequestInterceptorHandler handler) {
     print('REQUEST[${options.method}] => PATH: ${options.path} '
         // '=> HEADERS: ${options.headers} '
-        '=> Request Values: ${options.queryParameters} '
-        );
+        '=> Request Param: ${options.data} '
+        '=> Request Query: ${options.queryParameters} ');
     return super.onRequest(options, handler);
   }
 

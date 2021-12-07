@@ -86,6 +86,7 @@ class LandingView extends StatelessWidget {
 
   final signinController = SigninController.to;
   final bannerController = BannerController.to;
+  final lController = LocaleController.to;
   @override
   Widget build(BuildContext context) {
     final _screenSize = MediaQuery.of(context).size;
@@ -121,8 +122,39 @@ class LandingView extends StatelessWidget {
             ),
           ),
           Positioned(
-            width: _screenSize.width,
+            width: _screenSize.width / 2,
             top: 70,
+            right: 0,
+            child: VStack(
+              [
+                10.heightBox,
+                'Country (بلد)'.tr.text.bold.center.white.make(),
+                Obx(
+                  () => ('' +
+                          lController.selectedCountry.value.tr +
+                          ' - ' +
+                          lController.selectedCurrency.value.tr +
+                          ' ( ' +
+                          lController.selectedSymbol.value.tr +
+                          ' )' +
+                          ' - ' +
+                          lController.selectedLanguage.value.tr)
+                      .text
+                      .center
+                      .white
+                      .make(),
+                ),
+              ],
+              alignment: MainAxisAlignment.spaceBetween,
+              crossAlignment: CrossAxisAlignment.stretch,
+            ).onTap(() {
+              lController.openLocaleSheet(context);
+            }),
+          ),
+          Positioned(
+            width: _screenSize.width / 2,
+            top: 70,
+            left: 0,
             child: Column(
               children: [
                 HStack(
