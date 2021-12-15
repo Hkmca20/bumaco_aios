@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:bumaco_aios/app_core/models/models.dart';
 import 'package:bumaco_aios/app_utils/app_const.dart';
 import 'package:bumaco_aios/network/dio_client.dart';
@@ -5,7 +7,10 @@ import 'package:bumaco_aios/network/dio_client_impl.dart';
 import 'package:get/get.dart';
 
 abstract class LoginRepo {
-  Future<LoginModel?> getLogin(phone);
+  Future<LoginModel?> checkLogin(isLoginMobileNumber, phoneOrEmail);
+  Future<LoginModel?> getLogin(
+      isLoginMobileNumber, phone, isOTP, otpOrPassword);
+  Future<bool> updateProfile(LoginData loginData);
 }
 
 class LoginRepoImpl extends LoginRepo {
@@ -15,29 +20,98 @@ class LoginRepoImpl extends LoginRepo {
     _client = Get.put(DioClientImpl());
   }
   @override
-  Future<LoginModel?> getLogin(phone) async {
+  Future<LoginModel?> checkLogin(isLoginMoibileNumber, phoneOrEmail) async {
     final response;
     try {
-      var params = {
-        'phone': phone,
-        // 'phone': '9760909895',
-        'password': '123456',
-        'email': 'Sachin.K@gmail.com',
-        'name': 'Sachin K.',
-        'id': 17,
-      };
+      var phone = '', email = '';
+      if (isLoginMoibileNumber) {
+        phone = phoneOrEmail;
+      } else {
+        email = phoneOrEmail;
+      }
+      var params = {'phone': phone, 'email': email};
       response =
           await _client.request(ApiConstants.loginApi, Method.POST, params);
 
-      final int statusCode = response.statusCode;
-      LoginModel loginRepo = LoginModel.fromJson(response.data);
-
-      print('loginRepo.toString()======================$statusCode');
-      print(loginRepo.message);
+      LoginModel loginRepo;
+      try {
+        String checkMessage = response.data['message'];
+        if (checkMessage.contains('register')) {
+          loginRepo = LoginModel(
+            status: true,
+            message: 'Otp is sent to your mobile number',
+            loginData: LoginData(
+                id: response.data['data'].toString(),
+                phone: phone,
+                email: email,
+                otp: '246810',
+                createDate: DateTime.now(),
+                modifiDate: DateTime.now()),
+          );
+          putStorageValue(BOX_CUSTOMER_ID, loginRepo.loginData.id);
+          Get.back();
+          Get.toNamed(otpRoute,
+              arguments: {'arg_customer': loginRepo.loginData});
+        } else {
+          loginRepo = LoginModel.fromJson(response.data);
+        }
+      } on Exception catch (e) {
+        print(e);
+        return null;
+      }
       return loginRepo;
     } on Exception catch (e) {
       print(e);
       return null;
+    }
+  }
+
+  @override
+  Future<LoginModel?> getLogin(
+      isLoginMobileNumber, mobileOrEmail, isOTP, otpOrPassword) async {
+    final response;
+    try {
+      var phone = '', email = '', otp = '', password = '';
+      var params = {
+        'phone': phone,
+        'email': email,
+        'otp': otp,
+        'password': password,
+        'id': getStorageStringValue(BOX_CUSTOMER_ID),
+      };
+      response =
+          await _client.request(ApiConstants.userloginApi, Method.POST, params);
+
+      var loginRepo = LoginModel.fromJson(response.data);
+      return loginRepo;
+    } on Exception catch (e) {
+      print(e);
+      return null;
+    }
+  }
+
+  @override
+  Future<bool> updateProfile(LoginData loginData) async {
+    final response;
+    try {
+      var params = {
+        'id': getStorageIntValue(BOX_CUSTOMER_ID),
+        'name': loginData.name,
+        'phone': loginData.phone,
+        'email': loginData.email,
+        'password': loginData.password,
+      };
+      response =
+          await _client.request(ApiConstants.profileApi, Method.PUT, params);
+
+      final status = response.data['status'];
+      if (status) {
+        bumacoSnackbar('alert'.tr, response.data['message']);
+      }
+      return status;
+    } on Exception catch (e) {
+      print(e);
+      return false;
     }
   }
 }

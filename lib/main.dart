@@ -28,6 +28,20 @@ final firebaseConfig = const FirebaseOptions(
   authDomain: 'bumaco-2021.firebaseapp.com',
   projectId: 'bumaco-2021',
 );
+double deviceScale = 1.0;
+setDeviceScaler(context) {
+  final mSize = MediaQuery.of(context).size;
+  // You can tweak this so scale for different devices. For example tiny iPhone SE can by super smaller or big :-)
+  double deviceHeightInPoints = (mSize.height / mSize.aspectRatio);
+  if (deviceHeightInPoints < 700.0) {
+    deviceScale = 0.90;
+  }
+  if (deviceHeightInPoints < 600.0) {
+    deviceScale = 0.80;
+  }
+  print('Device scale: ' + deviceScale.toString());
+}
+
 Future<void> main() async {
   await runZonedGuarded(() async {
     WidgetsFlutterBinding.ensureInitialized();
@@ -35,14 +49,17 @@ Future<void> main() async {
     try {
       // await Firebase.initializeApp();
       await Firebase.initializeApp(options: firebaseConfig);
+      FirebaseMessaging.onBackgroundMessage(_messageHandler);
+      String? token = await FirebaseMessaging.instance.getToken();
+      putStorageValue(BOX_FCM_TOKEN, token);
     } on Exception catch (e, s) {
       print('error: $e');
       print('stack: $s');
     }
-    FirebaseMessaging.onBackgroundMessage(_messageHandler);
-    String? token = await FirebaseMessaging.instance.getToken();
-    putStorageValue(BOX_FCM_TOKEN, token);
     await dotenv.load(fileName: AppEnvironment.fileName);
+    await Future.delayed(Duration.zero, () {
+      // setDeviceScaler(context);
+    });
 
     // Get.lazyPut(() => SettingsController(),
     //     fenix: true, tag: SETTINGS_CONTROLLER);
@@ -58,6 +75,7 @@ Future<void> main() async {
 }
 
 class MyApp extends StatelessWidget {
+  final GlobalKey<ScaffoldMessengerState> _scaffoldMessengerKey = GlobalKey();
   // final settingsController = SettingsController.to;
   final lController = LocaleController.to;
   @override
@@ -75,7 +93,11 @@ class MyApp extends StatelessWidget {
     // print(Get.deviceLocale); // deviceCurrentLocale
     // print(Get.locale); // appCurrentLocale
 
+    // get the global context as follows
+    // _scaffoldMessengerKey.currentState.showSnackBar(....);
+    // ScaffoldMessenger.of(context).showSnackBar(....);
     return GetMaterialApp(
+      scaffoldMessengerKey: _scaffoldMessengerKey,
       enableLog: true,
       defaultTransition: Transition.native,
       transitionDuration: Duration(milliseconds: 250),

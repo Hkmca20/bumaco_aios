@@ -47,10 +47,10 @@ class CProductDetailView extends StatelessWidget {
             },
           ),
           IconButton(
-            icon: Obx(() => pController.favouriteList.length == 0
+            icon: Obx(() => pController.productListFavourite.length == 0
                 ? Icon(Icons.favorite_border_outlined)
                 : Icon(Icons.favorite_border_outlined).p4().badge(
-                    count: pController.favouriteList.length,
+                    count: pController.productListFavourite.length,
                     color: kPrimaryColor,
                     size: 12)),
             tooltip: 'wishlist'.tr,
@@ -117,10 +117,8 @@ class CProductDetailView extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Expanded(
-                child: pdController.productItem.product.text
+                child: pdController.productItem.product.text.xl.capitalize
                     .fontWeight(FontWeight.w400)
-                    .capitalize
-                    .size(20)
                     .make(),
               ),
               InkWell(
@@ -153,8 +151,8 @@ class CProductDetailView extends StatelessWidget {
               rating: 4.5,
               onRatingChanged: (rating) => rating = rating,
             ),
-            ' 4.6/5'.text.bold.letterSpacing(2).make().p2(),
-            ' (17 Ratings)'.text.color(kGreyLightColor).make(),
+            ' 4.6/5'.text.lg.bold.letterSpacing(2).make().p2(),
+            ' (17 Ratings)'.text.lg.color(kGreyLightColor).make(),
           ]),
         ),
 
@@ -163,42 +161,28 @@ class CProductDetailView extends StatelessWidget {
           padding: EdgeInsets.symmetric(horizontal: 20, vertical: 4),
           child:
               Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
-            Text.rich(
-              TextSpan(children: [
-                TextSpan(
-                  text: 'MRP: ',
-                  style: TextStyle(
-                    fontSize: 16,
-                  ),
-                ),
-                TextSpan(
-                  text: pdController.productItem.mrp == ''
-                      ? ''
-                      : '${lController.selectedSymbol}${pdController.productItem.mrp}',
-                  style: TextStyle(
-                    fontSize: 16,
-                    color: kGreyLightColor,
-                    decoration: TextDecoration.lineThrough,
-                  ),
-                ),
-                TextSpan(
-                  text:
-                      '  ${lController.selectedSymbol}${pdController.productItem.mrp}',
-                  style: TextStyle(
-                    fontSize: 18,
-                  ),
-                ),
-              ]),
-            ),
+            'MRP: '.richText.lg.make(),
+            (pdController.productItem.mrp == ''
+                    ? ''
+                    : '${lController.selectedSymbol}${pdController.productItem.mrp}')
+                .richText
+                .sm
+                .lineThrough
+                .color(kGreyLightColor)
+                .make(),
+            ' ${lController.selectedSymbol}${pdController.productItem.mrp}'
+                .richText
+                .lg
+                .make(),
             Container(
                 height: 20, child: VerticalDivider(color: kDarkGreyColor)),
-            '20% Off'.text.size(18).bold.color(kPrimaryColor).make(),
+            '20% Off'.text.xl.bold.color(kPrimaryColor).make(),
             Expanded(child: SizedBox(width: 5))
           ]),
         ),
         Padding(
           padding: EdgeInsets.only(left: 20),
-          child: 'Inclusive of all taxes'.text.gray400.make(),
+          child: 'Inclusive of all taxes'.text.sm.gray400.make(),
         ),
         Padding(
           padding: EdgeInsets.symmetric(horizontal: 10, vertical: 20),
@@ -214,11 +198,12 @@ class CProductDetailView extends StatelessWidget {
         Padding(
           padding: EdgeInsets.symmetric(horizontal: 20, vertical: 4),
           child: HStack([
-            'Selected Size - '.text.coolGray400.make(),
+            'Selected Size - '.text.lg.coolGray400.make(),
             Obx(() => pdController
                 .sizeChoiceList[pdController.sizeChoiceIndex.value]
                 .bannertext
                 .text
+                .base
                 .bold
                 .make()),
           ]),
@@ -235,7 +220,7 @@ class CProductDetailView extends StatelessWidget {
                       const EdgeInsets.symmetric(vertical: 5, horizontal: 4),
                   shape:
                       StadiumBorder(side: BorderSide(color: kGreyLightColor)),
-                  label: item.bannertext.text.make(),
+                  label: item.bannertext.text.lg.make(),
                   selected: pdController.sizeChoiceIndex.value == index,
                   selectedColor: Colors.green,
                   onSelected: (bool selected) {
@@ -252,11 +237,12 @@ class CProductDetailView extends StatelessWidget {
         Padding(
           padding: EdgeInsets.symmetric(horizontal: 20, vertical: 4),
           child: HStack([
-            'Selected Shade - '.text.coolGray400.make(),
+            'Selected Shade - '.text.coolGray400.lg.make(),
             Obx(() => pdController
                     .shadeChoiceList[pdController.shadeChoiceIndex.value]
                     .bannertext
                     .text
+                    .lg
                     .bold
                     .make()
                 // ' construct..'
@@ -273,7 +259,7 @@ class CProductDetailView extends StatelessWidget {
                 final item = pdController.shadeChoiceList[index];
                 return ChoiceChip(
                   padding:
-                      const EdgeInsets.symmetric(vertical: 5, horizontal: 4),
+                      const EdgeInsets.symmetric(vertical: 4, horizontal: 6),
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.all(Radius.circular(2))),
                   label: (pdController.shadeChoiceIndex.value == index
@@ -306,8 +292,8 @@ class CProductDetailView extends StatelessWidget {
         Padding(
           padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
           child: HStack([
-            'SOLD BY: '.text.gray400.make(),
-            'Bumaco E Retails Pvt ltd.'.text.make()
+            'SOLD BY: '.text.lg.gray400.make(),
+            'Bumaco E Retails Pvt ltd.'.text.lg.make()
           ]),
         ),
         VxDivider(
@@ -329,7 +315,7 @@ class CProductDetailView extends StatelessWidget {
                 },
                 child: HStack([
                   Icon(Icons.policy_rounded, color: kPrimaryColor),
-                  '100% Authentic'.text.make()
+                  '100% Authentic'.text.base.make().p2()
                 ], alignment: MainAxisAlignment.center),
               ),
             ),
@@ -346,7 +332,7 @@ class CProductDetailView extends StatelessWidget {
                 },
                 child: HStack([
                   Icon(Icons.repeat_rounded, color: kPrimaryColor),
-                  'Return Policy'.text.make()
+                  'Return Policy'.text.base.make().p2()
                 ], alignment: MainAxisAlignment.center),
               ),
             ),
@@ -360,7 +346,7 @@ class CProductDetailView extends StatelessWidget {
         //Product info
         Padding(
           padding: EdgeInsets.all(10),
-          child: 'Description'.text.bold.size(16).make(),
+          child: 'Description'.text.bold.xl.make(),
         ),
         VxDivider(
           color: commonGreyColor,
@@ -368,9 +354,8 @@ class CProductDetailView extends StatelessWidget {
         ),
         Padding(
           padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-          child: pdController.productItem.shortDescription.text
+          child: pdController.productItem.shortDescription.text.base
               .fontWeight(FontWeight.w200)
-              .size(16)
               .make(),
         ),
         VxDivider(),
@@ -383,7 +368,7 @@ class CProductDetailView extends StatelessWidget {
                     'arg_product_item': pdController.productItem
                   });
                 },
-                child: 'READ MORE'.text.bold.size(16).make()),
+                child: 'READ MORE'.text.bold.lg.make()),
             SizedBox(
               width: 5,
             ),
@@ -400,7 +385,7 @@ class CProductDetailView extends StatelessWidget {
         //RATING AND REVIEW SECTION
         Padding(
           padding: EdgeInsets.all(10),
-          child: 'Rating & Reviews'.text.bold.make(),
+          child: 'Rating & Reviews'.text.xl.bold.make(),
         ),
         VxDivider(),
         Padding(
@@ -412,8 +397,8 @@ class CProductDetailView extends StatelessWidget {
                 '/5'.text.gray300.xl4.make().p2(),
                 SizedBox(width: 2),
                 VStack([
-                  'Overall Rating'.text.fontWeight(FontWeight.w200).make(),
-                  '27 Ratings'.text.size(12).color(kGreyLightColor).make(),
+                  'Overall Rating'.text.lg.fontWeight(FontWeight.w200).make(),
+                  '27 Ratings'.text.sm.color(kGreyLightColor).make(),
                 ]).p4(),
                 Expanded(
                     child: Align(
@@ -434,6 +419,7 @@ class CProductDetailView extends StatelessWidget {
                                       horizontal: 22, vertical: 10),
                                   child: 'RATE'
                                       .text
+                                      .lg
                                       .bold
                                       .color(kPrimaryColor)
                                       .make())),
@@ -448,9 +434,9 @@ class CProductDetailView extends StatelessWidget {
               padding: EdgeInsets.symmetric(horizontal: 5),
               physics: ClampingScrollPhysics(),
               scrollDirection: Axis.horizontal,
-              itemCount: pController.allProductList.length,
+              itemCount: pController.productListAll.length,
               itemBuilder: (context, index) {
-                final ProductModel item = pController.allProductList[index];
+                final ProductModel item = pController.productListAll[index];
                 return CachedNetworkImage(
                         imageUrl: ApiConstants.baseImageUrl + item.fimage)
                     .paddingSymmetric(horizontal: 5, vertical: 4)
@@ -460,7 +446,7 @@ class CProductDetailView extends StatelessWidget {
                 });
               }),
         ),
-        'MOST USEFUL REVIEW'.text.bold.make().p16(),
+        'MOST USEFUL REVIEW'.text.lg.bold.make().p16(),
         //-----ReviewItemWidget--
         ReviewItem(),
         //------end review item--
@@ -473,7 +459,7 @@ class CProductDetailView extends StatelessWidget {
           child: Padding(
             padding: EdgeInsets.all(15),
             child: HStack([
-              'READ ALL REVIEWS'.text.bold.make(),
+              'READ ALL REVIEWS'.text.lg.bold.make(),
               SizedBox(
                 width: 5,
               ),
@@ -489,7 +475,7 @@ class CProductDetailView extends StatelessWidget {
         VxDivider(),
 
         //DELIVERY SECTION
-        'Delivery options'.text.bold.make().paddingAll(12),
+        'Delivery options'.text.xl.bold.make().paddingAll(12),
         VxDivider(),
         Container(
           decoration: BoxDecoration(
@@ -520,8 +506,8 @@ class CProductDetailView extends StatelessWidget {
               },
               child: Obx(
                 () => pdController.pincode.value.length > 2
-                    ? 'CHECK'.text.bold.color(kPrimaryColor).make().p8()
-                    : 'CHECK'.text.bold.gray500.make().p8(),
+                    ? 'CHECK'.text.bold.lg.color(kPrimaryColor).make().p8()
+                    : 'CHECK'.text.bold.lg.gray500.make().p8(),
               ),
             ),
             SizedBox(width: 5),
@@ -549,6 +535,7 @@ class CProductDetailView extends StatelessWidget {
         //Recommendation SECTION
         'More from ${pdController.productItem.brand}'
             .text
+            .xl
             .bold
             .make()
             .paddingAll(12),
@@ -560,9 +547,9 @@ class CProductDetailView extends StatelessWidget {
               // },
               physics: ClampingScrollPhysics(),
               scrollDirection: Axis.horizontal,
-              itemCount: pController.allProductList.length,
+              itemCount: pController.productListAll.length,
               itemBuilder: (context, index) {
-                final ProductModel item = pController.allProductList[index];
+                final ProductModel item = pController.productListAll[index];
                 return CMoreProductItem(
                         item: item,
                         screenSize: _screenSize,
@@ -579,7 +566,7 @@ class CProductDetailView extends StatelessWidget {
           child: Padding(
             padding: EdgeInsets.all(15),
             child: HStack([
-              'VIEW ALL PRODUCTS'.text.bold.make(),
+              'VIEW ALL PRODUCTS'.text.lg.bold.make(),
               SizedBox(
                 width: 5,
               ),
@@ -591,7 +578,7 @@ class CProductDetailView extends StatelessWidget {
         VxDivider(color: commonGreyColor, width: 10),
         VxDivider(),
         //Recommendation SECTION
-        'Customer Also Viewed'.text.bold.make().paddingAll(12),
+        'Customer Also Viewed'.text.xl.bold.make().paddingAll(12),
         Container(
           height: 270,
           child: ListView.builder(
@@ -600,9 +587,9 @@ class CProductDetailView extends StatelessWidget {
               // },
               physics: ClampingScrollPhysics(),
               scrollDirection: Axis.horizontal,
-              itemCount: pController.allProductList.length,
+              itemCount: pController.productListAll.length,
               itemBuilder: (context, index) {
-                final ProductModel item = pController.allProductList[index];
+                final ProductModel item = pController.productListAll[index];
                 return CMoreProductItem(
                         item: item,
                         screenSize: _screenSize,
@@ -619,7 +606,7 @@ class CProductDetailView extends StatelessWidget {
           child: Padding(
             padding: EdgeInsets.all(15),
             child: HStack([
-              'VIEW ALL PRODUCTS'.text.bold.make(),
+              'VIEW ALL PRODUCTS'.text.lg.bold.make(),
               SizedBox(
                 width: 5,
               ),
@@ -665,6 +652,7 @@ class CProductDetailView extends StatelessWidget {
                   label: 'add_to_cart'
                       .tr
                       .text
+                      .base
                       .bold
                       .uppercase
                       .white
@@ -700,8 +688,8 @@ class CProductDetailView extends StatelessWidget {
                     size: 40,
                     color: kPrimaryColor,
                   ).centered().p8(),
-                  title.text.bold.white.center.size(24).make().centered().p8(),
-                  message.text.white.center.size(18).make().centered().p16(),
+                  title.text.xl2.bold.white.center.make().centered().p8(),
+                  message.text.lg.white.center.make().centered().p16(),
                 ],
                 alignment: MainAxisAlignment.center,
               ),
@@ -720,7 +708,7 @@ class CProductDetailView extends StatelessWidget {
                     EdgeInsets.symmetric(vertical: 10.0, horizontal: 100.0),
                 child: 'OK, GOT IT'
                     .text
-                    .size(18)
+                    .xl
                     .white
                     .align(TextAlign.center)
                     .make()

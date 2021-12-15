@@ -18,7 +18,7 @@ class EmptyContentWidget extends StatelessWidget {
             icon,
             size: 150,
           ),
-          message.text.size(30).align(TextAlign.center).make().centered().p12(),
+          message.text.xl4.align(TextAlign.center).make().centered().p12(),
         ],
         alignment: MainAxisAlignment.center,
         crossAlignment: CrossAxisAlignment.center,

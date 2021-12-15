@@ -96,8 +96,8 @@ class _CSearchViewState extends State<CSearchView> {
 
   searchTextField(context) {
     return Container(
-      height: 60,
-      padding: EdgeInsets.all(12),
+      height: 40,
+      margin: EdgeInsets.all(12),
       child: GestureDetector(
         onTap: () async {
           openSearchView(context);

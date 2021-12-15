@@ -62,25 +62,26 @@ class AddressController extends GetxController {
     final addressDao = db.addressDao;
     addressList.value = await addressDao.findAllAddress();
     final AddressEntity? entity = await addressDao.findDefaultAddress();
-    defaultAddress = 'H.No. ' +
-        entity!.street1 +
-        ' ' +
-        entity.street2 +
-        ', ' +
-        entity.city +
-        ', ' +
-        entity.state +
-        ', ' +
-        entity.country +
-        ', ' +
-        entity.locality +
-        ' - ' +
-        entity.pinCode +
-        ' (' +
-        entity.type +
-        ', Default)';
-    print(defaultAddress);
-
+    if (entity != null) {
+      defaultAddress = 'H.No. ' +
+          entity.street1 +
+          ' ' +
+          entity.street2 +
+          ', ' +
+          entity.city +
+          ', ' +
+          entity.state +
+          ', ' +
+          entity.country +
+          ', ' +
+          entity.locality +
+          ' - ' +
+          entity.pinCode +
+          ' (' +
+          entity.type +
+          ', Default)';
+      print(defaultAddress);
+    }
     if (selectedAddress.value.isEmpty) selectedAddress.value = defaultAddress;
   }
 
@@ -90,7 +91,6 @@ class AddressController extends GetxController {
     await addressDao.updateDefaultAddressRemove();
     await addressDao.insertAddress(entity);
     findAllAddressList();
-    bumacoSnackbar('alert'.tr, '${entity.street1} ' + 'added_to'.tr);
   }
 
   Future<void> removeAddress(AddressEntity addressEntity) async {
@@ -139,7 +139,7 @@ class AddressController extends GetxController {
     }
   }
 
-  submitAddress() {
+  submitAddress() async {
     if (nameCTR.text.length < 2) {
       bumacoSnackbar('alert'.tr, 'Name field is required to proceed!');
       return;
@@ -174,7 +174,7 @@ class AddressController extends GetxController {
         'India',
         pinCTR.text,
         true);
-    insertAddress(entity).then((value) => {
+    await insertAddress(entity).then((value) => {
           nameCTR.clear(),
           aLine1CTR.clear(),
           aLine2CTR.clear(),
@@ -183,8 +183,10 @@ class AddressController extends GetxController {
           phoneCTR.clear(),
           // if (isBucketPage) {//todo think here or all working..
           // },
+          print('-----------check address insrted then pirnted'),
+          // bumacoSnackbar('alert'.tr,
+          //     '${entity.street1} ' + 'added_to'.tr + 'address'.tr + 'list'.tr),
           Get.back(),
-          Get.back()
         });
   }
 }

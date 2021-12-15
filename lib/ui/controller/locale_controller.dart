@@ -17,6 +17,7 @@ class LocaleController extends GetxController {
   RxString selectedLanguage = ''.obs;
   RxString selectedCurrency = ''.obs;
   RxString selectedSymbol = ''.obs;
+  RxString selectedCountryCode = ''.obs;
   final box = GetStorage(BOX_APP);
   @override
   void onInit() {
@@ -32,6 +33,7 @@ class LocaleController extends GetxController {
         if (element['currency'] == selectedCurrency.value) {
           selectedSymbol.value = element['currency_symbol'];
           selectedLanguage.value = element['language'];
+          selectedCountryCode.value = element['code'];
         }
       });
   }
@@ -40,6 +42,7 @@ class LocaleController extends GetxController {
     {
       'sno': '1',
       'name': 'egypt',
+      'code': '20',
       'locale': Locale('ar', 'AE'),
       'language': 'arabic',
       'currency': 'EGP',
@@ -49,6 +52,7 @@ class LocaleController extends GetxController {
     {
       'sno': '2',
       'name': 'UK',
+      'code': '44',
       'locale': Locale('en', 'UK'),
       'language': 'english',
       'currency': 'GBP',
@@ -58,6 +62,7 @@ class LocaleController extends GetxController {
     {
       'sno': '3',
       'name': 'ksa',
+      'code': '966',
       'locale': Locale('ar', 'AE'),
       'language': 'arabic',
       'currency': 'SAR',
@@ -67,6 +72,7 @@ class LocaleController extends GetxController {
     {
       'sno': '4',
       'name': 'quatar',
+      'code': '974',
       'locale': Locale('ar', 'AE'),
       'language': 'arabic',
       'currency': 'QAR',
@@ -76,6 +82,7 @@ class LocaleController extends GetxController {
     {
       'sno': '5',
       'name': 'uae',
+      'code': '971',
       'locale': Locale('ar', 'AE'),
       'language': 'arabic',
       'currency': 'AED',
@@ -85,6 +92,7 @@ class LocaleController extends GetxController {
     {
       'sno': '6',
       'name': 'bahrain',
+      'code': '973',
       'locale': Locale('ar', 'AE'),
       'language': 'arabic',
       'currency': 'BHD',
@@ -94,6 +102,7 @@ class LocaleController extends GetxController {
     {
       'sno': '7',
       'name': 'oman',
+      'code': '968',
       'locale': Locale('ar', 'AE'),
       'language': 'arabic',
       'currency': 'OMR',
@@ -103,6 +112,7 @@ class LocaleController extends GetxController {
     {
       'sno': '8',
       'name': 'kuwait',
+      'code': '965',
       'locale': Locale('ar', 'AE'),
       'language': 'arabic',
       'currency': 'KWD',
@@ -112,6 +122,7 @@ class LocaleController extends GetxController {
     {
       'sno': '9',
       'name': 'GERMANY',
+      'code': '49',
       'locale': Locale('en', 'UK'),
       'language': 'english',
       'currency': 'EUR',
@@ -121,6 +132,7 @@ class LocaleController extends GetxController {
     {
       'sno': '10',
       'name': 'FRANCE',
+      'code': '33',
       'locale': Locale('en', 'UK'),
       'language': 'english',
       'currency': 'EUR',
@@ -136,9 +148,11 @@ class LocaleController extends GetxController {
     selectedCountry.value = localeList[index]['name'];
     selectedLanguage.value = localeList[index]['language'];
     selectedSymbol.value = localeList[index]['currency_symbol'];
+    selectedCountryCode.value = localeList[index]['code'];
     box.write(BOX_COUNTRY, localeList[index]['name']);
     box.write(BOX_CURRENCY, localeList[index]['currency']);
     box.write(BOX_CURRENCY_SYMBOL, localeList[index]['currency_symbol']);
+    box.write(BOX_COUNTRY_CODE, localeList[index]['code']);
   }
 
   void openLocaleSheet(context) {
@@ -158,7 +172,7 @@ class LocaleController extends GetxController {
               indent: 150,
               endIndent: 150,
             ).p8(),
-            'choose_country'.tr.text.bold.size(22).make().p8(),
+            'choose_country'.tr.text.bold.xl2.make().p8(),
             VxDivider(),
             // HStack([
             //   'S.No.  Country Name'
@@ -197,24 +211,24 @@ class LocaleController extends GetxController {
                               .tr
                               .text
                               .bold
+                              .xl
                               .color(kPrimaryColor)
-                              .size(18)
                               .fontWeight(FontWeight.w300)
                               .make()
                               .p16()
                               .expand(),
                           '${localeList[index]['currency']}'
                               .text
+                              .lg
                               .align(TextAlign.end)
-                              .size(16)
                               .fontWeight(FontWeight.w300)
                               .make()
                               .p16()
                               .expand(),
                           '${localeList[index]['currency_symbol']}'
                               .text
+                              .lg
                               .align(TextAlign.end)
-                              .size(16)
                               .fontWeight(FontWeight.w300)
                               .make()
                               .p16(),

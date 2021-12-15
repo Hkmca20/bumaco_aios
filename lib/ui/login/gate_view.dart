@@ -138,21 +138,8 @@ class GateView extends StatelessWidget {
                       // logo100Path.circularAssetImage().p8(),
                     ),
                     VStack([
-                      Text(
-                        'app_title'.tr,
-                        style: TextStyle(
-                          fontSize: 40,
-                          fontWeight: FontWeight.bold,
-                          color: kWhiteColor,
-                        ),
-                      ),
-                      Text(
-                        'Your Beauty. Our Passion',
-                        style: TextStyle(
-                          fontSize: 11,
-                          color: kWhiteColor,
-                        ),
-                      )
+                      'app_title'.tr.text.xl4.bold.white.make(),
+                      'app_tagline'.tr.text.xs.white.make(),
                     ]),
                   ],
                 ),
@@ -201,9 +188,7 @@ class GateView extends StatelessWidget {
                             style: BorderStyle.solid,
                             color: kWhiteColor),
                       ),
-                      child: item.bannertext.text.bold.lg
-                          .color(kBlackColor)
-                          .center
+                      child: item.bannertext.text.bold.lg.black.center
                           .makeCentered()
                           .p4(),
                     ),

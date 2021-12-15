@@ -55,9 +55,11 @@ const String ARG_PAYABLE_AMT = 'arg_payable_amt';
 const String ARG_PAYMENT_ID = 'arg_payment_id';
 
 // Pattxzerns
-final RegExp numericRegExp = RegExp(r'\d');
-final RegExp a2zRegExp = RegExp('[a-zA-Z]');
-final RegExp patternMobile = RegExp(r'(^(?:[+0]9)?[0-9]{10,12}$)');
+final RegExp patternNumeric = RegExp(r'\d');
+final RegExp patternA2Z = RegExp('[a-zA-Z]');
+final RegExp patternMobile = RegExp(r'(^(?:[+0]9)?[0-9]{6,12}$)');
+final RegExp patternPhone =
+    RegExp(r'^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$');
 final RegExp patternEmail = RegExp(
     r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+");
 final kHintTextStyle = TextStyle(
@@ -95,7 +97,8 @@ const String markdownPath = 'assets/markdown/';
 // Routes
 const initialRoute = '/';
 const onboardRoute = '/onboard';
-const loginRoute = '/login';
+const signinRoute = '/signin';
+const signupRoute = '/signup';
 const authRoute = '/auth';
 const gateRoute = '/gate';
 const landingRoute = '/landing';
@@ -108,6 +111,8 @@ const productsRoute = '/products';
 const cProductRoute = '/cProducts';
 const productRoute = '/product';
 const allProductsRoute = '/allProducts';
+const bucketRoute = '/bucket';
+const favouriteRoute = '/favourite';
 const catalogRoute = '/catalog';
 const productDetailRoute = '/product_detail';
 const wishlistRoute = '/wishlist';
@@ -133,6 +138,7 @@ const LOCALE_CONTROLLER = '_locale_controller';
 const SPLASH_CONTROLLER = '_splash_controller';
 const SETTINGS_CONTROLLER = '_settings_controller';
 const OTP_CONTROLLER = '_otp_controller';
+const PASS_CONTROLLER = '_pass_controller';
 const SHOPPING_CONTROLLER = '_shopping_controller';
 const CART_CONTROLLER = '_cart_controller';
 
@@ -192,11 +198,14 @@ const BOX_FCM_TOKEN = 'fcm_token'; //string
 const BOX_COUNTRY = 'country'; //string
 const BOX_CURRENCY = 'currency'; //string
 const BOX_CURRENCY_SYMBOL = 'currency_symbol'; //string
+const BOX_COUNTRY_CODE = 'country_code'; //string
+const BOX_CUSTOMER_ID = 'customer_id'; //string
 const BOX_NAME = 'name'; //string
 const BOX_MOBILE = 'mobile'; //string
 const BOX_EMAIL = 'email'; //string
 const BOX_GENDER = 'gender'; //string
 const BOX_DOB = 'dob'; //string
+const BOX_PASSWORD = 'password'; //string
 const BOX_PROFILE_PHOTO = 'photo'; //string
 const BOX_GOOGLE_ID = 'google_id'; //string
 const BOX_IS_LOGGEDIN = 'is_loggedin'; //bool
@@ -250,8 +259,9 @@ class ApiConstants {
   static const productApi = 'productapi/productdata/';
   static const bannerSliderApi = 'bannerapi/homeslider/';
   static const bannerApi = 'bannerapi/position';
-  static const allProductApi = 'productapi/product';
-  static const searchFilterApi = 'productapi/product';
+  static const productApiHome = 'productapi/homeproduct';
+  static const productApiAll = 'productapi/product';
+  static const productApiSearchFilter = 'productapi/searchproduct/';
   static const loginApi = 'auth/login';
   static const userloginApi = 'auth/userlogin';
   static const profileApi = 'auth/profile';
@@ -304,23 +314,10 @@ bumacoSnackbar(title, message) => Get.snackbar(
       barBlur: 0,
       snackStyle: SnackStyle.FLOATING,
       margin: EdgeInsets.all(15),
-      duration: Duration(seconds: 3),
+      duration: Duration(seconds: 2),
       isDismissible: true,
       // dismissDirection: SnackDismissDirection.VERTICAL,
       forwardAnimationCurve: Curves.easeOutBack,
-    );
-showSnackbar(title, message) => Get.showSnackbar(
-      GetBar(
-        title: title,
-        message: message,
-        icon: Icon(Icons.face, color: kWhiteColor),
-        snackPosition: SnackPosition.TOP,
-        borderColor: kWhiteColor,
-        borderRadius: 4,
-        borderWidth: 1,
-        barBlur: 0,
-        isDismissible: true,
-      ),
     );
 bumacoDefaultDialog(msg) => Get.defaultDialog(
       title: 'alert'.tr,

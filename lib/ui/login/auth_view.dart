@@ -103,7 +103,7 @@ class AuthView extends StatelessWidget {
               CustomButtonSocial(
                 text: 'Sign In with Facebook',
                 onPress: () {
-                  Get.toNamed(loginRoute);
+                  Get.toNamed(signinRoute);
                   // controller.facebookSignInMethod();
                 },
                 imageName: 'assets/images/ic_facebook.png',

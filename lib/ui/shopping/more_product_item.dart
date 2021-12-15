@@ -74,28 +74,20 @@ class CMoreProductItem extends StatelessWidget {
                 ),
                 ' (117)'.text.xs.make()
               ]),
-              '20% Off'.text.bold.color(kPrimaryColor).make().p2(),
+              '20% Off'.text.lg.bold.color(kPrimaryColor).make().p2(),
               HStack([
-                Text.rich(
-                  TextSpan(children: [
-                    TextSpan(
-                      text: item.mrp == ''
-                          ? ''
-                          : '${lController.selectedSymbol}${item.mrp}',
-                      style: TextStyle(
-                        fontSize: 12,
-                        color: kGreyLightColor,
-                        decoration: TextDecoration.lineThrough,
-                      ),
-                    ),
-                    TextSpan(
-                      text: '  ${lController.selectedSymbol}${item.mrp}',
-                      style: TextStyle(
-                        fontSize: 14,
-                      ),
-                    ),
-                  ]),
-                ),
+                (item.mrp == ''
+                        ? ''
+                        : '${lController.selectedSymbol}${item.mrp}')
+                    .richText
+                    .sm
+                    .color(kGreyLightColor)
+                    .lineThrough
+                    .make(),
+                ' ${lController.selectedSymbol}${item.mrp}'
+                    .selectableText
+                    .sm
+                    .make(),
               ]).p4(),
               HStack(
                 [
@@ -119,7 +111,7 @@ class CMoreProductItem extends StatelessWidget {
                     onPressed: () {
                       bController.insertBucket(item);
                     },
-                    child: 'add_to_cart'.tr.text.make(),
+                    child: 'add_to_cart'.tr.text.base.make(),
                   ),
                 ],
               )

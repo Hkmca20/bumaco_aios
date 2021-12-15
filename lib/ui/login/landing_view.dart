@@ -122,13 +122,13 @@ class LandingView extends StatelessWidget {
             ),
           ),
           Positioned(
-            width: _screenSize.width / 2,
-            top: 70,
+            width: _screenSize.width / 2 - 5,
+            top: 35,
             right: 0,
             child: VStack(
               [
-                10.heightBox,
-                'Country (بلد)'.tr.text.bold.center.white.make(),
+                15.heightBox,
+                'Country (بلد)'.tr.text.xl.bold.center.white.make(),
                 Obx(
                   () => ('' +
                           lController.selectedCountry.value.tr +
@@ -140,6 +140,7 @@ class LandingView extends StatelessWidget {
                           ' - ' +
                           lController.selectedLanguage.value.tr)
                       .text
+                      .sm
                       .center
                       .white
                       .make(),
@@ -152,38 +153,32 @@ class LandingView extends StatelessWidget {
             }),
           ),
           Positioned(
-            width: _screenSize.width / 2,
-            top: 70,
+            width: _screenSize.width / 2 + 5,
+            top: 40,
             left: 0,
             child: Column(
               children: [
                 HStack(
                   [
                     Container(
-                      margin: EdgeInsets.symmetric(horizontal: 2, vertical: 2),
-                      width: 60, height: 60,
+                      margin: EdgeInsets.symmetric(horizontal: 1, vertical: 2),
+                      width: 50, height: 50,
                       child: Image.asset(
                         logo100Path,
                         color: kWhiteColor,
-                      ).p4(),
+                      ).p2(),
                       // logo100Path.circularAssetImage().p8(),
                     ),
                     VStack([
-                      Text(
-                        'app_title'.tr,
-                        style: TextStyle(
-                          fontSize: 40,
-                          fontWeight: FontWeight.bold,
-                          color: kWhiteColor,
-                        ),
-                      ),
-                      Text(
-                        'Your Beauty. Our Passion',
-                        style: TextStyle(
-                          fontSize: 11,
-                          color: kWhiteColor,
-                        ),
-                      )
+                      'app_title'.tr.text.xl3.bold.white.make(),
+                      'app_tagline'
+                          .tr
+                          .text
+                          .xs
+                          .ellipsis
+                          .white
+                          .maxLines(2)
+                          .make(),
                     ]),
                   ],
                 ),
@@ -193,7 +188,7 @@ class LandingView extends StatelessWidget {
           Positioned(
             left: 0,
             right: 0,
-            top: 150,
+            top: 110,
             child: CBannerGateWidget(
               bannerHeight: _screenSize.height / 3 - 10,
               fitImage: BoxFit.cover,
@@ -227,7 +222,7 @@ class LandingView extends StatelessWidget {
                               ),
                       ),
                       SizedBox(height: 20),
-                      loginText,
+                      loginText(),
                       loginButton(context),
                       googleButton(context),
                       // facebookButton(context),
@@ -273,19 +268,17 @@ class LandingView extends StatelessWidget {
     // );
   }
 
-  var loginText = Text(
-    'login'.tr + ' ' + 'or'.tr + ' ' + 'register'.tr,
-    style: TextStyle(fontSize: 20, color: kWhiteColor),
-  );
+  loginText() =>
+      ('login'.tr + ' ' + 'or'.tr + ' ' + 'register'.tr).text.white.xl2.make();
 
   loginButton(context) {
     return Container(
       margin: EdgeInsets.symmetric(horizontal: 10, vertical: 6),
       width: MediaQuery.of(context).size.width - 40,
       child: ElevatedButton(
-        child: 'signin_with_email_or_mobile'.tr.text.make().p2(),
+        child: 'signin_with_email_or_mobile'.tr.text.xl.make(),
         onPressed: () {
-          Get.toNamed(loginRoute);
+          Get.toNamed(signinRoute);
         },
       ),
     );
@@ -336,10 +329,7 @@ class LandingView extends StatelessWidget {
     return InkWell(
       child: Container(
         padding: EdgeInsets.symmetric(horizontal: 20, vertical: 2),
-        child: Text(
-          'skip_and_continue'.tr,
-          style: TextStyle(color: kWhiteColor, fontSize: 22),
-        ),
+        child: 'skip_and_continue'.tr.text.white.xl2.make(),
       ),
       onTap: () => {
         getStorage.write(BOX_TEMP_LOGGEDIN, true),

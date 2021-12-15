@@ -3,18 +3,14 @@ import 'package:bumaco_aios/app_utils/utils.dart';
 import 'package:bumaco_aios/ui/controller/controllers.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:velocity_x/velocity_x.dart';
 
 class SubCategoryView extends StatelessWidget {
   const SubCategoryView({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    // final subCategoryController = Get.find<SubCategoryController>();
     final subCategoryController = SubCategoryController.to;
-    final args = Get.arguments;
-    final ChildCategoryModel childCategoryItem =
-        args['arg_child_category_item'] ?? '';
-    subCategoryController.setChildCategoryId(childCategoryItem.category);
     return Scaffold(
       appBar: AppbarHome(
         title: 'Sub Category',
@@ -23,7 +19,8 @@ class SubCategoryView extends StatelessWidget {
             icon: Icon(Icons.refresh_rounded),
             tooltip: 'Reload Sub Category',
             onPressed: () {
-              subCategoryController.fetchSubCategory();
+              subCategoryController
+                  .fetchSubCategory(subCategoryController.categoryData.id);
             },
           ),
         ],
@@ -36,26 +33,40 @@ class SubCategoryView extends StatelessWidget {
               itemBuilder: (context, index) {
                 SubCategoryModel item =
                     subCategoryController.subCategoryList[index];
-                return Column(children: [
-                  GestureDetector(
-                      onTap: () {
-                        Get.toNamed(productRoute, arguments: {
-                          'arg_category_item':
-                              CategoryData(id: item.id, category: item.image!)
-                        });
-                        // Get.toNamed(allProductsRoute, arguments: {
-                        //   'arg_sub_category_item': item
-                        // });
-                      },
-                      child: Image.network(
-                          ('${ApiConstants.baseImageUrl}${item.bannerimage}'))),
-                  SizedBox(height: 10),
-                  Image.network(('${ApiConstants.baseImageUrl}${item.image}')),
-                  Text(item.category ?? '', style: TextStyle(fontSize: 20)),
-                  SizedBox(height: 10),
-                ]);
+                return InkWell(
+                  onTap: () {
+                    print('pass check------------->${item.id}');
+                    Get.toNamed(childCategoryRoute,
+                        arguments: {'arg_subcategory_item': item});
+                    // Get.toNamed(allProductsRoute, arguments: {
+                    //   'arg_sub_category_item': item
+                    // });
+                  },
+                  child: HStack(
+                    [
+                      // SizedBox(width: 2),
+                      // Image.network(
+                      //     ('${ApiConstants.baseImageUrl}${item.image}')),
+                      // SizedBox(width: 2.0),
+                      Expanded(
+                        child: (item.subcategory ?? '').text.size(18).make(),
+                      ),
+                      Container(
+                        child: Icon(
+                          Icons.arrow_forward_ios_rounded,
+                          color: kGreyLightColor,
+                        ),
+                      ),
+                    ],
+                    crossAlignment: CrossAxisAlignment.center,
+                  ).paddingSymmetric(horizontal: 20, vertical: 15),
+                );
               },
-              separatorBuilder: (context, index) => Divider(),
+              separatorBuilder: (context, index) => VxDivider(
+                    color: commonGreyColor,
+                    indent: 10,
+                    endIndent: 10,
+                  ),
               itemCount: subCategoryController.subCategoryList.length)),
     );
   }

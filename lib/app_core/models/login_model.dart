@@ -21,9 +21,4 @@ class LoginModel {
   factory LoginModel.fromJson(Map<String, dynamic> json) =>
       _$LoginModelFromJson(json);
   Map<String, dynamic> toJson() => _$LoginModelToJson(this);
-
-  @override
-  String toString() {
-    return super.toString();
-  }
 }

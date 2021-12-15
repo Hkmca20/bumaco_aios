@@ -1,0 +1,25 @@
+{
+    "status": true,
+    "message": "Phone no alredy exit.",
+    "data": {
+        "id": "80",
+        "name": "",
+        "fname": null,
+        "lname": null,
+        "email": null,
+        "phone": "9876007412",
+        "address": "",
+        "street_no": "",
+        "company": "",
+        "image": "",
+        "state": "",
+        "city": "",
+        "pincode": "",
+        "des": "",
+        "password": "",
+        "otp": "0",
+        "create_date": "2021-12-08 05:42:34",
+        "modifi_date": "2021-12-08 05:42:34",
+        "status": "1"
+    }
+}

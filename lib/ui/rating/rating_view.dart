@@ -137,6 +137,7 @@ class RatingView extends StatelessWidget {
               .shimmer(duration: 2.seconds),
           'Apply the product and take a selfie or already have a dashing photo with this product. Upload now and get a chance to be featured in the review section '
               .text
+              .base
               .gray400
               .make()
               .paddingSymmetric(horizontal: 20),
@@ -170,8 +171,8 @@ class RatingView extends StatelessWidget {
                   secondaryColor: Vx.cyan900),
           'While uploading images you are accepting the terms and conditions of 9Gates Review Image Upload policy.'
               .text
-              .gray400
               .xs
+              .gray400
               .make()
               .paddingSymmetric(horizontal: 20),
           VxDivider(color: commonGreyColor, width: 10)
@@ -181,9 +182,9 @@ class RatingView extends StatelessWidget {
             color: kPrimaryColor,
             child: 'SUBMIT'
                 .text
+                .xl
                 .semiBold
                 .white
-                .xl
                 .make()
                 .paddingSymmetric(vertical: 12),
             onPressed: () {

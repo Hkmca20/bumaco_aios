@@ -57,7 +57,7 @@ class ReviewListView extends StatelessWidget {
                   itemBuilder: (context, index) {
                     final item = choiceList[index];
                     return ChoiceChip(
-                      label: item.text.center.make(),
+                      label: item.text.base.center.make(),
                       selected: selectedChoice == index,
                       selectedColor: Colors.green,
                       onSelected: (bool selected) {
@@ -70,11 +70,11 @@ class ReviewListView extends StatelessWidget {
             ),
             Expanded(
               child: Obx(
-                () => productController.allProductList.length == 0
+                () => productController.productListAll.length == 0
                     ? EmptyContentWidget()
                     : ListView.builder(
                         shrinkWrap: true,
-                        itemCount: productController.allProductList.length,
+                        itemCount: productController.productListAll.length,
                         padding: EdgeInsets.all(4),
                         itemBuilder: (context, index) {
                           // ProductModel item =

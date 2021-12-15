@@ -1,3 +1,5 @@
+import 'package:bumaco_aios/app_core/models/models.dart';
+import 'package:bumaco_aios/app_core/repository/login_repo.dart';
 import 'package:bumaco_aios/app_utils/app_const.dart';
 import 'package:bumaco_aios/app_utils/app_loading.dart';
 import 'package:get/get.dart';
@@ -6,19 +8,28 @@ import 'package:get_storage/get_storage.dart';
 import 'package:velocity_x/velocity_x.dart';
 
 class SignupController extends GetxController {
-  late TextEditingController nameCTR, emailCTR, mobileCTR, dobCTR;
+  late TextEditingController nameCTR,
+      emailCTR,
+      mobileCTR,
+      passwordCTR,
+      confirmPassCTR;
   late String profilePhoto;
   final box = GetStorage(BOX_APP);
   var genderGroupValue = ''.obs;
   var nameUpdated = ''.obs;
+  late LoginRepo _loginRepo;
+  late final LoginData? argCustomer;
 
   @override
   void onInit() {
     super.onInit();
+    argCustomer = Get.arguments['arg_customer'];
+    _loginRepo = Get.find<LoginRepoImpl>();
     nameCTR = TextEditingController();
     emailCTR = TextEditingController();
     mobileCTR = TextEditingController();
-    dobCTR = TextEditingController();
+    passwordCTR = TextEditingController();
+    confirmPassCTR = TextEditingController();
 
     profilePhoto = getStorageStringValue(BOX_PROFILE_PHOTO);
     if (profilePhoto == '')
@@ -27,7 +38,8 @@ class SignupController extends GetxController {
     nameCTR.text = getStorageStringValue(BOX_NAME).toString().toUpperCase();
     emailCTR.text = getStorageStringValue(BOX_EMAIL);
     mobileCTR.text = getStorageStringValue(BOX_MOBILE);
-    dobCTR.text = getStorageStringValue(BOX_DOB);
+    passwordCTR.text = getStorageStringValue(BOX_PASSWORD);
+    confirmPassCTR.text = getStorageStringValue(BOX_PASSWORD);
     genderGroupValue.value = getStorageStringValue(BOX_GENDER);
     nameUpdated(nameCTR.text);
   }
@@ -37,7 +49,8 @@ class SignupController extends GetxController {
     nameCTR.dispose();
     emailCTR.dispose();
     mobileCTR.dispose();
-    dobCTR.dispose();
+    passwordCTR.dispose();
+    confirmPassCTR.dispose();
     super.onClose();
   }
 
@@ -52,27 +65,49 @@ class SignupController extends GetxController {
       //   VxToast.show(context, msg: 'Please enter your Email id');
     } else if (mobileCTR.text.length < 2) {
       VxToast.show(context, msg: 'Please enter your mobile num');
+    } else if (passwordCTR.text.length < 5) {
+      VxToast.show(context, msg: 'Please set your password');
+    } else if (passwordCTR.text != confirmPassCTR.text) {
+      VxToast.show(context,
+          msg: 'Password and confirm password are not matched');
     } else {
       box.write(BOX_NAME, nameCTR.text);
       box.write(BOX_EMAIL, emailCTR.text);
-      box.write(BOX_DOB, dobCTR.text);
+      box.write(BOX_PASSWORD, passwordCTR.text);
       box.write(BOX_GENDER, genderGroupValue.value);
 
       showLoadingDialog();
-      bumacoSnackbar('alert'.tr, 'Profile updated successfully!');
-      Future.delayed(500.milliseconds);
+      if (argCustomer != null) {
+        // argCustomer.name = nameCTR.text;
+        // argCustomer.email = emailCTR.text;
+        // argCustomer.password = passwordCTR.text;
+        // argCustomer.createDate = DateTime.now();
+        // argCustomer.modifiDate = DateTime.now();
+      }
+      var response = await _loginRepo.updateProfile(argCustomer!);
+      hideLoading();
+      if (response) {
+        VxToast.show(context, msg: 'Profile updated successfully!');
+      } else {
+        VxToast.show(context, msg: 'Failed to update profile!');
+      }
       Get.offAllNamed(dashboardRoute);
     }
   }
 
-  void submitLaterButton(context) {
+  void submitLaterButton(context) async {
     if (nameCTR.text.length < 2) {
       VxToast.show(context, msg: 'Full name required to proceed');
     } else {
       box.write(BOX_NAME, nameCTR.text);
-      bumacoSnackbar('alert'.tr, 'Welcome!');
+      bumacoSnackbar('alert'.tr, 'Welcome! ${nameCTR.text}');
       showLoadingDialog();
-      Future.delayed(500.milliseconds);
+      var response = await _loginRepo.updateProfile(argCustomer!);
+      if (response) {
+        VxToast.show(context, msg: 'Profile updated successfully!');
+      } else {
+        VxToast.show(context, msg: 'Failed to update profile!');
+      }
       Get.offAllNamed(dashboardRoute);
     }
   }

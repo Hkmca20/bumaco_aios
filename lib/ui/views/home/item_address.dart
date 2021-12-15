@@ -24,97 +24,97 @@ class ItemAddress extends StatelessWidget {
           Get.back();
         }
       },
-      child: VxBox(
-        child: HStack(
-          [
-            Expanded(
-              flex: 1,
-              child: ClipRRect(
-                child: Icon(
-                  Icons.location_city_rounded,
-                ),
-                borderRadius: BorderRadius.all(Radius.circular(4)),
+      child: HStack(
+        [
+          Expanded(
+            flex: 1,
+            child: ClipRRect(
+              child: Icon(
+                Icons.location_city_rounded,
+              ),
+              borderRadius: BorderRadius.all(Radius.circular(4)),
+            ),
+          ),
+          Expanded(
+            child: Container(
+              padding: EdgeInsets.only(bottom: 8),
+              child: VStack(
+                [
+                  ('H.No. ${item.addressid}, ${item.street1} , ${item.street2} $isDefault')
+                      .text
+                      .sm
+                      .bold
+                      .letterSpacing(-0.5)
+                      .fontWeight(FontWeight.w900)
+                      .make()
+                      .p4(),
+                  (item.city + ', ' + item.state + ', ' + item.country)
+                      .text
+                      .sm
+                      .letterSpacing(-0.5)
+                      .make()
+                      .p4(),
+                  (item.locality + ' - ' + item.pinCode).text.sm.make().p4(),
+                ],
+                alignment: MainAxisAlignment.center,
+                crossAlignment: CrossAxisAlignment.start,
               ),
             ),
-            Expanded(
-              child: Container(
-                padding: EdgeInsets.only(bottom: 8),
-                child: VStack(
-                  [
-                    ('H.No. ${item.addressid}, ${item.street1} , ${item.street2} $isDefault')
-                        .text
-                        .size(20)
-                        .fontWeight(FontWeight.w900)
-                        .ellipsis
-                        .maxLines(2)
-                        .make()
-                        .p4(),
-                    (item.city + ', ' + item.state + ', ' + item.country)
-                        .text
-                        .make()
-                        .p4(),
-                    (item.locality + ' - ' + item.pinCode).text.make().p4(),
-                  ],
-                  alignment: MainAxisAlignment.center,
-                  crossAlignment: CrossAxisAlignment.start,
-                ),
-              ),
-              flex: 7,
-            ),
-            Expanded(
-              flex: 2,
-              child: Column(
-                children: [
-                  Visibility(
-                    visible: !item.isDefault,
-                    child: InkWell(
-                      onTap: () {
-                        aController.removeAddress(item).then((value) =>
-                            bumacoSnackbar(
-                                'alert'.tr,
-                                '${item.street1} ' +
-                                    'removed_from'.tr +
-                                    ' ' +
-                                    'address'.tr));
-                      },
-                      child: ClipRRect(
-                        child: Icon(
-                          Icons.delete,
-                        ),
-                        borderRadius: BorderRadius.all(Radius.circular(4)),
-                      ).p16(),
-                    ),
-                  ),
-                  SizedBox(height: 10),
-                  InkWell(
+            flex: 7,
+          ),
+          Expanded(
+            flex: 2,
+            child: Column(
+              children: [
+                Visibility(
+                  visible: !item.isDefault,
+                  child: InkWell(
                     onTap: () {
-                      aController.setDefaultAddress(item).then((value) =>
+                      aController.removeAddress(item).then((value) =>
                           bumacoSnackbar(
                               'alert'.tr,
                               '${item.street1} ' +
-                                  'added_to'.tr +
+                                  'removed_from'.tr +
                                   ' ' +
                                   'address'.tr));
                     },
-                    child: Container(
-                      child: ClipRRect(
-                        child: Icon(
-                          item.isDefault
-                              ? Icons.radio_button_checked_rounded
-                              : Icons.radio_button_off_rounded,
-                        ),
-                        borderRadius: BorderRadius.all(Radius.circular(4)),
+                    child: ClipRRect(
+                      child: Icon(
+                        Icons.delete,
                       ),
+                      borderRadius: BorderRadius.all(Radius.circular(4)),
                     ).p16(),
                   ),
-                ],
-              ),
+                ),
+                SizedBox(height: 10),
+                InkWell(
+                  onTap: () {
+                    aController.setDefaultAddress(item).then((value) =>
+                        bumacoSnackbar(
+                            'alert'.tr,
+                            '${item.street1} ' +
+                                'added_to'.tr +
+                                ' ' +
+                                'address'.tr));
+                  },
+                  child: Container(
+                    child: ClipRRect(
+                      child: Icon(
+                        item.isDefault
+                            ? Icons.radio_button_checked_rounded
+                            : Icons.radio_button_off_rounded,
+                      ),
+                      borderRadius: BorderRadius.all(Radius.circular(4)),
+                    ),
+                  ).p16(),
+                ),
+              ],
             ),
-          ],
-          crossAlignment: CrossAxisAlignment.center,
-          alignment: MainAxisAlignment.center,
-        ),
-      ).padding(const EdgeInsets.all(8)).make(),
+          ),
+        ],
+        crossAlignment: CrossAxisAlignment.center,
+        alignment: MainAxisAlignment.center,
+      ),
     );
   }
 }

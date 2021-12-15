@@ -51,7 +51,7 @@ class SettingView extends StatelessWidget {
                       googleProfileName
                           .toString()
                           .text
-                          .size(22)
+                          .xl2
                           .fontWeight(FontWeight.w900)
                           .make(),
                       SizedBox(height: 16),
@@ -67,6 +67,7 @@ class SettingView extends StatelessWidget {
                       SizedBox(height: 8),
                       ('loggedin_via'.tr + ' ' + googleEmail)
                           .text
+                          .lg
                           .color(kGreyLightColor)
                           .make(),
                     ],
@@ -107,7 +108,7 @@ class SettingView extends StatelessWidget {
           SimpleBuilder(
             builder: (_) => SwitchListTile(
                 value: _settingsController.isNotification,
-                title: 'notification'.tr.text.make(),
+                title: 'notification'.tr.text.lg.make(),
                 onChanged: _settingsController.changeNotification),
           ),
           // Divider(height: 1),
@@ -126,7 +127,7 @@ class SettingView extends StatelessWidget {
               leading: Icon(Icons.account_box_rounded, color: kGreyLightColor),
               trailing:
                   Icon(Icons.arrow_forward_ios_rounded, color: kGreyLightColor),
-              title: 'profile'.tr.text.make(),
+              title: 'profile'.tr.text.lg.make(),
               onTap: () => {
                 getStorageBoolValue(BOX_IS_LOGGEDIN)
                     ? Get.toNamed(profileRoute)
@@ -140,9 +141,9 @@ class SettingView extends StatelessWidget {
               leading: Icon(Icons.outbox_rounded, color: kGreyLightColor),
               trailing:
                   Icon(Icons.arrow_forward_ios_rounded, color: kGreyLightColor),
-              title: 'order'.tr.text.make(),
+              title: 'order'.tr.text.lg.make(),
               // subtitle:
-              //     'Check your order status (track, return, cancel)'.text.make(),
+              //     'Check your order status (track, return, cancel)'.text.lg.make(),
               onTap: () => {
                 getStorageBoolValue(BOX_IS_LOGGEDIN)
                     ? Get.to(() => OrderHistoryView())
@@ -157,7 +158,7 @@ class SettingView extends StatelessWidget {
                   Icon(Icons.location_city_rounded, color: kGreyLightColor),
               trailing:
                   Icon(Icons.arrow_forward_ios_rounded, color: kGreyLightColor),
-              title: 'shipping_address'.tr.text.make(),
+              title: 'shipping_address'.tr.text.lg.make(),
               onTap: () => {
                 getStorageBoolValue(BOX_IS_LOGGEDIN)
                     ? Get.to(() => AddressView(),
@@ -185,7 +186,7 @@ class SettingView extends StatelessWidget {
                   color: kGreyLightColor),
               trailing:
                   Icon(Icons.arrow_forward_ios_rounded, color: kGreyLightColor),
-              title: 'blog'.tr.text.make(),
+              title: 'blog'.tr.text.lg.make(),
               onTap: () => {Get.toNamed(newsRoute)},
             ),
           ),
@@ -195,7 +196,7 @@ class SettingView extends StatelessWidget {
               leading: Icon(Icons.local_offer_rounded, color: kGreyLightColor),
               trailing:
                   Icon(Icons.arrow_forward_ios_rounded, color: kGreyLightColor),
-              title: 'offer'.tr.text.make(),
+              title: 'offer'.tr.text.lg.make(),
               onTap: () => {Get.toNamed(offerRoute)},
             ),
           ),
@@ -206,7 +207,7 @@ class SettingView extends StatelessWidget {
                   color: kGreyLightColor),
               trailing:
                   Icon(Icons.arrow_forward_ios_rounded, color: kGreyLightColor),
-              title: 'Country and Language (البلد واللغة)'.tr.text.make(),
+              title: 'Country and Language (البلد واللغة)'.tr.text.lg.make(),
               subtitle: Obx(
                 () => ('' +
                         _loaleController.selectedCountry.value.tr +
@@ -218,6 +219,7 @@ class SettingView extends StatelessWidget {
                         ' - ' +
                         _loaleController.selectedLanguage.value.tr)
                     .text
+                    .sm
                     .make(),
               ),
               onTap: () => {_loaleController.openLocaleSheet(context)},
@@ -229,7 +231,7 @@ class SettingView extends StatelessWidget {
           //     leading: Icon(Icons.play_arrow_rounded, color: kGreyLightColor),
           //     trailing:
           //         Icon(Icons.arrow_forward_ios_rounded, color: kGreyLightColor),
-          //     title: 'Videos'.text.make(),
+          //     title: 'Videos'.text.lg.make(),
           //     // onTap: () => {Get.to(() => VideoPlayerView())},
           //     onTap: () => {Get.to(() => ChewiePlayerView())},
           //   ),
@@ -240,7 +242,7 @@ class SettingView extends StatelessWidget {
           //     leading: Icon(Icons.chat, color: kGreyLightColor),
           //     trailing:
           //         Icon(Icons.arrow_forward_ios_rounded, color: kGreyLightColor),
-          //     title: 'Chat With Us'.text.make(),
+          //     title: 'Chat With Us'.text.lg.make(),
           //     onTap: () => {Get.to(() => SocketView())},
           //   ),
           // ),
@@ -250,7 +252,7 @@ class SettingView extends StatelessWidget {
               leading: Icon(Icons.info_outline_rounded, color: kGreyLightColor),
               trailing:
                   Icon(Icons.arrow_forward_ios_rounded, color: kGreyLightColor),
-              title: 'faq'.tr.text.make(),
+              title: 'faq'.tr.text.lg.make(),
               onTap: () => {Get.toNamed(expansionRoute)},
             ),
           ),
@@ -260,7 +262,7 @@ class SettingView extends StatelessWidget {
           //     leading: Icon(Icons.help_outline, color: kGreyLightColor),
           //     trailing:
           //         Icon(Icons.arrow_forward_ios_rounded, color: kGreyLightColor),
-          //     title: 'help'.tr.text.make(),
+          //     title: 'help'.tr.text.lg.make(),
           //     onTap: () => {Get.toNamed(expansionRoute)},
           //   ),
           // ),
@@ -270,7 +272,7 @@ class SettingView extends StatelessWidget {
               leading: Icon(Icons.policy, color: kGreyLightColor),
               trailing:
                   Icon(Icons.arrow_forward_ios_rounded, color: kGreyLightColor),
-              title: 'Terms and Condition'.text.make(),
+              title: 'Terms and Condition'.text.lg.make(),
               onTap: () => {Get.to(() => TermsAndCondition())},
             ),
           ),
@@ -282,7 +284,7 @@ class SettingView extends StatelessWidget {
               leading: Icon(Icons.logout_rounded, color: kGreyLightColor),
               trailing:
                   Icon(Icons.arrow_forward_ios_rounded, color: kGreyLightColor),
-              title: 'logout'.tr.text.make(),
+              title: 'logout'.tr.text.lg.make(),
               onTap: () => {
                 Get.offAllNamed(onboardRoute),
                 box.erase(),
@@ -292,7 +294,7 @@ class SettingView extends StatelessWidget {
           ),
           Divider(height: 1),
           SizedBox(height: 5),
-          Center(child: ('version'.tr + ': 1.2.0').text.make()),
+          Center(child: ('version'.tr + ': 1.2.0').text.xl.make()),
         ],
       ),
       // ),

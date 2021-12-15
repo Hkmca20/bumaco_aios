@@ -20,7 +20,7 @@ import 'package:velocity_x/velocity_x.dart';
 
 class SigninController extends GetxController {
   static SigninController get to => Get.find(tag: LOGIN_CONTROLLER);
-  late TextEditingController mobileCTR;
+  late TextEditingController mobileEmailCTR;
   RxBool isLoggedIn = false.obs;
 
   GoogleSignIn _googleSignIn = GoogleSignIn();
@@ -31,7 +31,7 @@ class SigninController extends GetxController {
   @override
   void onInit() {
     _loginRepo = Get.find<LoginRepoImpl>();
-    mobileCTR = TextEditingController();
+    mobileEmailCTR = TextEditingController();
     _googleSignIn.onCurrentUserChanged.listen((GoogleSignInAccount? account) {
       _currentUser = account;
       // box.write(BOX_GOOGLE_ID, _currentUser!.id);
@@ -49,40 +49,68 @@ class SigninController extends GetxController {
   @override
   void onClose() {
     super.onClose();
-    mobileCTR.clear();
-    mobileCTR.dispose();
+    mobileEmailCTR.clear();
+    mobileEmailCTR.dispose();
   }
 
+  bool isEmail(String email) => patternEmail.hasMatch(email);
+
+  bool isMobile(String mobile) => patternMobile.hasMatch(mobile);
+
   final box = GetStorage(BOX_APP);
+  
+  saveLoginMobileOrEmail(isMobileNum, value) {
+    if (isMobileNum) {
+      box.write(BOX_MOBILE, value);
+    } else {
+      box.write(BOX_EMAIL, value);
+    }
+  }
+
   submitSignIn() async {
-    if (mobileCTR.text.length < 5) {
-      bumacoSnackbar('Error', 'Invalid Mobile number');
+    if (mobileEmailCTR.text.length == 0) {
+      bumacoSnackbar('Error', 'Please enter Mobile number/ Email id');
       return;
     }
+    if (mobileEmailCTR.text.length < 5) {
+      bumacoSnackbar('Error', 'Invalid Mobile number/ email id');
+      return;
+    }
+    if (!isEmail(mobileEmailCTR.text) && !isMobile(mobileEmailCTR.text)) {
+      bumacoSnackbar('Error', 'Please enter a valid email id or mobile number');
+      return;
+    }
+    bool isLoginWithMobileNumber = false;
+    if (isMobile(mobileEmailCTR.text)) {
+      isLoginWithMobileNumber = true;
+    }
     showLoadingDialog();
-
-    await Future.delayed(2.seconds);
-    final result = await _loginRepo.getLogin(mobileCTR.text);
-
-    // LoginModel.fromJson(jsonDecode(loginJSON.toString()));
-
+    final result = await _loginRepo.checkLogin(
+        isLoginWithMobileNumber, mobileEmailCTR.text);
     try {
       Get.back();
       if (result != null && result.status) {
         bumacoSnackbar('login'.tr, result.message);
-        box.write(BOX_MOBILE, mobileCTR.text);
-        Get.toNamed(passRoute, arguments: {'arg_customer': result});
+        saveLoginMobileOrEmail(isLoginWithMobileNumber, mobileEmailCTR.text);
+        if (result.loginData.password == null ||
+            result.loginData.password!.length < 4) {
+          Get.toNamed(otpRoute, arguments: {'arg_customer': result.loginData});
+        } else {
+          Get.toNamed(passRoute, arguments: {'arg_customer': result.loginData});
+        }
       } else if (result != null && !result.status) {
         bumacoSnackbar('login'.tr, result.message);
-        box.write(BOX_MOBILE, mobileCTR.text);
-        Get.toNamed(otpRoute, arguments: {'arg_customer': result});
-      } else if (mobileCTR.text == '9999999999') {
-        // Get.toNamed(otpRoute, arguments: 'OTP has been sent to ${mobileCTR.text}');
-        bumacoSnackbar(
-            'login'.tr, 'OTP sent successfully on ${mobileCTR.text}');
-        box.write(BOX_MOBILE, mobileCTR.text);
-        Get.toNamed(otpRoute);
-      } else {
+        saveLoginMobileOrEmail(isLoginWithMobileNumber, mobileEmailCTR.text);
+        Get.toNamed(otpRoute, arguments: {'arg_customer': result.loginData});
+      }
+      // else if (mobileCTR.text == '9999999999') {
+      //   // Get.toNamed(otpRoute, arguments: 'OTP has been sent to ${mobileCTR.text}');
+      //   bumacoSnackbar(
+      //       'login'.tr, 'OTP sent successfully on ${mobileCTR.text}');
+      //   box.write(BOX_MOBILE, mobileCTR.text);
+      //   Get.toNamed(otpRoute);
+      // }
+      else {
         bumacoSnackbar('login'.tr, 'Failed, please try again!');
       }
     } catch (e) {
@@ -204,7 +232,7 @@ class SigninController extends GetxController {
         child: 'signin_with_email_or_mobile'.tr.text.make().p4(),
         onPressed: () {
           Get.back();
-          Get.toNamed(loginRoute);
+          Get.toNamed(signinRoute);
         },
       ),
     ).centered();

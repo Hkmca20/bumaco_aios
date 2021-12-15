@@ -98,7 +98,7 @@ class CProductItem extends StatelessWidget {
                   // ),
                 ],
               ),
-              SizedBox(height: 8),
+              SizedBox(height: 4),
               // prod.product.text.capitalize.ellipsis
               //     .maxLines(2)
               //     .fontWeight(FontWeight.w800)
@@ -114,22 +114,20 @@ class CProductItem extends StatelessWidget {
               //     .size(12)
               //     .make()
               //     .p12(),
-              prod.product.text.capitalize.ellipsis.bold
+              prod.product.text.capitalize.ellipsis.bold.xl
                   .maxLines(2)
                   .color(kGreyLightColor)
-                  .size(12)
                   .make()
                   .p12()
                   .centered()
                   .h8(context),
-              SizedBox(height: 4),
               '2pcs'
                   .text
                   .capitalize
+                  .sm
                   .ellipsis
                   .maxLines(2)
                   .color(kGreyLightColor)
-                  .size(12)
                   .make()
                   .p2(),
               SizedBox(height: 4),
@@ -151,36 +149,28 @@ class CProductItem extends StatelessWidget {
                   )),
                   Container(
                       margin: EdgeInsets.only(left: 20),
-                      child: '55 Shades'.text.size(12).coolGray300.make())
+                      child: '55 Shades'.text.sm.coolGray300.make())
                 ],
               ),
               SizedBox(height: 4),
               HStack([
-                Text.rich(
-                  TextSpan(children: [
-                    TextSpan(
-                      text: prod.mrp == ''
-                          ? ''
-                          : '${lController.selectedSymbol}${prod.mrp}',
-                      style: TextStyle(
-                        fontSize: 12,
-                        color: kGreyLightColor,
-                        decoration: TextDecoration.lineThrough,
-                      ),
-                    ),
-                    TextSpan(
-                      text: '  ${lController.selectedSymbol}${prod.mrp}',
-                      style: TextStyle(
-                        fontSize: 14,
-                      ),
-                    ),
-                  ]),
-                ),
+                (prod.mrp == ''
+                        ? ''
+                        : '${lController.selectedSymbol}${prod.mrp}')
+                    .richText
+                    .sm
+                    .lineThrough
+                    .color(kGreyLightColor)
+                    .make(),
+                '  ${lController.selectedSymbol}${prod.mrp}'
+                    .richText
+                    .base
+                    .make()
                 // Container(
                 //     height: 15, child: VerticalDivider(color: kDarkGreyColor)),
                 // '20% Off'.text.bold.color(kPrimaryColor).make()
               ]).p8(),
-              '20% Off'.text.bold.color(kPrimaryColor).make(),
+              '20% Off'.text.bold.xl.color(kPrimaryColor).make(),
               SizedBox(height: 4),
               // if (prod.rating != null)
               HStack([
@@ -189,7 +179,7 @@ class CProductItem extends StatelessWidget {
                   rating: 4.5,
                   onRatingChanged: (rating) => rating = rating,
                 ),
-                ' (17)'.text.color(kGreyLightColor).size(12).make(),
+                ' (17)'.text.sm.color(kGreyLightColor).make(),
               ]),
               // Container(
               //   decoration: BoxDecoration(
@@ -242,7 +232,7 @@ class CProductItem extends StatelessWidget {
                     onPressed: () {
                       bController.insertBucket(prod);
                     },
-                    child: 'add_to_cart'.tr.text.make(),
+                    child: 'add_to_cart'.tr.text.base.make(),
                   ),
                 ),
               ]),

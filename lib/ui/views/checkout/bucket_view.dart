@@ -68,29 +68,40 @@ class BucketView extends StatelessWidget {
                               [
                                 ('address'.tr + ': ')
                                     .text
-                                    .size(14)
+                                    .black
+                                    .lg
                                     .make()
-                                    .p12(),
+                                    .paddingOnly(left: 8),
                                 Expanded(
                                   child: '${_aController.selectedAddress.value}'
                                       .text
+                                      .xs
+                                      .gray500
+                                      .semiBold
+                                      .ellipsis
                                       .maxLines(3)
-                                      .size(14)
                                       .make()
-                                      .p12(),
+                                      .p8(),
                                 ),
+                                Icon(
+                                  Icons.edit,
+                                  color: Vx.coolGray500,
+                                ).p8(),
                               ],
-                            ),
+                            ).box.color(Vx.pink100).make(),
                           ),
                         ],
                         alignment: MainAxisAlignment.start,
                         crossAlignment: CrossAxisAlignment.start,
                       ),
                     ),
-                    Divider(),
+                    VxDivider(),
                     Expanded(
                       child: ListView.separated(
-                        separatorBuilder: (context, index) => Divider(),
+                        separatorBuilder: (context, index) => Divider(
+                          indent: 70,
+                          endIndent: 20,
+                        ),
                         itemCount: bController.bucketList.length,
                         padding: EdgeInsets.all(4),
                         itemBuilder: (context, index) {
@@ -99,41 +110,33 @@ class BucketView extends StatelessWidget {
                         },
                       ),
                     ),
-                    Divider(),
+                    VxDivider(),
                     Container(
-                      margin: EdgeInsets.all(20.0),
+                      margin: EdgeInsets.all(10.0),
                       alignment: Alignment.bottomCenter,
                       child: VStack(
                         [
                           HStack(
                             [
-                              Divider(),
                               Expanded(
-                                  child: ('total'.tr + ': ')
-                                      .text
-                                      .size(14)
-                                      .make()
-                                      .p12()),
+                                  child:
+                                      ('total'.tr + ': ').text.lg.make().p8()),
                               '${lController.selectedSymbol}${bController.totalAmount}'
                                   .text
-                                  .size(14)
+                                  .lg
                                   .make()
-                                  .p12(),
+                                  .p8(),
                             ],
                           ),
                           HStack(
                             [
                               Expanded(
-                                  child: ('tax'.tr + ': ')
-                                      .text
-                                      .size(14)
-                                      .make()
-                                      .p12()),
+                                  child: ('tax'.tr + ': ').text.lg.make().p8()),
                               '${lController.selectedSymbol}${bController.taxAmount}'
                                   .text
-                                  .size(14)
+                                  .lg
                                   .make()
-                                  .p12(),
+                                  .p8(),
                             ],
                           ),
                           HStack(
@@ -141,14 +144,14 @@ class BucketView extends StatelessWidget {
                               Expanded(
                                   child: ('discount'.tr + ': ')
                                       .text
-                                      .size(14)
+                                      .lg
                                       .make()
-                                      .p12()),
+                                      .p8()),
                               '${lController.selectedSymbol}${bController.discountAmt}'
                                   .text
-                                  .size(14)
+                                  .lg
                                   .make()
-                                  .p12(),
+                                  .p8(),
                             ],
                           ),
                           HStack(
@@ -156,14 +159,14 @@ class BucketView extends StatelessWidget {
                               Expanded(
                                   child: ('shipping'.tr + ': ')
                                       .text
-                                      .size(14)
+                                      .lg
                                       .make()
-                                      .p12()),
+                                      .p8()),
                               '${lController.selectedSymbol}${bController.shippingAmt}'
                                   .text
-                                  .size(14)
+                                  .lg
                                   .make()
-                                  .p12(),
+                                  .p8(),
                             ],
                           ),
                           Divider(),
@@ -172,12 +175,12 @@ class BucketView extends StatelessWidget {
                               Expanded(
                                   child: ('payable'.tr + ': ')
                                       .text
-                                      .size(20)
+                                      .lg
+                                      .color(kPrimaryColor)
                                       .make()
-                                      .p12()),
+                                      .p8()),
                               // '\$${bController.grandTotal.value}'
-                              //     .text
-                              //     .size(24)
+                              // .text.lg
                               //     .make()
                               //     .p12(),
                               '${lController.selectedSymbol}${bController.grandTotal.value}'
@@ -186,7 +189,9 @@ class BucketView extends StatelessWidget {
                                   .text
                                   .xl
                                   .bold
-                                  .make(),
+                                  .color(kPrimaryColor)
+                                  .make()
+                                  .p8(),
                             ],
                           ),
                           MaterialButton(
@@ -204,11 +209,7 @@ class BucketView extends StatelessWidget {
                             // color: Color(0xff374ABE),
                             color: kPrimaryColor,
                             minWidth: double.maxFinite,
-                            child: Text(
-                              'continue'.tr,
-                              style: TextStyle(
-                                  color: Colors.white, fontSize: 18.0),
-                            ),
+                            child: 'continue'.tr.text.white.xl.make(),
                           ),
                         ],
                       ),

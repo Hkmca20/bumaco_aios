@@ -9,7 +9,7 @@ abstract class AddressDao {
   @Query('SELECT * FROM addressentity WHERE addressid=:addressid')
   Future<AddressEntity?> findAddressById(String addressid);
 
-  @Query('SELECT * from addressentity WHERE isdefault=true')
+  @Query('SELECT * from addressentity WHERE isdefault=1')
   Future<AddressEntity?> findDefaultAddress();
 
   @Query('DELETE FROM addressentity WHERE addressid=:addressid')
@@ -21,10 +21,10 @@ abstract class AddressDao {
   @insert
   Future<void> insertAddressList(List<AddressEntity> entityList);
 
-  @Query('UPDATE addressentity SET isdefault=false WHERE isdefault=true')
+  @Query('UPDATE addressentity SET isdefault=0 WHERE isdefault=1')
   Future<void> updateDefaultAddressRemove();
 
-  @Query('UPDATE addressentity SET isdefault=true WHERE addressid=:id')
+  @Query('UPDATE addressentity SET isdefault=1 WHERE addressid=:id')
   Future<void> setDefaultAddressById(String id);
 
   @update

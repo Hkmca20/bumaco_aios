@@ -4,25 +4,29 @@ import 'package:bumaco_aios/app_utils/utils.dart';
 import 'package:get/get.dart';
 
 class SubCategoryController extends GetxController {
-    static SubCategoryController get to => Get.find(tag: S_CATEGORY_CONTROLLER);
+  static SubCategoryController get to => Get.find(tag: S_CATEGORY_CONTROLLER);
   late CategoryRepo _categoryRepo;
-  late String childCategoryId;
-  setChildCategoryId(id) {
-    childCategoryId = id;
-    fetchSubCategory();
-  }
+  late final CategoryData categoryData;
+  final args = Get.arguments;
 
   SubCategoryController() {
     _categoryRepo = Get.find<CategoryRepoImpl>();
   }
+  @override
+  onInit() {
+    super.onInit();
+    if (args != null) {
+      categoryData = args['arg_category_item'] ?? '';
+      fetchSubCategory(categoryData.id);
+    }
+  }
+
   late RxList<SubCategoryModel> subCategoryList = <SubCategoryModel>[].obs;
   RxBool isLoading = false.obs;
 
-  void fetchSubCategory() async {
+  void fetchSubCategory(String categoryId) async {
     isLoading.toggle();
-
-    final result = await _categoryRepo.getSubCategory(childCategoryId);
-
+    final result = await _categoryRepo.getSubCategory(categoryId);
     isLoading.toggle();
 
     if (result != null) {

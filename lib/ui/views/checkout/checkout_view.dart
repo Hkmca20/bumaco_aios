@@ -2,18 +2,18 @@ import 'package:bumaco_aios/app_utils/app_bar_home.dart';
 import 'package:bumaco_aios/app_utils/utils.dart';
 import 'package:bumaco_aios/ui/controller/controllers.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:velocity_x/velocity_x.dart';
 
 import '../address/add_address_view.dart';
 
-class BucketView extends StatelessWidget {
-  const BucketView({Key? key}) : super(key: key);
+class CheckoutView extends StatelessWidget {
+  //Not used this class hari
+  const CheckoutView({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    // final bucketController = BucketController.to;
-    final bucketController = Get.find<BucketController>();
+    final bucketController = BucketController.to;
+    // final bucketController = Get.find<BucketController>();
     bucketController.getAllBucketFromLocal();
     return Scaffold(
       appBar: AppbarHome(
@@ -31,8 +31,8 @@ class BucketView extends StatelessWidget {
                 [
                   HStack(
                     [
-                      'Total: '.text.size(20).make().p12(),
-                      'Total: '.text.size(20).make().p12(),
+                      'Total: '.text.xl.make().p12(),
+                      'Total: '.text.xl.make().p12(),
                     ],
                     alignment: MainAxisAlignment.spaceAround,
                     crossAlignment: CrossAxisAlignment.center,
@@ -46,10 +46,7 @@ class BucketView extends StatelessWidget {
                     // color: Color(0xff374ABE),
                     color: kPrimaryColor,
                     minWidth: double.maxFinite,
-                    child: Text(
-                      "Continue",
-                      style: TextStyle(color: Colors.white, fontSize: 18.0),
-                    ),
+                    child: 'Continue'.text.xl.white.make(),
                   ),
                 ],
               ),

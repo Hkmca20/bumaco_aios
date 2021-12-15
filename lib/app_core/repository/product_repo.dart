@@ -6,9 +6,10 @@ import 'package:bumaco_aios/network/dio_client_impl.dart';
 import 'package:get/get.dart';
 
 abstract class ProductRepository {
-  Future<List<ProductModel>?> getProduct(categoryId);
-  Future<List<ProductModel>?> searchProduct(searchStr);
+  Future<List<ProductModel>?> getProductById(categoryId);
+  Future<List<ProductModel>?> getProductSearch(searchStr);
   Future<List<ProductModel>?> getProductAll();
+  Future<List<ProductModel>?> getProductHome();
   Future<List<ProductMakeupModel>?> getProductMakeup();
 }
 
@@ -23,10 +24,10 @@ class ProductRepositoryImpl extends ProductRepository {
   Future<List<ProductModel>?> getProductAll() async {
     final response;
     try {
-      response = await _client.getRequest(ApiConstants.allProductApi);
-      final allProductList =
+      response = await _client.getRequest(ApiConstants.productApiAll);
+      final result =
           (response.data as List).map((x) => ProductModel.fromJson(x)).toList();
-      return allProductList;
+      return result;
     } on Exception catch (error) {
       print(error);
       return null;
@@ -34,13 +35,29 @@ class ProductRepositoryImpl extends ProductRepository {
   }
 
   @override
-  Future<List<ProductModel>?> getProduct(categoryId) async {
+  Future<List<ProductModel>?> getProductHome() async {
+    final response;
+    try {
+      Map<String, dynamic> params = {};
+      response = await _client.request(
+          ApiConstants.productApiHome, Method.GET, params);
+      final result =
+          (response.data as List).map((x) => ProductModel.fromJson(x)).toList();
+      return result;
+    } on Exception catch (error) {
+      print(error);
+      return null;
+    }
+  }
+
+  @override
+  Future<List<ProductModel>?> getProductById(categoryId) async {
     final response;
     try {
       response = await _client.getRequest(ApiConstants.productApi + categoryId);
-      final productList =
+      final result =
           (response.data as List).map((x) => ProductModel.fromJson(x)).toList();
-      return productList;
+      return result;
     } on Exception catch (error) {
       print(error);
       return null;
@@ -48,14 +65,14 @@ class ProductRepositoryImpl extends ProductRepository {
   }
 
   @override
-  Future<List<ProductModel>?> searchProduct(searchStr) async {
+  Future<List<ProductModel>?> getProductSearch(searchStr) async {
     final response;
     try {
-      response =
-          await _client.getRequest(ApiConstants.searchFilterApi + searchStr);
-      final productList =
+      response = await _client
+          .getRequest(ApiConstants.productApiSearchFilter + searchStr);
+      final result =
           (response.data as List).map((x) => ProductModel.fromJson(x)).toList();
-      return productList;
+      return result;
     } on Exception catch (error) {
       print(error);
       return null;
@@ -67,10 +84,10 @@ class ProductRepositoryImpl extends ProductRepository {
     final response;
     try {
       response = await _client.getRequest(ApiConstants.productMakeupApi);
-      final productList = (response.data as List)
+      final result = (response.data as List)
           .map((x) => ProductMakeupModel.fromJson(x))
           .toList();
-      return productList;
+      return result;
     } on Exception catch (error, stacktrace) {
       print(error);
       // return null;

@@ -28,8 +28,8 @@ class OrderHistoryView extends StatelessWidget {
           itemBuilder: (context, index) {
             return ListTile(
               leading: Icon(Icons.border_outer_rounded),
-              trailing: 'Nov ${index + 1} 2021'.text.make(),
-              title: 'Order #O1CINBA3980${index + 1}'.text.make(),
+              trailing: 'Nov ${index + 1} 2021'.text.sm.make(),
+              title: 'Order #O1CINBA3980${index + 1}'.text.lg.make(),
               onTap: () {
                 Get.to(() => OrderTrackView());
               },

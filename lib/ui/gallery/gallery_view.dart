@@ -57,8 +57,8 @@ class _GalleryViewState extends State<GalleryView> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // productItem.product.text.bold.size(28).make().p4(),
-              productItem.brand.text.size(18).make().p2(),
+              // productItem.product.text.bold.xl2.make().p4(),
+              productItem.brand.text.xl.make().p2(),
               Expanded(
                 child: InteractiveViewer(
                   transformationController: _tController,

@@ -61,21 +61,18 @@ class BucketItem extends StatelessWidget {
               SizedBox(width: 8),
               Expanded(
                 child: Container(
-                  padding: EdgeInsets.only(bottom: 8),
+                  padding: EdgeInsets.only(bottom: 4),
                   child: VStack(
                     [
-                      item.product.text
-                          .size(16)
-                          .capitalize
-                          .fontWeight(FontWeight.w900)
-                          .ellipsis
+                      item.product.text.sm.semiBold.capitalize.ellipsis
                           .maxLines(2)
                           .make()
                           .px2(),
-                      item.brand.text.capitalize.make().px2(),
+                      item.brand.text.sm.capitalize.make().px2(),
                       SizedBox(height: 1),
                       ('${item.shortDescription} : ${item.description}')
                           .text
+                          .sm
                           .capitalize
                           .ellipsis
                           .maxLines(3)
@@ -92,7 +89,7 @@ class BucketItem extends StatelessWidget {
                 [
                   ('${lController.selectedSymbol}${item.mrp}x${item.quantity.toString()} = ${item.totalPrice}')
                       .text
-                      .size(16)
+                      .sm
                       .make()
                       .px2(),
                   VxDivider(),
@@ -107,12 +104,7 @@ class BucketItem extends StatelessWidget {
                           color: kPrimaryColor,
                         ),
                       ),
-                      item.quantity.text
-                          .fontWeight(FontWeight.bold)
-                          .size(22)
-                          .capitalize
-                          .make()
-                          .p4(),
+                      item.quantity.text.xl.capitalize.bold.make().p4(),
                       IconButton(
                         onPressed: () {
                           bController.increDecreQuantity(item, true);
@@ -140,6 +132,6 @@ class BucketItem extends StatelessWidget {
           // ]).paddingSymmetric(horizontal: 5),
         ],
       ),
-    ).padding(EdgeInsets.all(8)).make();
+    ).padding(EdgeInsets.symmetric(horizontal: 8)).make();
   }
 }

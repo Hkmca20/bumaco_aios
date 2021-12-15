@@ -28,9 +28,18 @@ class ReviewItem extends StatelessWidget {
           VStack([
             HStack(
               [
-                'Vanshika.kalani Vanshika'.text.bold.make().p4(),
+                'Vanshika.kalani Vanshika'
+                    .text
+                    .sm
+                    .ellipsis
+                    .bold
+                    .maxLines(2)
+                    .make()
+                    .p4(),
                 '(26/09/2021)'
                     .text
+                    .xs
+                    .ellipsis
                     .align(TextAlign.right)
                     .color(kDarkGreyColor)
                     .make()
@@ -39,13 +48,13 @@ class ReviewItem extends StatelessWidget {
             ),
             HStack([
               Icon(Icons.verified, size: 16, color: Colors.green),
-              'Verified Buyer'.text.make().p2(),
+              'Verified Buyer'.text.sm.make().p2(),
             ]),
           ]),
         ]),
         HStack([
           Icon(Icons.reviews_outlined, size: 16),
-          '2 Reviews'.text.make().p2(),
+          '2 Reviews'.text.sm.make().p2(),
           VxDivider(
                   type: VxDividerType.vertical,
                   width: 1,
@@ -55,12 +64,12 @@ class ReviewItem extends StatelessWidget {
               .p8
               .make(),
           Icon(Icons.photo, size: 16).p2(),
-          '7 Photos'.text.make().p2()
+          '7 Photos'.text.sm.make().p2()
         ]),
         20.heightBox,
         HStack([
-          ' 5'.text.bold.white.size(14).make().p2().box.green500.make(),
-          Icon(Icons.star, size: 15, color: kWhiteColor)
+          ' 5'.text.bold.white.sm.make().p2().box.green500.make(),
+          Icon(Icons.star, size: 17, color: kWhiteColor)
               .p2()
               .box
               .green500
@@ -78,12 +87,13 @@ class ReviewItem extends StatelessWidget {
               color: Colors.brown,
             ),
           ).p4(),
-          '320G Tres Leches'.text.make().p4().expand(),
+          '320G Tres Leches'.text.sm.make().p4().expand(),
         ]),
         5.heightBox,
-        '\"Awesome\"'.text.bold.make(),
+        '\"Awesome\"'.text.lg.bold.make(),
         'I have been wanting to take it for a long time and I am happy with it.'
             .text
+            .sm
             .make(),
         5.heightBox,
         Container(
@@ -92,9 +102,9 @@ class ReviewItem extends StatelessWidget {
               padding: EdgeInsets.symmetric(horizontal: 5),
               physics: ClampingScrollPhysics(),
               scrollDirection: Axis.horizontal,
-              itemCount: pController.allProductList.length,
+              itemCount: pController.productListAll.length,
               itemBuilder: (context, index) {
-                final ProductModel item = pController.allProductList[index];
+                final ProductModel item = pController.productListAll[index];
                 return CachedNetworkImage(
                         imageUrl: ApiConstants.baseImageUrl + item.fimage)
                     .paddingSymmetric(horizontal: 5, vertical: 4)
@@ -112,7 +122,7 @@ class ReviewItem extends StatelessWidget {
           ).p2().onTap(() {
             bumacoSnackbar('alert'.tr, 'Hepful marked');
           }),
-          'HELPFUL'.text.bold.color(kPrimaryColor).make().p2().onTap(() {
+          'HELPFUL'.text.bold.sm.color(kPrimaryColor).make().p2().onTap(() {
             bumacoSnackbar('alert'.tr, 'Hepful marked');
           }),
           VxDivider(
@@ -123,7 +133,7 @@ class ReviewItem extends StatelessWidget {
               .height(24)
               .make()
               .paddingAll(10),
-          '6 people found this helpful'.text.make().p8(),
+          '6 people found this helpful'.text.sm.make().p8(),
         ]).paddingAll(10)
       ]),
     );

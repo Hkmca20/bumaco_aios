@@ -66,8 +66,7 @@ class SignupView extends StatelessWidget {
         ),
         SizedBox(height: 60),
         Obx(
-          () => signupController.nameUpdated.value.text.uppercase
-              .size(25)
+          () => signupController.nameUpdated.value.text.uppercase.xl3
               .color(Colors.blueGrey)
               .letterSpacing(2)
               .fontWeight(FontWeight.w400)
@@ -78,7 +77,7 @@ class SignupView extends StatelessWidget {
                 ? signupController.mobileCTR.text
                 : signupController.emailCTR.text)
             .text
-            .size(18)
+            .xl2
             .fontWeight(FontWeight.w400)
             .make(),
         SizedBox(height: 10),
@@ -146,7 +145,7 @@ class SignupView extends StatelessWidget {
           margin: EdgeInsets.only(top: 30.0, left: 30.0, right: 30.0),
           child: TextFormField(
             controller: signupController.mobileCTR,
-            enabled: false,
+            enabled: !(signupController.mobileCTR.text.length > 4),
             decoration: InputDecoration(
               labelText: "Phone Number", // Set text upper animation
               labelStyle: TextStyle(color: kGreyLightColor),
@@ -187,9 +186,15 @@ class SignupView extends StatelessWidget {
           margin: EdgeInsets.only(top: 30.0, left: 30.0, right: 30.0),
           child: TextFormField(
             controller: signupController.emailCTR,
+            enabled: !(signupController.emailCTR.text.length > 4),
             decoration: InputDecoration(
               labelText: "Email Id", // Set text upper animation
               border: OutlineInputBorder(),
+              disabledBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(5),
+                borderSide: BorderSide(color: kPrimaryColor),
+                gapPadding: 8,
+              ),
               suffixIcon: Icon(
                 Icons.email_outlined,
                 color: kPrimaryColor,
@@ -201,16 +206,16 @@ class SignupView extends StatelessWidget {
           ),
         ),
 
-        // Date Of Birth Edit text
+        // Password Edit text
         Container(
           margin: EdgeInsets.only(top: 30.0, left: 30.0, right: 30.0),
           child: TextFormField(
-            controller: signupController.dobCTR,
+            controller: signupController.passwordCTR,
             decoration: InputDecoration(
-              labelText: "DOB (Optional)", // Set text upper animation
+              labelText: "Password", // Set text upper animation
               border: OutlineInputBorder(),
               suffixIcon: Icon(
-                Icons.calendar_today_outlined,
+                Icons.password,
                 color: kPrimaryColor,
               ),
             ),
@@ -220,7 +225,26 @@ class SignupView extends StatelessWidget {
           ),
         ),
 
-//Button Section--------------------
+        // Password Edit text
+        Container(
+          margin: EdgeInsets.only(top: 30.0, left: 30.0, right: 30.0),
+          child: TextFormField(
+            controller: signupController.confirmPassCTR,
+            decoration: InputDecoration(
+              labelText: "Confirm Password", // Set text upper animation
+              border: OutlineInputBorder(),
+              suffixIcon: Icon(
+                Icons.password,
+                color: kPrimaryColor,
+              ),
+            ),
+            minLines: 1,
+            autofocus: false,
+            keyboardType: TextInputType.number,
+          ),
+        ),
+
+        //Button Section--------------------
         HStack([
           // Submit Button
           Expanded(
@@ -245,7 +269,7 @@ class SignupView extends StatelessWidget {
                         .text
                         .uppercase
                         .white
-                        .size(18)
+                        .xl
                         .align(TextAlign.center)
                         .make(),
                   ))),
@@ -272,7 +296,7 @@ class SignupView extends StatelessWidget {
                         .text
                         .uppercase
                         .white
-                        .size(18)
+                        .xl
                         .align(TextAlign.center)
                         .make(),
                   ))),

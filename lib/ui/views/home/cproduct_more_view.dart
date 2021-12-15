@@ -45,9 +45,7 @@ class CProductMoreView extends StatelessWidget {
                       Positioned(
                         top: 1.0,
                         right: 4.0,
-                        child: bucketController.bucketList.length.text
-                            .size(11)
-                            .white
+                        child: bucketController.bucketList.length.text.xs.white
                             .make()
                             .centered(),
                       ),
@@ -66,20 +64,20 @@ class CProductMoreView extends StatelessWidget {
           children: [
             Expanded(
               child: Obx(
-                () => productController.allProductList.length == 0
+                () => productController.productListAll.length == 0
                     ? EmptyContentWidget()
                     : StaggeredGridView.countBuilder(
                         crossAxisCount: productController.columnCount.value,
                         crossAxisSpacing: 4,
                         mainAxisSpacing: 4,
-                        itemCount: productController.allProductList.length,
+                        itemCount: productController.productListAll.length,
                         padding: EdgeInsets.all(4),
                         staggeredTileBuilder: (int index) {
                           return StaggeredTile.fit(1);
                         },
                         itemBuilder: (context, index) {
                           ProductModel item =
-                              productController.allProductList[index];
+                              productController.productListAll[index];
                           return CProductItem(prod: item);
                         }),
               ),

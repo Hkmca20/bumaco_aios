@@ -79,8 +79,7 @@ class ProfileView extends StatelessWidget {
         //         ? 'Guest User'
         //         : profileController.nameCTR.text)
         Obx(
-          () => profileController.nameUpdated.value.text.uppercase
-              .size(25)
+          () => profileController.nameUpdated.value.text.uppercase.bold.xl2
               .color(Colors.blueGrey)
               .letterSpacing(2)
               .fontWeight(FontWeight.w400)
@@ -91,7 +90,7 @@ class ProfileView extends StatelessWidget {
                 ? profileController.mobileCTR.text
                 : profileController.emailCTR.text)
             .text
-            .size(18)
+            .xl2
             .fontWeight(FontWeight.w400)
             .make(),
         SizedBox(height: 10),
@@ -187,29 +186,71 @@ class ProfileView extends StatelessWidget {
           ),
         ),
 
-        // Date Of Birth Edit text
+        // Password Edit text
         Container(
           margin: EdgeInsets.only(top: 30.0, left: 30.0, right: 30.0),
           child: TextFormField(
-            controller: profileController.dobCTR,
-            enableInteractiveSelection: false,
-            readOnly: true,
+            controller: profileController.passwordCTR,
             decoration: InputDecoration(
-              labelText: "DOB", // Set text upper animation
+              labelText: "Password", // Set text upper animation
               border: OutlineInputBorder(),
               suffixIcon: Icon(
-                Icons.calendar_today_outlined,
+                Icons.password,
                 color: kPrimaryColor,
               ),
             ),
             minLines: 1,
-            focusNode: FocusNode(),
             autofocus: false,
             keyboardType: TextInputType.number,
-          ).onTap(() {
-            profileController.openDatePicker(context);
-          }),
+          ),
         ),
+
+        // Password Edit text
+        Container(
+          margin: EdgeInsets.only(top: 30.0, left: 30.0, right: 30.0),
+          child: TextFormField(
+            controller: profileController.confirmPassCTR,
+            decoration: InputDecoration(
+              labelText: "Confirm Password", // Set text upper animation
+              border: OutlineInputBorder(),
+              suffixIcon: Icon(
+                Icons.password,
+                color: kPrimaryColor,
+              ),
+            ),
+            minLines: 1,
+            autofocus: false,
+            keyboardType: TextInputType.number,
+          ),
+        ),
+
+        // // Date Of Birth Edit text
+        // Container(
+        //   margin: EdgeInsets.only(top: 30.0, left: 30.0, right: 30.0),
+        //   child: TextFormField(
+        //     controller: profileController.dobCTR,
+        //     enableInteractiveSelection: false,
+        //     // readOnly: true,
+        //     decoration: InputDecoration(
+        //       labelText: "DOB (DD/MM/YYYY)", // Set text upper animation
+        //       border: OutlineInputBorder(),
+        //       suffixIcon: Icon(
+        //         Icons.calendar_today_outlined,
+        //         color: kPrimaryColor,
+        //       ),
+        //     ),
+        //     minLines: 1,
+        //     focusNode: FocusNode(),
+        //     autofocus: false,
+        //     keyboardType: TextInputType.number,
+        //   ).onTap(() {
+        //     print('open date picker');
+        //     profileController.openDatePicker(context);
+        //   }),
+        // ).onTap(() {
+        //   print('open date picker--------------');
+        //   profileController.openDatePicker(context);
+        // }),
 
 //Button Section--------------------
         HStack([
@@ -232,12 +273,7 @@ class ProfileView extends StatelessWidget {
                     onPressed: () {
                       Get.back();
                     }, // Click Listener
-                    child: 'BACK'
-                        .text
-                        .size(18)
-                        .white
-                        .align(TextAlign.center)
-                        .make(),
+                    child: 'BACK'.text.xl.white.align(TextAlign.center).make(),
                   ))),
           // Submit Button
           Expanded(
@@ -258,12 +294,8 @@ class ProfileView extends StatelessWidget {
                     onPressed: () {
                       profileController.submitButton(context);
                     }, // Click Listener
-                    child: 'UPDATE'
-                        .text
-                        .size(18)
-                        .white
-                        .align(TextAlign.center)
-                        .make(),
+                    child:
+                        'UPDATE'.text.xl.white.align(TextAlign.center).make(),
                   ))),
         ])
       ],

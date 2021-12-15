@@ -28,7 +28,7 @@ class _GalleryReViewState extends State<GalleryReView> {
       Get.back();
     }
     _pageController = PageController(initialPage: initialIndex);
-    productItem = pController.allProductList[initialIndex];
+    productItem = pController.productListAll[initialIndex];
     super.initState();
   }
 
@@ -48,14 +48,14 @@ class _GalleryReViewState extends State<GalleryReView> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // productItem.product.text.bold.size(28).make().p4(),
-              productItem.brand.text.size(18).make().p4(),
+              // productItem.product.text.xl.bold.make().p4(),
+              productItem.brand.text.lg.make().p4(),
               Expanded(
                 child: PageView(
                   controller: _pageController,
                   children:
-                      List.generate(pController.allProductList.length, (index) {
-                    final ProductModel item = pController.allProductList[index];
+                      List.generate(pController.productListAll.length, (index) {
+                    final ProductModel item = pController.productListAll[index];
                     return Stack(children: [
                       Positioned(
                         child: CachedNetworkImage(
@@ -78,7 +78,7 @@ class _GalleryReViewState extends State<GalleryReView> {
                           child: VStack([
                             VxDivider(),
                             HStack([
-                              '5'.text.bold.make().p2(),
+                              '5'.text.base.bold.make().p2(),
                               Icon(Icons.star, size: 16).p2(),
                               VxDivider(
                                 type: VxDividerType.vertical,
@@ -94,15 +94,21 @@ class _GalleryReViewState extends State<GalleryReView> {
                                 ),
                               ).p2(),
                               '320G Tres Leches'.text.lg.make().p4().expand(),
-                              '26/09/2021'.text.color(kDarkGreyColor).make()
+                              '26/09/2021'.text.sm.color(kDarkGreyColor).make()
                             ]),
                             5.heightBox,
-                            '\"Awesome\"'.text.bold.make(),
+                            '\"Awesome\"'.text.base.bold.make(),
                             'I have been wanting to take it for a long time and I am happy with it.'
                                 .text
+                                .base
                                 .make(),
                             5.heightBox,
-                            'Vanshika.kalani Vanshika'.text.bold.make().p2(),
+                            'Vanshika.kalani Vanshika'
+                                .text
+                                .base
+                                .bold
+                                .make()
+                                .p2(),
                             2.heightBox,
                             HStack([
                               Icon(
@@ -110,8 +116,8 @@ class _GalleryReViewState extends State<GalleryReView> {
                                 size: 16,
                                 color: Vx.green600,
                               ),
-                              'Verified Buyer'.text.make().p2().expand(),
-                              '6 people found this helpful'.text.make().p2(),
+                              'Verified Buyer'.text.sm.make().p2().expand(),
+                              '6 people found this helpful'.text.sm.make().p2(),
                             ]),
                           ]),
                         ),

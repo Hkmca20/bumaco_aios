@@ -66,7 +66,7 @@ class AppbarSHome extends StatelessWidget with PreferredSizeWidget {
                   //     .make(),
                 ),
                 // ),
-                SizedBox(width: 4),
+                SizedBox(width: 2),
                 InkWell(
                   onTap: () {
                     homeController.gateBottomsheet(context);
@@ -75,10 +75,9 @@ class AppbarSHome extends StatelessWidget with PreferredSizeWidget {
                     [
                       Obx(
                         () => homeController
-                            .selectedGate.value.text.ellipsis.uppercase
-                            .maxLines(1)
+                            .selectedGate.value.text.xs.uppercase.ellipsis
+                            .maxLines(2)
                             .color(kGreyLightColor)
-                            .size(11)
                             .fontWeight(FontWeight.w400)
                             // .fontFamily('samantha')
                             .make(),
@@ -99,6 +98,7 @@ class AppbarSHome extends StatelessWidget with PreferredSizeWidget {
       //     IconTheme.of(context).copyWith(color: kPrimaryColorDark),
       // iconTheme: IconTheme.of(context).copyWith(color: kPrimaryColorDark),
       actions: actionList ?? [],
+      titleSpacing: 2,
     );
   }
 

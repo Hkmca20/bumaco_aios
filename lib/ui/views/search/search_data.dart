@@ -59,7 +59,7 @@ class SearchData<T> extends SearchDelegate<String> {
   @override
   Widget buildSuggestions(BuildContext context) {
     if (query.length < 2) {
-      pController.searchProductList.clear();
+      pController.productListSearch.clear();
     } else {
       pController.searchSortFilterProducts(query);
     }
@@ -72,9 +72,9 @@ class SearchData<T> extends SearchDelegate<String> {
           separatorBuilder: (context, index) {
             return Divider(indent: 40, endIndent: 80);
           },
-          itemCount: pController.searchProductList.length,
+          itemCount: pController.productListSearch.length,
           itemBuilder: (context, index) {
-            final item = pController.searchProductList[index];
+            final item = pController.productListSearch[index];
             return CSearchItem(
               prod: item,
               bController: bController,

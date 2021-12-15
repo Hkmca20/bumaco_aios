@@ -55,15 +55,15 @@ class ProductView extends StatelessWidget {
             //       : Icons.grid_view_outlined)),
             // ),
             IconButton(
-              icon: Obx(() => productController.favouriteList.length == 0
+              icon: Obx(() => productController.productListFavourite.length == 0
                   ? Icon(Icons.favorite_border_outlined)
                   : Icon(Icons.favorite_border_outlined).p4().badge(
-                      count: productController.favouriteList.length,
+                      count: productController.productListFavourite.length,
                       color: kPrimaryColor,
                       size: 12)),
               tooltip: 'wishlist'.tr,
               onPressed: () {
-                Get.to(() => FavouriteView());
+                Get.toNamed(favouriteRoute);
                 // Get.toNamed(wishlistRoute);
               },
             ),
@@ -161,17 +161,17 @@ class ProductView extends StatelessWidget {
                 //   banners: productController.bannerList,
                 //   onTap: (id) => print(id),
                 // ),
-                SizedBox(height: 10),
+                SizedBox(height: 4),
                 Obx(
                   () =>
-                      '${productController.categoryItem.category} | ${productController.allProductList.length} products'
+                      '${productController.categoryItem.category} | ${productController.productListAll.length} products'
                           .text
-                          .size(18)
+                          .xl
                           .fontWeight(FontWeight.w600)
                           .make()
                           .p16(),
                 ),
-                SizedBox(height: 10),
+                SizedBox(height: 4),
                 VxDivider(),
                 Container(
                   width: _screenSize.width,
@@ -187,25 +187,20 @@ class ProductView extends StatelessWidget {
                         onTap: () {
                           showSortBottomSheet(context);
                         },
-                        child: HStack(
-                          [
-                            Icon(Icons.sort).p12(),
-                            VStack([
-                              'Sort By'.text.bold.make(),
-                              Obx(
-                                () => fController.selectedSortText.value.text
-                                    .size(12)
-                                    .make()
-                                    .paddingSymmetric(vertical: 2),
-                              ),
-                            ]).p12(),
-                          ],
-                          alignment: MainAxisAlignment.start,
-                          crossAlignment: CrossAxisAlignment.start,
-                        ),
+                        child: HStack([
+                          Icon(Icons.sort).p12(),
+                          VStack([
+                            'Sort By'.text.xl.bold.make(),
+                            Obx(
+                              () => fController.selectedSortText.value.text.sm
+                                  .make()
+                                  .paddingSymmetric(vertical: 2),
+                            ),
+                          ]).p12(),
+                        ]),
                       ),
                       Container(
-                        height: 30,
+                        height: 40,
                         child: VerticalDivider(color: kGreyLightColor),
                       ),
                       InkWell(
@@ -219,6 +214,7 @@ class ProductView extends StatelessWidget {
                               () => 'Filter'
                                   .text
                                   .bold
+                                  .xl
                                   .make()
                                   .badge(
                                       color: productController
@@ -228,7 +224,7 @@ class ProductView extends StatelessWidget {
                                       size: 8)
                                   .p2(),
                             ),
-                            'Apply Filters'.text.size(12).make(),
+                            'Apply Filters'.text.sm.make(),
                           ]).p12(),
                         ]),
                       )
@@ -260,7 +256,7 @@ class ProductView extends StatelessWidget {
                   child: Obx(
                     () => productController.isLoading.isTrue
                         ? LoadingWidget()
-                        : productController.allProductList.length == 0
+                        : productController.productListAll.length == 0
                             ? EmptyContentWidget(
                                 message: 'No products found in this category')
                             : StaggeredGridView.count(
@@ -273,16 +269,16 @@ class ProductView extends StatelessWidget {
                                 shrinkWrap: true,
                                 physics: NeverScrollableScrollPhysics(),
                                 staggeredTiles: List.generate(
-                                    productController.allProductList.length,
+                                    productController.productListAll.length,
                                     (index) {
                                   // return StaggeredTile.count(1, 2.3);
                                   return StaggeredTile.fit(1);
                                 }),
                                 children: List.generate(
-                                    productController.allProductList.length,
+                                    productController.productListAll.length,
                                     (index) {
                                   final item =
-                                      productController.allProductList[index];
+                                      productController.productListAll[index];
                                   return CProductItem(
                                     prod: item,
                                     index: index,
@@ -422,7 +418,7 @@ class ProductView extends StatelessWidget {
               indent: 150,
               endIndent: 150,
             ).p8(),
-            'Sort By'.text.bold.size(22).make().p12(),
+            'Sort By'.text.bold.xl2.make().p12(),
             Container(
               height: _screenSize.height / 3 + 40,
               alignment: Alignment.center,
@@ -436,8 +432,7 @@ class ProductView extends StatelessWidget {
                     return InkWell(
                         child: HStack([
                           Expanded(
-                            child: item.text
-                                .size(16)
+                            child: item.text.lg
                                 .fontWeight(FontWeight.w300)
                                 .make()
                                 .paddingSymmetric(horizontal: 20, vertical: 18),
@@ -459,7 +454,7 @@ class ProductView extends StatelessWidget {
                         onTap: () {
                           fController.selectedSortRadio.value = index;
                           fController.selectedSortText.value = _items[index];
-                          productController.fetchAllProducts();
+                          productController.fetchProductAll();
                           Get.back();
                         });
                   }),

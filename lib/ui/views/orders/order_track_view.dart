@@ -49,7 +49,7 @@ rateProduct() {
   return ListTile(
     leading: Icon(Icons.rate_review_outlined),
     title: 'Rate Product'.text.lg.make(),
-    subtitle: 'Don\'t forget to rate this product'.text.make(),
+    subtitle: 'Don\'t forget to rate this product'.text.sm.make(),
     trailing: Icon(Icons.star),
     onTap: () {
       Get.to(() => RatingView(title: 'maybeinline hair cutter'));
@@ -65,7 +65,7 @@ class TimeLineView extends StatelessWidget {
   Widget build(BuildContext context) {
     final _screenSize = MediaQuery.of(context).size;
     return VxTimeline(
-      animationDuration: 2.seconds,
+      animationDuration: 1.seconds,
       showTrailing: true,
       lineColor: kPrimaryColor,
       headingColor: kGreyLightColor,
@@ -97,14 +97,14 @@ class TicketView extends StatelessWidget {
           [
             'ESTIMATED DELIVERTY'
                 .text
+                .sm
                 .ellipsis
                 .white
                 .semiBold
                 .heightLoose
-                .wider
                 .make(),
             HeightBox(5),
-            'NOV 18, 2021'.text.lg.white.semiBold.wider.make(),
+            'NOV 18, 2021'.text.sm.white.semiBold.wider.make(),
           ],
           alignment: MainAxisAlignment.spaceBetween,
           crossAlignment: CrossAxisAlignment.center,
@@ -120,6 +120,7 @@ class TicketView extends StatelessWidget {
           [
             'ORDER NUMBER'
                 .text
+                .sm
                 .ellipsis
                 .wider
                 .white
@@ -127,7 +128,7 @@ class TicketView extends StatelessWidget {
                 .semiBold
                 .make(),
             HeightBox(5),
-            '#OCVB253451C'.text.lg.wider.white.heightLoose.semiBold.make(),
+            '#OCVB253451C'.text.sm.wider.white.heightLoose.semiBold.make(),
           ],
           alignment: MainAxisAlignment.spaceBetween,
           crossAlignment: CrossAxisAlignment.center,

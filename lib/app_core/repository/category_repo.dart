@@ -6,8 +6,8 @@ import 'package:get/get.dart';
 
 abstract class CategoryRepo {
   Future<List<CategoryData>?> getCategory();
-  Future<List<ChildCategoryModel>?> getChildCategory(categoryId);
-  Future<List<SubCategoryModel>?> getSubCategory(childCategoryId);
+  Future<List<SubCategoryModel>?> getSubCategory(categoryId);
+  Future<List<ChildCategoryModel>?> getChildCategory(subCategoryId);
 }
 
 class CategoryRepoImpl extends CategoryRepo {
@@ -36,13 +36,13 @@ class CategoryRepoImpl extends CategoryRepo {
   }
 
   @override
-  Future<List<ChildCategoryModel>?> getChildCategory(categoryId) async {
+  Future<List<SubCategoryModel>?> getSubCategory(categoryId) async {
     final response;
     try {
       response = await _client
-          .getRequest('${ApiConstants.childCategoryApi}?id=$categoryId');
+          .getRequest('${ApiConstants.subCategoryApi}?id=$categoryId');
       final responseList = (response.data as List)
-          .map((x) => ChildCategoryModel.fromJson(x))
+          .map((x) => SubCategoryModel.fromJson(x))
           .toList();
       return responseList;
     } on Exception catch (e) {
@@ -52,13 +52,13 @@ class CategoryRepoImpl extends CategoryRepo {
   }
 
   @override
-  Future<List<SubCategoryModel>?> getSubCategory(childCategoryId) async {
+  Future<List<ChildCategoryModel>?> getChildCategory(subCategoryId) async {
     final response;
     try {
       response = await _client
-          .getRequest('${ApiConstants.subCategoryApi}?id=$childCategoryId');
+          .getRequest('${ApiConstants.childCategoryApi}?id=$subCategoryId');
       final responseList = (response.data as List)
-          .map((x) => SubCategoryModel.fromJson(x))
+          .map((x) => ChildCategoryModel.fromJson(x))
           .toList();
       return responseList;
     } on Exception catch (e) {

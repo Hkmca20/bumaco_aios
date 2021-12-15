@@ -54,9 +54,9 @@ class OTPView extends StatelessWidget {
       // ),
       child: TextFormField(
         style: TextStyle(
-          letterSpacing: 14,
+          letterSpacing: 12,
           fontWeight: FontWeight.w800,
-          fontSize: 22,
+          fontSize: 20,
         ),
         controller: _otpController.otpCTR,
         decoration: InputDecoration(
@@ -86,10 +86,7 @@ class OTPView extends StatelessWidget {
                       'senconds'.tr);
             }
           },
-          child: Text(
-            _otpController.resendText.value,
-            style: TextStyle(fontSize: 18, fontStyle: FontStyle.italic),
-          ),
+          child: _otpController.resendText.value.text.lg.italic.make(),
         ));
 
     return Scaffold(

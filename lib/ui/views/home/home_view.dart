@@ -28,7 +28,8 @@ class HomeView extends StatelessWidget {
     final categoryController = CategoryController.to;
     final productController = ProductController.to;
     final homeController = HomeController.to;
-    final bController = Get.find<BucketController>();
+    final bController = BucketController.to;
+    // final bController = Get.find<BucketController>();
 
     return Material(
       child: Scaffold(
@@ -80,14 +81,14 @@ class HomeView extends StatelessWidget {
               icon: Icon(Icons.favorite_rounded),
               tooltip: 'wishlist'.tr,
               onPressed: () {
-                Get.to(() => FavouriteView());
+                Get.toNamed(favouriteRoute);
               },
             ), //IconBnButton
             IconButton(
               icon: Icon(Icons.shopping_cart_rounded),
               tooltip: 'view_cart_item'.tr,
               onPressed: () {
-                Get.to(() => BucketView());
+                Get.toNamed(bucketRoute);
                 // categoryController.fetchCategory();
               },
             ),
@@ -268,7 +269,7 @@ class HomeView extends StatelessWidget {
                     () => ListView.builder(
                       scrollDirection: Axis.horizontal,
                       itemBuilder: (context, index) {
-                        final item = productController.allProductList[index];
+                        final item = productController.productListAll[index];
                         return Card(
                           child: InkWell(
                             child: Column(
@@ -316,7 +317,7 @@ class HomeView extends StatelessWidget {
                           ),
                         );
                       },
-                      itemCount: productController.allProductList.length,
+                      itemCount: productController.productListAll.length,
                     ),
                   ),
                 ),
@@ -331,8 +332,8 @@ class HomeView extends StatelessWidget {
                     physics: NeverScrollableScrollPhysics(),
                     padding: EdgeInsets.only(top: 8, left: 8, right: 8),
                     children: List.generate(
-                        productController.allProductList.length, (index) {
-                      final item = productController.allProductList[index];
+                        productController.productListAll.length, (index) {
+                      final item = productController.productListAll[index];
                       return Container(
                         child: Card(
                           clipBehavior: Clip.antiAlias,

@@ -39,7 +39,7 @@ class ItemWidget11 extends StatelessWidget {
               child: CachedNetworkImage(
                 imageUrl: '${ApiConstants.baseImageUrl}${item.image}',
                 filterQuality: FilterQuality.low,
-                placeholderFadeInDuration: 1.seconds,
+                placeholderFadeInDuration: 500.milliseconds,
                 fit: BoxFit.cover,
                 placeholder: (context, url) => LoadingWidget(),
                 errorWidget: (context, url, error) => Icon(Icons.error),

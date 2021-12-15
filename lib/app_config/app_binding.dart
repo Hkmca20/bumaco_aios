@@ -10,6 +10,7 @@ class AppBinding implements Bindings {
   void dependencies() {
     Get.lazyPut(() => SigninController(), fenix: true, tag: LOGIN_CONTROLLER);
     Get.lazyPut(() => OTPController(), fenix: true, tag: OTP_CONTROLLER);
+    Get.lazyPut(() => PassController(), fenix: true, tag: PASS_CONTROLLER);
     Get.lazyPut(() => LocaleController(), fenix: true, tag: LOCALE_CONTROLLER);
     Get.lazyPut(() => SplashController(), fenix: true, tag: SPLASH_CONTROLLER);
     Get.lazyPut(() => OnboardController(),

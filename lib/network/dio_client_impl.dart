@@ -92,7 +92,14 @@ class DioClientImpl extends DioClient {
               print('--------->error:${onError.toString()}');
             });
       } else if (method == Method.PUT) {
-        response = await _dio.put(url, data: params);
+        response = await _dio
+            .put(url, data: params)
+            .whenComplete(
+              () => print("-----PUT>complete:"),
+            )
+            .catchError((onError) {
+          print('---------PUT>error:${onError.toString()}');
+        });
       } else if (method == Method.DELETE) {
         response = await _dio.delete(url);
       } else if (method == Method.HEAD) {

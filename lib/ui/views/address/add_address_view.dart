@@ -1,5 +1,7 @@
 import 'package:bumaco_aios/app_utils/utils.dart';
 import 'package:bumaco_aios/ui/controller/controllers.dart';
+import 'package:get/get_utils/src/extensions/internacionalization.dart';
+import 'package:velocity_x/velocity_x.dart';
 import 'package:flutter/material.dart';
 
 class AddAddressView extends StatefulWidget {
@@ -175,11 +177,7 @@ class AddAddressViewState extends State<AddAddressView> {
                           maxWidth: 300.0,
                           minHeight: 40.0), // min sizes for Material buttons
                       alignment: Alignment.center,
-                      child: const Text(
-                        'Add Address',
-                        textAlign: TextAlign.center,
-                        style: TextStyle(color: Colors.white, fontSize: 18),
-                      ),
+                      child: 'submit'.tr.text.uppercase.white.xl.center.make(),
                     ),
                   ),
                 ))),

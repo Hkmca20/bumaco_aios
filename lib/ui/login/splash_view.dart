@@ -115,12 +115,12 @@ class SplashState extends State<SplashView>
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             appLogo,
-            'Your Beauty, Our Passion'.text.white.xs.make(),
+            'app_tagline'.tr.text.white.xs.make(),
             Padding(padding: EdgeInsets.only(top: 20.0)),
             Center(
               child: Opacity(
                 opacity: _animOpacity.value,
-                child: 'wecome_message'.tr.text.bold.white.size(24).make(),
+                child: 'wecome_message'.tr.text.bold.white.xl2.make(),
               ),
             ),
             Padding(padding: EdgeInsets.only(top: 20.0)),

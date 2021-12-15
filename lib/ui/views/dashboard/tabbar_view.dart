@@ -91,7 +91,8 @@ class DescriptionView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return new Scaffold(body: productItem.description.text.bold.make().p16());
+    return new Scaffold(
+        body: productItem.description.text.base.bold.make().p16());
   }
 }
 
@@ -101,7 +102,8 @@ class DeliveryView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return new Scaffold(body: productItem.shortDescription.text.bold.make().p16());
+    return new Scaffold(
+        body: productItem.shortDescription.text.base.bold.make().p16());
   }
 }
 
@@ -111,6 +113,6 @@ class PolicyView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return new Scaffold(body: productItem.product.text.bold.make().p16());
+    return new Scaffold(body: productItem.product.text.base.bold.make().p16());
   }
 }

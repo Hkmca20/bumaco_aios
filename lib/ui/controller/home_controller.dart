@@ -109,7 +109,7 @@ class HomeController extends GetxController {
               indent: 150,
               endIndent: 150,
             ).p8(),
-            'enter_a_gate'.tr.text.size(22).make().p8(),
+            'enter_a_gate'.tr.text.semiBold.xl2.make().p8(),
             VxDivider(),
             Container(
               padding: EdgeInsets.all(2),
@@ -131,13 +131,13 @@ class HomeController extends GetxController {
                         '${index + 1}.  ${gateList[index]['name']}'
                             .tr
                             .text
+                            .xl
                             .color(selectedGate.value == gateList[index]['name']
                                 ? kPrimaryColor
                                 : kDarkGreyColor)
-                            .size(18)
                             .fontWeight(FontWeight.w300)
                             .make()
-                            .p16()
+                            .p8()
                             .expand(),
                         // '${gateList[index]['name']}'
                         //     .text
@@ -151,7 +151,7 @@ class HomeController extends GetxController {
                           Icons.arrow_forward_ios_rounded,
                           color: kGreyLightColor,
                         ),
-                      ]),
+                      ]).p8(),
                       onTap: () {
                         Get.back();
                         updateSelectedGate(index);

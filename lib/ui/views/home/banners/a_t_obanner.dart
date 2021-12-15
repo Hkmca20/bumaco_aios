@@ -50,26 +50,14 @@ class ATOBanner extends StatelessWidget {
                       ),
                     ),
                     SizedBox(height: 10),
-                    Text(
-                      item.category,
-                      style: TextStyle(
-                          color: Colors.green,
-                          fontSize: 40,
-                          fontWeight: FontWeight.bold), //TextStyle
-                    ),
+                    item.category.text.xl4.bold.green800.make(),
                     SizedBox(
                       height: 5,
                     ), //SizedBox
-                    Text(
-                      item.hasvery!,
-                      style: TextStyle(
-                          color: Colors.green[300],
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold), //TextStyle
-                    ), //Text
+                    item.hasvery!.text.xl3.green400.bold.make(),
                     SizedBox(height: 20),
                     RaisedButton(
-                      child: 'See All'.text.bold.white.size(16).make(),
+                      child: 'See All'.text.bold.white.xl2.make(),
                       color: Colors.green[600],
                       onPressed: () {
                         Get.toNamed(productRoute,

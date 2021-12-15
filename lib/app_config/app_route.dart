@@ -10,7 +10,6 @@ import 'package:bumaco_aios/ui/shopping/all_product_view.dart';
 import 'package:bumaco_aios/ui/shopping/cproduct_detail_view.dart';
 import 'package:bumaco_aios/ui/shopping/staggered_img_view.dart';
 import 'package:bumaco_aios/ui/views/home/c_product_view.dart';
-import 'package:bumaco_aios/ui/views/home/product_view.dart';
 import 'package:bumaco_aios/ui/views/views.dart';
 import 'package:get/get.dart';
 
@@ -39,7 +38,7 @@ List<GetPage<dynamic>> get setRoute => [
           transitionDuration: kTransitionDuration,
           page: () => GateView()),
       GetPage(
-          name: loginRoute,
+          name: signinRoute,
           transition: Transition.fade,
           transitionDuration: kTransitionDuration,
           page: () => LoginView()),
@@ -63,6 +62,11 @@ List<GetPage<dynamic>> get setRoute => [
           transition: Transition.fade,
           transitionDuration: kTransitionDuration,
           page: () => OTPView()),
+      GetPage(
+          name: signupRoute,
+          transition: Transition.fade,
+          transitionDuration: kTransitionDuration,
+          page: () => SignupView()),
       GetPage(
           name: shoppingRoute,
           transition: Transition.fade,
@@ -88,6 +92,16 @@ List<GetPage<dynamic>> get setRoute => [
           transition: Transition.fade,
           transitionDuration: kTransitionDuration,
           page: () => AllProducts()),
+      GetPage(
+          name: bucketRoute,
+          transition: Transition.fade,
+          transitionDuration: kTransitionDuration,
+          page: () => BucketView()),
+      GetPage(
+          name: favouriteRoute,
+          transition: Transition.fade,
+          transitionDuration: kTransitionDuration,
+          page: () => FavouriteView()),
       GetPage(
           name: catalogRoute,
           transition: Transition.fade,

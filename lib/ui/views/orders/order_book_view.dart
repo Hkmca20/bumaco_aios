@@ -33,30 +33,26 @@ class OrderBookView extends StatelessWidget {
                 ),
                 'PAID AMOUNT: ${checkoutController.currency}$payableAmount'
                     .text
+                    .sm
                     .bold
                     .make()
                     .p4(),
                 'ORDER ID: O1CINBA398044'
                     .text
-                    .size(20)
+                    .lg
                     .fontWeight(FontWeight.w700)
                     .make()
                     .p8(),
                 'PAYMENT ID: $paymentId'
                     .text
-                    .size(20)
+                    .lg
                     .fontWeight(FontWeight.w700)
                     .make()
                     .p8(),
                 SizedBox(height: 10, width: double.infinity),
                 VxDivider(),
                 SizedBox(height: 20, width: double.infinity),
-                Chip(
-                    label: 'Order placed successfully!'
-                        .text
-                        .size(24)
-                        .make()
-                        .p12()),
+                Chip(label: 'Order placed successfully!'.text.xl.make().p12()),
                 SizedBox(height: 10, width: double.infinity),
                 SizedBox(height: 10, width: double.infinity),
                 VStack(
@@ -68,8 +64,8 @@ class OrderBookView extends StatelessWidget {
                       },
                       child: "TRACK ORDER"
                           .text
+                          .xl
                           .white
-                          .size(18)
                           .make()
                           .paddingSymmetric(horizontal: 35, vertical: 5),
                     ),
@@ -80,8 +76,8 @@ class OrderBookView extends StatelessWidget {
                       },
                       child: "CONTINUE SHOPPING"
                           .text
+                          .xl
                           .white
-                          .size(18)
                           .make()
                           .paddingSymmetric(horizontal: 10, vertical: 5),
                     ),

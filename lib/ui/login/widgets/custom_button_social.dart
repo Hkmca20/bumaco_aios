@@ -31,7 +31,7 @@ class CustomButtonSocial extends StatelessWidget {
         children: [
           Image.asset(imageName),
           SizedBox(width: 10),
-          text.text.size(16).black.make(),
+          text.text.xl.black.make(),
         ],
       ),
     );

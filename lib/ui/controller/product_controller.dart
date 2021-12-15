@@ -14,10 +14,11 @@ class ProductController extends GetxController with StateMixin, ScrollMixin {
   var isLoading = true.obs;
   var isToLoadMore = true;
   var columnCount = 2.obs;
-  var favouriteList = <ProductModel>[].obs;
-  var searchProductList = <ProductModel>[].obs;
+  var productListFavourite = <ProductModel>[].obs;
+  var productListSearch = <ProductModel>[].obs;
   var productList = <ProductModel>[].obs;
-  var allProductList = <ProductModel>[].obs;
+  var productListAll = <ProductModel>[].obs;
+  var productListHome = <ProductModel>[].obs;
   late ProductRepository productRepository;
   ScrollController scrollController = ScrollController();
   var currIndex = 0.obs;
@@ -104,7 +105,6 @@ class ProductController extends GetxController with StateMixin, ScrollMixin {
 
   var sortFilterText = ''.obs;
   searchSortFilterProducts(str) {
-    print('----------search+Sort+Filter--->Text=>' + str);
     sortFilterText.value = str;
     fetchProductsBySearch(str);
   }
@@ -122,7 +122,8 @@ class ProductController extends GetxController with StateMixin, ScrollMixin {
     productRepository = Get.put(ProductRepositoryImpl());
     // addScrollListener();
     getFavouriteList();
-    fetchAllProducts();
+    fetchProductAll();
+    fetchProductHome();
     _addItemToList();
     // _timer = Timer.periodic(Duration(seconds: 3), timerCallback);
     super.onInit();
@@ -157,10 +158,9 @@ class ProductController extends GetxController with StateMixin, ScrollMixin {
   fetchProductsBySearch(searchStr) async {
     try {
       isLoading(true);
-      searchStr = '';
-      var result = await productRepository.searchProduct(searchStr);
+      var result = await productRepository.getProductSearch(searchStr);
       if (result != null) {
-        searchProductList(result);
+        productListSearch(result);
       }
     } catch (e) {
       print(e);
@@ -172,7 +172,7 @@ class ProductController extends GetxController with StateMixin, ScrollMixin {
   fetchProductsById(categoryId) async {
     try {
       isLoading(true);
-      var products = await productRepository.getProduct(categoryId);
+      var products = await productRepository.getProductById(categoryId);
       if (products != null) {
         checkIsFavorites(products);
         productList.value = products;
@@ -187,42 +187,31 @@ class ProductController extends GetxController with StateMixin, ScrollMixin {
     }
   }
 
-  fetchAllProducts() async {
+  fetchProductAll() async {
     try {
       isLoading(true);
       var products = await productRepository.getProductAll();
       if (products != null) {
         checkIsFavorites(products);
-        // allProductList(products);
-        allProductList.addAll(products);
-        // if (products.length > 0) {
-        //   ProductModel m = products[0];
-        //   m.id = '200';
-        //   allProductList.add(m);
-
-        //   ProductModel m2 = products[0];
-        //   m2.id = '201';
-        //   allProductList.add(m2);
-
-        //   ProductModel m3 = products[0];
-        //   m3.id = '202';
-        //   allProductList.add(m3);
-
-        //   ProductModel m4 = products[0];
-        //   m4.id = '204';
-        //   allProductList.add(m4);
-
-        //   ProductModel m5 = products[0];
-        //   m5.id = '205';
-        //   allProductList.add(m5);
-
-        //   ProductModel m6 = products[0];
-        //   m6.id = '206';
-        //   allProductList.add(m6);
-        // }
+        productListAll(products);
         isToLoadMore = true;
       } else {
         isToLoadMore = false;
+      }
+    } catch (e) {
+      print(e);
+    } finally {
+      isLoading(false);
+    }
+  }
+
+  fetchProductHome() async {
+    try {
+      isLoading(true);
+      var result = await productRepository.getProductHome();
+      if (result != null) {
+        checkIsFavorites(result);
+        productListHome(result);
       }
     } catch (e) {
       print(e);
@@ -235,7 +224,7 @@ class ProductController extends GetxController with StateMixin, ScrollMixin {
     final db = await $FloorAppDatabase.databaseBuilder(DB_NAME).build();
     final favDao = db.favouriteDao;
     final result = await favDao.findAllFavourites();
-    favouriteList.clear();
+    productListFavourite.clear();
     result.forEach((element) {
       ProductModel item = ProductModel(
         category: element.category,
@@ -253,7 +242,7 @@ class ProductController extends GetxController with StateMixin, ScrollMixin {
         productUrl: element.productUrl,
       );
       item.isFavorite.value = true;
-      favouriteList.add(item);
+      productListFavourite.add(item);
     });
   }
 
@@ -314,7 +303,7 @@ class ProductController extends GetxController with StateMixin, ScrollMixin {
 
   void checkIsFavorites(List<ProductModel> products) {
     products.forEach((e1) {
-      favouriteList.forEach((e2) {
+      productListFavourite.forEach((e2) {
         if (e1.id == e2.id) {
           e1.isFavorite(true);
         }
@@ -328,7 +317,7 @@ class ProductController extends GetxController with StateMixin, ScrollMixin {
         e.isFavorite(false);
       }
     });
-    allProductList.forEach((e) {
+    productListAll.forEach((e) {
       if (item.id == e.id) {
         e.isFavorite(false);
       }

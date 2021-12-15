@@ -8,6 +8,7 @@ class BumacoLocale extends Translations {
           // --core--
           'app_name': appNameEN,
           'app_title': appTitleEN,
+          'app_tagline': 'Your Beauty. Our Passion',
           'alert': 'Alert',
           'error': 'Error',
           'ok': 'OK',
@@ -32,6 +33,7 @@ class BumacoLocale extends Translations {
           'login': 'Login',
           'register': 'Register',
           'mobile_no': 'Mobile Number',
+          'email_id': 'Email Id',
           'submit': 'Submit',
           'proceed': 'Proceed',
           // --Home/Shopping/Dashboard--
@@ -73,10 +75,11 @@ class BumacoLocale extends Translations {
           'search': 'Search',
           'share': 'Share',
           'wishlist': 'Wish list',
+          'list': 'list',
           'view_cart_item': 'View Cart Item',
           'loading_data': 'Loading data...',
           'new_arrival_products': 'New arrival products',
-          'trending_products': 'Trending Products',
+          'trending_products': 'TRENDING PRODUCTS',
           'best_sellers': 'Best Sellers',
           'popular_products': 'Popular Products',
 
@@ -124,6 +127,7 @@ class BumacoLocale extends Translations {
           // --core--
           'app_name': appNameAE,
           'app_title': appTitleAE,
+          'app_tagline': 'جمالك. حماسنا',
           'alert': 'إنذار',
           'error': 'خطأ',
           'ok': 'نعم',
@@ -165,6 +169,7 @@ class BumacoLocale extends Translations {
           'login': 'تسجيل الدخول',
           'register': 'تسجيل',
           'mobile_no': 'رقم الهاتف المحمول',
+          'email_id': 'عنوان الايميل',
           'submit': 'يقدم',
           'proceed': 'تقدم',
           // --Home/Shopping/Dashboard--
@@ -214,6 +219,7 @@ class BumacoLocale extends Translations {
           'search': 'بحث',
           'share': 'يشارك',
           'wishlist': 'قائمة الرغبات',
+          'list': 'قائمة',
           'view_cart_item': 'عرض عنصر عربة التسوق',
           'loading_data': 'تحميل البيانات...',
           'new_arrival_products': 'منتجات قادمة جديدة',

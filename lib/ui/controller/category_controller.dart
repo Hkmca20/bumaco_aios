@@ -11,63 +11,6 @@ class CategoryController extends GetxController {
     _categoryRepo = Get.find<CategoryRepoImpl>();
     fetchCategory();
   }
-  // List<Categoryi> dummyCatList = [
-  //   Categoryi(
-  //       id: '1',
-  //       bannerimage: "20210921090917_316976.jpg",
-  //       image: "20210921090917_488404.jpg",
-  //       category: "Makeup"),
-  //   Categoryi(
-  //       id: '1',
-  //       bannerimage: "20210921090902_637035.jpg",
-  //       image: "20210921090902_513258.jpg",
-  //       category: "Skin"),
-  //   Categoryi(
-  //       id: '1',
-  //       bannerimage: "20210921080915_851527.jpg",
-  //       image: "20210921080915_492297.jpg",
-  //       category: "Hair"),
-  //   Categoryi(
-  //       id: '1',
-  //       bannerimage: "20210921090921_805391.jpg",
-  //       image: "20210921090902_513258.jpg",
-  //       category: "Face"),
-  //   Categoryi(
-  //       id: '1',
-  //       bannerimage: "20210921090921_805391.jpg",
-  //       image: "20210921090921_675042.jpg",
-  //       category: "Appliance"),
-  //   Categoryi(
-  //       id: '1',
-  //       bannerimage: "20210921090902_637035.jpg",
-  //       image: "20210921090902_637035.jpg",
-  //       category: "Personal Care"),
-  //   Categoryi(
-  //       id: '1',
-  //       bannerimage: "20210921090902_637035.jpg",
-  //       image: "20210921090902_637035.jpg",
-  //       category: "Natural"),
-  //   Categoryi(
-  //       id: '1',
-  //       bannerimage: "20210921090902_637035.jpg",
-  //       image: "20210921090902_637035.jpg",
-  //       category: "Mom & Baby"),
-  //   Categoryi(
-  //       id: '1',
-  //       bannerimage: "20210921090902_637035.jpg",
-  //       image: "20210921090902_637035.jpg",
-  //       category: "Health & Wellness"),
-  //   Categoryi(
-  //       id: '1',
-  //       bannerimage: "20210921090902_637035.jpg",
-  //       image: "20210921090902_637035.jpg",
-  //       category: "Men"),
-  //   Categoryi(
-  //       id: '1',
-  //       bannerimage: "20210921090902_637035.jpg",
-  //       image: "20210921090902_637035.jpg",
-  //       category: "Fragrances"),
-  // ];
   List<CategoryData> dummyChildList = [
     CategoryData(
         id: '1',
@@ -112,7 +55,6 @@ class CategoryController extends GetxController {
     isLoading.toggle();
 
     final List<CategoryData>? result = await _categoryRepo.getCategory();
-    print('category set----------------------${categoryList.length}');
     if (result != null) {
       categoryList.addAll(result);
     }

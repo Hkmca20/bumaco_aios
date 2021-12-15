@@ -6,6 +6,7 @@ import 'package:bumaco_aios/app_utils/utils.dart';
 import 'package:bumaco_aios/ui/widgets/app_logo_widget.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:velocity_x/velocity_x.dart';
 import 'package:get/get.dart';
 
 class CBannerHomeWidget extends StatefulWidget {
@@ -175,15 +176,18 @@ class _CBannerHomeWidgetState extends State<CBannerHomeWidget>
                   bottom: 5,
                   child: Row(
                     children: widget.bannerList!.map((s) {
-                      return ClipOval(
-                        child: Container(
-                          width: 8,
-                          height: 8,
-                          color: s == widget.bannerList![_curIndex % length]
-                              ? kPrimaryColor
-                              : Colors.grey,
-                        ),
-                      ).paddingSymmetric(horizontal: 3.0);
+                      return VxBox()
+                          .width(8)
+                          .height(8)
+                          .roundedFull
+                          .border(color: kWhiteColor, width: 1)
+                          .color(
+                            s == widget.bannerList![_curIndex % length]
+                                ? kWhiteColor
+                                : kTransparentColor,
+                          )
+                          .make()
+                          .paddingSymmetric(horizontal: 3.0);
                     }).toList(),
                   ),
                 )

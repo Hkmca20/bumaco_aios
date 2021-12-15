@@ -42,25 +42,24 @@ class OnboardingView extends StatelessWidget {
                       children: [
                         Container(
                           width: _screenSize.width,
-                          height: _screenSize.height / 2 + 10,
+                          height: _screenSize.height / 2,
                           decoration: BoxDecoration(
-                              image: DecorationImage(
-                                  image: AssetImage(item.image),
-                                  fit: BoxFit.fill)),
+                            image: DecorationImage(
+                                image: AssetImage(item.image),
+                                fit: BoxFit.fill),
+                          ),
                           // child: Image.asset(item.image),
                         ),
                         SizedBox(height: 5),
-                        item.bannertext.text.xl4.bold.pink500
+                        item.bannertext.text.xl3.heightTight.bold.pink500
                             .fontWeight(FontWeight.w900)
                             .align(TextAlign.center)
                             .make()
-                            .p16()
+                            .p12()
                             .centered(),
                         Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 64),
-                          child: item.category.text
-                              .size(28)
-                              .pink500
+                          padding: const EdgeInsets.symmetric(horizontal: 32),
+                          child: item.category.text.xl3.heightSnug.pink500
                               .letterSpacing(-1)
                               .fontWeight(FontWeight.w500)
                               .align(TextAlign.center)

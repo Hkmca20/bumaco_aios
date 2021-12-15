@@ -36,39 +36,31 @@ class BannerController extends GetxController {
   }
 
   Future<void> fetchBanners() async {
-    var result;
+    var bannerResponse, sliderResponse;
     isLoading.toggle();
-    // result = await _bannerRepo.getBannerHomeSlider();
-    result = await _bannerRepo.getBannerPositionAll();
-    if (result != null) {
-      sliderList.addAll(result);
-      // bannerPositionList.insert(
-      //     0, BannerListModel(bannerposition: 'homeslider', bannerlist: result));
+    sliderResponse = await _bannerRepo.getBannerHomeSlider();
+    bannerPositionList[bannerPositionList
+            .indexWhere((element) => element.bannerposition == 'homeslider')] =
+        BannerListModel(
+            bannerposition: 'homeslider', bannerlist: sliderResponse);
 
-      List<BannerModel> tempList = <BannerModel>[];
-      print('----------->');
-      for (int i = 1; i < 12; i++) {
-        print('----------clear->$i');
-        tempList.clear();
-        tempList.addAll(sliderList);
-        tempList.where((e) => e.bannerposition.toLowerCase() == 'position$i');
-        bannerPositionList.insert(
-            i,
+    bannerResponse = await _bannerRepo.getBannerPositionAll();
+    if (bannerResponse != null) {
+      sliderList.value = bannerResponse;
+
+      for (int i = 1; i < 18; i++) {
+        List<BannerModel> tempList1 = <BannerModel>[];
+        tempList1.addAll(sliderList
+            .where((e) => e.bannerposition.toLowerCase() == 'position$i'));
+
+        bannerPositionList[bannerPositionList.indexWhere(
+                (element) => element.bannerposition == 'position$i')] =
             BannerListModel(
-                bannerposition: 'position$i', bannerlist: tempList));
+                bannerposition: 'position$i', bannerlist: tempList1);
       }
     } else {
       print('=======No HomeSliderList found========');
     }
-    // for (int i = 1; i < 12; i++) {
-    //   result = await _bannerRepo.getBannerPositions(i);
-    //   if (result != null) {
-    //     bannerPositionList.insert(i,
-    //         BannerListModel(bannerposition: 'position$i', bannerlist: result));
-    //   } else {
-    //     print('=======Not found BannerList at pos:$i ========');
-    //   }
-    // }
     isLoading.toggle();
   }
 

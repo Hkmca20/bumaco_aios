@@ -15,16 +15,8 @@ class ChildCategoryView extends StatelessWidget {
     final screenSize = MediaQuery.of(context).size;
     // final childCategoryController = Get.find<ChildCategoryController>();
     final childCategoryController = ChildCategoryController.to;
-    final categoryId;
-    late final CategoryData categoryItem;
-    if (Get.arguments != null) {
-      categoryItem = Get.arguments['arg_category_item'];
-      categoryId = categoryItem.id;
-      childCategoryController.setCategoryId(categoryId);
-    }
     return Scaffold(
         body: CustomScrollView(
-          
 //           CustomScrollView(slivers: [
 //   SliverAppBar(...),
 //   SliverPadding(...),
@@ -33,14 +25,16 @@ class ChildCategoryView extends StatelessWidget {
 // ],
       slivers: [
         FlexibleAppBar(
-          titleStr: categoryItem.category,
-          imageUrl: '${categoryItem.bannerimage}',
+          titleStr: childCategoryController.subCategoryItem.subcategory ??
+              'Child Category',
+          imageUrl: '${childCategoryController.subCategoryItem.bannerimage}',
           actionList: [
             IconButton(
               icon: Icon(Icons.refresh_rounded),
               tooltip: 'Reload',
               onPressed: () {
-                childCategoryController.fetchChildCategory(categoryItem.id);
+                childCategoryController.fetchChildCategory(
+                    childCategoryController.subCategoryItem.id);
               },
             ),
           ],

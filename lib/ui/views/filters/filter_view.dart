@@ -139,17 +139,12 @@ class FilterView extends StatelessWidget {
                                           height: 60,
                                         ),
                                   isSelected
-                                      ? item.text.bold
+                                      ? item.text.bold.lg
                                           .color(kPrimaryColor)
-                                          .size(16)
                                           .make()
                                           .p8()
                                           .expand()
-                                      : item.text.bold
-                                          .size(16)
-                                          .make()
-                                          .p8()
-                                          .expand(),
+                                      : item.text.bold.lg.make().p8().expand(),
                                   Visibility(
                                     visible:
                                         (fController.filterCount.value != 0 &&
@@ -226,7 +221,7 @@ class FilterView extends StatelessWidget {
                             // fController.secondListChecked.toggle();
                           },
                           child: HStack([
-                            Expanded(child: item.text.size(16).make().p12()),
+                            Expanded(child: item.text.lg.make().p12()),
                             Obx(
                               () => Checkbox(
                                 value: fController.secondListChecked.isTrue,
@@ -275,8 +270,7 @@ class FilterView extends StatelessWidget {
 
                   pController.searchSortFilterProducts(filterText);
                 }, // Click Listener
-                child:
-                    'APPLY'.text.size(18).white.align(TextAlign.center).make(),
+                child: 'APPLY'.text.xl.white.align(TextAlign.center).make(),
               )),
         ),
       ]),

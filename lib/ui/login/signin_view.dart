@@ -37,7 +37,7 @@ class _LoginViewState extends State<LoginView>
       // backgroundColor: kScafoldDarkBGColor,
       resizeToAvoidBottomInset: false,
       appBar: AppbarHome(
-          title: 'app_title'.tr + ' ' + 'login'.tr + '/' + 'register'.tr),
+          title: 'app_title'.tr + ' ' + 'login'.tr + '/ ' + 'register'.tr),
       body: Stack(
           alignment: Alignment.topLeft,
           textDirection: TextDirection.rtl,
@@ -104,8 +104,10 @@ class _LoginViewState extends State<LoginView>
                       onTap: () {
                         Get.to(() => TermsAndCondition());
                       },
-                      child:
-                          'By continuing, I agree to 9Gate\'s T&C'.text.make()),
+                      child: 'By continuing, I agree to 9Gate\'s T&C'
+                          .text
+                          .lg
+                          .make()),
                 ],
               ),
             ),
@@ -121,12 +123,10 @@ class _LoginViewState extends State<LoginView>
           _loaleController.openLocaleSheet(context);
         },
         child: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-          Text('choose_country'.tr + ' : ',
-              style: Theme.of(context).textTheme.headline5!),
+          ('choose_country'.tr + ' : ').text.xl2.make(),
           SizedBox(width: 10),
           Obx(
-            () => Text(_loaleController.selectedCountry.value,
-                style: Theme.of(context).textTheme.headline5!),
+            () => _loaleController.selectedCountry.value.text.xl2.make(),
           ),
         ]),
       ),
@@ -138,14 +138,15 @@ class _LoginViewState extends State<LoginView>
       margin: EdgeInsets.only(top: 30.0, left: 20.0, right: 20.0),
       child: TextFormField(
         style: TextStyle(
-          fontSize: 22,
-          fontWeight: FontWeight.w500,
+          fontSize: 20,
+          fontWeight: FontWeight.w600,
           letterSpacing: 2,
         ),
-        controller: _loginController.mobileCTR,
+        controller: _loginController.mobileEmailCTR,
         decoration: InputDecoration(
-          contentPadding: EdgeInsets.symmetric(horizontal: 30, vertical: 18),
-          labelText: 'mobile_no'.tr,
+          contentPadding:
+              EdgeInsets.only(left: 12, right: 5, top: 18, bottom: 18),
+          labelText: 'mobile_no'.tr + '/ ' + 'email_id'.tr,
           suffixIcon: Icon(
             Icons.phone_android,
             color: kPrimaryColor,

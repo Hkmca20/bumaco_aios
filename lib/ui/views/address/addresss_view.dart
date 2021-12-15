@@ -47,7 +47,7 @@ class AddressView extends StatelessWidget {
                         ? Column(children: [
                             'Plase select an address from below list for delivery.'
                                 .text
-                                .size(14)
+                                .sm
                                 .make()
                                 .p12(),
                             MaterialButton(
@@ -58,7 +58,7 @@ class AddressView extends StatelessWidget {
                                       : SigninController.to
                                           .loginPopupBottomSheet(context);
                                 },
-                                child: 'Add New Address'.text.white.make())
+                                child: 'Add New Address'.text.xl.white.make())
                           ])
                         : Container(),
                     Divider(),

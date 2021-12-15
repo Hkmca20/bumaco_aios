@@ -15,7 +15,7 @@ showLoadingDialog() {
       height: 150,
       child: VStack(
         [
-          ('loading_please_wait'.tr + '..').text.make().centered(),
+          ('loading_please_wait'.tr + '..').text.sm.make().centered(),
           SizedBox(height: 20),
           LoadingWidget(),
           SizedBox(height: 10),

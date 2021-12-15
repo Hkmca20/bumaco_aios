@@ -5,6 +5,7 @@ import 'package:bumaco_aios/ui/views/checkout/bucket_view.dart';
 import 'package:bumaco_aios/ui/views/home/banners/cbanner_home.dart';
 import 'package:bumaco_aios/ui/views/home/favourite_view.dart';
 import 'package:bumaco_aios/ui/views/home/item_widget_11.dart';
+import 'package:bumaco_aios/ui/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:velocity_x/velocity_x.dart';
@@ -30,10 +31,10 @@ class CategoryView extends StatelessWidget {
             onPressed: () {},
           ),
           IconButton(
-            icon: Obx(() => pController.favouriteList.length == 0
+            icon: Obx(() => pController.productListFavourite.length == 0
                 ? Icon(Icons.favorite_border_outlined)
                 : Icon(Icons.favorite_border_outlined).p4().badge(
-                    count: pController.favouriteList.length,
+                    count: pController.productListFavourite.length,
                     color: kPrimaryColor,
                     size: 12)),
             tooltip: 'wishlist'.tr,
@@ -94,12 +95,16 @@ class CategoryView extends StatelessWidget {
                       ),
                     ),
                     Divider(),
-                    Align(
-                        alignment: Alignment.topLeft,
-                        child: 'CATEGORIES'.text.bold.size(16).make().p12()),
+                    SectionTile(title: 'CATEGORIES'),
+                    // Align(
+                    //     alignment: Alignment.topLeft,
+                    //     child: 'CATEGORIES'.text.bold.xl.make().p12()),
                     ListView.separated(
-                      separatorBuilder: (context, index) =>
-                          Divider(indent: 25, endIndent: 20),
+                      separatorBuilder: (context, index) => VxDivider(
+                        color: commonGreyColor,
+                        indent: 20,
+                        endIndent: 25,
+                      ),
                       shrinkWrap: true,
                       physics: ClampingScrollPhysics(),
                       scrollDirection: Axis.vertical,
@@ -109,7 +114,7 @@ class CategoryView extends StatelessWidget {
                             categoryController.categoryList[index];
                         return InkWell(
                           onTap: () {
-                            Get.toNamed(childCategoryRoute,
+                            Get.toNamed(subCategoryRoute,
                                 arguments: {'arg_category_item': item});
                           },
                           child: Row(
@@ -139,16 +144,16 @@ class CategoryView extends StatelessWidget {
                               // ),
                               SizedBox(width: 2.0),
                               Expanded(
-                                child: item.category.text.size(18).make(),
+                                child: item.category.text.xl.make(),
                               ),
                               Container(
                                 child: Icon(
                                   Icons.arrow_forward_ios_rounded,
-                                  color: Colors.grey,
+                                  color: kGreyLightColor,
                                 ),
                               ),
                             ],
-                          ).paddingSymmetric(horizontal: 20, vertical: 6),
+                          ).paddingSymmetric(horizontal: 20, vertical: 15),
                         );
                       },
                     ),

@@ -12,12 +12,12 @@ class PasswordView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final _otpController = OTPController.to;
+    final _passController = PassController.to;
     // bumacoSnackbar('Login', Get.arguments.toString());
 
     var submitButton = ElevatedButton(
             onPressed: () => {
-                  _otpController.submitOTP(),
+                  _passController.submitPassword(),
                 },
             child: 'submit'.tr.text.xl.make().centered()
             // child: Ink(
@@ -54,11 +54,11 @@ class PasswordView extends StatelessWidget {
       // ),
       child: TextFormField(
         style: TextStyle(
-          letterSpacing: 14,
+          letterSpacing: 6,
           fontWeight: FontWeight.w800,
-          fontSize: 22,
+          fontSize: 20,
         ),
-        controller: _otpController.otpCTR,
+        controller: _passController.passCTR,
         decoration: InputDecoration(
           suffixIcon: Icon(
             Icons.password_rounded,
@@ -76,10 +76,8 @@ class PasswordView extends StatelessWidget {
 
     var resendOtpLabel = GestureDetector(
       onTap: () {
-        if (_otpController.canResendOTP.value) {
-          Get.toNamed(otpRoute,
-              arguments: {'arg_user': _otpController.argUser});
-        }
+        Get.toNamed(otpRoute,
+            arguments: {'arg_customer': _passController.argCustomer});
       },
       child: 'Login with OTP'.text.xl.italic.make(),
     );
@@ -105,7 +103,7 @@ class PasswordView extends StatelessWidget {
             SizedBox(height: 32),
             Obx(
               () => Visibility(
-                  visible: _otpController.isLoading.isFalse,
+                  visible: _passController.isLoading.isFalse,
                   child: submitButton),
             ),
             SizedBox(height: 32),
