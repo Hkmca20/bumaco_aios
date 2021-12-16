@@ -77,14 +77,16 @@ class SignupController extends GetxController {
       box.write(BOX_GENDER, genderGroupValue.value);
 
       showLoadingDialog();
-      if (argCustomer != null) {
-        // argCustomer.name = nameCTR.text;
-        // argCustomer.email = emailCTR.text;
-        // argCustomer.password = passwordCTR.text;
-        // argCustomer.createDate = DateTime.now();
-        // argCustomer.modifiDate = DateTime.now();
-      }
-      var response = await _loginRepo.updateProfile(argCustomer!);
+      LoginData loginData = LoginData(
+        id: getStorageStringValue(BOX_CUSTOMER_ID),
+        name: nameCTR.text,
+        // phone: mobileCTR.text,
+        email: emailCTR.text,
+        password: passwordCTR.text,
+        createDate: DateTime.now(),
+        modifiDate: DateTime.now(),
+      );
+      var response = await _loginRepo.updateProfile(loginData);
       hideLoading();
       if (response) {
         VxToast.show(context, msg: 'Profile updated successfully!');

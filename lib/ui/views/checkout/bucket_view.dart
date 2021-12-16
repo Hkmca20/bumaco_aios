@@ -116,100 +116,128 @@ class BucketView extends StatelessWidget {
                       alignment: Alignment.bottomCenter,
                       child: VStack(
                         [
-                          HStack(
-                            [
-                              Expanded(
-                                  child:
-                                      ('total'.tr + ': ').text.lg.make().p8()),
-                              '${lController.selectedSymbol}${bController.totalAmount}'
-                                  .text
-                                  .lg
-                                  .make()
-                                  .p8(),
-                            ],
+                          Visibility(
+                            visible: bController.isShowDetails.isTrue,
+                            child: VStack(
+                              [
+                                HStack(
+                                  [
+                                    Expanded(
+                                        child: ('total'.tr + ': ')
+                                            .text
+                                            .lg
+                                            .make()
+                                            .p8()),
+                                    '${lController.selectedSymbol}${bController.totalAmount}'
+                                        .text
+                                        .lg
+                                        .make()
+                                        .p8(),
+                                  ],
+                                ),
+                                HStack(
+                                  [
+                                    Expanded(
+                                        child: ('tax'.tr + ': ')
+                                            .text
+                                            .lg
+                                            .make()
+                                            .p8()),
+                                    '${lController.selectedSymbol}${bController.taxAmount}'
+                                        .text
+                                        .lg
+                                        .make()
+                                        .p8(),
+                                  ],
+                                ),
+                                HStack(
+                                  [
+                                    Expanded(
+                                        child: ('discount'.tr + ': ')
+                                            .text
+                                            .lg
+                                            .make()
+                                            .p8()),
+                                    '${lController.selectedSymbol}${bController.discountAmt}'
+                                        .text
+                                        .lg
+                                        .make()
+                                        .p8(),
+                                  ],
+                                ),
+                                HStack(
+                                  [
+                                    Expanded(
+                                        child: ('shipping'.tr + ': ')
+                                            .text
+                                            .lg
+                                            .make()
+                                            .p8()),
+                                    '${lController.selectedSymbol}${bController.shippingAmt}'
+                                        .text
+                                        .lg
+                                        .make()
+                                        .p8(),
+                                  ],
+                                ),
+                                Divider(),
+                              ],
+                            ),
                           ),
-                          HStack(
+                          VStack(
                             [
-                              Expanded(
-                                  child: ('tax'.tr + ': ').text.lg.make().p8()),
-                              '${lController.selectedSymbol}${bController.taxAmount}'
-                                  .text
-                                  .lg
-                                  .make()
-                                  .p8(),
-                            ],
-                          ),
-                          HStack(
-                            [
-                              Expanded(
-                                  child: ('discount'.tr + ': ')
+                              HStack(
+                                [
+                                  Obx(
+                                    () => bController.isShowDetails.isTrue
+                                        ? Icon(Icons.arrow_drop_down_outlined)
+                                        : Icon(Icons.arrow_drop_up_outlined),
+                                  ),
+                                  Icon(Icons.info_outline),
+                                  Expanded(
+                                      child: ('payable'.tr + ': ')
+                                          .text
+                                          .lg
+                                          .color(kPrimaryColor)
+                                          .make()
+                                          .p12()),
+                                  // '\$${bController.grandTotal.value}'
+                                  // .text.lg
+                                  //     .make()
+                                  //     .p12(),
+                                  '${lController.selectedSymbol}${bController.grandTotal.value}'
+                                      // .numCurrencyWithLocale(locale: 'en_UK')
+                                      // .numCurrencyWithLocale(locale: 'ar_AE')
                                       .text
-                                      .lg
-                                      .make()
-                                      .p8()),
-                              '${lController.selectedSymbol}${bController.discountAmt}'
-                                  .text
-                                  .lg
-                                  .make()
-                                  .p8(),
-                            ],
-                          ),
-                          HStack(
-                            [
-                              Expanded(
-                                  child: ('shipping'.tr + ': ')
-                                      .text
-                                      .lg
-                                      .make()
-                                      .p8()),
-                              '${lController.selectedSymbol}${bController.shippingAmt}'
-                                  .text
-                                  .lg
-                                  .make()
-                                  .p8(),
-                            ],
-                          ),
-                          Divider(),
-                          HStack(
-                            [
-                              Expanded(
-                                  child: ('payable'.tr + ': ')
-                                      .text
-                                      .lg
+                                      .xl
+                                      .bold
                                       .color(kPrimaryColor)
                                       .make()
-                                      .p8()),
-                              // '\$${bController.grandTotal.value}'
-                              // .text.lg
-                              //     .make()
-                              //     .p12(),
-                              '${lController.selectedSymbol}${bController.grandTotal.value}'
-                                  // .numCurrencyWithLocale(locale: 'en_UK')
-                                  // .numCurrencyWithLocale(locale: 'ar_AE')
-                                  .text
-                                  .xl
-                                  .bold
-                                  .color(kPrimaryColor)
-                                  .make()
-                                  .p8(),
+                                      .p8(),
+                                ],
+                              ).onTap(() {
+                                bController.isShowDetails.toggle();
+                              }),
+                              MaterialButton(
+                                height: 50.0,
+                                onPressed: () {
+                                  !getStorageBoolValue(BOX_IS_LOGGEDIN)
+                                      ? SigninController.to
+                                          .loginPopupBottomSheet(context)
+                                      : _aController.addressList.length == 0
+                                          ? Get.to(() => AddAddressView(),
+                                              arguments: {
+                                                  'get_is_bucket': true
+                                                })
+                                          : bController.initiatePayment(
+                                              bController.grandTotal);
+                                },
+                                // color: Color(0xff374ABE),
+                                color: kPrimaryColor,
+                                minWidth: double.maxFinite,
+                                child: 'continue'.tr.text.white.xl.make(),
+                              ),
                             ],
-                          ),
-                          MaterialButton(
-                            height: 50.0,
-                            onPressed: () {
-                              !getStorageBoolValue(BOX_IS_LOGGEDIN)
-                                  ? SigninController.to
-                                      .loginPopupBottomSheet(context)
-                                  : _aController.addressList.length == 0
-                                      ? Get.to(() => AddAddressView(),
-                                          arguments: {'get_is_bucket': true})
-                                      : bController.initiatePayment(
-                                          bController.grandTotal);
-                            },
-                            // color: Color(0xff374ABE),
-                            color: kPrimaryColor,
-                            minWidth: double.maxFinite,
-                            child: 'continue'.tr.text.white.xl.make(),
                           ),
                         ],
                       ),

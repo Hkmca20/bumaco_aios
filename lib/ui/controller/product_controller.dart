@@ -192,6 +192,7 @@ class ProductController extends GetxController with StateMixin, ScrollMixin {
       isLoading(true);
       var products = await productRepository.getProductAll();
       if (products != null) {
+        print(products.length);
         checkIsFavorites(products);
         productListAll(products);
         isToLoadMore = true;

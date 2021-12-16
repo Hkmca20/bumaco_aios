@@ -780,9 +780,8 @@ class HomeBaView extends StatelessWidget {
                             padding: EdgeInsets.only(top: 8, left: 8, right: 8),
                             children: List.generate(
                                 pController.productListHome.length, (index) {
-                              final item = pController.productListHome[index];
-                              print(
-                                  '----------->Home Item = ' + item.toString());
+                              final ProductModel item =
+                                  pController.productListHome[index];
                               return CProductItem(prod: item);
                             }),
                           ),

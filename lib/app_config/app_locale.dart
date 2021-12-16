@@ -19,6 +19,7 @@ class BumacoLocale extends Translations {
           'hello': 'Hello',
           'wecome_message': 'Welcome to ' + appNameEN,
           'skip_and_continue': 'Skip for now',
+          'terms_and_condition': 'Terms and onditions',
           'signin_with_email_or_mobile': 'Continue with Email or mobile',
           'signin_with_google': 'Continue with Google',
           'signin_with_facebook': 'Continue with Facebook',
@@ -154,6 +155,7 @@ class BumacoLocale extends Translations {
           'hello': 'أهلا',
           'wecome_message': 'مرحبا بكم في ' + appNameAE,
           'skip_and_continue': 'تخطي والمتابعة',
+          'terms_and_condition': 'الأحكام والشروط',
           'signin_with_email_or_mobile':
               'تابع مع البريد الإلكتروني أو الهاتف المحمول',
           'signin_with_google': 'الدخول مع جوجل',

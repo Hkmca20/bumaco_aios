@@ -272,7 +272,7 @@ class SettingView extends StatelessWidget {
               leading: Icon(Icons.policy, color: kGreyLightColor),
               trailing:
                   Icon(Icons.arrow_forward_ios_rounded, color: kGreyLightColor),
-              title: 'Terms and Condition'.text.lg.make(),
+              title: 'terms_and_condition'.tr.text.lg.make(),
               onTap: () => {Get.to(() => TermsAndCondition())},
             ),
           ),

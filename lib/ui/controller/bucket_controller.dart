@@ -18,6 +18,7 @@ class BucketController extends GetxController {
   var shippingAmt = 0.0.obs;
   var grandTotal = 0.0.obs;
   late final Razorpay _razorpay;
+  var isShowDetails = true.obs;
 
   @override
   void onInit() {
@@ -128,7 +129,7 @@ class BucketController extends GetxController {
     }
     try {
       FirebaseCrashlytics.instance.setCustomKey(
-          'CrashCustomKey', 'flutterfireHari-insertBucket(element)');
+          'CrashCustomKey', 'Initiate flutterfireHari-insertBucket(element)');
 
       final db = await $FloorAppDatabase.databaseBuilder(DB_NAME).build();
       final bucketDao = db.bucketDao;
@@ -147,18 +148,18 @@ class BucketController extends GetxController {
         return;
       }
       final entity = BucketEntity(
-          category: element.category,
-          childcategory: element.childcategory,
-          subcategory: element.subcategory,
+          category: element.category.trim(),
+          childcategory: element.childcategory.trim(),
+          subcategory: element.subcategory.trim(),
           id: element.id,
-          brand: element.brand,
+          brand: element.brand.trim(),
           createdate: element.createdate,
-          description: element.description,
-          shortDescription: element.shortDescription,
+          description: element.description.trim(),
+          shortDescription: element.shortDescription.trim(),
           fimage: element.fimage,
           hasvery: element.hasvery,
           mrp: element.mrp,
-          product: element.product,
+          product: element.product.trim(),
           productUrl: element.productUrl,
           isBucket: true,
           quantity: 1);

@@ -74,6 +74,7 @@ class CProductItem extends StatelessWidget {
                       //   fit: BoxFit.cover,
                       // ),
                     ),
+                    height: 200,
                     decoration: BoxDecoration(
                       color: Colors.transparent,
                       borderRadius: BorderRadius.all(Radius.circular(1)),
@@ -114,7 +115,13 @@ class CProductItem extends StatelessWidget {
               //     .size(12)
               //     .make()
               //     .p12(),
-              prod.product.text.capitalize.ellipsis.bold.xl
+              prod.product
+                  .trim()
+                  .text
+                  .capitalize
+                  .ellipsis
+                  .bold
+                  .xl
                   .maxLines(2)
                   .color(kGreyLightColor)
                   .make()
