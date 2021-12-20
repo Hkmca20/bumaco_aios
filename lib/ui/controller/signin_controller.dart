@@ -58,7 +58,7 @@ class SigninController extends GetxController {
   bool isMobile(String mobile) => patternMobile.hasMatch(mobile);
 
   final box = GetStorage(BOX_APP);
-  
+
   saveLoginMobileOrEmail(isMobileNum, value) {
     if (isMobileNum) {
       box.write(BOX_MOBILE, value);
@@ -84,11 +84,11 @@ class SigninController extends GetxController {
     if (isMobile(mobileEmailCTR.text)) {
       isLoginWithMobileNumber = true;
     }
-    showLoadingDialog();
-    final result = await _loginRepo.checkLogin(
-        isLoginWithMobileNumber, mobileEmailCTR.text);
     try {
-      Get.back();
+      showLoadingDialog();
+      final result = await _loginRepo.checkLogin(
+          isLoginWithMobileNumber, mobileEmailCTR.text);
+      hideLoading();
       if (result != null && result.status) {
         bumacoSnackbar('login'.tr, result.message);
         saveLoginMobileOrEmail(isLoginWithMobileNumber, mobileEmailCTR.text);

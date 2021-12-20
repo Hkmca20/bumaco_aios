@@ -5,6 +5,7 @@ import 'package:bumaco_aios/app_utils/utils.dart';
 import 'package:bumaco_aios/network/dio_interceptor.dart';
 import 'package:bumaco_aios/network/dio_client.dart';
 import 'package:dio/dio.dart';
+import 'package:get/get_utils/src/extensions/internacionalization.dart';
 
 enum Method { POST, GET, PUT, DELETE, HEAD, PATCH }
 
@@ -90,6 +91,7 @@ class DioClientImpl extends DioClient {
             )
             .catchError((onError) {
               print('--------->error:${onError.toString()}');
+              throw onError;
             });
       } else if (method == Method.PUT) {
         response = await _dio
@@ -126,6 +128,8 @@ class DioClientImpl extends DioClient {
       } else if (response.statusCode == 500) {
         throw Exception("Server Error");
       } else {
+        print('---------1 check---------');
+        print(response);
         throw Exception("Something Went Wrong");
       }
       // } on SocketException catch (e) {
@@ -133,9 +137,20 @@ class DioClientImpl extends DioClient {
     } on FormatException {
       throw Exception("Bad Response Format!");
     } on DioError catch (e) {
+      print('---------2 check---------');
+      throw Exception(e);
+    } on SocketException catch (e) {
+      print('---------s2 check---------');
       throw Exception(e);
     } catch (e) {
-      throw Exception("Something Went Wrong");
+      print('---------3 check---------' + e.toString());
+      late final eMessage;
+      if (e.toString().contains('SocketException')) {
+        eMessage = 'No internet connection';
+      } else {
+        eMessage = 'Something Went Wrong';
+      }
+      throw Exception(eMessage);
     }
   }
 }

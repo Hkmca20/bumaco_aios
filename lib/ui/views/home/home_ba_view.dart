@@ -373,13 +373,16 @@ class HomeBaView extends StatelessWidget {
                           ),
                         ),
                         Divider(),
-                        CBannerHomeWidget(
-                          bannerHeight: 110.0,
-                          fitImage: BoxFit.fill,
-                          autoscroll: true,
-                          bannerList: bannerController
-                              .bannerPositionList[0].bannerlist!,
-                        ),
+                        bannerController.bannerPositionList[0].bannerlist !=
+                                null
+                            ? CBannerHomeWidget(
+                                bannerHeight: 110.0,
+                                fitImage: BoxFit.fill,
+                                autoscroll: true,
+                                bannerList: bannerController
+                                    .bannerPositionList[0].bannerlist!,
+                              )
+                            : SizedBox(),
                         // Divider(),
                         // Wrap(
                         //   spacing: 3,

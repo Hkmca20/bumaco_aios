@@ -31,19 +31,47 @@ class BucketController extends GetxController {
   }
 
   initiatePayment(payableAmount) {
+    String a = payableAmount.value.toStringAsFixed(2);
+    int amt = int.parse(a.replaceAll('.', ''));
+    String d = '';
+    for (int i = 0; i < bucketList.length; i++) {
+      if (d.length < 20) {
+        d = d + bucketList[i].product.toString();
+      } else {
+        if (d.length > 25) {
+          
+          d = d.substring(
+            20,d.length-25
+          );
+        }
+        d = d + '+${bucketList.length - 1} more';
+        break;
+      }
+    }
+    // bucketList.forEach((element) {
+    //   if (d.length < 20) {
+    //     d = d + element.product.toString();
+    //     print(d);
+    //     if (d.length > 20) {
+    //       d = d.substring(20);
+    //     }
+    //   } else {
+    //     d = d + '+${bucketList.length - 1} more';
+    //   }
+    // });
     var options = {
       'key': 'rzp_test_K91R0TzxmZMA2R', //process.env.RAZORPAY_KEY,//
-      'amount': 1250, //in the smallest currency sub-unit.
-      'currency': 'USD',
-      'name': 'Hariom Gupta',
+      'amount': amt, //1250//in the smallest currency sub-unit.
+      'currency': getStorageStringValue(BOX_CURRENCY),
+      'name': getStorageStringValue(BOX_NAME),
       // 'order_id': 'order_EMBFqjDHEEn80l', // Generate order_id using Orders API
-      'description': 'Fine T-Shirt',
+      'description': d,
       'timeout': 60, // seconds
       'retry': {'enabled': true, 'max_count': 1},
       'send_sms_hash': true,
       'prefill': {
-        'contact': '8470874534',
-        'email': 'hariom.brandhype@gmail.com'
+        'contact': getStorageStringValue(BOX_MOBILE),
+        'email': getStorageStringValue(BOX_EMAIL)
       },
       'external': {
         'wallets': ['paytm']
@@ -59,7 +87,7 @@ class BucketController extends GetxController {
 
   void _handlePaymentSuccess(PaymentSuccessResponse response) async {
     final tempAmount = grandTotal.value;
-    print('payment success');
+    print('payment successfully done!');
     bumacoSnackbar('alert'.tr, 'SUCCESS: ${response.paymentId}');
     removeAllBucket(true);
     showLoadingDialog();

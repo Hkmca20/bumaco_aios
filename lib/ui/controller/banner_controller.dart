@@ -25,41 +25,49 @@ class BannerController extends GetxController {
   void fetchHomeSlider() async {
     isLoading.toggle();
 
-    final result = await _bannerRepo.getBannerHomeSlider();
-    isLoading.toggle();
+    try {
+      final result = await _bannerRepo.getBannerHomeSlider();
+      isLoading.toggle();
 
-    if (result != null) {
-      sliderList.addAll(result);
-    } else {
-      print('=======No categoryList found========');
+      if (result != null) {
+        sliderList.addAll(result);
+      } else {
+        print('=======No categoryList found========');
+      }
+    } on Exception catch (e) {
+      // TODO
     }
   }
 
   Future<void> fetchBanners() async {
     var bannerResponse, sliderResponse;
     isLoading.toggle();
-    sliderResponse = await _bannerRepo.getBannerHomeSlider();
-    bannerPositionList[bannerPositionList
-            .indexWhere((element) => element.bannerposition == 'homeslider')] =
-        BannerListModel(
-            bannerposition: 'homeslider', bannerlist: sliderResponse);
+    try {
+      sliderResponse = await _bannerRepo.getBannerHomeSlider();
+      bannerPositionList[bannerPositionList.indexWhere(
+              (element) => element.bannerposition == 'homeslider')] =
+          BannerListModel(
+              bannerposition: 'homeslider', bannerlist: sliderResponse);
 
-    bannerResponse = await _bannerRepo.getBannerPositionAll();
-    if (bannerResponse != null) {
-      sliderList.value = bannerResponse;
+      bannerResponse = await _bannerRepo.getBannerPositionAll();
+      if (bannerResponse != null) {
+        sliderList.value = bannerResponse;
 
-      for (int i = 1; i < 18; i++) {
-        List<BannerModel> tempList1 = <BannerModel>[];
-        tempList1.addAll(sliderList
-            .where((e) => e.bannerposition.toLowerCase() == 'position$i'));
+        for (int i = 1; i < 18; i++) {
+          List<BannerModel> tempList1 = <BannerModel>[];
+          tempList1.addAll(sliderList
+              .where((e) => e.bannerposition.toLowerCase() == 'position$i'));
 
-        bannerPositionList[bannerPositionList.indexWhere(
-                (element) => element.bannerposition == 'position$i')] =
-            BannerListModel(
-                bannerposition: 'position$i', bannerlist: tempList1);
+          bannerPositionList[bannerPositionList.indexWhere(
+                  (element) => element.bannerposition == 'position$i')] =
+              BannerListModel(
+                  bannerposition: 'position$i', bannerlist: tempList1);
+        }
+      } else {
+        print('=======No HomeSliderList found========');
       }
-    } else {
-      print('=======No HomeSliderList found========');
+    } on Exception catch (e) {
+      // TODO
     }
     isLoading.toggle();
   }

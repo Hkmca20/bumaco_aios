@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:bumaco_aios/app_core/models/models.dart';
 import 'package:bumaco_aios/app_utils/app_const.dart';
 import 'package:bumaco_aios/network/dio_client.dart';
@@ -61,8 +59,14 @@ class LoginRepoImpl extends LoginRepo {
       }
       return loginRepo;
     } on Exception catch (e) {
-      print(e);
-      return null;
+      print('error1=>$e');
+      late final eMessage;
+      if (e.toString().contains('SocketException')) {
+        eMessage = 'No internet connection';
+      } else {
+        eMessage = 'Something Went Wrong';
+      }
+      throw Exception(eMessage);
     }
   }
 
@@ -85,7 +89,7 @@ class LoginRepoImpl extends LoginRepo {
       var loginRepo = LoginModel.fromJson(response.data);
       return loginRepo;
     } on Exception catch (e) {
-      print(e);
+      print('error=>$e');
       return null;
     }
   }
@@ -110,7 +114,7 @@ class LoginRepoImpl extends LoginRepo {
       }
       return status;
     } on Exception catch (e) {
-      print(e);
+      print('error=>$e');
       return false;
     }
   }
