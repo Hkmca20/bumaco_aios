@@ -2,6 +2,7 @@ import 'package:bumaco_aios/app_core/repository/repository.dart';
 import 'package:bumaco_aios/app_utils/app_const.dart';
 import 'package:bumaco_aios/ui/controller/checkout_controller.dart';
 import 'package:bumaco_aios/ui/controller/controllers.dart';
+import 'package:bumaco_aios/ui/controller/network_controller.dart';
 import 'package:bumaco_aios/ui/news/news_controller.dart';
 import 'package:get/get.dart';
 
@@ -32,6 +33,8 @@ class AppBinding implements Bindings {
     Get.lazyPut(() => BucketController(), fenix: true, tag: BUCKET_CONTROLLER);
     Get.lazyPut(() => AddressController(),
         fenix: true, tag: ADDRESS_CONTROLLER);
+    Get.lazyPut(() => NetworkController(),
+        fenix: true, tag: NETWORK_CONTROLLER);
     Get.lazyPut(() => BannerController(), fenix: true, tag: BANNER_CONTROLLER);
     Get.lazyPut(() => ProductMakeupController(), fenix: true);
     Get.lazyPut(() => NewsController(), fenix: true);

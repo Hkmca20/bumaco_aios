@@ -10,4 +10,6 @@ class AppEnvironment {
       fallback: 'AIzaSyBjA5X_1RfRWdjP88Ri3hmLfIp1qyo9F_Y');
   static final username = dotenv.get('USER_NAME', fallback: null);
   static final password = dotenv.get('USER_PASS', fallback: null);
+
+  static final razorpayKey = dotenv.get('RAZORPAY_KEY', fallback: null);
 }

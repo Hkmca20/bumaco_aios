@@ -27,3 +27,4 @@ export 'video_controller.dart';
 export 'checkout_controller.dart';
 export 'order_controller.dart';
 export 'rating_controller.dart';
+export 'network_controller.dart';

@@ -120,8 +120,8 @@ class CProductItem extends StatelessWidget {
                   .text
                   .capitalize
                   .ellipsis
-                  .bold
-                  .xl
+                  .lg
+                  .center
                   .maxLines(2)
                   .color(kGreyLightColor)
                   .make()
@@ -165,19 +165,16 @@ class CProductItem extends StatelessWidget {
                         ? ''
                         : '${lController.selectedSymbol}${prod.mrp}')
                     .richText
-                    .sm
+                    .xs
                     .lineThrough
                     .color(kGreyLightColor)
                     .make(),
-                '  ${lController.selectedSymbol}${prod.mrp}'
-                    .richText
-                    .base
-                    .make()
-                // Container(
-                //     height: 15, child: VerticalDivider(color: kDarkGreyColor)),
-                // '20% Off'.text.bold.color(kPrimaryColor).make()
-              ]).p8(),
-              '20% Off'.text.bold.xl.color(kPrimaryColor).make(),
+                '  ${lController.selectedSymbol}${prod.mrp}'.richText.sm.make(),
+                Container(
+                    height: 15, child: VerticalDivider(color: kDarkGreyColor)),
+                '20% Off'.text.sm.bold.color(kPrimaryColor).make()
+              ]).paddingSymmetric(vertical: 8),
+              // '20% Off'.text.bold.base.color(kPrimaryColor).make(),
               SizedBox(height: 4),
               // if (prod.rating != null)
               HStack([

@@ -3,6 +3,7 @@ import 'package:bumaco_aios/app_utils/app_const.dart';
 import 'package:bumaco_aios/network/dio_client.dart';
 import 'package:bumaco_aios/network/dio_client_impl.dart';
 import 'package:get/get.dart';
+import 'package:http/http.dart';
 
 abstract class LoginRepo {
   Future<LoginModel?> checkLogin(isLoginMobileNumber, phoneOrEmail);
@@ -17,6 +18,7 @@ class LoginRepoImpl extends LoginRepo {
   LoginRepoImpl() {
     _client = Get.put(DioClientImpl());
   }
+
   @override
   Future<LoginModel?> checkLogin(isLoginMoibileNumber, phoneOrEmail) async {
     final response;
@@ -67,6 +69,7 @@ class LoginRepoImpl extends LoginRepo {
         eMessage = 'Something Went Wrong';
       }
       throw Exception(eMessage);
+      // return Future.error(e);
     }
   }
 

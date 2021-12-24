@@ -7,6 +7,7 @@ import 'package:bumaco_aios/ui/profile/column_demo.dart';
 import 'package:bumaco_aios/ui/views/address/addresss_view.dart';
 import 'package:bumaco_aios/ui/views/dashboard/tabbar_view.dart';
 import 'package:bumaco_aios/ui/views/home/c_product_view.dart';
+import 'package:bumaco_aios/ui/views/home/empty_failure_no_internet_view.dart';
 import 'package:bumaco_aios/ui/views/media/chewie_player.dart';
 import 'package:bumaco_aios/ui/views/media/video_player_view.dart';
 import 'package:bumaco_aios/ui/views/orders/order_history_view.dart';
@@ -15,6 +16,7 @@ import 'package:bumaco_aios/ui/views/views.dart';
 import 'package:bumaco_aios/ui/widgets/widgets.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:lottie/lottie.dart';
 import 'package:transparent_image/transparent_image.dart';
 import 'package:velocity_x/velocity_x.dart';
 import 'package:flutter/material.dart';
@@ -193,7 +195,9 @@ class SettingView extends StatelessWidget {
           Divider(height: 1),
           SimpleBuilder(
             builder: (_) => ListTile(
-              leading: Icon(Icons.local_offer_rounded, color: kGreyLightColor),
+              leading: Lottie.asset(offersLottie,
+                  height: 40.0, width: 40.0, fit: BoxFit.fill),
+              // Icon(Icons.local_offer_rounded, color: kGreyLightColor),
               trailing:
                   Icon(Icons.arrow_forward_ios_rounded, color: kGreyLightColor),
               title: 'offer'.tr.text.lg.make(),

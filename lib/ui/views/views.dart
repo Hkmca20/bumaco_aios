@@ -27,5 +27,4 @@ export 'dashboard/dashboard_view.dart';
 export 'category/category_view.dart';
 export 'category/child_category_view.dart';
 export 'category/sub_category_view.dart';
-export 'home/home_view.dart';
 export 'search/search_view.dart';

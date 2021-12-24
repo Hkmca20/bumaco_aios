@@ -164,8 +164,7 @@ class GateView extends StatelessWidget {
                 final item = bannerController.landingGateList[index];
                 return InkWell(
                   onTap: () {
-                    GetStorage(BOX_APP)
-                        .write(BOX_GATE_SELECTED, item.bannertext);
+                    putStorageValue(BOX_GATE_SELECTED, item.bannertext);
                     Get.toNamed(landingRoute);
                   },
                   child: Container(

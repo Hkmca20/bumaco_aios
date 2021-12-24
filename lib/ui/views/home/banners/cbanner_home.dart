@@ -72,22 +72,24 @@ class _CBannerHomeWidgetState extends State<CBannerHomeWidget>
   void didChangeAppLifecycleState(AppLifecycleState state) {
     super.didChangeAppLifecycleState(state);
     print('------>AppLifecycleState: $state');
-    switch (state) {
-      case AppLifecycleState.resumed:
-        if (widget.autoscroll) {
-          _initTimer();
-        }
-        break;
-      case AppLifecycleState.inactive:
-        break;
-      case AppLifecycleState.paused:
-        // if (widget.autoscroll) {
-        _timer.cancel();
-        // }
-        break;
-      case AppLifecycleState.detached:
-        break;
-    }
+    setState(() {
+      switch (state) {
+        case AppLifecycleState.resumed:
+          if (widget.autoscroll) {
+            _initTimer();
+          }
+          break;
+        case AppLifecycleState.inactive:
+          break;
+        case AppLifecycleState.paused:
+          // if (widget.autoscroll) {
+          _timer.cancel();
+          // }
+          break;
+        case AppLifecycleState.detached:
+          break;
+      }
+    });
   }
 
   @override

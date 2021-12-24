@@ -45,7 +45,7 @@ class AppbarHome extends StatelessWidget with PreferredSizeWidget {
                 // child:
                 VStack(
               [
-                title.text.xl2.ellipsis
+                title.text.xl.ellipsis
                     .maxLines(2)
                     .fontWeight(FontWeight.w700)
                     .make(),

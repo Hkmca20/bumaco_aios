@@ -33,10 +33,32 @@ final String basketballRive = _getRivePath('basketball.riv');
 final String downloadRive = _getRivePath('download_icon.riv');
 final String vehiclesRive = _getRivePath('vehicles.riv');
 
+final String lottieAssetRoot = 'assets/lottie/';
+final String noInternetLottie = _getLottiePath('no_internet_lottie.json');
+final String emptyLottie = _getLottiePath('empty_lottie.json');
+final String failureLottie = _getLottiePath('failure_lottie.json');
+final String offersLottie = _getLottiePath('offers_lottie.json');
+final String loadingDottedRingLottie =
+    _getLottiePath('loading_dotted_rings.json');
+final String loadingBearLottie = _getLottiePath('loader_25d_bear_lottie.json');
+final String loadingSuccessLottie = _getLottiePath('loading_success.json');
+final String checkLottieLottie = _getLottiePath('check_lottie.json');
+final String orderSuccessLottie = _getLottiePath('order_success_lottie.json');
+final String wifiLottie = _getLottiePath('wifi_lottie.json');
+final String artyChatLottie = _getLottiePath('arty_chat_lottie.json');
+final String frequenciesLottie = _getLottiePath('frequencies_lottie.json');
+final String makeupLottie = _getLottiePath('makeup_beauty_lottie.json');
+final String lipsLottie = _getLottiePath('lips_lottie.json');
+final String girlFaceLottie = _getLottiePath('girls_face_lottie.json');
+
 String _getImagePath(String fileName) {
   return imageAssetsRoot + fileName;
 }
 
 String _getRivePath(String fileName) {
   return riveAssetRoot + fileName;
+}
+
+String _getLottiePath(String fileName) {
+  return lottieAssetRoot + fileName;
 }

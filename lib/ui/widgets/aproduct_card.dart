@@ -2,7 +2,7 @@ import 'dart:math';
 
 import 'package:bumaco_aios/app_core/models/product_makeup_model.dart';
 import 'package:bumaco_aios/app_utils/utils.dart';
-import 'package:bumaco_aios/ui/shopping/product_detail_view1.dart';
+import 'package:bumaco_aios/ui/shopping/product_detail_view.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -32,8 +32,7 @@ class AProductTile extends StatelessWidget {
         padding: const EdgeInsets.all(8.0),
         child: InkWell(
           onTap: () {
-            Get.to(ProductDetailView1(),
-                arguments: {'arg_product': prod});
+            Get.to(ProductDetailView(), arguments: {'arg_product': prod});
           },
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,

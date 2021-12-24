@@ -78,12 +78,14 @@ class ProfileController extends GetxController {
       VxToast.show(context, msg: 'Please select your gender');
     } else if (nameCTR.text.length < 2) {
       VxToast.show(context, msg: 'Please enter your Full name');
+    } else if (mobileCTR.text.length < 2) {
+      VxToast.show(context, msg: 'Please enter your mobile number');
+    } else if (!GetUtils.isNumericOnly(mobileCTR.text)) {
+      VxToast.show(context, msg: 'Please enter correct mobile number');
     } else if (emailCTR.text.length < 2) {
       VxToast.show(context, msg: 'Please enter your Email id');
-      // } else if (Consta emailCTR.text.length < 2) {//to do emeil matcher
-      //   VxToast.show(context, msg: 'Please enter your Email id');
-    } else if (mobileCTR.text.length < 2) {
-      VxToast.show(context, msg: 'Please enter your mobile num');
+    } else if (!GetUtils.isEmail(emailCTR.text)) {
+      VxToast.show(context, msg: 'Please enter correct Email id');
     } else if (passwordCTR.text.length < 2) {
       VxToast.show(context, msg: 'Please set your password');
     } else if (passwordCTR.text != confirmPassCTR.text) {

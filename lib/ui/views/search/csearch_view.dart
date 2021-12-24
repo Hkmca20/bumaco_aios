@@ -7,13 +7,15 @@ import 'package:bumaco_aios/ui/views/search/search_data.dart';
 import 'package:bumaco_aios/ui/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:lottie/lottie.dart';
 import 'package:velocity_x/velocity_x.dart';
 
 class RecentSearchInfo {
+  final String id;
   final String title;
   final Color backgroundColor;
 
-  RecentSearchInfo(this.title, this.backgroundColor);
+  RecentSearchInfo(this.id, this.title, this.backgroundColor);
 }
 
 class CSearchView extends StatefulWidget {
@@ -31,28 +33,28 @@ class _CSearchViewState extends State<CSearchView> {
   );
 
   final List<RecentSearchInfo> popularBrandList = [
-    RecentSearchInfo(
-        'Wow', Colors.primaries[Random().nextInt(Colors.primaries.length)]),
-    RecentSearchInfo('L\'Oreal',
+    RecentSearchInfo('1', 'Wow',
         Colors.primaries[Random().nextInt(Colors.primaries.length)]),
-    RecentSearchInfo(
-        'Lakme', Colors.primaries[Random().nextInt(Colors.primaries.length)]),
-    RecentSearchInfo(
-        'Nykaa', Colors.primaries[Random().nextInt(Colors.primaries.length)]),
+    RecentSearchInfo('2', 'L\'Oreal',
+        Colors.primaries[Random().nextInt(Colors.primaries.length)]),
+    RecentSearchInfo('3', 'Lakme',
+        Colors.primaries[Random().nextInt(Colors.primaries.length)]),
+    RecentSearchInfo('4', 'Nykaa',
+        Colors.primaries[Random().nextInt(Colors.primaries.length)]),
   ];
 
   final List<RecentSearchInfo> popularCategoryList = [
-    RecentSearchInfo(
-        'Face', Colors.primaries[Random().nextInt(Colors.primaries.length)]),
-    RecentSearchInfo(
-        'Eyes', Colors.primaries[Random().nextInt(Colors.primaries.length)]),
-    RecentSearchInfo(
-        'Hair', Colors.primaries[Random().nextInt(Colors.primaries.length)]),
-    RecentSearchInfo(
-        'Lips', Colors.primaries[Random().nextInt(Colors.primaries.length)]),
-    RecentSearchInfo('Body Art',
+    RecentSearchInfo('1', 'Face',
         Colors.primaries[Random().nextInt(Colors.primaries.length)]),
-    RecentSearchInfo('Makeup Kits',
+    RecentSearchInfo('2', 'Eyes',
+        Colors.primaries[Random().nextInt(Colors.primaries.length)]),
+    RecentSearchInfo('3', 'Hair',
+        Colors.primaries[Random().nextInt(Colors.primaries.length)]),
+    RecentSearchInfo('4', 'Lips',
+        Colors.primaries[Random().nextInt(Colors.primaries.length)]),
+    RecentSearchInfo('5', 'Body Art',
+        Colors.primaries[Random().nextInt(Colors.primaries.length)]),
+    RecentSearchInfo('6', 'Makeup Kits',
         Colors.primaries[Random().nextInt(Colors.primaries.length)]),
   ];
 
@@ -66,6 +68,7 @@ class _CSearchViewState extends State<CSearchView> {
 
   @override
   Widget build(BuildContext context) {
+    final _size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppbarHome(title: 'Search Anything', actionList: [
         IconButton(
@@ -81,14 +84,41 @@ class _CSearchViewState extends State<CSearchView> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               searchTextField(context),
-              SizedBox(height: 8),
+              8.heightBox,
               SectionTile(title: 'Popular Categories'.toUpperCase()),
               recentSearchItems(context, popularCategoryList),
               Divider(),
-              SizedBox(height: 12),
+              12.heightBox,
               SectionTile(title: 'Popular Brands'.toUpperCase()),
               recentSearchItems(context, popularBrandList),
               Divider(),
+              20.heightBox,
+              Lottie.asset(girlFaceLottie,
+                      delegates: LottieDelegates(
+                        text: (initialText) => '**$initialText**',
+                        values: [
+                          ValueDelegate.color(
+                            const ['Shape Layer 1', 'Rectangle', 'Fill 1'],
+                            value: Colors.red,
+                          ),
+                          ValueDelegate.opacity(
+                            const ['Shape Layer 1', 'Rectangle'],
+                            callback: (frameInfo) =>
+                                (frameInfo.overallProgress * 100).round(),
+                          ),
+                          ValueDelegate.position(
+                            const ['Shape Layer 1', 'Rectangle', '**'],
+                            relative: const Offset(100, 200),
+                          ),
+                        ],
+                      ),
+                      controller: searchController.aController,
+                      onLoaded: (conposition) {
+                searchController.aController
+                  ..duration = conposition.duration
+                  ..repeat(reverse: true);
+              }, height: _size.width / 2, width: _size.width / 2)
+                  .centered(),
             ]),
       ),
     );
@@ -143,7 +173,7 @@ class _CSearchViewState extends State<CSearchView> {
             onTap: () {
               Get.back();
               Get.toNamed(productRoute, arguments: {
-                'arg_category_item':
+                ARG_CATEGORY_ITEM:
                     CategoryData(id: item.id, category: item.title)
               });
             },

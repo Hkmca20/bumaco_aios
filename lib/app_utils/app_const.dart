@@ -53,6 +53,7 @@ const String kOtp4digit = "Please Enter correct otp";
 //ALL ARGUMENTS
 const String ARG_PAYABLE_AMT = 'arg_payable_amt';
 const String ARG_PAYMENT_ID = 'arg_payment_id';
+const String ARG_CATEGORY_ITEM = 'arg_category_item';
 
 // Pattxzerns
 final RegExp patternNumeric = RegExp(r'\d');
@@ -152,6 +153,7 @@ const CHECKOUT_CONTROLLER = '_checkout_controller';
 const ORDER_CONTROLLER = '_order_controller';
 const ADDRESS_CONTROLLER = '_address_controller';
 const BANNER_CONTROLLER = '_banner_controller';
+const NETWORK_CONTROLLER = '_network_controller';
 const CATEGORY_CONTROLLER = '_category_controller';
 const C_CATEGORY_CONTROLLER = '_s_category_controller';
 const S_CATEGORY_CONTROLLER = '_s_category_controller';
@@ -301,23 +303,54 @@ mBanner({context, title, icon, actions}) =>
             ],
       ),
     );
+
 bumacoSnackbar(title, message) => Get.snackbar(
-      title,
-      message,
+      title, message,
       snackPosition: SnackPosition.BOTTOM,
       backgroundColor: Colors.green.shade900,
       icon: Icon(Icons.info_outline_rounded, color: kWhiteColor),
+      // backgroundGradient: LinearGradient(colors: [Colors.red, Colors.green]),
       colorText: kWhiteColor,
-      borderColor: kWhiteColor,
+      borderColor: kWhiteColor, //use borderColor,radius,width simulteneously
       borderRadius: 4,
       borderWidth: 1,
       barBlur: 0,
+      overlayBlur: 1.0,
+      overlayColor: kTransparentColor,
+      // boxShadows: [
+      //   BoxShadow(
+      //     color: Colors.yellow,
+      //     offset: Offset(30, 50),
+      //     spreadRadius: 20,
+      //     blurRadius: 8,
+      //   )
+      // ],
+      // mainButton: TextButton(
+      //   child: 'Ok'.text.make(),
+      //   onPressed: () {},
+      // ),
+      onTap: (v) {
+        print('dismiss this');
+      },
+      snackbarStatus: (status) => print(status),
       snackStyle: SnackStyle.FLOATING,
+      padding: EdgeInsets.symmetric(horizontal: 5, vertical: 10),
       margin: EdgeInsets.all(15),
-      duration: Duration(seconds: 2),
+      duration: Duration(milliseconds: 2100),
+      animationDuration: 400.milliseconds,
       isDismissible: true,
-      // dismissDirection: SnackDismissDirection.VERTICAL,
       forwardAnimationCurve: Curves.easeOutBack,
+      // reverseAnimationCurve: Curves.easeInBack,
+      // showProgressIndicator: true,
+      // progressIndicatorBackgroundColor: Colors.deepOrange,
+      // progressIndicatorValueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+      // userInputForm: Form(
+      //   child: Row(children: [
+      //     Expanded(
+      //       child: VxTextField(),
+      //     )
+      //   ]),
+      // ),
     );
 bumacoDefaultDialog(msg) => Get.defaultDialog(
       title: 'alert'.tr,

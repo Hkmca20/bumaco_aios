@@ -2,6 +2,7 @@ import 'package:bumaco_aios/app_utils/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
+import 'package:lottie/lottie.dart';
 import 'package:velocity_x/velocity_x.dart';
 
 showLoadingDialog() {
@@ -40,9 +41,10 @@ class LoadingWidget extends StatelessWidget {
       children: [
         // CupertinoActivityIndicator(),
         Center(
-          child: CircularProgressIndicator(
-            color: kPrimaryColor,
-          ),
+          child: Lottie.asset(loadingDottedRingLottie, height: 100, width: 100),
+          // CircularProgressIndicator(
+          //     color: kPrimaryColor,
+          //   ),
         )
       ],
     );

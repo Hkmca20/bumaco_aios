@@ -1,3 +1,4 @@
+import 'package:bumaco_aios/app_config/app_environment.dart';
 import 'package:bumaco_aios/app_core/db/database/app_database.dart';
 import 'package:bumaco_aios/app_core/db/entity/entities.dart';
 import 'package:bumaco_aios/app_core/models/models.dart';
@@ -33,35 +34,22 @@ class BucketController extends GetxController {
   initiatePayment(payableAmount) {
     String a = payableAmount.value.toStringAsFixed(2);
     int amt = int.parse(a.replaceAll('.', ''));
+    if (amt > 35000) amt = 35000;
     String d = '';
     for (int i = 0; i < bucketList.length; i++) {
-      if (d.length < 20) {
+      if (d.length < 25) {
         d = d + bucketList[i].product.toString();
       } else {
         if (d.length > 25) {
-          
-          d = d.substring(
-            20,d.length-25
-          );
+          d = d.substring(0, 25) + '..';
         }
-        d = d + '+${bucketList.length - 1} more';
+        d = d + ' + ${bucketList.length - 1} more';
         break;
       }
     }
-    // bucketList.forEach((element) {
-    //   if (d.length < 20) {
-    //     d = d + element.product.toString();
-    //     print(d);
-    //     if (d.length > 20) {
-    //       d = d.substring(20);
-    //     }
-    //   } else {
-    //     d = d + '+${bucketList.length - 1} more';
-    //   }
-    // });
     var options = {
-      'key': 'rzp_test_K91R0TzxmZMA2R', //process.env.RAZORPAY_KEY,//
-      'amount': amt, //1250//in the smallest currency sub-unit.
+      'key': AppEnvironment.razorpayKey,
+      'amount': amt, //integer => in the smallest currency sub-unit.
       'currency': getStorageStringValue(BOX_CURRENCY),
       'name': getStorageStringValue(BOX_NAME),
       // 'order_id': 'order_EMBFqjDHEEn80l', // Generate order_id using Orders API
@@ -171,8 +159,8 @@ class BucketController extends GetxController {
         }
         bucketDao.updateQuantityInBucket(q, checkItem.id);
         getAllBucketFromLocal();
-        bumacoSnackbar(
-            'alert'.tr, '${element.product} ' + 'quantity_updated'.tr);
+        // bumacoSnackbar(
+        //     'alert'.tr, '${element.product} ' + 'quantity_updated'.tr);
         return;
       }
       final entity = BucketEntity(
@@ -193,8 +181,8 @@ class BucketController extends GetxController {
           quantity: 1);
       await bucketDao.insertIntoBucket(entity);
       getAllBucketFromLocal();
-      bumacoSnackbar(
-          'alert'.tr, '${entity.product} ' + 'added_to'.tr + ' ' + 'cart'.tr);
+      // bumacoSnackbar(
+      //     'alert'.tr, '${entity.product} ' + 'added_to'.tr + ' ' + 'cart'.tr);
     } on Exception catch (e, s) {
       print(e);
       bumacoSnackbar('alert'.tr, 'Happy: $e');

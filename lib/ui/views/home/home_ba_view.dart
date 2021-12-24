@@ -15,32 +15,17 @@ import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:skeletons/skeletons.dart';
 import 'package:transparent_image/transparent_image.dart';
 import 'package:velocity_x/velocity_x.dart';
 
-class A9GateCategory extends StatelessWidget {
-  const A9GateCategory({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return ExpansionTile(
-      title: 'How to select or find a product'.text.bold.make().p4(),
-      subtitle:
-          'This is contains of 9 gates, You may select a gate from category list and enter you will find a sub category gate then search any product you required.'
-              .text
-              .make()
-              .p4(),
-      children: <Widget>[
-        ListTile(title: Text('Find your products')),
-      ],
-    );
-  }
-}
+import 'empty_failure_no_internet_view.dart';
 
 class HomeBaView extends StatelessWidget {
   HomeBaView({Key? key}) : super(key: key);
 
   final bannerController = BannerController.to;
+  final networkController = NetworkController.to;
   final homeController = HomeController.to;
   final bController = BucketController.to;
   final pController = ProductController.to;
@@ -49,7 +34,6 @@ class HomeBaView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    bannerController.setContext(context);
     final _screenSize = MediaQuery.of(context).size;
     // Widget createDrawerHeader() {
     //   return DrawerHeader(
@@ -227,7 +211,7 @@ class HomeBaView extends StatelessWidget {
                                         onTap: () {
                                           Get.back();
                                           Get.toNamed(productRoute, arguments: {
-                                            'arg_category_item': CategoryData(
+                                            ARG_CATEGORY_ITEM: CategoryData(
                                                 id: cController
                                                     .dummyChildList[index].id,
                                                 category: cController
@@ -275,553 +259,619 @@ class HomeBaView extends StatelessWidget {
                       child: 'loading_data'.tr.text.xl2.center.make(),
                     ).centered(),
                   ),
-                  LoadingWidget()
+                  LoadingWidget(),
                 ])
-              : RefreshIndicator(
-                  onRefresh: () async {
-                    bannerController.fetchBanners();
-                    pController.fetchProductHome();
-                  },
-                  child: SingleChildScrollView(
-                    controller: homeController.scrollController,
-                    child: ConstrainedBox(
-                      constraints: BoxConstraints(),
-                      child: Column(children: [
-                        Container(
-                          height: 40,
-                          margin: EdgeInsets.all(12),
-                          child: InkWell(
-                            onTap: () {
-                              Get.to(() => CSearchView());
-                            },
-                            child: TextFormField(
-                              scrollPhysics: NeverScrollableScrollPhysics(),
-                              enabled: false,
-                              decoration: InputDecoration(
-                                fillColor: Colors.black.withOpacity(0.1),
-                                filled: true,
-                                prefixIcon: Icon(Icons.search),
-                                hintText: 'Search on ' + 'app_title'.tr,
-                                hintStyle: Theme.of(context)
-                                    .textTheme
-                                    .headline6!
-                                    .copyWith(color: kGreyLightColor),
-                                border: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(4),
-                                  borderSide: BorderSide.none,
+              : networkController.connectionType == 0
+                  ? EmptyFailureNoInternetView(
+                      image: noInternetLottie,
+                      title: 'Network Error',
+                      description: 'Internet not found !!',
+                      buttonText: "Retry",
+                      onPressed: () {
+                        bannerController.fetchBanners();
+                        if (cController.categoryList.length == 0)
+                          cController.fetchCategory();
+                      },
+                    )
+                  : RefreshIndicator(
+                      onRefresh: () async {
+                        bannerController.fetchBanners();
+                        if (cController.categoryList.length == 0)
+                          cController.fetchCategory();
+                      },
+                      child: SingleChildScrollView(
+                        controller: homeController.scrollController,
+                        child: ConstrainedBox(
+                          constraints: BoxConstraints(),
+                          child: Column(children: [
+                            Container(
+                              height: 40,
+                              margin: EdgeInsets.all(12),
+                              child: InkWell(
+                                onTap: () {
+                                  Get.to(() => CSearchView());
+                                },
+                                child: TextFormField(
+                                  scrollPhysics: NeverScrollableScrollPhysics(),
+                                  enabled: false,
+                                  decoration: InputDecoration(
+                                    fillColor: Colors.black.withOpacity(0.1),
+                                    filled: true,
+                                    prefixIcon: Icon(Icons.search),
+                                    hintText: 'Search on ' + 'app_title'.tr,
+                                    hintStyle: Theme.of(context)
+                                        .textTheme
+                                        .headline6!
+                                        .copyWith(color: kGreyLightColor),
+                                    border: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(4),
+                                      borderSide: BorderSide.none,
+                                    ),
+                                    contentPadding: EdgeInsets.all(2),
+                                  ),
                                 ),
-                                contentPadding: EdgeInsets.all(2),
                               ),
                             ),
-                          ),
-                        ),
-                        Divider(),
-                        Container(
-                          height: 110,
-                          child: ListView.builder(
-                            physics: ClampingScrollPhysics(),
-                            scrollDirection: Axis.horizontal,
-                            itemCount: cController.categoryList.length,
-                            itemBuilder: (context, index) {
-                              final CategoryData item =
-                                  cController.categoryList[index];
-                              return Card(
-                                color: kPrimaryLightColor.withOpacity(1),
-                                child: InkWell(
-                                  child: Column(
-                                    children: [
-                                      Flexible(
-                                        child: Container(
-                                          height: 100,
-                                          width: _screenSize.width / 3,
-                                          child: ClipRRect(
-                                            borderRadius: BorderRadius.all(
-                                                Radius.circular(4)),
-                                            child: FadeInImage.memoryNetwork(
-                                              placeholder: kTransparentImage,
-                                              image: ApiConstants.baseImageUrl +
-                                                  item.image,
-                                              fit: BoxFit.cover,
+                            Divider(),
+                            cController.categoryList.length == 0
+                                ? EmptyFailureNoInternetView(
+                                    image: girlFaceLottie,
+                                    title: 'Slow netowrk',
+                                    description: 'Try reload category',
+                                    buttonText: "Retry",
+                                    onPressed: () {
+                                      bannerController.fetchBanners();
+                                      if (cController.categoryList.length == 0)
+                                        cController.fetchCategory();
+                                    },
+                                  )
+                                : Container(
+                                    height: 110,
+                                    child: ListView.builder(
+                                      physics: ClampingScrollPhysics(),
+                                      scrollDirection: Axis.horizontal,
+                                      itemCount:
+                                          cController.categoryList.length,
+                                      itemBuilder: (context, index) {
+                                        final CategoryData item =
+                                            cController.categoryList[index];
+                                        return Card(
+                                          color:
+                                              kPrimaryLightColor.withOpacity(1),
+                                          child: InkWell(
+                                            child: Column(
+                                              children: [
+                                                Flexible(
+                                                  child: Container(
+                                                    height: 100,
+                                                    width:
+                                                        _screenSize.width / 3,
+                                                    child: ClipRRect(
+                                                      borderRadius:
+                                                          BorderRadius.all(
+                                                              Radius.circular(
+                                                                  4)),
+                                                      child: FadeInImage
+                                                          .memoryNetwork(
+                                                        placeholder:
+                                                            kTransparentImage,
+                                                        image: ApiConstants
+                                                                .baseImageUrl +
+                                                            item.image,
+                                                        fit: BoxFit.cover,
+                                                      ),
+                                                    ),
+                                                    decoration: BoxDecoration(
+                                                      color: Colors.transparent,
+                                                      borderRadius:
+                                                          BorderRadius.all(
+                                                              Radius.circular(
+                                                                  4)),
+                                                    ),
+                                                  ),
+                                                ),
+                                                item
+                                                    .category
+                                                    .text
+                                                    .semiBold
+                                                    .black
+                                                    .capitalize
+                                                    .ellipsis
+                                                    .sm
+                                                    .maxLines(1)
+                                                    .make()
+                                                    .p2(),
+                                              ],
                                             ),
+                                            onTap: () {
+                                              Get.toNamed(productRoute,
+                                                  arguments: {
+                                                    ARG_CATEGORY_ITEM:
+                                                        CategoryData(
+                                                            id: item.id,
+                                                            category:
+                                                                item.category)
+                                                  });
+                                              // Get.toNamed(cProductRoute, arguments: {
+                                              //   ARG_CATEGORY_ITEM: CategoryModel(category: item.category)
+                                              // });
+                                            },
                                           ),
-                                          decoration: BoxDecoration(
-                                            color: Colors.transparent,
-                                            borderRadius: BorderRadius.all(
-                                                Radius.circular(4)),
-                                          ),
+                                        );
+                                      },
+                                    ),
+                                  ),
+                            Divider(),
+                            bannerController.bannerPositionList[0].bannerlist !=
+                                    null
+                                ? CBannerHomeWidget(
+                                    bannerHeight: 110.0,
+                                    fitImage: BoxFit.fill,
+                                    autoscroll: true,
+                                    bannerList: bannerController
+                                        .bannerPositionList[0].bannerlist!,
+                                  )
+                                : SizedBox(),
+                            // Divider(),
+                            // Wrap(
+                            //   spacing: 3,
+                            //   runSpacing: 3,
+                            //   children: List.generate(
+                            //       bannerController.bannerPositionList[1].bannerlist!
+                            //           .length, (index) {
+                            //     final BannerModel item = bannerController
+                            //         .bannerPositionList[1].bannerlist![index];
+                            //     return ItemWidget11(
+                            //         padding: EdgeInsets.only(left: 0.0),
+                            //         screenWidth: _screenSize.width - 20,
+                            //         item: item);
+                            //   }),
+                            // ),
+                            Divider(),
+                            SectionTile(title: 'SHOP BY BRAND'),
+                            Wrap(
+                              spacing: 3,
+                              runSpacing: 3,
+                              children: List.generate(
+                                  bannerController.bannerPositionList[2]
+                                      .bannerlist!.length, (index) {
+                                final BannerModel item = bannerController
+                                    .bannerPositionList[2].bannerlist![index];
+                                return ItemWidget11(
+                                    padding: EdgeInsets.only(left: 0.0),
+                                    screenWidth: _screenSize.width - 20,
+                                    item: item);
+                              }),
+                            ),
+                            Divider(),
+                            Wrap(
+                              spacing: 3,
+                              runSpacing: 3,
+                              children: List.generate(
+                                  bannerController.bannerPositionList[3]
+                                      .bannerlist!.length, (index) {
+                                final BannerModel item = bannerController
+                                    .bannerPositionList[3].bannerlist![index];
+                                return ItemWidget11(
+                                    padding: EdgeInsets.only(left: 0.0),
+                                    screenWidth: _screenSize.width - 20,
+                                    item: item);
+                              }),
+                            ),
+                            Divider(),
+                            SectionTile(title: 'ONLY AT NYKAA'),
+                            Wrap(
+                              spacing: 3,
+                              runSpacing: 3,
+                              children: List.generate(
+                                  bannerController.bannerPositionList[4]
+                                      .bannerlist!.length, (index) {
+                                final BannerModel item = bannerController
+                                    .bannerPositionList[4].bannerlist![index];
+                                return ItemWidget11(
+                                    padding: EdgeInsets.only(left: 0.0),
+                                    screenWidth: _screenSize.width / 2 - 10,
+                                    item: item);
+                              }),
+                            ),
+                            Divider(),
+                            SectionTile(title: 'TRENDING STORIES'),
+                            Container(
+                              height: 200,
+                              child: ListView.builder(
+                                  physics: ClampingScrollPhysics(),
+                                  scrollDirection: Axis.horizontal,
+                                  itemCount: bannerController
+                                      .bannerPositionList[5].bannerlist!.length,
+                                  itemBuilder: (context, index) {
+                                    final BannerModel item = bannerController
+                                        .bannerPositionList[5]
+                                        .bannerlist![index];
+                                    EdgeInsets _padding = index == 0
+                                        ? const EdgeInsets.only(
+                                            left: 10.0, right: 0.0)
+                                        : const EdgeInsets.only(
+                                            left: 0.0, right: 10.0);
+
+                                    return ItemWidget11(
+                                        padding: _padding,
+                                        screenWidth: _screenSize.width - 60,
+                                        item: item);
+                                  }),
+                            ),
+                            Divider(),
+                            SectionTile(title: 'FEATURED BRAND'),
+                            Wrap(
+                              spacing: 3,
+                              runSpacing: 3,
+                              children: List.generate(
+                                  bannerController.bannerPositionList[6]
+                                      .bannerlist!.length, (index) {
+                                final BannerModel item = bannerController
+                                    .bannerPositionList[6].bannerlist![index];
+                                return ItemWidget11(
+                                    padding: EdgeInsets.only(left: 0.0),
+                                    screenWidth: _screenSize.width / 2 - 20,
+                                    item: item);
+                              }),
+                            ),
+                            Divider(),
+                            Wrap(
+                              spacing: 3,
+                              runSpacing: 3,
+                              children: List.generate(
+                                  bannerController.bannerPositionList[7]
+                                      .bannerlist!.length, (index) {
+                                final BannerModel item = bannerController
+                                    .bannerPositionList[7].bannerlist![index];
+                                return ItemWidget11(
+                                    padding: EdgeInsets.only(left: 0.0),
+                                    screenWidth: _screenSize.width / 2 - 20,
+                                    item: item);
+                              }),
+                            ),
+                            Divider(),
+                            SectionTile(title: 'CATEGORY IN FOCUS'),
+                            Wrap(
+                              spacing: 3,
+                              runSpacing: 3,
+                              children: List.generate(
+                                  bannerController.bannerPositionList[8]
+                                      .bannerlist!.length, (index) {
+                                final BannerModel item = bannerController
+                                    .bannerPositionList[8].bannerlist![index];
+                                return ItemWidget11(
+                                    padding: EdgeInsets.only(left: 0.0),
+                                    screenWidth: _screenSize.width - 20,
+                                    item: item);
+                              }),
+                            ),
+                            Divider(),
+                            SectionTile(title: 'HIDDEN GEMS'),
+                            Wrap(
+                              spacing: 3,
+                              runSpacing: 3,
+                              children: List.generate(
+                                  bannerController.bannerPositionList[9]
+                                      .bannerlist!.length, (index) {
+                                final BannerModel item = bannerController
+                                    .bannerPositionList[9].bannerlist![index];
+                                return ItemWidget11(
+                                    padding: EdgeInsets.only(left: 0.0),
+                                    screenWidth: _screenSize.width / 2 - 20,
+                                    item: item);
+                              }),
+                            ),
+                            Divider(),
+                            SectionTile(title: 'EDITOR\'S CHOICE'),
+                            Container(
+                              height: _screenSize.width / 2,
+                              child: ListView.builder(
+                                  physics: ClampingScrollPhysics(),
+                                  scrollDirection: Axis.horizontal,
+                                  itemCount: bannerController
+                                      .bannerPositionList[10]
+                                      .bannerlist!
+                                      .length,
+                                  itemBuilder: (context, index) {
+                                    final BannerModel item = bannerController
+                                        .bannerPositionList[10]
+                                        .bannerlist![index];
+                                    EdgeInsets _padding = index == 0
+                                        ? const EdgeInsets.only(
+                                            left: 10.0, right: 0.0)
+                                        : const EdgeInsets.only(
+                                            left: 0.0, right: 10.0);
+
+                                    return ItemWidget11(
+                                        padding: _padding,
+                                        screenWidth: _screenSize.width / 2,
+                                        item: item);
+                                  }),
+                            ),
+                            Divider(),
+                            Wrap(
+                              spacing: 3,
+                              runSpacing: 3,
+                              children: List.generate(
+                                  bannerController.bannerPositionList[11]
+                                      .bannerlist!.length, (index) {
+                                final BannerModel item = bannerController
+                                    .bannerPositionList[11].bannerlist![index];
+                                return ItemWidget11(
+                                    padding: EdgeInsets.only(left: 0.0),
+                                    screenWidth: _screenSize.width - 20,
+                                    item: item);
+                              }),
+                            ),
+                            // Divider(),
+                            // Wrap(
+                            //   spacing: 3,
+                            //   runSpacing: 3,
+                            //   children: List.generate(
+                            //       bannerController.bannerPositionList[13]
+                            //           .bannerlist!.length, (index) {
+                            //     final BannerModel item = bannerController
+                            //         .bannerPositionList[13].bannerlist![index];
+                            //     return ItemWidget11(
+                            //         padding: EdgeInsets.only(left: 0.0),
+                            //         screenWidth: _screenSize.width - 20,
+                            //         item: item);
+                            //   }),
+                            // ),
+                            Divider(),
+                            Wrap(
+                              spacing: 3,
+                              runSpacing: 3,
+                              children: List.generate(
+                                  bannerController.bannerPositionList[14]
+                                      .bannerlist!.length, (index) {
+                                final BannerModel item = bannerController
+                                    .bannerPositionList[14].bannerlist![index];
+                                return ItemWidget11(
+                                    padding: EdgeInsets.only(left: 0.0),
+                                    screenWidth: _screenSize.width - 20,
+                                    item: item);
+                              }),
+                            ),
+                            Divider(),
+                            Wrap(
+                              spacing: 3,
+                              runSpacing: 3,
+                              children: List.generate(
+                                  bannerController.bannerPositionList[15]
+                                      .bannerlist!.length, (index) {
+                                final BannerModel item = bannerController
+                                    .bannerPositionList[15].bannerlist![index];
+                                return ItemWidget11(
+                                    padding: EdgeInsets.only(left: 0.0),
+                                    screenWidth: _screenSize.width - 20,
+                                    item: item);
+                              }),
+                            ),
+                            Divider(),
+                            Wrap(
+                              spacing: 3,
+                              runSpacing: 3,
+                              children: List.generate(
+                                  bannerController.bannerPositionList[16]
+                                      .bannerlist!.length, (index) {
+                                final BannerModel item = bannerController
+                                    .bannerPositionList[16].bannerlist![index];
+                                return ItemWidget11(
+                                    padding: EdgeInsets.only(left: 0.0),
+                                    screenWidth: _screenSize.width - 20,
+                                    item: item);
+                              }),
+                            ),
+                            Divider(),
+                            Wrap(
+                              spacing: 3,
+                              runSpacing: 3,
+                              children: List.generate(
+                                  bannerController.bannerPositionList[17]
+                                      .bannerlist!.length, (index) {
+                                final BannerModel item = bannerController
+                                    .bannerPositionList[17].bannerlist![index];
+                                return ItemWidget11(
+                                    padding: EdgeInsets.only(left: 0.0),
+                                    screenWidth: _screenSize.width - 20,
+                                    item: item);
+                              }),
+                            ),
+                            Divider(),
+                            // SectionTile(title: 'MORE OFFERS FOR YOU'),
+                            // Wrap(
+                            //   spacing: 3,
+                            //   runSpacing: 3,
+                            //   children: List.generate(
+                            //       bannerController.bannerPositionList[12].bannerlist!
+                            //           .length, (index) {
+                            //     final BannerModel item = bannerController
+                            //         .bannerPositionList[12].bannerlist![index];
+                            //     return ATOBanner(item: item);
+                            //   }),
+                            // ),
+                            // Divider(),
+                            // SizedBox(height: 8), //--------------------------
+                            // Container(
+                            //   height: 130,
+                            //   child: ListView.builder(
+                            //       physics: ClampingScrollPhysics(),
+                            //       scrollDirection: Axis.horizontal,
+                            //       itemCount: bannerController.sliderList.length,
+                            //       itemBuilder: (context, index) {
+                            //         final BannerModel item =
+                            //             bannerController.sliderList[index];
+                            //         EdgeInsets _padding = index == 0
+                            //             ? const EdgeInsets.only(left: 20.0, right: 0.0)
+                            //             : const EdgeInsets.only(left: 0.0, right: 0.0);
+
+                            //         return ItemWidget11(
+                            //             padding: _padding,
+                            //             screenWidth: _screenSize.width,
+                            //             item: item);
+                            //       }),
+                            // ),
+                            //Category ends here-------------------------
+
+                            //Start carousel here-------------------------
+                            // Divider(),
+                            // SizedBox(height: 4), //--------------------------
+                            // SectionTile(title: 'new_category'.tr),
+                            //Ends carousel here-------------------------
+
+                            // Divider(),
+                            // SizedBox(height: 10), //--------------------------
+                            // SectionTile(title: 'trending_products'.tr),
+                            // Container(
+                            //   height: 160,
+                            //   child: ListView.builder(
+                            //       physics: ClampingScrollPhysics(),
+                            //       scrollDirection: Axis.horizontal,
+                            //       itemCount: bannerController.sliderList.length,
+                            //       itemBuilder: (context, index) {
+                            //         final BannerModel item =
+                            //             bannerController.sliderList[index];
+                            //         EdgeInsets _padding = index == 0
+                            //             ? const EdgeInsets.only(
+                            //                 left: 20.0, right: 0.0)
+                            //             : const EdgeInsets.only(
+                            //                 left: 0.0, right: 0.0);
+
+                            //         return ItemWidget22(
+                            //             padding: _padding,
+                            //             item: item,
+                            //             screenWidth: _screenSize.width);
+                            //       }),
+                            // ),
+
+                            // SectionTile(title: 'new_arrival_products'.tr),
+                            // SectionTile(title: 'category_based_on_profile'.tr),
+                            // Divider(),
+                            // SizedBox(height: 10), //--------------------------
+                            // SectionTile(title: 'new_arrival_products'.tr),
+                            // Container(
+                            //   height: _screenSize.width / 3,
+                            //   child: ListView.builder(
+                            //       physics: ClampingScrollPhysics(),
+                            //       scrollDirection: Axis.horizontal,
+                            //       itemCount: bannerController.categoryList.length,
+                            //       itemBuilder: (context, index) {
+                            //         final CategoryModel item =
+                            //             bannerController.categoryList[index];
+                            //         EdgeInsets _padding = index == 0
+                            //             ? const EdgeInsets.only(left: 10.0, right: 0.0)
+                            //             : const EdgeInsets.only(left: 10.0, right: 0.0);
+
+                            //         return ItemWidget3(
+                            //             padding: _padding,
+                            //             screenWidth: _screenSize.width,
+                            //             item: item);
+                            //       }),
+                            // ),
+                            // Divider(),
+                            // SizedBox(height: 10), //--------------------------
+                            // SectionTile(title: 'best_sellers'.tr),
+                            // Wrap(
+                            //   children: List.generate(bannerController.categoryList.length,
+                            //       (index) {
+                            //     final CategoryModel item =
+                            //         bannerController.categoryList[index];
+                            //     return SampleAvatar(
+                            //         item: item, padding: EdgeInsets.all(10.0));
+                            //   }),
+                            // ),
+                            // Divider(),
+                            // Wrap(
+                            //   spacing: 3,
+                            //   runSpacing: 3,
+                            //   children: List.generate(bannerController.categoryList.length,
+                            //       (index) {
+                            //     final CategoryModel item =
+                            //         bannerController.categoryList[index];
+                            //     return ItemWidget1(
+                            //         padding: EdgeInsets.only(left: 10.0),
+                            //         screenWidth: _screenSize.width - 50,
+                            //         item: item);
+                            //   }),
+                            // ),
+                            // Divider(),
+                            // SizedBox(height: 10), //--------------------------
+                            // SectionTile(title: 'popular_products'.tr),
+                            // Divider(),
+                            SizedBox(height: 10), //--------------------------
+                            SectionTile(title: 'trending_products'.tr),
+                            pController.isLoading.isTrue
+                                ? LoadingWidget()
+                                : pController.productListHome.length == 0
+                                    ? EmptyFailureNoInternetView(
+                                        image: emptyLottie,
+                                        title: 'Content unavailable',
+                                        description: 'Content not found',
+                                        buttonText: "Retry",
+                                        onPressed: () {
+                                          pController.fetchProductHome();
+                                        },
+                                      )
+                                    : Container(
+                                        child: StaggeredGridView.count(
+                                          crossAxisCount: 2,
+                                          mainAxisSpacing: 4.0,
+                                          crossAxisSpacing: 4.0,
+                                          shrinkWrap: true,
+                                          physics:
+                                              NeverScrollableScrollPhysics(),
+                                          staggeredTiles: List.generate(
+                                              pController.productListHome
+                                                  .length, (index) {
+                                            return StaggeredTile.fit(1);
+                                          }),
+                                          padding: EdgeInsets.only(
+                                              top: 8, left: 8, right: 8),
+                                          children: List.generate(
+                                              pController.productListHome
+                                                  .length, (index) {
+                                            final ProductModel item =
+                                                pController
+                                                    .productListHome[index];
+                                            return CProductItem(prod: item);
+                                          }),
                                         ),
                                       ),
-                                      item.category.text.semiBold.black
-                                          .capitalize.ellipsis.sm
-                                          .maxLines(1)
-                                          .make()
-                                          .p2(),
-                                    ],
-                                  ),
-                                  onTap: () {
-                                    Get.toNamed(productRoute, arguments: {
-                                      'arg_category_item': CategoryData(
-                                          id: item.id, category: item.category)
-                                    });
-                                    // Get.toNamed(cProductRoute, arguments: {
-                                    //   'arg_category_item': CategoryModel(category: item.category)
-                                    // });
-                                  },
-                                ),
-                              );
-                            },
-                          ),
+                            Divider(),
+                            'Please be careful of fraudulent calls and SMSes!\n9Gates will never call you with offers pertaining to free gifts\nor prizes or ask for payment through any links.'
+                                .text
+                                .semiBold
+                                .heightLoose
+                                .xs
+                                .align(TextAlign.center)
+                                .color(kPrimaryColor)
+                                .makeCentered()
+                                .p12()
+                                .box
+                                .pink100
+                                .shadow2xl
+                                .border(color: kPrimaryColor)
+                                .make()
+                                .p16(),
+                            'All rights reserved. Copyright \u00a9bumaco @2021'
+                                .marquee()
+                                .h(24),
+                            HeightBox(10),
+                            VxDash(
+                              length: _screenSize.width - 120,
+                              dashBorderRadius: 10,
+                              dashColor: kGreyLightColor,
+                              dashLength: 15,
+                              dashThickness: 1,
+                              dashGap: 10,
+                            ).paddingAll(5),
+                            HeightBox(10) //--------------------------
+                          ]),
                         ),
-                        Divider(),
-                        bannerController.bannerPositionList[0].bannerlist !=
-                                null
-                            ? CBannerHomeWidget(
-                                bannerHeight: 110.0,
-                                fitImage: BoxFit.fill,
-                                autoscroll: true,
-                                bannerList: bannerController
-                                    .bannerPositionList[0].bannerlist!,
-                              )
-                            : SizedBox(),
-                        // Divider(),
-                        // Wrap(
-                        //   spacing: 3,
-                        //   runSpacing: 3,
-                        //   children: List.generate(
-                        //       bannerController.bannerPositionList[1].bannerlist!
-                        //           .length, (index) {
-                        //     final BannerModel item = bannerController
-                        //         .bannerPositionList[1].bannerlist![index];
-                        //     return ItemWidget11(
-                        //         padding: EdgeInsets.only(left: 0.0),
-                        //         screenWidth: _screenSize.width - 20,
-                        //         item: item);
-                        //   }),
-                        // ),
-                        Divider(),
-                        SectionTile(title: 'SHOP BY BRAND'),
-                        Wrap(
-                          spacing: 3,
-                          runSpacing: 3,
-                          children: List.generate(
-                              bannerController.bannerPositionList[2].bannerlist!
-                                  .length, (index) {
-                            final BannerModel item = bannerController
-                                .bannerPositionList[2].bannerlist![index];
-                            return ItemWidget11(
-                                padding: EdgeInsets.only(left: 0.0),
-                                screenWidth: _screenSize.width - 20,
-                                item: item);
-                          }),
-                        ),
-                        Divider(),
-                        Wrap(
-                          spacing: 3,
-                          runSpacing: 3,
-                          children: List.generate(
-                              bannerController.bannerPositionList[3].bannerlist!
-                                  .length, (index) {
-                            final BannerModel item = bannerController
-                                .bannerPositionList[3].bannerlist![index];
-                            return ItemWidget11(
-                                padding: EdgeInsets.only(left: 0.0),
-                                screenWidth: _screenSize.width - 20,
-                                item: item);
-                          }),
-                        ),
-                        Divider(),
-                        SectionTile(title: 'ONLY AT NYKAA'),
-                        Wrap(
-                          spacing: 3,
-                          runSpacing: 3,
-                          children: List.generate(
-                              bannerController.bannerPositionList[4].bannerlist!
-                                  .length, (index) {
-                            final BannerModel item = bannerController
-                                .bannerPositionList[4].bannerlist![index];
-                            return ItemWidget11(
-                                padding: EdgeInsets.only(left: 0.0),
-                                screenWidth: _screenSize.width / 2 - 10,
-                                item: item);
-                          }),
-                        ),
-                        Divider(),
-                        SectionTile(title: 'TRENDING STORIES'),
-                        Container(
-                          height: 200,
-                          child: ListView.builder(
-                              physics: ClampingScrollPhysics(),
-                              scrollDirection: Axis.horizontal,
-                              itemCount: bannerController
-                                  .bannerPositionList[5].bannerlist!.length,
-                              itemBuilder: (context, index) {
-                                final BannerModel item = bannerController
-                                    .bannerPositionList[5].bannerlist![index];
-                                EdgeInsets _padding = index == 0
-                                    ? const EdgeInsets.only(
-                                        left: 10.0, right: 0.0)
-                                    : const EdgeInsets.only(
-                                        left: 0.0, right: 10.0);
-
-                                return ItemWidget11(
-                                    padding: _padding,
-                                    screenWidth: _screenSize.width - 60,
-                                    item: item);
-                              }),
-                        ),
-                        Divider(),
-                        SectionTile(title: 'FEATURED BRAND'),
-                        Wrap(
-                          spacing: 3,
-                          runSpacing: 3,
-                          children: List.generate(
-                              bannerController.bannerPositionList[6].bannerlist!
-                                  .length, (index) {
-                            final BannerModel item = bannerController
-                                .bannerPositionList[6].bannerlist![index];
-                            return ItemWidget11(
-                                padding: EdgeInsets.only(left: 0.0),
-                                screenWidth: _screenSize.width / 2 - 20,
-                                item: item);
-                          }),
-                        ),
-                        Divider(),
-                        Wrap(
-                          spacing: 3,
-                          runSpacing: 3,
-                          children: List.generate(
-                              bannerController.bannerPositionList[7].bannerlist!
-                                  .length, (index) {
-                            final BannerModel item = bannerController
-                                .bannerPositionList[7].bannerlist![index];
-                            return ItemWidget11(
-                                padding: EdgeInsets.only(left: 0.0),
-                                screenWidth: _screenSize.width / 2 - 20,
-                                item: item);
-                          }),
-                        ),
-                        Divider(),
-                        SectionTile(title: 'CATEGORY IN FOCUS'),
-                        Wrap(
-                          spacing: 3,
-                          runSpacing: 3,
-                          children: List.generate(
-                              bannerController.bannerPositionList[8].bannerlist!
-                                  .length, (index) {
-                            final BannerModel item = bannerController
-                                .bannerPositionList[8].bannerlist![index];
-                            return ItemWidget11(
-                                padding: EdgeInsets.only(left: 0.0),
-                                screenWidth: _screenSize.width - 20,
-                                item: item);
-                          }),
-                        ),
-                        Divider(),
-                        SectionTile(title: 'HIDDEN GEMS'),
-                        Wrap(
-                          spacing: 3,
-                          runSpacing: 3,
-                          children: List.generate(
-                              bannerController.bannerPositionList[9].bannerlist!
-                                  .length, (index) {
-                            final BannerModel item = bannerController
-                                .bannerPositionList[9].bannerlist![index];
-                            return ItemWidget11(
-                                padding: EdgeInsets.only(left: 0.0),
-                                screenWidth: _screenSize.width / 2 - 20,
-                                item: item);
-                          }),
-                        ),
-                        Divider(),
-                        SectionTile(title: 'EDITOR\'S CHOICE'),
-                        Container(
-                          height: _screenSize.width / 2,
-                          child: ListView.builder(
-                              physics: ClampingScrollPhysics(),
-                              scrollDirection: Axis.horizontal,
-                              itemCount: bannerController
-                                  .bannerPositionList[10].bannerlist!.length,
-                              itemBuilder: (context, index) {
-                                final BannerModel item = bannerController
-                                    .bannerPositionList[10].bannerlist![index];
-                                EdgeInsets _padding = index == 0
-                                    ? const EdgeInsets.only(
-                                        left: 10.0, right: 0.0)
-                                    : const EdgeInsets.only(
-                                        left: 0.0, right: 10.0);
-
-                                return ItemWidget11(
-                                    padding: _padding,
-                                    screenWidth: _screenSize.width / 2,
-                                    item: item);
-                              }),
-                        ),
-                        Divider(),
-                        Wrap(
-                          spacing: 3,
-                          runSpacing: 3,
-                          children: List.generate(
-                              bannerController.bannerPositionList[11]
-                                  .bannerlist!.length, (index) {
-                            final BannerModel item = bannerController
-                                .bannerPositionList[11].bannerlist![index];
-                            return ItemWidget11(
-                                padding: EdgeInsets.only(left: 0.0),
-                                screenWidth: _screenSize.width - 20,
-                                item: item);
-                          }),
-                        ),
-                        // Divider(),
-                        // Wrap(
-                        //   spacing: 3,
-                        //   runSpacing: 3,
-                        //   children: List.generate(
-                        //       bannerController.bannerPositionList[13]
-                        //           .bannerlist!.length, (index) {
-                        //     final BannerModel item = bannerController
-                        //         .bannerPositionList[13].bannerlist![index];
-                        //     return ItemWidget11(
-                        //         padding: EdgeInsets.only(left: 0.0),
-                        //         screenWidth: _screenSize.width - 20,
-                        //         item: item);
-                        //   }),
-                        // ),
-                        Divider(),
-                        Wrap(
-                          spacing: 3,
-                          runSpacing: 3,
-                          children: List.generate(
-                              bannerController.bannerPositionList[14]
-                                  .bannerlist!.length, (index) {
-                            final BannerModel item = bannerController
-                                .bannerPositionList[14].bannerlist![index];
-                            return ItemWidget11(
-                                padding: EdgeInsets.only(left: 0.0),
-                                screenWidth: _screenSize.width - 20,
-                                item: item);
-                          }),
-                        ),
-                        Divider(),
-                        Wrap(
-                          spacing: 3,
-                          runSpacing: 3,
-                          children: List.generate(
-                              bannerController.bannerPositionList[15]
-                                  .bannerlist!.length, (index) {
-                            final BannerModel item = bannerController
-                                .bannerPositionList[15].bannerlist![index];
-                            return ItemWidget11(
-                                padding: EdgeInsets.only(left: 0.0),
-                                screenWidth: _screenSize.width - 20,
-                                item: item);
-                          }),
-                        ),
-                        Divider(),
-                        Wrap(
-                          spacing: 3,
-                          runSpacing: 3,
-                          children: List.generate(
-                              bannerController.bannerPositionList[16]
-                                  .bannerlist!.length, (index) {
-                            final BannerModel item = bannerController
-                                .bannerPositionList[16].bannerlist![index];
-                            return ItemWidget11(
-                                padding: EdgeInsets.only(left: 0.0),
-                                screenWidth: _screenSize.width - 20,
-                                item: item);
-                          }),
-                        ),
-                        Divider(),
-                        Wrap(
-                          spacing: 3,
-                          runSpacing: 3,
-                          children: List.generate(
-                              bannerController.bannerPositionList[17]
-                                  .bannerlist!.length, (index) {
-                            final BannerModel item = bannerController
-                                .bannerPositionList[17].bannerlist![index];
-                            return ItemWidget11(
-                                padding: EdgeInsets.only(left: 0.0),
-                                screenWidth: _screenSize.width - 20,
-                                item: item);
-                          }),
-                        ),
-                        Divider(),
-                        // SectionTile(title: 'MORE OFFERS FOR YOU'),
-                        // Wrap(
-                        //   spacing: 3,
-                        //   runSpacing: 3,
-                        //   children: List.generate(
-                        //       bannerController.bannerPositionList[12].bannerlist!
-                        //           .length, (index) {
-                        //     final BannerModel item = bannerController
-                        //         .bannerPositionList[12].bannerlist![index];
-                        //     return ATOBanner(item: item);
-                        //   }),
-                        // ),
-                        // Divider(),
-                        // SizedBox(height: 8), //--------------------------
-                        // Container(
-                        //   height: 130,
-                        //   child: ListView.builder(
-                        //       physics: ClampingScrollPhysics(),
-                        //       scrollDirection: Axis.horizontal,
-                        //       itemCount: bannerController.sliderList.length,
-                        //       itemBuilder: (context, index) {
-                        //         final BannerModel item =
-                        //             bannerController.sliderList[index];
-                        //         EdgeInsets _padding = index == 0
-                        //             ? const EdgeInsets.only(left: 20.0, right: 0.0)
-                        //             : const EdgeInsets.only(left: 0.0, right: 0.0);
-
-                        //         return ItemWidget11(
-                        //             padding: _padding,
-                        //             screenWidth: _screenSize.width,
-                        //             item: item);
-                        //       }),
-                        // ),
-                        //Category ends here-------------------------
-
-                        //Start carousel here-------------------------
-                        // Divider(),
-                        // SizedBox(height: 4), //--------------------------
-                        // SectionTile(title: 'new_category'.tr),
-                        //Ends carousel here-------------------------
-
-                        // Divider(),
-                        // SizedBox(height: 10), //--------------------------
-                        // SectionTile(title: 'trending_products'.tr),
-                        // Container(
-                        //   height: 160,
-                        //   child: ListView.builder(
-                        //       physics: ClampingScrollPhysics(),
-                        //       scrollDirection: Axis.horizontal,
-                        //       itemCount: bannerController.sliderList.length,
-                        //       itemBuilder: (context, index) {
-                        //         final BannerModel item =
-                        //             bannerController.sliderList[index];
-                        //         EdgeInsets _padding = index == 0
-                        //             ? const EdgeInsets.only(
-                        //                 left: 20.0, right: 0.0)
-                        //             : const EdgeInsets.only(
-                        //                 left: 0.0, right: 0.0);
-
-                        //         return ItemWidget22(
-                        //             padding: _padding,
-                        //             item: item,
-                        //             screenWidth: _screenSize.width);
-                        //       }),
-                        // ),
-
-                        // SectionTile(title: 'new_arrival_products'.tr),
-                        // SectionTile(title: 'category_based_on_profile'.tr),
-                        // Divider(),
-                        // SizedBox(height: 10), //--------------------------
-                        // SectionTile(title: 'new_arrival_products'.tr),
-                        // Container(
-                        //   height: _screenSize.width / 3,
-                        //   child: ListView.builder(
-                        //       physics: ClampingScrollPhysics(),
-                        //       scrollDirection: Axis.horizontal,
-                        //       itemCount: bannerController.categoryList.length,
-                        //       itemBuilder: (context, index) {
-                        //         final CategoryModel item =
-                        //             bannerController.categoryList[index];
-                        //         EdgeInsets _padding = index == 0
-                        //             ? const EdgeInsets.only(left: 10.0, right: 0.0)
-                        //             : const EdgeInsets.only(left: 10.0, right: 0.0);
-
-                        //         return ItemWidget3(
-                        //             padding: _padding,
-                        //             screenWidth: _screenSize.width,
-                        //             item: item);
-                        //       }),
-                        // ),
-                        // Divider(),
-                        // SizedBox(height: 10), //--------------------------
-                        // SectionTile(title: 'best_sellers'.tr),
-                        // Wrap(
-                        //   children: List.generate(bannerController.categoryList.length,
-                        //       (index) {
-                        //     final CategoryModel item =
-                        //         bannerController.categoryList[index];
-                        //     return SampleAvatar(
-                        //         item: item, padding: EdgeInsets.all(10.0));
-                        //   }),
-                        // ),
-                        // Divider(),
-                        // Wrap(
-                        //   spacing: 3,
-                        //   runSpacing: 3,
-                        //   children: List.generate(bannerController.categoryList.length,
-                        //       (index) {
-                        //     final CategoryModel item =
-                        //         bannerController.categoryList[index];
-                        //     return ItemWidget1(
-                        //         padding: EdgeInsets.only(left: 10.0),
-                        //         screenWidth: _screenSize.width - 50,
-                        //         item: item);
-                        //   }),
-                        // ),
-                        // Divider(),
-                        // SizedBox(height: 10), //--------------------------
-                        // SectionTile(title: 'popular_products'.tr),
-                        // Divider(),
-                        SizedBox(height: 10), //--------------------------
-                        SectionTile(title: 'trending_products'.tr),
-                        Container(
-                          child: StaggeredGridView.count(
-                            crossAxisCount: 2,
-                            mainAxisSpacing: 4.0,
-                            crossAxisSpacing: 4.0,
-                            shrinkWrap: true,
-                            physics: NeverScrollableScrollPhysics(),
-                            staggeredTiles: List.generate(
-                                pController.productListHome.length, (index) {
-                              return StaggeredTile.fit(1);
-                            }),
-                            padding: EdgeInsets.only(top: 8, left: 8, right: 8),
-                            children: List.generate(
-                                pController.productListHome.length, (index) {
-                              final ProductModel item =
-                                  pController.productListHome[index];
-                              return CProductItem(prod: item);
-                            }),
-                          ),
-                        ),
-                        Divider(),
-                        'Please be careful of fraudulent calls and SMSes!\n9Gates will never call you with offers pertaining to free gifts\nor prizes or ask for payment through any links.'
-                            .text
-                            .semiBold
-                            .heightLoose
-                            .xs
-                            .align(TextAlign.center)
-                            .color(kPrimaryColor)
-                            .makeCentered()
-                            .p12()
-                            .box
-                            .pink100
-                            .shadow2xl
-                            .border(color: kPrimaryColor)
-                            .make()
-                            .p16(),
-                        'All rights reserved. Copyright \u00a9bumaco @2021'
-                            .marquee()
-                            .h(24),
-                        HeightBox(10),
-                        VxDash(
-                          length: _screenSize.width - 120,
-                          dashBorderRadius: 10,
-                          dashColor: kGreyLightColor,
-                          dashLength: 15,
-                          dashThickness: 1,
-                          dashGap: 10,
-                        ).paddingAll(5),
-                        HeightBox(10) //--------------------------
-                      ]),
+                      ),
                     ),
-                  ),
-                ),
         ),
       ),
     );

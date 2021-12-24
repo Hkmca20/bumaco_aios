@@ -90,6 +90,16 @@ class LocaleController extends GetxController {
       'selected': false,
     },
     {
+      'sno': '51',
+      'name': 'uae',
+      'code': '971',
+      'locale': Locale('en', 'UK'),
+      'language': 'english',
+      'currency': 'AED',
+      'currency_symbol': 'د.إ',
+      'selected': false,
+    },
+    {
       'sno': '6',
       'name': 'bahrain',
       'code': '973',
@@ -207,8 +217,8 @@ class LocaleController extends GetxController {
                   itemBuilder: (context, index) {
                     return InkWell(
                         child: HStack([
-                          '${localeList[index]['name']}'
-                              .tr
+                          ('${localeList[index]['name']}'.tr.toUpperCase() +
+                                  ' (${localeList[index]['language'].toString().substring(0, 2)})')
                               .text
                               .bold
                               .xl

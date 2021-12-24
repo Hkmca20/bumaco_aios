@@ -43,15 +43,15 @@ class HomeController extends GetxController {
 
   RxString selectedGate = ''.obs;
   final List gateList = [
-    {'name': 'Beauty Gate'.toUpperCase(), 'id': 'ID1'},
-    {'name': 'Fashion Gate'.toUpperCase(), 'id': 'ID2'},
-    {'name': 'Antiques gate'.toUpperCase(), 'id': 'ID1'},
-    {'name': 'Modern Arts gate'.toUpperCase(), 'id': 'ID1'},
-    {'name': 'Altaras & Sport gate'.toUpperCase(), 'id': 'ID1'},
-    {'name': 'Stars & Fans gate'.toUpperCase(), 'id': 'ID1'},
-    {'name': 'Pets gate'.toUpperCase(), 'id': 'ID1'},
-    {'name': 'Bikes & Moto gate'.toUpperCase(), 'id': 'ID1'},
-    {'name': 'Rent & Shared gate'.toUpperCase(), 'id': 'ID1'},
+    {'name': 'Beauty Gate'.toUpperCase(), 'id': '1'},
+    {'name': 'Fashion Gate'.toUpperCase(), 'id': '2'},
+    {'name': 'Antiques gate'.toUpperCase(), 'id': '3'},
+    {'name': 'Modern Arts gate'.toUpperCase(), 'id': '4'},
+    {'name': 'Altaras & Sport gate'.toUpperCase(), 'id': '5'},
+    {'name': 'Stars & Fans gate'.toUpperCase(), 'id': '6'},
+    {'name': 'Pets gate'.toUpperCase(), 'id': '7'},
+    {'name': 'Bikes & Moto gate'.toUpperCase(), 'id': '8'},
+    {'name': 'Rent & Shared gate'.toUpperCase(), 'id': '9'},
   ];
   final box = GetStorage(BOX_APP);
   updateSelectedGate(index) {
