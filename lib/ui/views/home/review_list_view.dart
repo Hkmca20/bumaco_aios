@@ -11,7 +11,7 @@ import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:get/get.dart';
 import 'package:velocity_x/velocity_x.dart';
 
-import 'empty_widget.dart';
+import 'empty_failure_no_internet_view.dart';
 
 class ReviewListView extends StatelessWidget {
   ReviewListView({Key? key}) : super(key: key);
@@ -71,7 +71,13 @@ class ReviewListView extends StatelessWidget {
             Expanded(
               child: Obx(
                 () => productController.productListAll.length == 0
-                    ? EmptyContentWidget()
+                    ? EmptyFailureNoInternetView(
+                        image: emptyLottie,
+                        title: 'Content unavailable',
+                        description: 'Content not found',
+                        buttonText: "",
+                        onPressed: () {},
+                      )
                     : ListView.builder(
                         shrinkWrap: true,
                         itemCount: productController.productListAll.length,

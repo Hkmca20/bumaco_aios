@@ -41,6 +41,10 @@ class _CSearchViewState extends State<CSearchView> {
         Colors.primaries[Random().nextInt(Colors.primaries.length)]),
     RecentSearchInfo('4', 'Nykaa',
         Colors.primaries[Random().nextInt(Colors.primaries.length)]),
+    RecentSearchInfo('4', 'Maybeinline',
+        Colors.primaries[Random().nextInt(Colors.primaries.length)]),
+    RecentSearchInfo('4', 'Others',
+        Colors.primaries[Random().nextInt(Colors.primaries.length)]),
   ];
 
   final List<RecentSearchInfo> popularCategoryList = [
@@ -84,40 +88,42 @@ class _CSearchViewState extends State<CSearchView> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               searchTextField(context),
-              8.heightBox,
+              // 8.heightBox,
               SectionTile(title: 'Popular Categories'.toUpperCase()),
               recentSearchItems(context, popularCategoryList),
               Divider(),
-              12.heightBox,
+              // 12.heightBox,
               SectionTile(title: 'Popular Brands'.toUpperCase()),
               recentSearchItems(context, popularBrandList),
               Divider(),
-              20.heightBox,
+              // 20.heightBox,
               Lottie.asset(girlFaceLottie,
-                      delegates: LottieDelegates(
-                        text: (initialText) => '**$initialText**',
-                        values: [
-                          ValueDelegate.color(
-                            const ['Shape Layer 1', 'Rectangle', 'Fill 1'],
-                            value: Colors.red,
-                          ),
-                          ValueDelegate.opacity(
-                            const ['Shape Layer 1', 'Rectangle'],
-                            callback: (frameInfo) =>
-                                (frameInfo.overallProgress * 100).round(),
-                          ),
-                          ValueDelegate.position(
-                            const ['Shape Layer 1', 'Rectangle', '**'],
-                            relative: const Offset(100, 200),
-                          ),
-                        ],
-                      ),
-                      controller: searchController.aController,
-                      onLoaded: (conposition) {
-                searchController.aController
-                  ..duration = conposition.duration
-                  ..repeat(reverse: true);
-              }, height: _size.width / 2, width: _size.width / 2)
+                      //       delegates: LottieDelegates(
+                      //         text: (initialText) => '**$initialText**',
+                      //         values: [
+                      //           ValueDelegate.color(
+                      //             const ['Shape Layer 1', 'Rectangle', 'Fill 1'],
+                      //             value: Colors.red,
+                      //           ),
+                      //           ValueDelegate.opacity(
+                      //             const ['Shape Layer 1', 'Rectangle'],
+                      //             callback: (frameInfo) =>
+                      //                 (frameInfo.overallProgress * 100).round(),
+                      //           ),
+                      //           ValueDelegate.position(
+                      //             const ['Shape Layer 1', 'Rectangle', '**'],
+                      //             relative: const Offset(100, 200),
+                      //           ),
+                      //         ],
+                      //       ),
+                      //       controller: searchController.aController,
+                      //       onLoaded: (conposition) {
+                      // searchController.aController
+                      //   ..duration = conposition.duration
+                      //   ..repeat(reverse: true);
+                      // },
+                      height: _size.width / 2,
+                      width: _size.width / 2)
                   .centered(),
             ]),
       ),
@@ -164,29 +170,32 @@ class _CSearchViewState extends State<CSearchView> {
   recentSearchItems(context, itemList) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 24.0),
-      child: Wrap(
-        spacing: 3.0,
-        runSpacing: 3.0,
-        children: List.generate(itemList.length, (index) {
-          final item = itemList[index];
-          return InkWell(
-            onTap: () {
-              Get.back();
-              Get.toNamed(productRoute, arguments: {
-                ARG_CATEGORY_ITEM:
-                    CategoryData(id: item.id, category: item.title)
-              });
-            },
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 4.0),
-              child: Chip(
-                label: Text(item.title),
-                padding: EdgeInsets.all(4),
-                backgroundColor: item.backgroundColor,
+      child: Container(
+        height: 100,
+        child: Wrap(
+          spacing: 3.0,
+          runSpacing: 3.0,
+          children: List.generate(itemList.length, (index) {
+            final item = itemList[index];
+            return InkWell(
+              onTap: () {
+                Get.back();
+                Get.toNamed(productRoute, arguments: {
+                  ARG_CATEGORY_ITEM:
+                      CategoryData(id: item.id, category: item.title)
+                });
+              },
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 4.0),
+                child: Chip(
+                  label: Text(item.title),
+                  padding: EdgeInsets.all(4),
+                  backgroundColor: item.backgroundColor,
+                ),
               ),
-            ),
-          );
-        }),
+            );
+          }),
+        ),
       ),
     );
   }

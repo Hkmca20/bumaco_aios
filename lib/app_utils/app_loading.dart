@@ -29,7 +29,7 @@ showLoadingDialog() {
   );
 }
 
-hideLoading() {
+hideLoadingDialog() {
   Get.back();
 }
 

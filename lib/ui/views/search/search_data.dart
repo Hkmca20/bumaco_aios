@@ -49,10 +49,9 @@ class SearchData<T> extends SearchDelegate<String> {
     return Container(
       height: 100,
       width: 100,
-      child: Card(
-        color: kPrimaryColor,
-        child: query.text.make(),
-      ),
+      // child: Card(
+      //   child: query.text.make(),
+      // ),
     );
   }
 
@@ -68,21 +67,23 @@ class SearchData<T> extends SearchDelegate<String> {
     // pController.searchProductList;
 
     return Obx(
-      () => ListView.separated(
-          separatorBuilder: (context, index) {
-            return Divider(indent: 40, endIndent: 80);
-          },
-          itemCount: pController.productListSearch.length,
-          itemBuilder: (context, index) {
-            final item = pController.productListSearch[index];
-            return CSearchItem(
-              prod: item,
-              bController: bController,
-              pController: pController,
-              index: index,
-              offset: pController.offset.value,
-            );
-          }),
+      () => pController.isLoading.isTrue
+          ? LoadingWidget()
+          : ListView.separated(
+              separatorBuilder: (context, index) {
+                return Divider(indent: 40, endIndent: 80);
+              },
+              itemCount: pController.productListSearch.length,
+              itemBuilder: (context, index) {
+                final item = pController.productListSearch[index];
+                return CSearchItem(
+                  prod: item,
+                  bController: bController,
+                  pController: pController,
+                  index: index,
+                  offset: pController.offset.value,
+                );
+              }),
     );
   }
 }

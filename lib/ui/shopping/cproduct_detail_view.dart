@@ -128,7 +128,7 @@ class CProductDetailView extends StatelessWidget {
                     showLoadingDialog();
                     var file =
                         await DefaultCacheManager().getSingleFile(imageUrl);
-                    hideLoading();
+                    hideLoadingDialog();
                     final shareText = pdController.productItem.product +
                         ' (' +
                         pdController.productItem.brand +

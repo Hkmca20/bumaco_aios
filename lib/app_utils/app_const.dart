@@ -151,6 +151,7 @@ const PRODUCT_DETAIL_CONTROLLER = '_product_detail';
 const BUCKET_CONTROLLER = '_bucket_controller';
 const CHECKOUT_CONTROLLER = '_checkout_controller';
 const ORDER_CONTROLLER = '_order_controller';
+const COUPON_CONTROLLER = '_coupon_controller';
 const ADDRESS_CONTROLLER = '_address_controller';
 const BANNER_CONTROLLER = '_banner_controller';
 const NETWORK_CONTROLLER = '_network_controller';
@@ -259,6 +260,9 @@ class ApiConstants {
   static const childCategoryApi = 'categoryapi/childcategory';
   static const subCategoryApi = 'categoryapi/subcategory';
   static const productApi = 'productapi/productdata/';
+  static const couponApi = 'productapi/couponcode/'; //post
+  static const orderApi = 'productapi/productorder/'; //post
+
   static const bannerSliderApi = 'bannerapi/homeslider/';
   static const bannerApi = 'bannerapi/position';
   static const productApiHome = 'productapi/homeproduct';

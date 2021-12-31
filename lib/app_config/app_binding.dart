@@ -56,6 +56,7 @@ class AppBinding implements Bindings {
     Get.lazyPut(() => CheckoutController(),
         fenix: true, tag: CHECKOUT_CONTROLLER);
     Get.lazyPut(() => OrderController(), fenix: true, tag: ORDER_CONTROLLER);
+    Get.lazyPut(() => CouponController(), fenix: true, tag: COUPON_CONTROLLER);
     Get.lazyPut(() => RatingController(), fenix: true, tag: RATING_CONTROLLER);
 
     Get.lazyPut(() => BannerRepoImpl(), fenix: true);

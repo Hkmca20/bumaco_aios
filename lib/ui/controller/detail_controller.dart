@@ -64,7 +64,7 @@ class ProductDetailController extends GetxController {
     }
     showLoadingDialog();
     await Future.delayed(1000.milliseconds);
-    hideLoading();
+    hideLoadingDialog();
     avalablePincode(true);
     bumacoSnackbar('alert'.tr,
         'This product is available to your location for delivery and COD is acceptable');

@@ -87,7 +87,7 @@ class SignupController extends GetxController {
         modifiDate: DateTime.now(),
       );
       var response = await _loginRepo.updateProfile(loginData);
-      hideLoading();
+      hideLoadingDialog();
       if (response) {
         VxToast.show(context, msg: 'Profile updated successfully!');
       } else {

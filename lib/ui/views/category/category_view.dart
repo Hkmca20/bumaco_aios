@@ -26,7 +26,8 @@ class CategoryView extends StatelessWidget {
 
     return Scaffold(
       appBar: AppbarHome(
-        title: appTitleEN,
+        title: 'app_title'.tr,
+        spacing: 24,
         actionList: [
           IconButton(
             icon: Icon(Icons.search_outlined),

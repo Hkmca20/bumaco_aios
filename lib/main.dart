@@ -47,14 +47,18 @@ Future<void> main() async {
     WidgetsFlutterBinding.ensureInitialized();
     await GetStorage.init(BOX_APP);
     try {
-      // await Firebase.initializeApp();
-      await Firebase.initializeApp(options: firebaseConfig);
+      await Firebase.initializeApp();
+      // await Firebase.initializeApp(options: firebaseConfig);
+    } on Exception catch (e) {
+      print('error: $e');
+    }
+    try {
       FirebaseMessaging.onBackgroundMessage(_messageHandler);
       String? token = await FirebaseMessaging.instance.getToken();
       putStorageValue(BOX_FCM_TOKEN, token);
-    } on Exception catch (e, s) {
+      print('--------------Token=>$token');
+    } on Exception catch (e) {
       print('error: $e');
-      print('stack: $s');
     }
     await dotenv.load(fileName: AppEnvironment.fileName);
     await Future.delayed(Duration.zero, () {

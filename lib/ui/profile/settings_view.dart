@@ -4,7 +4,7 @@ import 'package:bumaco_aios/ui/controller/signin_controller.dart';
 import 'package:bumaco_aios/ui/gallery/gallery_view.dart';
 import 'package:bumaco_aios/ui/login/terms_condition.dart';
 import 'package:bumaco_aios/ui/profile/column_demo.dart';
-import 'package:bumaco_aios/ui/views/address/addresss_view.dart';
+import 'package:bumaco_aios/ui/views/address/addresss_list_view.dart';
 import 'package:bumaco_aios/ui/views/dashboard/tabbar_view.dart';
 import 'package:bumaco_aios/ui/views/home/c_product_view.dart';
 import 'package:bumaco_aios/ui/views/home/empty_failure_no_internet_view.dart';
@@ -163,7 +163,7 @@ class SettingView extends StatelessWidget {
               title: 'shipping_address'.tr.text.lg.make(),
               onTap: () => {
                 getStorageBoolValue(BOX_IS_LOGGEDIN)
-                    ? Get.to(() => AddressView(),
+                    ? Get.to(() => AddressAddView(),
                         arguments: {'get_is_bucket': false})
                     : _loginController.loginPopupBottomSheet(context),
                 // Get.toNamed(wishlistRoute)

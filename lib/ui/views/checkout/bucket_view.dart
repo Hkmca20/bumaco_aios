@@ -3,24 +3,25 @@ import 'package:bumaco_aios/app_utils/app_bar_home.dart';
 import 'package:bumaco_aios/app_utils/utils.dart';
 import 'package:bumaco_aios/ui/controller/controllers.dart';
 import 'package:bumaco_aios/ui/controller/signin_controller.dart';
-import 'package:bumaco_aios/ui/views/address/addresss_view.dart';
+import 'package:bumaco_aios/ui/views/address/addresss_list_view.dart';
 import 'package:bumaco_aios/ui/views/checkout/bucket_item.dart';
+import 'package:bumaco_aios/ui/views/coupon/coupon_list_view.dart';
+import 'package:bumaco_aios/ui/views/home/empty_failure_no_internet_view.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:velocity_x/velocity_x.dart';
 
-import '../address/add_address_view.dart';
-import '../home/empty_widget.dart';
-
 class BucketView extends StatelessWidget {
-  const BucketView({Key? key}) : super(key: key);
+  BucketView({Key? key}) : super(key: key);
+
+  final _aController = AddressController.to;
+  final pController = ProductController.to;
+  final couponController = CouponController.to;
+  final bController = BucketController.to;
+  final lController = LocaleController.to;
 
   @override
   Widget build(BuildContext context) {
-    final _aController = AddressController.to;
-    final bController = BucketController.to;
-    final lController = LocaleController.to;
-
     return Scaffold(
       appBar: AppbarHome(
         title: 'cart'.tr + ' - ' + 'checkout'.tr,
@@ -36,17 +37,25 @@ class BucketView extends StatelessWidget {
             icon: Icon(Icons.location_city_outlined),
             tooltip: 'Address List',
             onPressed: () {
-              Get.to(() => AddressView(), arguments: {'get_is_bucket': true});
+              Get.to(() => AddressAddView(),
+                  arguments: {'get_is_bucket': true});
             },
           ),
         ],
       ),
       body: Obx(
         () => bController.bucketList.length == 0
-            ? EmptyContentWidget()
+            ? EmptyFailureNoInternetView(
+                image: emptyLottie,
+                title: 'Content unavailable',
+                description: 'Content not found',
+                buttonText: "",
+                onPressed: () {},
+              )
             : ConstrainedBox(
                 constraints: BoxConstraints(),
                 child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Container(
                       child: VStack(
@@ -61,7 +70,7 @@ class BucketView extends StatelessWidget {
                               //     color: Colors.red,
                               //   ),
                               // );
-                              Get.to(() => AddressView(),
+                              Get.to(() => AddressAddView(),
                                   arguments: {'get_is_bucket': true});
                             },
                             child: HStack(
@@ -96,6 +105,43 @@ class BucketView extends StatelessWidget {
                       ),
                     ),
                     VxDivider(),
+                    Row(children: [
+                      Icon(Icons.local_offer_outlined)
+                          .paddingSymmetric(horizontal: 20, vertical: 8),
+                      Obx(
+                        () => Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            '${couponController.couponTitle.value}'
+                                .text
+                                .sm
+                                .semiBold
+                                .make(),
+                            couponController.couponSubtitle.value == ''
+                                ? SizedBox()
+                                : couponController
+                                    .couponSubtitle.value.text.xs.green500
+                                    .make(),
+                          ],
+                        ).paddingSymmetric(horizontal: 20).expand(),
+                      ),
+                      couponController.couponApplied.isTrue
+                          ? Icon(
+                              Icons.close_rounded,
+                              color: Vx.coolGray500,
+                            )
+                              .paddingSymmetric(horizontal: 20, vertical: 8)
+                              .onTap(() {
+                              couponController.clearPromocode();
+                            })
+                          : Icon(
+                              Icons.arrow_forward_ios,
+                              color: Vx.coolGray500,
+                            ).paddingSymmetric(horizontal: 10, vertical: 8),
+                    ]).paddingSymmetric(vertical: 5).onTap(() {
+                      Get.to(() => CouponListView());
+                    }),
+                    VxDivider(),
                     Expanded(
                       child: ListView.separated(
                         separatorBuilder: (context, index) => Divider(
@@ -123,14 +169,15 @@ class BucketView extends StatelessWidget {
                                 HStack(
                                   [
                                     Expanded(
-                                        child: ('total'.tr + ': ')
-                                            .text
-                                            .lg
-                                            .make()
-                                            .p8()),
+                                      child: ('total'.tr + ': ')
+                                          .text
+                                          .base
+                                          .make()
+                                          .p8(),
+                                    ),
                                     '${lController.selectedSymbol}${bController.totalAmount}'
                                         .text
-                                        .lg
+                                        .base
                                         .make()
                                         .p8(),
                                   ],
@@ -138,14 +185,12 @@ class BucketView extends StatelessWidget {
                                 HStack(
                                   [
                                     Expanded(
-                                        child: ('tax'.tr + ': ')
-                                            .text
-                                            .lg
-                                            .make()
-                                            .p8()),
+                                      child:
+                                          ('tax'.tr + ': ').text.lg.make().p8(),
+                                    ),
                                     '${lController.selectedSymbol}${bController.taxAmount}'
                                         .text
-                                        .lg
+                                        .base
                                         .make()
                                         .p8(),
                                   ],
@@ -153,14 +198,26 @@ class BucketView extends StatelessWidget {
                                 HStack(
                                   [
                                     Expanded(
-                                        child: ('discount'.tr + ': ')
-                                            .text
-                                            .lg
-                                            .make()
-                                            .p8()),
+                                      child: Obx(
+                                        () => couponController
+                                                    .couponValue.value ==
+                                                0
+                                            ? ('discount'.tr + ':')
+                                                .text
+                                                .base
+                                                .make()
+                                                .p8()
+                                            : ('discount'.tr +
+                                                    ' (${couponController.couponValue} ${couponController.couponType}): ')
+                                                .text
+                                                .base
+                                                .make()
+                                                .p8(),
+                                      ),
+                                    ),
                                     '${lController.selectedSymbol}${bController.discountAmt}'
                                         .text
-                                        .lg
+                                        .base
                                         .make()
                                         .p8(),
                                   ],
@@ -168,14 +225,15 @@ class BucketView extends StatelessWidget {
                                 HStack(
                                   [
                                     Expanded(
-                                        child: ('shipping'.tr + ': ')
-                                            .text
-                                            .lg
-                                            .make()
-                                            .p8()),
-                                    '${lController.selectedSymbol}${bController.shippingAmt}'
+                                      child: ('shipping'.tr + ': ')
+                                          .text
+                                          .base
+                                          .make()
+                                          .p8(),
+                                    ),
+                                    '${lController.selectedSymbol}${bController.shippingAmt.round()}'
                                         .text
-                                        .lg
+                                        .base
                                         .make()
                                         .p8(),
                                   ],
@@ -195,17 +253,19 @@ class BucketView extends StatelessWidget {
                                   ),
                                   Icon(Icons.info_outline),
                                   Expanded(
-                                      child: ('payable'.tr + ': ')
-                                          .text
-                                          .lg
-                                          .color(kPrimaryColor)
-                                          .make()
-                                          .p12()),
+                                    child: ('payable'.tr + ': ')
+                                        .text
+                                        .sm
+                                        .semiBold
+                                        .color(kPrimaryColor)
+                                        .make()
+                                        .p12(),
+                                  ),
                                   // '\$${bController.grandTotal.value}'
                                   // .text.lg
                                   //     .make()
                                   //     .p12(),
-                                  '${lController.selectedSymbol}${bController.grandTotal.value}'
+                                  '${lController.selectedSymbol}${bController.grandTotal.value.toStringAsFixed(2)}'
                                       // .numCurrencyWithLocale(locale: 'en_UK')
                                       // .numCurrencyWithLocale(locale: 'ar_AE')
                                       .text
@@ -225,12 +285,12 @@ class BucketView extends StatelessWidget {
                                       ? SigninController.to
                                           .loginPopupBottomSheet(context)
                                       : _aController.addressList.length == 0
-                                          ? Get.to(() => AddAddressView(),
+                                          ? Get.to(() => AddressAddView(),
                                               arguments: {
                                                   'get_is_bucket': true
                                                 })
-                                          : bController.initiatePayment(
-                                              bController.grandTotal);
+                                          : bController.bookProductorderCall(
+                                              '0', '');
                                 },
                                 // color: Color(0xff374ABE),
                                 color: kPrimaryColor,

@@ -4,12 +4,12 @@ import 'package:get/get_utils/src/extensions/internacionalization.dart';
 import 'package:velocity_x/velocity_x.dart';
 import 'package:flutter/material.dart';
 
-class AddAddressView extends StatefulWidget {
+class AddressAddView extends StatefulWidget {
   @override
-  State<StatefulWidget> createState() => AddAddressViewState();
+  State<StatefulWidget> createState() => AddressAddViewState();
 }
 
-class AddAddressViewState extends State<AddAddressView> {
+class AddressAddViewState extends State<AddressAddView> {
   final _addressController = AddressController.to;
   @override
   void initState() {

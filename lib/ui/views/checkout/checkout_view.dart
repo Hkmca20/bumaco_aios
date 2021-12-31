@@ -4,7 +4,7 @@ import 'package:bumaco_aios/ui/controller/controllers.dart';
 import 'package:flutter/material.dart';
 import 'package:velocity_x/velocity_x.dart';
 
-import '../address/add_address_view.dart';
+import '../address/address_add_view.dart';
 
 class CheckoutView extends StatelessWidget {
   //Not used this class hari
@@ -41,7 +41,7 @@ class CheckoutView extends StatelessWidget {
                     height: 50.0,
                     onPressed: () {
                       Navigator.of(context).push(MaterialPageRoute(
-                          builder: (context) => AddAddressView()));
+                          builder: (context) => AddressAddView()));
                     },
                     // color: Color(0xff374ABE),
                     color: kPrimaryColor,

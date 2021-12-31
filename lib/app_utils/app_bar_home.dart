@@ -12,6 +12,7 @@ class AppbarHome extends StatelessWidget with PreferredSizeWidget {
   final Color iconColor;
   final bool autoLeading;
   final bool centerTitle;
+  final double spacing;
 
   AppbarHome(
       {Key? key,
@@ -20,6 +21,7 @@ class AppbarHome extends StatelessWidget with PreferredSizeWidget {
       this.actionList,
       this.autoLeading = true,
       this.centerTitle = false,
+      this.spacing = 4,
       this.textColor = kWhiteColor,
       this.iconColor = kPrimaryColor})
       : super(key: key);
@@ -89,7 +91,7 @@ class AppbarHome extends StatelessWidget with PreferredSizeWidget {
       //   ),
       // ),
       elevation: 2,
-      titleSpacing: 4,
+      titleSpacing: spacing,
     );
   }
 

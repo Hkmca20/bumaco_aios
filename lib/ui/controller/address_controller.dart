@@ -54,7 +54,7 @@ class AddressController extends GetxController {
     final db = await $FloorAppDatabase.databaseBuilder(DB_NAME).build();
     final addressDao = db.addressDao;
     await addressDao.insertAddressList(addressListRemote);
-    hideLoading();
+    hideLoadingDialog();
   }
 
   findAllAddressList() async {

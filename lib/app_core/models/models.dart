@@ -8,3 +8,4 @@ export 'address_model.dart';
 export 'banner_model.dart';
 export 'login_model.dart';
 export 'login_data.dart';
+export 'coupon_model.dart';

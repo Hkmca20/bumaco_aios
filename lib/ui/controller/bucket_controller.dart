@@ -2,6 +2,7 @@ import 'package:bumaco_aios/app_config/app_environment.dart';
 import 'package:bumaco_aios/app_core/db/database/app_database.dart';
 import 'package:bumaco_aios/app_core/db/entity/entities.dart';
 import 'package:bumaco_aios/app_core/models/models.dart';
+import 'package:bumaco_aios/app_core/repository/repository.dart';
 import 'package:bumaco_aios/app_utils/utils.dart';
 import 'package:bumaco_aios/ui/views/orders/order_book_view.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
@@ -20,15 +21,54 @@ class BucketController extends GetxController {
   var grandTotal = 0.0.obs;
   late final Razorpay _razorpay;
   var isShowDetails = true.obs;
+  late ProductRepository productRepository;
 
   @override
   void onInit() {
     super.onInit();
+    productRepository = Get.put(ProductRepositoryImpl());
     getAllBucketFromLocal();
     _razorpay = Razorpay();
     _razorpay.on(Razorpay.EVENT_PAYMENT_SUCCESS, _handlePaymentSuccess);
     _razorpay.on(Razorpay.EVENT_PAYMENT_ERROR, _handlePaymentError);
     _razorpay.on(Razorpay.EVENT_EXTERNAL_WALLET, _handleExternalWallet);
+  }
+
+  bookProductorderCall(status, paymentId) async {
+    //book order
+    try {
+      isLoading(true);
+      var productIds = '';
+      for (BucketEntity m in bucketList) {
+        if (productIds.isEmpty) {
+          productIds = m.id;
+        } else {
+          productIds = productIds + ',' + m.id;
+        }
+      }
+      showLoadingDialog();
+      var response = await productRepository.bookProductorder(
+        productIds,
+        totalAmount.toString(),
+        taxAmount.toString(),
+        discountAmt.toString(),
+        shippingAmt.toString(),
+        grandTotal.toString(),
+        status,
+        paymentId,
+      );
+      if (response != null) {
+        final String orderid = response;
+        print('Order Booked========>ORDER_ID=$orderid');
+        //initiate payment
+        initiatePayment(grandTotal);
+      }
+    } catch (e) {
+      print(e);
+    } finally {
+      hideLoadingDialog();
+      isLoading(false);
+    }
   }
 
   initiatePayment(payableAmount) {
@@ -79,7 +119,8 @@ class BucketController extends GetxController {
     bumacoSnackbar('alert'.tr, 'SUCCESS: ${response.paymentId}');
     removeAllBucket(true);
     showLoadingDialog();
-    await Future.delayed(2.seconds);
+    // bookProductorderCall('1', response.paymentId);
+    // await Future.delayed(2.seconds);
     Get.back();
     Get.to(() => OrderBookView(), arguments: {
       ARG_PAYABLE_AMT: tempAmount,
@@ -90,6 +131,7 @@ class BucketController extends GetxController {
   void _handlePaymentError(PaymentFailureResponse response) {
     // Do something when payment fails
     print('ERROR: ${response.code} - ${response.message}');
+    // bookProductorderCall('0', response.code);
     bumacoSnackbar('alert'.tr, 'PAYMENT FAILED: ${response.code}');
   }
 
@@ -106,7 +148,7 @@ class BucketController extends GetxController {
   }
 
   updateBucketList(buckets) {
-    bucketList.value = buckets;
+    bucketList(buckets);
     update();
   }
 
@@ -207,7 +249,7 @@ class BucketController extends GetxController {
     }
     bucketDao.updateQuantityInBucket(q, entity.id);
     getAllBucketFromLocal();
-    bumacoSnackbar('Alert', '${entity.product} ' + 'quantity_updated'.tr);
+    // bumacoSnackbar('Alert', '${entity.product} ' + 'quantity_updated'.tr);
   }
 
   removeBucket(entity) async {

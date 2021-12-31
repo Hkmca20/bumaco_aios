@@ -1,6 +1,5 @@
 import 'package:bumaco_aios/app_core/models/models.dart';
 import 'package:bumaco_aios/app_utils/app_bar_home.dart';
-import 'package:bumaco_aios/app_utils/app_loading.dart';
 import 'package:bumaco_aios/app_utils/utils.dart';
 import 'package:bumaco_aios/ui/controller/controllers.dart';
 import 'package:bumaco_aios/ui/views/checkout/bucket_view.dart';
@@ -10,7 +9,7 @@ import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:get/get.dart';
 import 'package:velocity_x/velocity_x.dart';
 
-import 'empty_widget.dart';
+import 'empty_failure_no_internet_view.dart';
 
 class FavouriteView extends StatelessWidget {
   const FavouriteView({Key? key}) : super(key: key);
@@ -80,7 +79,13 @@ class FavouriteView extends StatelessWidget {
             Expanded(
               child: Obx(
                 () => productController.productListFavourite.length == 0
-                    ? EmptyContentWidget()
+                    ? EmptyFailureNoInternetView(
+                        image: emptyLottie,
+                        title: 'Content unavailable',
+                        description: 'Content not found',
+                        buttonText: "",
+                        onPressed: () {},
+                      )
                     : StaggeredGridView.countBuilder(
                         crossAxisCount: productController.columnCount.value,
                         crossAxisSpacing: 4,

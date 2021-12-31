@@ -109,7 +109,7 @@ class ProfileController extends GetxController {
       );
       showLoadingDialog();
       final response = await _loginRepo.updateProfile(loginData);
-      hideLoading();
+      hideLoadingDialog();
       if (response) {
         VxToast.show(context, msg: 'Profile updated successfully!');
         Get.back();

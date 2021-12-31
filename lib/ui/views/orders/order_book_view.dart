@@ -5,6 +5,7 @@ import 'package:bumaco_aios/ui/controller/checkout_controller.dart';
 import 'package:bumaco_aios/ui/views/orders/order_track_view.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:lottie/lottie.dart';
 import 'package:velocity_x/velocity_x.dart';
 
 class OrderBookView extends StatelessWidget {
@@ -15,6 +16,7 @@ class OrderBookView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final _size = MediaQuery.of(context).size;
     return WillPopScope(
       onWillPop: () async => false,
       child: Scaffold(
@@ -24,12 +26,12 @@ class OrderBookView extends StatelessWidget {
           child: SingleChildScrollView(
             child: VStack(
               [
-                VxShimmer(
-                  child: Icon(
-                    Icons.online_prediction_rounded,
-                    size: 250,
-                    color: Vx.amber500,
-                  ),
+                Lottie.asset(
+                  orderSuccessLottie,
+                  repeat: false,
+                  reverse: true,
+                  height: _size.width / 2,
+                  width: _size.width / 2,
                 ),
                 'PAID AMOUNT: ${checkoutController.currency}$payableAmount'
                     .text

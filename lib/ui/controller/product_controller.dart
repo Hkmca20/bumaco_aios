@@ -5,6 +5,7 @@ import 'package:bumaco_aios/app_core/db/entity/favorite_entity.dart';
 import 'package:bumaco_aios/app_core/models/models.dart';
 import 'package:bumaco_aios/app_core/repository/repository.dart';
 import 'package:bumaco_aios/app_utils/utils.dart';
+import 'package:bumaco_aios/ui/controller/bucket_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -221,6 +222,7 @@ class ProductController extends GetxController with StateMixin, ScrollMixin {
     }
   }
 
+//----------------------following code for favourite /wishlist of product--------------------database -----------
   getFavouriteList() async {
     final db = await $FloorAppDatabase.databaseBuilder(DB_NAME).build();
     final favDao = db.favouriteDao;

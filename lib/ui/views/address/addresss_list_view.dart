@@ -3,16 +3,16 @@ import 'package:bumaco_aios/app_utils/app_bar_home.dart';
 import 'package:bumaco_aios/app_utils/utils.dart';
 import 'package:bumaco_aios/ui/controller/controllers.dart';
 import 'package:bumaco_aios/ui/controller/signin_controller.dart';
+import 'package:bumaco_aios/ui/views/home/empty_failure_no_internet_view.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:velocity_x/velocity_x.dart';
 
-import 'add_address_view.dart';
-import '../home/empty_widget.dart';
+import 'address_add_view.dart';
 import '../home/item_address.dart';
 
-class AddressView extends StatelessWidget {
-  const AddressView({Key? key}) : super(key: key);
+class AddressAddView extends StatelessWidget {
+  const AddressAddView({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +30,7 @@ class AddressView extends StatelessWidget {
             tooltip: 'Add an address',
             onPressed: () {
               getStorageBoolValue(BOX_IS_LOGGEDIN)
-                  ? Get.to(() => AddAddressView())
+                  ? Get.to(() => AddressAddView())
                   : SigninController.to.loginPopupBottomSheet(context);
             },
           ),
@@ -38,7 +38,13 @@ class AddressView extends StatelessWidget {
       ),
       body: Obx(
         () => _addressController.addressList.length == 0
-            ? EmptyContentWidget(message: 'Address not found')
+            ? EmptyFailureNoInternetView(
+                image: emptyLottie,
+                title: 'Content unavailable',
+                description: 'Address not found',
+                buttonText: "",
+                onPressed: () {},
+              )
             : ConstrainedBox(
                 constraints: BoxConstraints(),
                 child: Column(
@@ -54,7 +60,7 @@ class AddressView extends StatelessWidget {
                                 color: kPrimaryColor,
                                 onPressed: () {
                                   getStorageBoolValue(BOX_IS_LOGGEDIN)
-                                      ? Get.to(() => AddAddressView())
+                                      ? Get.to(() => AddressAddView())
                                       : SigninController.to
                                           .loginPopupBottomSheet(context);
                                 },

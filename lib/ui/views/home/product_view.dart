@@ -10,7 +10,6 @@ import 'package:bumaco_aios/ui/views/checkout/bucket_view.dart';
 import 'package:bumaco_aios/ui/views/filters/filter_view.dart';
 import 'package:bumaco_aios/ui/views/home/banners/cbanner.dart';
 import 'package:bumaco_aios/ui/views/home/empty_failure_no_internet_view.dart';
-import 'package:bumaco_aios/ui/views/home/empty_widget.dart';
 import 'package:bumaco_aios/ui/views/search/search_view.dart';
 import 'package:bumaco_aios/ui/widgets/cproduct_item.dart';
 import 'package:flutter/material.dart';

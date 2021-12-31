@@ -28,3 +28,4 @@ export 'checkout_controller.dart';
 export 'order_controller.dart';
 export 'rating_controller.dart';
 export 'network_controller.dart';
+export 'coupon_controller.dart';

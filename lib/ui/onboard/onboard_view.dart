@@ -50,7 +50,7 @@ class OnboardingView extends StatelessWidget {
                           ),
                           // child: Image.asset(item.image),
                         ),
-                        SizedBox(height: 5),
+                        SizedBox(height: _screenSize.width / 12),
                         item.bannertext.text.xl3.heightTight.bold.pink500
                             .fontWeight(FontWeight.w900)
                             .align(TextAlign.center)

@@ -88,7 +88,7 @@ class SigninController extends GetxController {
       showLoadingDialog();
       final result = await _loginRepo.checkLogin(
           isLoginWithMobileNumber, mobileEmailCTR.text);
-      hideLoading();
+      hideLoadingDialog();
       if (result != null && result.status) {
         bumacoSnackbar('login'.tr, result.message);
         saveLoginMobileOrEmail(isLoginWithMobileNumber, mobileEmailCTR.text);

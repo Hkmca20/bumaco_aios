@@ -51,7 +51,7 @@ class RatingController extends GetxController {
     }
     showLoadingDialog();
     await Future.delayed(2.seconds);
-    hideLoading();
+    hideLoadingDialog();
     bumacoSnackbar('alert'.tr, 'Review submitted successfully!');
     clearData();
   }
