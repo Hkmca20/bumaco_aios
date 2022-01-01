@@ -31,16 +31,20 @@ class CategoryView extends StatelessWidget {
         actionList: [
           IconButton(
             icon: Icon(Icons.search_outlined),
-            tooltip: 'Share',
-            onPressed: () {},
+            tooltip: 'search'.tr,
+            onPressed: () {
+              Get.toNamed(cSearchRoute);
+            },
           ),
           IconButton(
-            icon: Obx(() => pController.productListFavourite.length == 0
-                ? Icon(Icons.favorite_border_outlined)
-                : Icon(Icons.favorite_border_outlined).p4().badge(
-                    count: pController.productListFavourite.length,
-                    color: kPrimaryColor,
-                    size: 12)),
+            icon: Obx(
+              () => pController.productListFavourite.length == 0
+                  ? Icon(Icons.favorite_border_outlined)
+                  : Icon(Icons.favorite_border_outlined).p4().badge(
+                      count: pController.productListFavourite.length,
+                      color: kPrimaryColor,
+                      size: 12),
+            ),
             tooltip: 'wishlist'.tr,
             onPressed: () {
               Get.to(() => FavouriteView());
@@ -93,14 +97,19 @@ class CategoryView extends StatelessWidget {
                 },
               ),
               Divider(),
-              Container(
-                margin: EdgeInsets.symmetric(horizontal: 25, vertical: 10),
-                child: CBannerHomeWidget(
-                  bannerHeight: 110.0,
-                  fitImage: BoxFit.fill,
-                  bannerList: bannerController.sliderList,
-                ),
-              ),
+              bannerController.bannerPositionList[0].bannerlist != null
+                  ? Container(
+                      margin:
+                          EdgeInsets.symmetric(horizontal: 25, vertical: 10),
+                      child: CBannerHomeWidget(
+                        bannerHeight: 110.0,
+                        fitImage: BoxFit.fill,
+                        // bannerList: bannerController.sliderList,
+                        bannerList:
+                            bannerController.bannerPositionList[0].bannerlist,
+                      ),
+                    )
+                  : SizedBox(),
               Divider(),
               SectionTile(title: 'CATEGORIES'),
               // Align(

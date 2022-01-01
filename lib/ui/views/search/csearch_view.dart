@@ -3,7 +3,7 @@ import 'dart:math';
 import 'package:bumaco_aios/app_core/models/models.dart';
 import 'package:bumaco_aios/app_utils/utils.dart';
 import 'package:bumaco_aios/ui/controller/controllers.dart';
-import 'package:bumaco_aios/ui/views/search/search_data.dart';
+import 'package:bumaco_aios/ui/views/search/custom_delegate.dart';
 import 'package:bumaco_aios/ui/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -66,7 +66,7 @@ class _CSearchViewState extends State<CSearchView> {
   final selectedGate = getStorageStringValue(BOX_GATE_SELECTED);
 
   openSearchView(context) async {
-    final result = await showSearch(context: context, delegate: SearchData());
+    final result = await showSearch(context: context, delegate: CustomDelegate());
     print('------------SearchResult----------->' + result.toString());
   }
 
@@ -74,6 +74,7 @@ class _CSearchViewState extends State<CSearchView> {
   Widget build(BuildContext context) {
     final _size = MediaQuery.of(context).size;
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       appBar: AppbarHome(title: 'Search Anything', actionList: [
         IconButton(
           icon: Icon(Icons.search),
@@ -88,15 +89,15 @@ class _CSearchViewState extends State<CSearchView> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               searchTextField(context),
-              // 8.heightBox,
+              8.heightBox,
               SectionTile(title: 'Popular Categories'.toUpperCase()),
               recentSearchItems(context, popularCategoryList),
               Divider(),
-              // 12.heightBox,
+              12.heightBox,
               SectionTile(title: 'Popular Brands'.toUpperCase()),
               recentSearchItems(context, popularBrandList),
               Divider(),
-              // 20.heightBox,
+              20.heightBox,
               Lottie.asset(girlFaceLottie,
                       //       delegates: LottieDelegates(
                       //         text: (initialText) => '**$initialText**',
@@ -180,7 +181,7 @@ class _CSearchViewState extends State<CSearchView> {
             return InkWell(
               onTap: () {
                 Get.back();
-                Get.toNamed(productRoute, arguments: {
+                Get.toNamed(cProductRoute, arguments: {
                   ARG_CATEGORY_ITEM:
                       CategoryData(id: item.id, category: item.title)
                 });

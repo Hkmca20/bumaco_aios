@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:bumaco_aios/app_core/models/models.dart';
 import 'package:bumaco_aios/app_utils/app_const.dart';
 import 'package:bumaco_aios/network/dio_client.dart';
@@ -29,7 +31,28 @@ class LoginRepoImpl extends LoginRepo {
       } else {
         email = phoneOrEmail;
       }
-      var params = {'phone': phone, 'email': email};
+
+      // PackageInfo.fromPlatform().then((PackageInfo packageInfo) {
+      //   String appName = packageInfo.appName;
+      //   String packageName = packageInfo.packageName;
+      //   String version = packageInfo.version;
+      //   String buildNumber = packageInfo.buildNumber;
+      // });
+      String os = Platform.operatingSystem;
+      String osVersion = Platform.operatingSystemVersion;
+      String appVersion = Platform.version;
+      String deviceLocale = Get.deviceLocale.toString();
+      String appLocale = Get.locale.toString();
+      var params = {
+        'phone': phone,
+        'email': email,
+        'token': getStorageStringValue(BOX_FCM_TOKEN),
+        'device_locale': deviceLocale,
+        'app_locale': appLocale,
+        'os': os,
+        'os_version': osVersion,
+        'app_version': appVersion,
+      };
       response =
           await _client.request(ApiConstants.loginApi, Method.POST, params);
 

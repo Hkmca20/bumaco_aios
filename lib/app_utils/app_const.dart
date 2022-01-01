@@ -108,9 +108,9 @@ const otpRoute = '/otp';
 const profileRoute = '/profile';
 const shoppingRoute = '/shopping';
 const staggerdImgRoute = '/staggerdImg';
+const cSearchRoute = '/cSearch';
 const productsRoute = '/products';
 const cProductRoute = '/cProducts';
-const productRoute = '/product';
 const allProductsRoute = '/allProducts';
 const bucketRoute = '/bucket';
 const favouriteRoute = '/favourite';
@@ -130,7 +130,6 @@ const categoryRoute = '/category';
 const childCategoryRoute = '/childCategory';
 const subCategoryRoute = '/subCategory';
 const homeRoute = '/home';
-const searchRoute = '/search';
 
 // Controllers
 const ONBOARD_CONTROLLER = '_onboard_controller';

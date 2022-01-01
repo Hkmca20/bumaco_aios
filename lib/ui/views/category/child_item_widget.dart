@@ -18,8 +18,8 @@ class ChildItemWidget extends StatelessWidget {
         height: 110,
         child: InkWell(
           onTap: () {
-            Get.toNamed(productRoute, arguments: {
-              'arg_category_item':
+            Get.toNamed(cProductRoute, arguments: {
+              ARG_CATEGORY_ITEM:
                   CategoryData(id: item.id, category: item.category!)
             });
             //   Get.toNamed(subCategoryRoute,

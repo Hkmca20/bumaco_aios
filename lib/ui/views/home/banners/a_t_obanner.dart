@@ -60,8 +60,8 @@ class ATOBanner extends StatelessWidget {
                       child: 'See All'.text.bold.white.xl2.make(),
                       color: Colors.green[600],
                       onPressed: () {
-                        Get.toNamed(productRoute,
-                            arguments: {'get_category': item});
+                        Get.toNamed(cProductRoute,
+                            arguments: {ARG_CATEGORY_ITEM: item});
                       },
                     ) //RaisedButton
                   ], //<Widget>[]

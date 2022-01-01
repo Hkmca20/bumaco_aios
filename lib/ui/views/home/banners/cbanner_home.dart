@@ -139,8 +139,8 @@ class _CBannerHomeWidgetState extends State<CBannerHomeWidget>
                     }
                   },
                   onTap: () {
-                    Get.toNamed(productRoute, arguments: {
-                      'arg_category_item':
+                    Get.toNamed(cProductRoute, arguments: {
+                      ARG_CATEGORY_ITEM:
                           CategoryData(id: item.id, category: item.category)
                     });
                   },

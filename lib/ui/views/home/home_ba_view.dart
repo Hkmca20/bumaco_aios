@@ -210,14 +210,16 @@ class HomeBaView extends StatelessWidget {
                                       return InkWell(
                                         onTap: () {
                                           Get.back();
-                                          Get.toNamed(productRoute, arguments: {
-                                            ARG_CATEGORY_ITEM: CategoryData(
-                                                id: cController
-                                                    .dummyChildList[index].id,
-                                                category: cController
-                                                    .dummyChildList[index]
-                                                    .category)
-                                          });
+                                          Get.toNamed(cProductRoute,
+                                              arguments: {
+                                                ARG_CATEGORY_ITEM: CategoryData(
+                                                    id: cController
+                                                        .dummyChildList[index]
+                                                        .id,
+                                                    category: cController
+                                                        .dummyChildList[index]
+                                                        .category)
+                                              });
                                         },
                                         child: ListTile(
                                           title: cController
@@ -289,7 +291,7 @@ class HomeBaView extends StatelessWidget {
                               margin: EdgeInsets.all(12),
                               child: InkWell(
                                 onTap: () {
-                                  Get.to(() => CSearchView());
+                                  Get.toNamed(cSearchRoute);
                                 },
                                 child: TextFormField(
                                   scrollPhysics: NeverScrollableScrollPhysics(),
@@ -384,7 +386,7 @@ class HomeBaView extends StatelessWidget {
                                               ],
                                             ),
                                             onTap: () {
-                                              Get.toNamed(productRoute,
+                                              Get.toNamed(cProductRoute,
                                                   arguments: {
                                                     ARG_CATEGORY_ITEM:
                                                         CategoryData(

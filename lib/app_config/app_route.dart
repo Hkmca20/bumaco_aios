@@ -83,10 +83,10 @@ List<GetPage<dynamic>> get setRoute => [
           transitionDuration: kTransitionDuration,
           page: () => CProductView()),
       GetPage(
-          name: productRoute,
+          name: cSearchRoute,
           transition: Transition.fade,
           transitionDuration: kTransitionDuration,
-          page: () => ProductView()),
+          page: () => CSearchView()),
       GetPage(
           name: allProductsRoute,
           transition: Transition.fade,

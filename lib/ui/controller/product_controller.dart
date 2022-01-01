@@ -12,7 +12,7 @@ import 'package:get/get.dart';
 class ProductController extends GetxController with StateMixin, ScrollMixin {
   static ProductController get to => Get.find(tag: PRODUCT_CONTROLLER);
 
-  var isLoading = true.obs;
+  var isLoading = false.obs;
   var isToLoadMore = true;
   var columnCount = 2.obs;
   var productListFavourite = <ProductModel>[].obs;
@@ -158,7 +158,7 @@ class ProductController extends GetxController with StateMixin, ScrollMixin {
 
   fetchProductsBySearch(searchStr) async {
     try {
-      isLoading(true);
+      // isLoading(true);
       var result = await productRepository.getProductSearch(searchStr);
       if (result != null) {
         productListSearch(result);
@@ -166,7 +166,7 @@ class ProductController extends GetxController with StateMixin, ScrollMixin {
     } catch (e) {
       print(e);
     } finally {
-      isLoading(false);
+      // isLoading(false);
     }
   }
 

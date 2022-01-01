@@ -19,19 +19,16 @@ Future<void> _messageHandler(RemoteMessage message) async {
   print('background message ${message.notification!.body}');
 }
 
-final firebaseConfig = const FirebaseOptions(
-  // apiKey: 'AIzaSyAbFSdOllMd0mw3JICK9AIqM3RH9K-39-0',
-  apiKey: 'AIzaSyBjA5X_1RfRWdjP88Ri3hmLfIp1qyo9F_Y',
-  // ApiConstants.apiKey,
-  appId: '1:758677051271:android:d2436d6b3591fa1b41e522',
-  messagingSenderId: '758677051271',
-  authDomain: 'bumaco-2021.firebaseapp.com',
-  projectId: 'bumaco-2021',
+final firebaseConfig = FirebaseOptions(
+  apiKey: AppEnvironment.apiKey,
+  appId: AppEnvironment.appIdA,
+  messagingSenderId: AppEnvironment.messagingSenderId,
+  authDomain: AppEnvironment.authDomain,
+  projectId: AppEnvironment.projectId,
 );
 double deviceScale = 1.0;
 setDeviceScaler(context) {
   final mSize = MediaQuery.of(context).size;
-  // You can tweak this so scale for different devices. For example tiny iPhone SE can by super smaller or big :-)
   double deviceHeightInPoints = (mSize.height / mSize.aspectRatio);
   if (deviceHeightInPoints < 700.0) {
     deviceScale = 0.90;
@@ -56,7 +53,7 @@ Future<void> main() async {
       FirebaseMessaging.onBackgroundMessage(_messageHandler);
       String? token = await FirebaseMessaging.instance.getToken();
       putStorageValue(BOX_FCM_TOKEN, token);
-      print('--------------Token=>$token');
+      print('----Token=>$token');
     } on Exception catch (e) {
       print('error: $e');
     }
@@ -64,7 +61,6 @@ Future<void> main() async {
     await Future.delayed(Duration.zero, () {
       // setDeviceScaler(context);
     });
-
     // Get.lazyPut(() => SettingsController(),
     //     fenix: true, tag: SETTINGS_CONTROLLER);
     Get.lazyPut(() => LocaleController(), fenix: true, tag: LOCALE_CONTROLLER);
@@ -85,17 +81,6 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // var lang = Localizations.localeOf(context).languageCode;
-    // print(Platform.operatingSystem);
-    // print(Platform.operatingSystemVersion);
-    // print(Platform.version);
-    // PackageInfo.fromPlatform().then((PackageInfo packageInfo) {
-    //   String appName = packageInfo.appName;
-    //   String packageName = packageInfo.packageName;
-    //   String version = packageInfo.version;
-    //   String buildNumber = packageInfo.buildNumber;
-    // });
-    // print(Get.deviceLocale); // deviceCurrentLocale
-    // print(Get.locale); // appCurrentLocale
 
     // get the global context as follows
     // _scaffoldMessengerKey.currentState.showSnackBar(....);

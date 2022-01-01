@@ -5,12 +5,12 @@ import 'package:get/get.dart';
 import 'package:velocity_x/velocity_x.dart';
 import 'package:flutter/material.dart';
 
-class SearchData<T> extends SearchDelegate<String> {
+class CustomDelegate<T> extends SearchDelegate<String> {
   final bController = BucketController.to;
   final pController = ProductController.to;
   // @override
   // String get searchFieldLabel => 'My hint text';
-  SearchData({
+  CustomDelegate({
     String hintText = "Search for brands, products etc.",
   }) : super(
           searchFieldLabel: hintText,
@@ -47,6 +47,7 @@ class SearchData<T> extends SearchDelegate<String> {
   @override
   Widget buildResults(BuildContext context) {
     return Container(
+      color: kPrimaryColor,
       height: 100,
       width: 100,
       // child: Card(
@@ -57,7 +58,16 @@ class SearchData<T> extends SearchDelegate<String> {
 
   @override
   Widget buildSuggestions(BuildContext context) {
-    if (query.length < 2) {
+    // if (query.isNotEmpty)
+    //   listToShow = data
+    //       .where((CountryModel e) =>
+    //           e.name.toLowerCase().contains(query.toLowerCase()) ||
+    //           e.name.toLowerCase().startsWith(query.toLowerCase()))
+    //       .toList();
+    // else
+    //   listToShow = data;
+
+    if (query.isEmpty || query.length < 2) {
       pController.productListSearch.clear();
     } else {
       pController.searchSortFilterProducts(query);
@@ -67,9 +77,10 @@ class SearchData<T> extends SearchDelegate<String> {
     // pController.searchProductList;
 
     return Obx(
-      () => pController.isLoading.isTrue
-          ? LoadingWidget()
-          : ListView.separated(
+      () =>
+          // pController.isLoading.isTrue
+          //     ? LoadingWidget() :
+          ListView.separated(
               separatorBuilder: (context, index) {
                 return Divider(indent: 40, endIndent: 80);
               },
@@ -83,6 +94,9 @@ class SearchData<T> extends SearchDelegate<String> {
                   index: index,
                   offset: pController.offset.value,
                 );
+                // .onTap(() {
+                //   showResults(context);
+                // });
               }),
     );
   }

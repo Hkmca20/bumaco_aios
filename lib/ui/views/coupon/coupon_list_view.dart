@@ -37,7 +37,7 @@ class CouponListView extends StatelessWidget {
                 inputFormatters: [],
                 // hint: 'Enter promo code here',
                 // style: TextStyle(color: commonGreyColor),
-              ).expand(),
+              ),
               trailing: MaterialButton(
                 onPressed: () {
                   if (couponController.couponApplied.isTrue) {

@@ -24,7 +24,7 @@ class ItemWidget11 extends StatelessWidget {
       padding: _padding,
       child: InkWell(
         onTap: () {
-          Get.toNamed(productRoute, arguments: {
+          Get.toNamed(cProductRoute, arguments: {
             'arg_category_item':
                 CategoryData(category: item.bannerposition, id: item.id)
           });

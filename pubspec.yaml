@@ -99,16 +99,6 @@ flutter:
         - asset: assets/fonts/Calibri.ttf
         - asset: assets/fonts/Calibri Bold.ttf
           style: italic
-    - family: IBMPlexSansArabic
-      fonts:
-        - asset: assets/fonts/IBMPlexSansArabic-Bold.ttf
-        - asset: assets/fonts/IBMPlexSansArabic-ExtraLight.ttf
-        - asset: assets/fonts/IBMPlexSansArabic-Light.ttf
-        - asset: assets/fonts/IBMPlexSansArabic-Medium.ttf
-        - asset: assets/fonts/IBMPlexSansArabic-Regular.ttf
-        - asset: assets/fonts/IBMPlexSansArabic-SemiBold.ttf
-        - asset: assets/fonts/IBMPlexSansArabic-Thin.ttf
-          weight: 900
     - family: Samantha
       fonts:
         - asset: assets/fonts/Samantha.ttf

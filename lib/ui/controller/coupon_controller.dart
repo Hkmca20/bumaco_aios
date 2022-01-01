@@ -54,6 +54,7 @@ class CouponController extends GetxController {
       isLoading(true);
       showLoadingDialog();
       var response = await productRepository.checkCouponcode(couponCTR.text);
+      hideLoadingDialog();
       if (response != null) {
         final CouponModel coupon = response;
         print(coupon.coupontype);
@@ -72,18 +73,19 @@ class CouponController extends GetxController {
           }
           couponSubtitle('Promo/Referral code applied successfully!');
           Get.back();
-          Get.back();
         } else {
           couponApplied(false);
           couponCTR.clear();
         }
         bumacoSnackbar('alert'.tr, '${coupon.amount} Value found');
+      } else {
+        bumacoSnackbar('alert'.tr, 'Invalid coupon code.');
       }
     } catch (e) {
       print(e);
     } finally {
+      print('hide loading -----------------------');
       isLoading(false);
-      hideLoadingDialog();
     }
   }
 }

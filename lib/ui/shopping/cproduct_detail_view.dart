@@ -43,7 +43,7 @@ class CProductDetailView extends StatelessWidget {
             icon: Icon(Icons.search_rounded),
             tooltip: 'search'.tr,
             onPressed: () {
-              Get.to(() => SearchView());
+              Get.toNamed(cSearchRoute);
             },
           ),
           IconButton(

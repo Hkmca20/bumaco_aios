@@ -12,13 +12,12 @@ import 'package:velocity_x/velocity_x.dart';
 import 'empty_failure_no_internet_view.dart';
 
 class FavouriteView extends StatelessWidget {
-  const FavouriteView({Key? key}) : super(key: key);
+  FavouriteView({Key? key}) : super(key: key);
+  final productController = ProductController.to;
+  final bucketController = BucketController.to;
 
   @override
   Widget build(BuildContext context) {
-    final productController = ProductController.to;
-    // final bucketController = Get.find<BucketController>();
-    final bucketController = BucketController.to;
     productController.getFavouriteList();
     return Scaffold(
       appBar: AppbarHome(

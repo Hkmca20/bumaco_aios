@@ -34,7 +34,6 @@ class _LoginViewState extends State<LoginView>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // backgroundColor: kScafoldDarkBGColor,
       resizeToAvoidBottomInset: false,
       appBar: AppbarHome(
           title: 'app_title'.tr + ' ' + 'login'.tr + '/ ' + 'register'.tr),
