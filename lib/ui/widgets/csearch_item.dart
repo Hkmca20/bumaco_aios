@@ -40,28 +40,33 @@ class CSearchItem extends StatelessWidget {
             arguments: {'arg_product_item': prod});
       },
       child: ListTile(
-              leading: Icon(
-                Icons.search,
-                color: kGreyLightColor,
-              ),
-              trailing: Container(
-                padding: EdgeInsets.all(2),
-                decoration: BoxDecoration(
-                  border: Border.all(width: 1, color: kGreyLightColor),
-                  borderRadius: BorderRadius.circular(1.0),
-                ),
-                child: CachedNetworkImage(
-                  imageUrl: ApiConstants.baseImageUrl + prod.fimage,
-                  placeholder: (context, url) => AppLogoWidget(),
-                  errorWidget: (context, url, error) => Icon(Icons.error),
-                ),
-              ),
-              title: prod.product.text.capitalize.ellipsis
-                  .maxLines(2)
-                  .size(14)
-                  .make()
-                  .p2())
-          .marginAll(6),
+        leading: Icon(
+          Icons.search,
+          color: kGreyLightColor,
+        ),
+        trailing: Container(
+          padding: EdgeInsets.all(2),
+          decoration: BoxDecoration(
+            border: Border.all(width: 1, color: commonGreyColor),
+            borderRadius: BorderRadius.circular(1.0),
+          ),
+          child: CachedNetworkImage(
+            imageUrl: ApiConstants.baseImageUrl + prod.fimage.trim(),
+            placeholder: (context, url) => AppLogoWidget(),
+            errorWidget: (context, url, error) => Icon(Icons.error),
+          ),
+        ),
+        title: prod.product
+            .trim()
+            .text
+            .capitalize
+            .semiBold
+            .sm
+            .ellipsis
+            .maxLines(2)
+            .make()
+            .p2(),
+      ).marginAll(6),
     );
   }
 }

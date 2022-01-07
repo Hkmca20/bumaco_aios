@@ -8,14 +8,12 @@ import 'package:bumaco_aios/ui/controller/banner_controller.dart';
 import 'package:bumaco_aios/ui/controller/controllers.dart';
 import 'package:bumaco_aios/ui/views/home/banners/cbanner_home.dart';
 import 'package:bumaco_aios/ui/views/home/item_widget_11.dart';
-import 'package:bumaco_aios/ui/views/search/csearch_view.dart';
 import 'package:bumaco_aios/ui/widgets/cproduct_item.dart';
 import 'package:bumaco_aios/ui/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:skeletons/skeletons.dart';
 import 'package:transparent_image/transparent_image.dart';
 import 'package:velocity_x/velocity_x.dart';
 

@@ -106,6 +106,7 @@ class ProductController extends GetxController with StateMixin, ScrollMixin {
 
   var sortFilterText = ''.obs;
   searchSortFilterProducts(str) {
+    print('searchSortFilterString===========$str');
     sortFilterText.value = str;
     fetchProductsBySearch(str);
   }
@@ -162,6 +163,8 @@ class ProductController extends GetxController with StateMixin, ScrollMixin {
       var result = await productRepository.getProductSearch(searchStr);
       if (result != null) {
         productListSearch(result);
+      } else {
+        productListSearch.clear();
       }
     } catch (e) {
       print(e);
@@ -276,8 +279,8 @@ class ProductController extends GetxController with StateMixin, ScrollMixin {
     );
     await favDao.insertIntoFavourite(entity);
     getFavouriteList();
-    bumacoSnackbar(
-        'alert'.tr, '${entity.product} ' + 'added_to'.tr + ' ' + 'wishlist'.tr);
+    // bumacoSnackbar(
+    //     'alert'.tr, '${entity.product} ' + 'added_to'.tr + ' ' + 'wishlist'.tr);
   }
 
   removeFavourite(item) async {
@@ -286,8 +289,8 @@ class ProductController extends GetxController with StateMixin, ScrollMixin {
     await favDao.deleteFavourireById(item.id);
     getFavouriteList();
     checkRemoveFavorites(item);
-    bumacoSnackbar('alert'.tr,
-        '${item.product} ' + 'removed_from'.tr + ' ' + 'wishlist'.tr);
+    // bumacoSnackbar('alert'.tr,
+    //     '${item.product} ' + 'removed_from'.tr + ' ' + 'wishlist'.tr);
   }
 
   @override

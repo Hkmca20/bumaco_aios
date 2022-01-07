@@ -11,14 +11,15 @@ import 'package:velocity_x/velocity_x.dart';
 import 'address_add_view.dart';
 import '../home/item_address.dart';
 
-class AddressAddView extends StatelessWidget {
-  const AddressAddView({Key? key}) : super(key: key);
+class AddressListView extends StatelessWidget {
+  const AddressListView({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     final _addressController = AddressController.to;
 
     if (Get.arguments != null) {
+      print('arg not found-------------');
       _addressController.setisFromBucketPage(Get.arguments['get_is_bucket']);
     }
     return Scaffold(

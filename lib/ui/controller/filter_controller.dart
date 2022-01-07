@@ -1,72 +1,338 @@
+import 'package:bumaco_aios/app_utils/utils.dart';
 import 'package:get/get.dart';
 
-class FilterController extends GetxController {
-//filter view variables
-  var selectedFilterIndex = 0.obs;
-  var selectedCheckboxValue = ''.obs;
-  var secondListChecked = false.obs;
-  var filterCount = 0.obs;
+class FilterItem {
+  final id;
+  var fRadioSelect = ''.obs;
+  bool fSelect;
+  List<FSubItem> list = [];
+  var itemCount = 0.obs;
+  var itemType = 1;
+  final String name;
+  FilterItem({
+    this.id = '',
+    this.name = '',
+    required this.fRadioSelect,
+    this.fSelect = false,
+    this.itemType = 1,
+    required this.itemCount,
+    required this.list,
+  });
+}
 
-  var newList = <String>[].obs;
+class FSubItem {
+  final id;
+  var selected = false.obs;
+  final int itemType;
+  final String name;
+  FSubItem({
+    this.id = '',
+    this.name = '',
+    required this.selected,
+    this.itemType = 1,
+  });
+}
+
+class FilterController extends GetxController {
+  static FilterController get to => Get.find(tag: FILTER_CONTROLLER);
+
+  var filterText = '';
+  var selectedFilter = <String>[];
+
+  //filter view variables
+  late List<FilterItem> filterList = <FilterItem>[].obs;
+  var selectedFilterIndex = 0.obs;
 
   //sort by variables
   var selectedSortText = 'Popularity'.obs;
   var selectedSortRadio = 0.obs;
 
-  // //static declarations
-  // final leftList = [
-  //   'Category',
-  //   'Brand',
-  //   'Price',
-  //   'Discount',
-  //   'Avg Customer Rating',
-  //   'Hair Type',
-  //   'Concern',
-  //   'Gender',
-  //   'Formulation',
-  //   'Preference'
-  // ];
-  // final rightList = {
-  //   0: <String>['Hair', 'Personal Care', 'Appliance', 'Men\'s Store'],
-  //   1: <String>['Matrx', 'L\'Oreal Professional'],
-  //   2: <String>['0 - 499', '500 - 999', '1000 - 1999', '2000 and above'],
-  //   3: <String>['10% and above', 'All discounted products'],
-  //   4: <String>[
-  //     '4 stars and above',
-  //     '3 stars and above',
-  //     '2 stars and above',
-  //     '1 stars and above'
-  //   ],
-  //   5: <String>[
-  //     'Normal',
-  //     'Dryness',
-  //     'Straight',
-  //     'Oily',
-  //     'Fine',
-  //     'Curly',
-  //     'Dull Hair',
-  //     'Thin',
-  //     'Thick',
-  //     'Wavy'
-  //   ],
-  //   6: <String>[
-  //     'Normal',
-  //     'Dryness',
-  //     'Straight',
-  //     'Oily',
-  //     'Fine',
-  //     'Curly',
-  //     'Dull Hair',
-  //     'Thin',
-  //     'Thick',
-  //     'Wavy'
-  //   ],
-  //   7: <String>['Unisex', 'Female'],
-  //   8: <String>['Liquid', 'Mask', 'Cream', 'Serum', 'Foam', 'Oil', 'Sprey'],
-  //   9: <String>['Organic', 'Natural', 'Harbal'],
-  // };
+  @override
+  onInit() {
+    setFilterData();
+    super.onInit();
+  }
 
-  chageNewList(list) {
-    newList.value = list;
+  setFilterData() {
+    filterList = [
+      FilterItem(
+        id: "1",
+        name: "Category",
+        fRadioSelect: ''.obs,
+        fSelect: false,
+        itemCount: 0.obs,
+        itemType: 1,
+        list: [
+          FSubItem(
+            id: '11',
+            name: 'Hair',
+            selected: false.obs,
+          ),
+          FSubItem(
+            id: '11',
+            name: 'Personal Care',
+            selected: false.obs,
+          ),
+          FSubItem(
+            id: '11',
+            name: 'Appliance',
+            selected: false.obs,
+          ),
+          FSubItem(
+            id: '11',
+            name: 'Men\'s Store',
+            selected: false.obs,
+          ),
+        ],
+      ),
+      FilterItem(
+        id: "2",
+        name: "Brand",
+        fRadioSelect: ''.obs,
+        fSelect: false,
+        itemCount: 0.obs,
+        itemType: 1,
+        list: [
+          FSubItem(
+            id: '22',
+            name: 'Matrx',
+            selected: false.obs,
+          ),
+          FSubItem(
+            id: '22',
+            name: 'L\'Oreal Professional',
+            selected: false.obs,
+          ),
+        ],
+      ),
+      FilterItem(
+        id: "3",
+        name: "Price",
+        fRadioSelect: ''.obs,
+        fSelect: false,
+        itemCount: 0.obs,
+        itemType: 2,
+        list: [
+          FSubItem(
+            id: '33',
+            name: '0 - 499',
+            selected: false.obs,
+          ),
+          FSubItem(
+            id: '33',
+            name: '500 - 999',
+            selected: false.obs,
+          ),
+          FSubItem(
+            id: '33',
+            name: '1000 - 1999',
+            selected: false.obs,
+          ),
+          FSubItem(
+            id: '33',
+            name: '2000 and above',
+            selected: false.obs,
+          ),
+        ],
+      ),
+      FilterItem(
+        id: "4",
+        name: "Discount",
+        fRadioSelect: ''.obs,
+        fSelect: false,
+        itemCount: 0.obs,
+        itemType: 2,
+        list: [
+          FSubItem(
+            id: '44',
+            name: '10% and above',
+            selected: false.obs,
+          ),
+          FSubItem(
+            id: '44',
+            name: 'All discounted products',
+            selected: false.obs,
+          ),
+        ],
+      ),
+      FilterItem(
+        id: "5",
+        name: "Avg Customer Rating",
+        fRadioSelect: ''.obs,
+        fSelect: false,
+        itemCount: 0.obs,
+        itemType: 2,
+        list: [
+          FSubItem(
+            id: '55',
+            name: '4 stars and above',
+            selected: false.obs,
+          ),
+          FSubItem(
+            id: '55',
+            name: '3 stars and above',
+            selected: false.obs,
+          ),
+          FSubItem(
+            id: '55',
+            name: '2 stars and above',
+            selected: false.obs,
+          ),
+          FSubItem(
+            id: '55',
+            name: '1 stars and above',
+            selected: false.obs,
+          ),
+        ],
+      ),
+      FilterItem(
+        id: "6",
+        name: "Hair Type",
+        fRadioSelect: ''.obs,
+        fSelect: false,
+        itemCount: 0.obs,
+        itemType: 1,
+        list: [
+          FSubItem(
+            id: '66',
+            name: 'Normal',
+            selected: false.obs,
+          ),
+          FSubItem(
+            id: '66',
+            name: 'Dryness',
+            selected: false.obs,
+          ),
+          FSubItem(
+            id: '66',
+            name: 'Straight',
+            selected: false.obs,
+          ),
+          FSubItem(
+            id: '66',
+            name: 'Oily',
+            selected: false.obs,
+          ),
+          FSubItem(
+            id: '66',
+            name: 'Fine',
+            selected: false.obs,
+          ),
+          FSubItem(
+            id: '66',
+            name: 'Curly',
+            selected: false.obs,
+          ),
+          FSubItem(
+            id: '66',
+            name: 'Dull Hair',
+            selected: false.obs,
+          ),
+          FSubItem(
+            id: '66',
+            name: 'Thin',
+            selected: false.obs,
+          ),
+          FSubItem(
+            id: '66',
+            name: 'Thick',
+            selected: false.obs,
+          ),
+          FSubItem(
+            id: '66',
+            name: 'Wavy',
+            selected: false.obs,
+          ),
+        ],
+      ),
+      FilterItem(
+        id: "8",
+        name: "Gender",
+        fRadioSelect: ''.obs,
+        itemCount: 0.obs,
+        fSelect: false,
+        itemType: 1,
+        list: [
+          FSubItem(
+            id: "88",
+            name: 'Unisex',
+            selected: false.obs,
+          ),
+          FSubItem(
+            id: "88",
+            name: 'Female',
+            selected: false.obs,
+          ),
+        ],
+      ),
+      FilterItem(
+        id: "9",
+        name: "Formulation",
+        fRadioSelect: ''.obs,
+        fSelect: false,
+        itemCount: 0.obs,
+        list: [
+          FSubItem(
+            id: "99",
+            name: 'Liquid',
+            selected: false.obs,
+          ),
+          FSubItem(
+            id: "99",
+            name: 'Mask',
+            selected: false.obs,
+          ),
+          FSubItem(
+            id: "99",
+            name: 'Cream',
+            selected: false.obs,
+          ),
+          FSubItem(
+            id: "99",
+            name: 'Serum',
+            selected: false.obs,
+          ),
+          FSubItem(
+            id: "99",
+            name: 'Foam',
+            selected: false.obs,
+          ),
+          FSubItem(
+            id: "99",
+            name: 'Oil',
+            selected: false.obs,
+          ),
+          FSubItem(
+            id: "99",
+            name: 'Sprey',
+            selected: false.obs,
+          ),
+        ],
+      ),
+      FilterItem(
+        id: "10",
+        name: "Preference",
+        fSelect: false,
+        fRadioSelect: ''.obs,
+        itemCount: 0.obs,
+        list: [
+          FSubItem(
+            id: "100",
+            name: 'Organic',
+            selected: false.obs,
+          ),
+          FSubItem(
+            id: "100",
+            name: 'Natural',
+            selected: false.obs,
+          ),
+          FSubItem(
+            id: "100",
+            name: 'Harbal',
+            selected: false.obs,
+          ),
+        ],
+      ),
+    ].obs;
   }
 }

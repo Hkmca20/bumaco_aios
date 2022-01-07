@@ -49,8 +49,8 @@ class AppBinding implements Bindings {
     Get.lazyPut(() => ProfileController(),
         fenix: true, tag: PROFILE_CONTROLLER);
     Get.lazyPut(() => SignupController(), fenix: true);
-    Get.lazyPut(() => SearchController(), fenix: true);
-    Get.lazyPut(() => FilterController(), fenix: true);
+    Get.lazyPut(() => SearchController(), fenix: true, tag: SEARCH_CONTROLLER);
+    Get.lazyPut(() => FilterController(), fenix: true, tag: FILTER_CONTROLLER);
     Get.lazyPut(() => SocketController(), fenix: true, tag: SOCKET_CONTROLLER);
     Get.lazyPut(() => VideoController(), fenix: true, tag: VIDEO_CONTROLLER);
     Get.lazyPut(() => CheckoutController(),

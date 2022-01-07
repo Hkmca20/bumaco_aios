@@ -146,6 +146,7 @@ const DASHBOARD_CONTROLLER = '_dashboard_controller';
 const HOME_CONTROLLER = '_home_controller';
 const SEARCH_CONTROLLER = '_search_controller';
 const PRODUCT_CONTROLLER = '_product_controller';
+const FILTER_CONTROLLER = '_filter_controller';
 const PRODUCT_DETAIL_CONTROLLER = '_product_detail';
 const BUCKET_CONTROLLER = '_bucket_controller';
 const CHECKOUT_CONTROLLER = '_checkout_controller';
@@ -355,6 +356,10 @@ bumacoSnackbar(title, message) => Get.snackbar(
       //   ]),
       // ),
     );
+noInternetSnackbar() => bumacoSnackbar(
+    'alert'.tr, 'Please check internet connection and try again!');
+errorMessageSnackbar() =>
+    bumacoSnackbar('alert'.tr, 'Something went wrong, please try later!');
 bumacoDefaultDialog(msg) => Get.defaultDialog(
       title: 'alert'.tr,
       content: Text(msg),

@@ -18,6 +18,7 @@ class BucketView extends StatelessWidget {
   final pController = ProductController.to;
   final couponController = CouponController.to;
   final bController = BucketController.to;
+  final netController = NetworkController.to;
   final lController = LocaleController.to;
 
   @override
@@ -37,7 +38,7 @@ class BucketView extends StatelessWidget {
             icon: Icon(Icons.location_city_outlined),
             tooltip: 'Address List',
             onPressed: () {
-              Get.to(() => AddressAddView(),
+              Get.to(() => AddressListView(),
                   arguments: {'get_is_bucket': true});
             },
           ),
@@ -70,7 +71,7 @@ class BucketView extends StatelessWidget {
                               //     color: Colors.red,
                               //   ),
                               // );
-                              Get.to(() => AddressAddView(),
+                              Get.to(() => AddressListView(),
                                   arguments: {'get_is_bucket': true});
                             },
                             child: HStack(
@@ -285,12 +286,15 @@ class BucketView extends StatelessWidget {
                                       ? SigninController.to
                                           .loginPopupBottomSheet(context)
                                       : _aController.addressList.length == 0
-                                          ? Get.to(() => AddressAddView(),
+                                          ? Get.to(() => AddressListView(),
                                               arguments: {
                                                   'get_is_bucket': true
                                                 })
-                                          : bController.bookProductorderCall(
-                                              '0', '');
+                                          : netController.connectionType == 0
+                                              ? noInternetSnackbar()
+                                              : bController
+                                                  .bookProductorderCall(
+                                                      '0', '');
                                 },
                                 // color: Color(0xff374ABE),
                                 color: kPrimaryColor,

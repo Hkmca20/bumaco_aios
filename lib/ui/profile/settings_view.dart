@@ -163,7 +163,7 @@ class SettingView extends StatelessWidget {
               title: 'shipping_address'.tr.text.lg.make(),
               onTap: () => {
                 getStorageBoolValue(BOX_IS_LOGGEDIN)
-                    ? Get.to(() => AddressAddView(),
+                    ? Get.to(() => AddressListView(),
                         arguments: {'get_is_bucket': false})
                     : _loginController.loginPopupBottomSheet(context),
                 // Get.toNamed(wishlistRoute)

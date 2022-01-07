@@ -19,7 +19,7 @@ class CProductView extends StatelessWidget {
   CProductView({Key? key}) : super(key: key);
   final productController = ProductController.to;
   final bController = BucketController.to;
-  final fController = Get.find<FilterController>();
+  final fController = FilterController.to;
 
   @override
   Widget build(BuildContext context) {
@@ -64,12 +64,14 @@ class CProductView extends StatelessWidget {
               },
             ),
             IconButton(
-              icon: Obx(() => bController.bucketList.length == 0
-                  ? Icon(Icons.shopping_bag_outlined)
-                  : Icon(Icons.shopping_bag_outlined).p4().badge(
-                      count: bController.bucketList.length,
-                      color: kPrimaryColor,
-                      size: 12)),
+              icon: Obx(
+                () => bController.bucketList.length == 0
+                    ? Icon(Icons.shopping_bag_outlined)
+                    : Icon(Icons.shopping_bag_outlined).p4().badge(
+                        count: bController.bucketList.length,
+                        color: kPrimaryColor,
+                        size: 12),
+              ),
               tooltip: 'view_cart_item'.tr,
               onPressed: () {
                 Get.to(() => BucketView());
@@ -229,25 +231,6 @@ class CProductView extends StatelessWidget {
                     crossAlignment: CrossAxisAlignment.center,
                   ),
                 ),
-                // Wrap(
-                //   spacing: 3,
-                //   runSpacing: 3,
-                //   children: List.generate(
-                //     1,
-                //     (index) {
-                //       return Row(children: [
-                //         ListTile(
-                //           title: 'Sort By'.text.bold.make(),
-                //           subtitle: 'Popularity'.text.make(),
-                //         ),
-                //         ListTile(
-                //           title: 'Sort By'.text.bold.make(),
-                //           subtitle: 'Popularity'.text.make(),
-                //         ),
-                //       ]);
-                //     },
-                //   ),
-                // ),
                 Container(
                   child: Obx(
                     () => productController.isLoading.isTrue

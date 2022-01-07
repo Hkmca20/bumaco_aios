@@ -57,16 +57,18 @@ class BucketController extends GetxController {
         status,
         paymentId,
       );
+      hideLoadingDialog();
       if (response != null) {
         final String orderid = response;
         print('Order Booked========>ORDER_ID=$orderid');
         //initiate payment
         initiatePayment(grandTotal);
+      } else {
+        errorMessageSnackbar();
       }
     } catch (e) {
       print(e);
     } finally {
-      hideLoadingDialog();
       isLoading(false);
     }
   }
