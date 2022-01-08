@@ -17,7 +17,7 @@ class ProfileController extends GetxController {
   late String profilePhoto;
   final box = GetStorage(BOX_APP);
   var genderGroupValue = ''.obs;
-  DateTime? _currDatetime = DateTime.now();
+  // DateTime? _currDatetime = DateTime.now();
   late LoginRepo _loginRepo;
 
   var nameUpdated = ''.obs;

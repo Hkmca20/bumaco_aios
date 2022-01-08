@@ -82,7 +82,7 @@ class CustomDelegate<T> extends SearchDelegate<String> {
           //     ? LoadingWidget() :
           ListView.separated(
               separatorBuilder: (context, index) {
-                return Divider(indent: 40, endIndent: 80);
+                return Divider(height: 1, indent: 40, endIndent: 80);
               },
               itemCount: pController.productListSearch.length,
               itemBuilder: (context, index) {

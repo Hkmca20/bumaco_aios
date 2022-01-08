@@ -76,16 +76,16 @@ class SignupController extends GetxController {
       box.write(BOX_PASSWORD, passwordCTR.text);
       box.write(BOX_GENDER, genderGroupValue.value);
 
-      showLoadingDialog();
       LoginData loginData = LoginData(
         id: getStorageStringValue(BOX_CUSTOMER_ID),
         name: nameCTR.text,
-        // phone: mobileCTR.text,
+        phone: mobileCTR.text,
         email: emailCTR.text,
         password: passwordCTR.text,
         createDate: DateTime.now(),
         modifiDate: DateTime.now(),
       );
+      showLoadingDialog();
       var response = await _loginRepo.updateProfile(loginData);
       hideLoadingDialog();
       if (response) {
