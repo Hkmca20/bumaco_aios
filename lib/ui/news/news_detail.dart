@@ -16,17 +16,35 @@ class NewsDetail extends StatelessWidget {
       backgroundColor: Colors.teal,
       body: CustomScrollView(
         slivers: [
-          SliverPersistentHeader(
-              delegate: _myPersistanceHeaderDelegate(), pinned: true),
-          SliverToBoxAdapter(
-            child: Container(
-              padding: EdgeInsets.all(20),
-              child: Text(
-                newText,
-                style: TextStyle(fontSize: 30),
-              ),
-            ),
-          )
+          // SliverAppBar(...),
+          // SliverPadding(...),
+          // SliverList(...),
+          // SliverGrid(...),
+          // SliverFixedExtentList(...),
+          // RenderSliver and RenderBox
+          
+          SliverAppBar(
+              pinned: true,
+              expandedHeight: 150.0,
+              flexibleSpace: FlexibleSpaceBar(
+                title: Text('Available seats'),
+                background: Image.network(
+                  'https://r-cf.bstatic.com/images/hotel/max1024x768/116/116281457.jpg',
+                  fit: BoxFit.fitWidth,
+                ),
+              )),
+
+          // SliverPersistentHeader(
+          //     delegate: _myPersistanceHeaderDelegate(), pinned: true),
+          // SliverToBoxAdapter(
+          //   child: Container(
+          //     padding: EdgeInsets.all(20),
+          //     child: Text(
+          //       newText,
+          //       style: TextStyle(fontSize: 30),
+          //     ),
+          //   ),
+          // )
         ],
       ),
     );

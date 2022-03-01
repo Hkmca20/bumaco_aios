@@ -11,8 +11,6 @@ import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:get/get.dart';
 import 'package:velocity_x/velocity_x.dart';
 
-import 'empty_failure_no_internet_view.dart';
-
 class ReviewListView extends StatelessWidget {
   ReviewListView({Key? key}) : super(key: key);
 

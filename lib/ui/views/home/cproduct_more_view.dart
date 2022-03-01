@@ -9,8 +9,6 @@ import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:get/get.dart';
 import 'package:velocity_x/velocity_x.dart';
 
-import 'empty_failure_no_internet_view.dart';
-
 class CProductMoreView extends StatelessWidget {
   const CProductMoreView({Key? key}) : super(key: key);
 
@@ -70,8 +68,7 @@ class CProductMoreView extends StatelessWidget {
                         title: 'Content unavailable',
                         description: 'Content not found',
                         buttonText: "",
-                        onPressed: () {
-                        },
+                        onPressed: () {},
                       )
                     : StaggeredGridView.countBuilder(
                         crossAxisCount: productController.columnCount.value,

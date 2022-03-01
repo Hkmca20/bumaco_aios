@@ -47,15 +47,15 @@ Future<void> main() async {
       await Firebase.initializeApp();
       // await Firebase.initializeApp(options: firebaseConfig);
     } on Exception catch (e) {
-      print('error: $e');
+      debugPrint('error: $e');
     }
     try {
       FirebaseMessaging.onBackgroundMessage(_messageHandler);
       String? token = await FirebaseMessaging.instance.getToken();
       putStorageValue(BOX_FCM_TOKEN, token);
-      print('----Token=>$token');
+      debugPrint('----Token=>$token');
     } on Exception catch (e) {
-      print('error: $e');
+      debugPrint('error: $e');
     }
     await dotenv.load(fileName: AppEnvironment.fileName);
     await Future.delayed(Duration.zero, () {

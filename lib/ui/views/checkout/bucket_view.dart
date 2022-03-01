@@ -6,7 +6,6 @@ import 'package:bumaco_aios/ui/controller/signin_controller.dart';
 import 'package:bumaco_aios/ui/views/address/addresss_list_view.dart';
 import 'package:bumaco_aios/ui/views/checkout/bucket_item.dart';
 import 'package:bumaco_aios/ui/views/coupon/coupon_list_view.dart';
-import 'package:bumaco_aios/ui/views/home/empty_failure_no_internet_view.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:velocity_x/velocity_x.dart';

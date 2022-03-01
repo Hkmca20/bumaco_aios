@@ -32,6 +32,40 @@ class CProductDetailView extends StatelessWidget {
   final pController = ProductController.to;
   final pdController = ProductDetailController.to;
 
+// final Widget child = VxAnimatedHeightView<PageView>(
+//       pageViewChild: PageView.builder(
+//         itemCount: img.length,
+//         controller: PageController(),
+//         itemBuilder: (context, index) {
+//           final String imgUrl = img.elementAt(index);
+//           final double width = context.screenWidth;
+//           final double height = width * calculateImg(index);
+//           return GestureDetector(
+//             onTap: () {
+//               print("press img index is $index");
+//             },
+//             child: Image.network(imgUrl ?? "",
+//                 width: width,
+//                 height: height,
+//                 fit: BoxFit.cover,
+//                 alignment: Alignment.topCenter
+//             ),
+//           );
+//         },
+//         onPageChanged: (index) {
+//           setState(() {
+//             _currentIndex = index;
+//           });
+//         },
+//       ),
+//       itemCount: img.length,
+//       currentPageIndex: _currentIndex,
+//       computeAspectRadio: (index) {
+//         return calculateImg(index);
+//       },
+//       notifyScroll: (scrollNotification) {},
+//     );
+
   @override
   Widget build(BuildContext context) {
     final _screenSize = MediaQuery.of(context).size;

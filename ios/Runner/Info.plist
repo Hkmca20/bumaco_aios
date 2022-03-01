@@ -12,7 +12,7 @@
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleName</key>
-	<string>bumaco_aios</string>
+	<string>9Gates</string>
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
@@ -42,10 +42,13 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	
+	<!-- Location Permission -->
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>This app requires access to your location for deliver goods.</string>
 	<key>NSLocationAlwaysUsageDescription</key>
 	<string>This app requires access to your location for deliver goods.</string>
+    <key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+    <string>This app needs access to location when open.
 
 	<!-- Internet Permission -->
 	<key>NSAppTransportSecurity</key>

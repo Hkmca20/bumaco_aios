@@ -3,7 +3,6 @@ import 'package:bumaco_aios/app_utils/utils.dart';
 import 'package:bumaco_aios/ui/controller/controllers.dart';
 import 'package:bumaco_aios/ui/views/checkout/bucket_view.dart';
 import 'package:bumaco_aios/ui/views/home/banners/cbanner_home.dart';
-import 'package:bumaco_aios/ui/views/home/empty_failure_no_internet_view.dart';
 import 'package:bumaco_aios/ui/views/home/favourite_view.dart';
 import 'package:bumaco_aios/ui/views/home/item_widget_11.dart';
 import 'package:bumaco_aios/ui/widgets/widgets.dart';

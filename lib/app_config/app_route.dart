@@ -24,17 +24,17 @@ List<GetPage<dynamic>> get setRoute => [
       ),
       GetPage(
           name: onboardRoute,
-          transition: Transition.fade,
+          transition: Transition.native,
           transitionDuration: kTransitionDuration,
           page: () => OnboardingView()),
       GetPage(
           name: landingRoute,
-          transition: Transition.fade,
+          transition: Transition.native,
           transitionDuration: kTransitionDuration,
           page: () => LandingView()),
       GetPage(
           name: gateRoute,
-          transition: Transition.fade,
+          transition: Transition.native,
           transitionDuration: kTransitionDuration,
           page: () => GateView()),
       GetPage(

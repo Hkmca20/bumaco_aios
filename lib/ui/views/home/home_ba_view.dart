@@ -17,8 +17,6 @@ import 'package:get_storage/get_storage.dart';
 import 'package:transparent_image/transparent_image.dart';
 import 'package:velocity_x/velocity_x.dart';
 
-import 'empty_failure_no_internet_view.dart';
-
 class HomeBaView extends StatelessWidget {
   HomeBaView({Key? key}) : super(key: key);
 
@@ -119,11 +117,33 @@ class HomeBaView extends StatelessWidget {
                 Get.toNamed(bucketRoute);
               },
             ),
+
+            // PopupMenuButton(
+            //   child: Padding(
+            //     padding: EdgeInsets.symmetric(horizontal: 10, vertical: 20),
+            //     child: Text("Menu"),
+            //   ),
+            //   icon: Icon(Icons.more_horiz),
+            //   color: Colors.yellowAccent,
+            //   elevation: 40,
+            //   shape: OutlineInputBorder(
+            //       borderSide: BorderSide(color: Colors.grey, width: 2)),
+            //   itemBuilder: (context) => [
+            //     PopupMenuItem(
+            //       child: Text("First"),
+            //       value: 1,
+            //     ),
+            //     PopupMenuItem(
+            //       child: Text("Second"),
+            //       value: 2,
+            //     ),
+            //   ],
+            // ),
           ],
         ),
         drawer: Drawer(
           child: SingleChildScrollView(
-            controller: homeController.scrollController,
+            // controller: homeController.scrollController,
             child: ConstrainedBox(
               constraints: BoxConstraints(),
               child: Column(
@@ -282,7 +302,7 @@ class HomeBaView extends StatelessWidget {
                       child: SingleChildScrollView(
                         controller: homeController.scrollController,
                         child: ConstrainedBox(
-                          constraints: BoxConstraints(),
+                          constraints: const BoxConstraints(),
                           child: Column(children: [
                             Container(
                               height: 40,

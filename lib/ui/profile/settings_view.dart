@@ -1,4 +1,5 @@
 import 'package:bumaco_aios/app_utils/utils.dart';
+import 'package:bumaco_aios/location/geocoding_view.dart';
 import 'package:bumaco_aios/ui/controller/controllers.dart';
 import 'package:bumaco_aios/ui/controller/signin_controller.dart';
 import 'package:bumaco_aios/ui/gallery/gallery_view.dart';
@@ -7,7 +8,6 @@ import 'package:bumaco_aios/ui/profile/column_demo.dart';
 import 'package:bumaco_aios/ui/views/address/addresss_list_view.dart';
 import 'package:bumaco_aios/ui/views/dashboard/tabbar_view.dart';
 import 'package:bumaco_aios/ui/views/home/c_product_view.dart';
-import 'package:bumaco_aios/ui/views/home/empty_failure_no_internet_view.dart';
 import 'package:bumaco_aios/ui/views/media/chewie_player.dart';
 import 'package:bumaco_aios/ui/views/media/video_player_view.dart';
 import 'package:bumaco_aios/ui/views/orders/order_history_view.dart';

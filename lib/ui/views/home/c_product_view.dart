@@ -8,7 +8,6 @@ import 'package:bumaco_aios/ui/controller/controllers.dart';
 import 'package:bumaco_aios/ui/views/checkout/bucket_view.dart';
 import 'package:bumaco_aios/ui/views/filters/filter_view.dart';
 import 'package:bumaco_aios/ui/views/home/banners/cbanner.dart';
-import 'package:bumaco_aios/ui/views/home/empty_failure_no_internet_view.dart';
 import 'package:bumaco_aios/ui/widgets/cproduct_item.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
