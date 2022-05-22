@@ -9,6 +9,7 @@ import 'package:bumaco_aios/network/dio_client_impl.dart';
 import 'package:get/get.dart';
 
 abstract class BannerRepo {
+  Future<bool> setDeviceToken(tokenId);
   Future<List<BannerModel>?> getBannerHomeSlider();
   Future<List<BannerModel>?> getBannerPositions(position);
   Future<List<BannerModel>?> getBannerPositionAll();
@@ -19,6 +20,26 @@ class BannerRepoImpl extends BannerRepo {
   BannerRepoImpl() {
     _client = Get.put(DioClientImpl());
     // _client.init();
+  }
+
+  @override
+  Future<bool> setDeviceToken(tokenId) async {
+    final response;
+    try {
+      final customerId = getStorageStringValue(BOX_CUSTOMER_ID);
+      Map<String, dynamic> params = {
+        'user_id': customerId,
+        'token_id': tokenId
+      };
+      response =
+          await _client.request(ApiConstants.appTokenApi, Method.POST, params);
+
+      return true;
+    } on Exception catch (error, stacktrace) {
+      print(error);
+      return false;
+      // throw Exception("Exception occured: $error stackTrace: $stacktrace");
+    }
   }
 
   @override

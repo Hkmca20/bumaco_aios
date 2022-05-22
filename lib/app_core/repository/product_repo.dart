@@ -6,7 +6,7 @@ import 'package:bumaco_aios/network/dio_client_impl.dart';
 import 'package:get/get.dart';
 
 abstract class ProductRepository {
-  Future<List<ProductModel>?> getProductById(categoryId);
+  Future<List<ProductModel>?> getProductById(menuId, categoryId);
   Future<List<ProductModel>?> getProductSearch(searchStr);
   Future<List<ProductModel>?> getProductAll();
   Future<List<ProductModel>?> getProductHome();
@@ -100,10 +100,12 @@ class ProductRepositoryImpl extends ProductRepository {
   }
 
   @override
-  Future<List<ProductModel>?> getProductById(categoryId) async {
+  Future<List<ProductModel>?> getProductById(menuId, categoryId) async {
     final response;
     try {
-      response = await _client.getRequest(ApiConstants.productApi + categoryId);
+      Map<String, dynamic> params = {'mid': menuId, 'cid': categoryId};
+      response = await _client.request(
+          ApiConstants.newProductApi, Method.POST, params);
       final result =
           (response.data as List).map((x) => ProductModel.fromJson(x)).toList();
       return result;

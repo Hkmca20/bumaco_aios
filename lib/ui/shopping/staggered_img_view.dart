@@ -61,7 +61,8 @@ class StaggeredImg extends StatelessWidget {
           //All Items Home page
           Expanded(
             child: Obx(
-              () => StaggeredGridView.countBuilder(
+              // () => StaggeredGridView.countBuilder(
+              () => MasonryGridView.count(
                 crossAxisCount: 2,
                 crossAxisSpacing: 10,
                 mainAxisSpacing: 12,
@@ -80,9 +81,9 @@ class StaggeredImg extends StatelessWidget {
                     borderRadius: BorderRadius.all(Radius.circular(15)),
                   ),
                 ),
-                staggeredTileBuilder: (int index) {
-                  return StaggeredTile.count(1, index.isEven ? 1.2 : 1.8);
-                },
+                // staggeredTileBuilder: (int index) {
+                //   return StaggeredTile.count(1, index.isEven ? 1.2 : 1.8);
+                // },
               ),
             ),
           ),

@@ -45,64 +45,104 @@ class AllProducts extends StatelessWidget {
           ),
         ],
       ),
-      body: 
-      // Column(
-      //   children: [
-      // Wrap(
-      //   spacing: 3.0, // gap between adjacent chips
-      //   runSpacing: 3.0, // gap between lines
-      //   direction: Axis.horizontal,
-      //   children:
-      //       List.generate(categoryController.categoryList.length, (index) {
-      //     return Padding(
-      //       padding: const EdgeInsets.symmetric(horizontal: 4.0),
-      //       child: ChoiceChip(
-      //         label: Text(
-      //           categoryController.categoryList[index].category,
-      //           style: Theme.of(context)
-      //               .textTheme
-      //               .bodyText1!
-      //               .copyWith(color: kWhiteColor),
-      //         ),
-      //         padding: EdgeInsets.all(4),
-      //         selected: _choiceIndex == index,
-      //         selectedColor: Colors.red,
-      //         onSelected: (bool selected) {
-      //           productMakeupController.fetchProductMakeup();
-      //           // setState(() {
-      //           //   _choiceIndex = selected ? index : 0;
-      //           // });
-      //         },
-      //         backgroundColor: Colors.grey,
-      //       ),
-      //     );
-      //   }),
+      body:
+          // Column(
+          //   children: [
+          // Wrap(
+          //   spacing: 3.0, // gap between adjacent chips
+          //   runSpacing: 3.0, // gap between lines
+          //   direction: Axis.horizontal,
+          //   children:
+          //       List.generate(categoryController.categoryList.length, (index) {
+          //     return Padding(
+          //       padding: const EdgeInsets.symmetric(horizontal: 4.0),
+          //       child: ChoiceChip(
+          //         label: Text(
+          //           categoryController.categoryList[index].category,
+          //           style: Theme.of(context)
+          //               .textTheme
+          //               .bodyText1!
+          //               .copyWith(color: kWhiteColor),
+          //         ),
+          //         padding: EdgeInsets.all(4),
+          //         selected: _choiceIndex == index,
+          //         selectedColor: Colors.red,
+          //         onSelected: (bool selected) {
+          //           productMakeupController.fetchProductMakeup();
+          //           // setState(() {
+          //           //   _choiceIndex = selected ? index : 0;
+          //           // });
+          //         },
+          //         backgroundColor: Colors.grey,
+          //       ),
+          //     );
+          //   }),
+          // ),
+          // Expanded(
+          // child:
+          Obx(
+        () => productMakeupController.isLoading.isTrue
+            ? LoadingWidget()
+            // : StaggeredGrid.count(
+            //     // controller: productMakeupController.scrollController,
+            //     crossAxisCount: productMakeupController.columnCount.value,
+            //     crossAxisSpacing: 4,
+            //     mainAxisSpacing: 12,
+            //     axisDirection: AxisDirection.down,
+            //     children: List.generate(
+            //         productMakeupController.productMakeupList.length, (index) {
+            //       final item = productMakeupController.productMakeupList[index];
+            //       return AProductTile(
+            //         prod: item,
+            //         index: index,
+            //         itemSize: productMakeupController.productMakeupList.length,
+            //         offset: productMakeupController.offset.value,
+            //       );
+            //     }),
+            //     // staggeredTileBuilder: (int index) {
+            //     //   return StaggeredTile.fit(1);
+            //     // },
+            //   ),
+
+        : MasonryGridView.count(
+            controller: productMakeupController.scrollController,
+            crossAxisCount: productMakeupController.columnCount.value,
+            crossAxisSpacing: 4,
+            mainAxisSpacing: 12,
+            itemCount: productMakeupController.productMakeupList.length,
+            itemBuilder: (context, index) {
+              return AProductTile(
+                  prod: productMakeupController.productMakeupList[index],
+                  index: index,
+                  itemSize: productMakeupController.productMakeupList.length,
+                  offset: productMakeupController.offset.value,);
+            },
+            // staggeredTileBuilder: (int index) {
+            //   return StaggeredTile.fit(1);
+            // },
+          ),        
+        
+        
+        //// : StaggeredGridView.countBuilder(
+        //     controller: productMakeupController.scrollController,
+        //     crossAxisCount: productMakeupController.columnCount.value,
+        //     crossAxisSpacing: 4,
+        //     mainAxisSpacing: 12,
+        //     itemCount: productMakeupController.productMakeupList.length,
+        //     itemBuilder: (context, index) {
+        //       return AProductTile(
+        //           prod: productMakeupController.productMakeupList[index],
+        //           index: index,
+        //           itemSize: productMakeupController.productMakeupList.length,
+        //           offset: productMakeupController.offset.value,);
+        //     },
+        //     staggeredTileBuilder: (int index) {
+        //       return StaggeredTile.fit(1);
+        //     },
+        //   ),
+      ),
       // ),
-      // Expanded(
-        // child: 
-        Obx(
-          () => productMakeupController.isLoading.isTrue
-              ? LoadingWidget()
-              : StaggeredGridView.countBuilder(
-                  controller: productMakeupController.scrollController,
-                  crossAxisCount: productMakeupController.columnCount.value,
-                  crossAxisSpacing: 4,
-                  mainAxisSpacing: 12,
-                  itemCount: productMakeupController.productMakeupList.length,
-                  itemBuilder: (context, index) {
-                    return AProductTile(
-                        prod: productMakeupController.productMakeupList[index],
-                        index: index,
-                        itemSize: productMakeupController.productMakeupList.length,
-                        offset: productMakeupController.offset.value,);
-                  },
-                  staggeredTileBuilder: (int index) {
-                    return StaggeredTile.fit(1);
-                  },
-                ),
-        ),
-      // ),
-        // ],
+      // ],
       // ),
     );
   }

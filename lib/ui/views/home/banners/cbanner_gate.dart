@@ -113,16 +113,17 @@ class _CBannerGateWidgetState extends State<CBannerGateWidget>
                         color: Colors.transparent,
                         borderRadius: BorderRadius.all(Radius.circular(0)),
                       ),
-                      child: StaggeredGridView.count(
-                          padding: EdgeInsets.all(2),
+                      // child: StaggeredGridView.count(
+                      child: StaggeredGrid.count(
+                          // padding: EdgeInsets.all(2),
                           crossAxisCount: 3,
                           crossAxisSpacing: 4,
                           mainAxisSpacing: 4,
-                          shrinkWrap: true,
-                          staggeredTiles:
-                              List.generate(widget.gateList!.length, (index) {
-                            return StaggeredTile.fit(1);
-                          }),
+                          // shrinkWrap: true,
+                          // staggeredTiles:
+                          //     List.generate(widget.gateList!.length, (index) {
+                          //   return StaggeredTile.fit(1);
+                          // }),
                           children:
                               List.generate(widget.gateList!.length, (index) {
                             final gateItem = widget.gateList![index];

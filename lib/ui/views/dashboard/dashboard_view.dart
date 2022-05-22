@@ -46,7 +46,7 @@ class DashboardView extends StatelessWidget {
               children: [
                 HomeBaView(),
                 CategoryView(),
-                AllProducts(),
+                // AllProducts(),
                 SettingView(),
               ],
             ),
@@ -65,10 +65,10 @@ class DashboardView extends StatelessWidget {
               BottomNavigationBarItem(
                   icon: ImageIcon(AssetImage(logo100Path)), label: 'home'.tr),
               bottomNavBar(icon: Icons.category_outlined, label: 'category'.tr),
-              bottomNavBar(
-                icon: Icons.explore_outlined,
-                label: 'blog'.tr,
-              ),
+              // bottomNavBar(
+              //   icon: Icons.explore_outlined,
+              //   label: 'blog'.tr,
+              // ),
               bottomNavBar(
                   icon: Icons.person_outline_rounded, label: 'account'.tr),
             ],

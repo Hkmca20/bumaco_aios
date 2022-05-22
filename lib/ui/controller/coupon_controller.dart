@@ -71,6 +71,7 @@ class CouponController extends GetxController {
           } else {
             bController.discountAmt(couponValue.value);
           }
+          bController.getAllBucketFromLocal();
           couponSubtitle('Promo/Referral code applied successfully!');
           Get.back();
         } else {

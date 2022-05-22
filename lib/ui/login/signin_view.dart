@@ -122,10 +122,14 @@ class _LoginViewState extends State<LoginView>
           _loaleController.openLocaleSheet(context);
         },
         child: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-          ('choose_country'.tr + ' : ').text.xl2.make(),
+          ('choose_country'.tr + ' : ').text.xl.make(),
           SizedBox(width: 10),
           Obx(
-            () => _loaleController.selectedCountry.value.text.xl2.make(),
+            () =>
+                ('${_loaleController.selectedCountry.value}(+${_loaleController.selectedCountryCode.value})')
+                    .text
+                    .xl
+                    .make(),
           ),
         ]),
       ),

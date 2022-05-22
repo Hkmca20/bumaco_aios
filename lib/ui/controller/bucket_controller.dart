@@ -174,11 +174,12 @@ class BucketController extends GetxController {
       });
       taxAmount.value = (totalAmount * taxPercent) / 100;
       if (totalAmount > 0 && totalAmount < 2000) shippingAmt.value = 350.0;
-      grandTotal.value =
-          totalAmount.value + taxAmount.value + shippingAmt.value;
+      grandTotal.value = totalAmount.value +
+          taxAmount.value +
+          shippingAmt.value -
+          discountAmt.value;
     } on Exception catch (e) {
       print(e);
-      bumacoSnackbar('alert'.tr, 'Happy: $e');
     }
   }
 
@@ -287,5 +288,6 @@ class BucketController extends GetxController {
           'alert'.tr, 'All data ' + 'removed_from'.tr + ' ' + 'cart'.tr);
     getAllBucketFromLocal();
     // FirebaseCrashlytics.instance.crash();
+    discountAmt(0);
   }
 }

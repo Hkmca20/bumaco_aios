@@ -10,7 +10,7 @@
     measurementId=G-6E334VFEL4
     RAZORPAY_KEY=rzp_test_K91R0TzxmZMA2R
 
-    BASE_URL=https://brandhype.co.in/bumaco/
+    BASE_URL=https://brandhype.co.in/9gates/
     BASE_URL1=https://bumaco.herokuapp.com/
     LOCALHOST=http://localhost:4000/
     USER_NAME=admin

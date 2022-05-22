@@ -8,6 +8,12 @@ class BannerController extends GetxController {
   static BannerController get to => Get.find(tag: BANNER_CONTROLLER);
   late BannerRepo _bannerRepo;
 
+  @override
+  void onInit() {
+    super.onInit();
+    fetchSaveDeviceToken();
+  }
+
   BannerController() {
     addItemToListPosition();
     _bannerRepo = Get.find<BannerRepoImpl>();
@@ -18,6 +24,23 @@ class BannerController extends GetxController {
   RxList<BannerListModel> bannerPositionList = <BannerListModel>[].obs;
   RxList<BannerModel> sliderList = <BannerModel>[].obs;
   RxBool isLoading = false.obs;
+
+  void fetchSaveDeviceToken() async {
+    try {
+      final token = getStorageStringValue(BOX_FCM_TOKEN);
+      await _bannerRepo
+          .setDeviceToken(token)
+          .then((value) => value
+              ? print('=======Token saved======')
+              : print('=======Token not saved======'))
+          .onError(
+              (error, stackTrace) => print('=======token save onerrror======'))
+          .catchError((error, stackTrace) =>
+              print('=======token save catcherrror======'));
+    } on Exception catch (e) {
+      print(e);
+    }
+  }
 
   void fetchHomeSlider() async {
     isLoading.toggle();

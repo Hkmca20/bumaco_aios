@@ -42,6 +42,7 @@ class HomeController extends GetxController {
   }
 
   RxString selectedGate = ''.obs;
+  RxString selectedGateId = ''.obs;
   final List gateList = [
     {'name': 'Beauty Gate'.toUpperCase(), 'id': '1'},
     {'name': 'Fashion Gate'.toUpperCase(), 'id': '2'},
@@ -56,12 +57,15 @@ class HomeController extends GetxController {
   final box = GetStorage(BOX_APP);
   updateSelectedGate(index) {
     selectedGate.value = gateList[index]['name'];
-    box.write(BOX_GATE_SELECTED, gateList[index]['name']);
+    selectedGateId.value = gateList[index]['id'];
+    box.write(BOX_GATE_SELECTED, selectedGate.value);
+    box.write(BOX_GATE_SELECTED_ID, selectedGateId.value);
     bannerController.fetchBanners();
   }
 
   setSelectedGate() {
     selectedGate.value = getStorageStringValue(BOX_GATE_SELECTED);
+    selectedGateId.value = getStorageStringValue(BOX_GATE_SELECTED_ID);
     if (selectedGate.value == '') {
       updateSelectedGate(0);
     }

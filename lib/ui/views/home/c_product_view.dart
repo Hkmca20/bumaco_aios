@@ -1,5 +1,6 @@
 import 'dart:ui';
 
+import 'package:bumaco_aios/app_core/models/models.dart';
 import 'package:bumaco_aios/app_utils/app_bar_home.dart';
 import 'package:bumaco_aios/app_utils/app_loading.dart';
 import 'package:bumaco_aios/app_utils/utils.dart';
@@ -23,6 +24,18 @@ class CProductView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final _screenSize = MediaQuery.of(context).size;
+    String getCategoryId = '1';
+    var cdata = CategoryData(id: '1', category: 'Product data');
+    if (Get.arguments != null) {
+      cdata = Get.arguments[ARG_CATEGORY_ITEM];
+      getCategoryId = cdata.id;
+    }
+    Future.delayed(Duration.zero, () {
+      productController.fetchProductsById(getCategoryId);
+    });
+    final showProductList = productController.productList.length == 0
+        ? productController.productListAll
+        : productController.productList;
 
     return Material(
       child: Scaffold(
@@ -245,26 +258,25 @@ class CProductView extends StatelessWidget {
                                   // controller.getTvShow();
                                 },
                               )
-                            : StaggeredGridView.count(
-                                padding: EdgeInsets.all(2),
+                            // : StaggeredGridView.count(
+                            : StaggeredGrid.count(
+                                // padding: EdgeInsets.all(2),
                                 // controller: productController.scroll,
                                 crossAxisCount:
                                     productController.columnCount.value,
                                 crossAxisSpacing: 2,
                                 mainAxisSpacing: 2,
-                                shrinkWrap: true,
-                                physics: NeverScrollableScrollPhysics(),
-                                staggeredTiles: List.generate(
-                                    productController.productListAll.length,
+                                // shrinkWrap: true,
+                                // physics: NeverScrollableScrollPhysics(),
+                                // staggeredTiles: List.generate(
+                                //     productController.productListAll.length,
+                                //     (index) {
+                                //   // return StaggeredTile.count(1, 2.3);
+                                //   return StaggeredTile.fit(1);
+                                // }),
+                                children: List.generate(showProductList.length,
                                     (index) {
-                                  // return StaggeredTile.count(1, 2.3);
-                                  return StaggeredTile.fit(1);
-                                }),
-                                children: List.generate(
-                                    productController.productListAll.length,
-                                    (index) {
-                                  final item =
-                                      productController.productListAll[index];
+                                  final item = showProductList[index];
                                   return CProductItem(
                                     prod: item,
                                     index: index,

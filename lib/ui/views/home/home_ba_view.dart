@@ -390,20 +390,16 @@ class HomeBaView extends StatelessWidget {
                                                     ),
                                                   ),
                                                 ),
-                                                item
-                                                    .category
-                                                    .text
-                                                    .semiBold
-                                                    .black
-                                                    .capitalize
-                                                    .ellipsis
-                                                    .sm
+                                                item.category.text.semiBold
+                                                    .black.ellipsis.sm
                                                     .maxLines(1)
                                                     .make()
                                                     .p2(),
                                               ],
                                             ),
                                             onTap: () {
+                                              print(
+                                                  '-----------------cat_id;${item.id}');
                                               Get.toNamed(cProductRoute,
                                                   arguments: {
                                                     ARG_CATEGORY_ITEM:
@@ -835,20 +831,21 @@ class HomeBaView extends StatelessWidget {
                                         },
                                       )
                                     : Container(
-                                        child: StaggeredGridView.count(
+                                        // child: StaggeredGrid.count(
+                                        child: StaggeredGrid.count(
                                           crossAxisCount: 2,
                                           mainAxisSpacing: 4.0,
                                           crossAxisSpacing: 4.0,
-                                          shrinkWrap: true,
-                                          physics:
-                                              NeverScrollableScrollPhysics(),
-                                          staggeredTiles: List.generate(
-                                              pController.productListHome
-                                                  .length, (index) {
-                                            return StaggeredTile.fit(1);
-                                          }),
-                                          padding: EdgeInsets.only(
-                                              top: 8, left: 8, right: 8),
+                                          // shrinkWrap: true,
+                                          // physics:
+                                          //     NeverScrollableScrollPhysics(),
+                                          // staggeredTiles: List.generate(
+                                          //     pController.productListHome
+                                          //         .length, (index) {
+                                          //   return StaggeredTile.fit(1);
+                                          // }),
+                                          // padding: EdgeInsets.only(
+                                          //     top: 8, left: 8, right: 8),
                                           children: List.generate(
                                               pController.productListHome
                                                   .length, (index) {

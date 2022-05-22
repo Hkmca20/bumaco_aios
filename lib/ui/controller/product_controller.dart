@@ -6,6 +6,7 @@ import 'package:bumaco_aios/app_core/models/models.dart';
 import 'package:bumaco_aios/app_core/repository/repository.dart';
 import 'package:bumaco_aios/app_utils/utils.dart';
 import 'package:bumaco_aios/ui/controller/bucket_controller.dart';
+import 'package:bumaco_aios/ui/controller/controllers.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -119,7 +120,7 @@ class ProductController extends GetxController with StateMixin, ScrollMixin {
   @override
   void onInit() {
     if (Get.arguments != null) {
-      categoryItem = Get.arguments['arg_category_item'];
+      categoryItem = Get.arguments[ARG_CATEGORY_ITEM];
     }
     productRepository = Get.put(ProductRepositoryImpl());
     // addScrollListener();
@@ -173,10 +174,15 @@ class ProductController extends GetxController with StateMixin, ScrollMixin {
     }
   }
 
+  String get selectedGateId => getStorageStringValue(BOX_GATE_SELECTED_ID) == ''
+      ? "1"
+      : getStorageStringValue(BOX_GATE_SELECTED_ID);
+
   fetchProductsById(categoryId) async {
     try {
       isLoading(true);
-      var products = await productRepository.getProductById(categoryId);
+      var products =
+          await productRepository.getProductById(selectedGateId, categoryId);
       if (products != null) {
         checkIsFavorites(products);
         productList.value = products;

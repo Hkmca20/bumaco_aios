@@ -83,16 +83,17 @@ class FavouriteView extends StatelessWidget {
                         buttonText: "",
                         onPressed: () {},
                       )
-                    : StaggeredGridView.countBuilder(
+                    // : StaggeredGridView.countBuilder(
+                    : MasonryGridView.count(
                         crossAxisCount: productController.columnCount.value,
                         crossAxisSpacing: 4,
                         mainAxisSpacing: 4,
                         itemCount:
                             productController.productListFavourite.length,
                         padding: EdgeInsets.all(4),
-                        staggeredTileBuilder: (int index) {
-                          return StaggeredTile.fit(1);
-                        },
+                        // staggeredTileBuilder: (int index) {
+                        //   return StaggeredTile.fit(1);
+                        // },
                         itemBuilder: (context, index) {
                           ProductModel item =
                               productController.productListFavourite[index];

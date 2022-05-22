@@ -215,8 +215,9 @@ const BOX_IS_LOGGEDIN = 'is_loggedin'; //bool
 const BOX_TEMP_LOGGEDIN = 'temp_loggedin'; //bool
 const BOX_IS_DARK = 'is_dark'; //bool
 const BOX_IS_NOTIFICATION = 'is_notification'; //bool
-const BOX_GATE_SELECTED = 'gate_selected'; //bool
-const BOX_BADGE_ACCOUNT1 = 'badge_account'; //bool
+const BOX_GATE_SELECTED = 'gate_selected'; //string
+const BOX_GATE_SELECTED_ID = 'gate_selected_id'; //string
+const BOX_BADGE_ACCOUNT1 = 'badge_account';
 
 putStorageValue(key, value) {
   final box = GetStorage(BOX_APP);
@@ -259,7 +260,8 @@ class ApiConstants {
   static const categoryApi = 'categoryapi/category';
   static const childCategoryApi = 'categoryapi/childcategory';
   static const subCategoryApi = 'categoryapi/subcategory';
-  static const productApi = 'productapi/productdata/';
+  static const productApi = 'productapi/productdata/'; //get
+  static const newProductApi = 'productapi/productv/'; //post
   static const couponApi = 'productapi/couponcode/'; //post
   static const orderApi = 'productapi/productorder/'; //post
 
@@ -286,6 +288,7 @@ class ApiConstants {
 
   static const userApi = 'userapi/user/';
   static final userByIdApi = AppEnvironment.baseUrl + 'userapi/user?id=1';
+  static const appTokenApi = 'productapi/apptoken/';
 }
 
 mBanner({context, title, icon, actions}) =>
